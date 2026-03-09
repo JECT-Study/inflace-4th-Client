@@ -20,6 +20,8 @@ jobs:
           ISSUE_URL: ${{ github.event.issue.html_url }}
           ISSUE_BODY: ${{ github.event.issue.body || '' }}
         run: |
+          AUTH=$(echo -n "$JIRA_USER_EMAIL:$JIRA_API_TOKEN" | base64 -w 0)
+
           PAYLOAD=$(jq -n \
             --arg project "$JIRA_PROJECT_KEY" \
             --arg summary "$ISSUE_TITLE" \
@@ -47,8 +49,22 @@ jobs:
               }
             }')
 
-          curl -s -X POST \
+          echo "Request Payload:"
+          echo "$PAYLOAD" | jq .
+
+          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST \
             "$JIRA_BASE_URL/rest/api/3/issue" \
-            -H "Authorization: Basic $(echo -n "$JIRA_USER_EMAIL:$JIRA_API_TOKEN" | base64)" \
+            -H "Authorization: Basic $AUTH" \
             -H "Content-Type: application/json" \
-            -d "$PAYLOAD"
+            -d "$PAYLOAD")
+
+          HTTP_STATUS=$(echo "$RESPONSE" | grep "HTTP_STATUS:" | cut -d: -f2)
+          BODY=$(echo "$RESPONSE" | grep -v "HTTP_STATUS:")
+
+          echo "HTTP Status: $HTTP_STATUS"
+          echo "Response: $BODY"
+
+          if [ "$HTTP_STATUS" != "201" ]; then
+            echo "Jira 이슈 생성 실패"
+            exit 1
+          fi
