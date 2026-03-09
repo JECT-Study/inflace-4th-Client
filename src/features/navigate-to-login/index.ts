@@ -1,1 +1,1 @@
-export { NavigateToLoginButton } from './ui/NaviagateToLoginButton'
+export { NavigateToLoginButton } from './ui/NavigateToLoginButton'
