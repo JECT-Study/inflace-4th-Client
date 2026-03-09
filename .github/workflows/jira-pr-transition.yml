@@ -13,38 +13,93 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Jira 로그인
-        uses: atlassian/gajira-login@v3
+      - name: 브랜치명에서 Jira 이슈 키 추출
+        id: extract-issue-key
+        run: |
+          BRANCH="${{ github.head_ref }}"
+          echo "Branch: $BRANCH"
+          ISSUE_KEY=$(echo "$BRANCH" | grep -oE '[A-Z]+-[0-9]+' | head -1)
+          echo "Issue Key: $ISSUE_KEY"
+          echo "issue_key=$ISSUE_KEY" >> $GITHUB_OUTPUT
+
+      - name: 이슈 키 없으면 스킵
+        if: steps.extract-issue-key.outputs.issue_key == ''
+        run: |
+          echo "브랜치명에 Jira 이슈 키가 없어 스킵합니다. (예: feature/IN-22-login)"
+
+      - name: 진행 중으로 전환 (PR 오픈 시)
+        if: github.event.action == 'opened' && steps.extract-issue-key.outputs.issue_key != ''
         env:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          ISSUE_KEY: ${{ steps.extract-issue-key.outputs.issue_key }}
+        run: |
+          BASE_URL="${JIRA_BASE_URL%/}"
+          AUTH=$(echo -n "$JIRA_USER_EMAIL:$JIRA_API_TOKEN" | base64 -w 0)
 
-      - name: 브랜치명에서 Jira 이슈 키 추출
-        id: find-issue-key
-        uses: atlassian/gajira-find-issue-key@v3
-        with:
-          from: branch
+          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST \
+            "$BASE_URL/rest/api/3/issue/$ISSUE_KEY/transitions" \
+            -H "Authorization: Basic $AUTH" \
+            -H "Content-Type: application/json" \
+            -d '{"transition":{"id":"21"}}')
 
-      - name: 진행 중으로 전환 (PR 오픈 시)
-        if: github.event.action == 'opened'
-        uses: atlassian/gajira-transition@v3
-        with:
-          issue: ${{ steps.find-issue-key.outputs.issue }}
-          transition: '21'
+          HTTP_STATUS=$(echo "$RESPONSE" | grep "HTTP_STATUS:" | cut -d: -f2)
+          BODY=$(echo "$RESPONSE" | grep -v "HTTP_STATUS:")
+          echo "HTTP Status: $HTTP_STATUS"
+          echo "Response: $BODY"
 
-      - name: Jira 이슈에 PR 링크 코멘트 추가
-        if: github.event.action == 'opened'
-        uses: atlassian/gajira-comment@v3
-        with:
-          issue: ${{ steps.find-issue-key.outputs.issue }}
-          comment: |
-            PR이 오픈되었습니다.
-            ${{ github.event.pull_request.html_url }}
+      - name: PR 링크 코멘트 추가
+        if: github.event.action == 'opened' && steps.extract-issue-key.outputs.issue_key != ''
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          ISSUE_KEY: ${{ steps.extract-issue-key.outputs.issue_key }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          BASE_URL="${JIRA_BASE_URL%/}"
+          AUTH=$(echo -n "$JIRA_USER_EMAIL:$JIRA_API_TOKEN" | base64 -w 0)
+
+          PAYLOAD=$(jq -n \
+            --arg pr_url "$PR_URL" \
+            --arg pr_title "$PR_TITLE" \
+            '{
+              "body": {
+                "type": "doc",
+                "version": 1,
+                "content": [{
+                  "type": "paragraph",
+                  "content": [{ "type": "text", "text": ("PR 오픈: " + $pr_title + "\n" + $pr_url) }]
+                }]
+              }
+            }')
+
+          curl -s -X POST \
+            "$BASE_URL/rest/api/3/issue/$ISSUE_KEY/comment" \
+            -H "Authorization: Basic $AUTH" \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD"
 
       - name: 완료로 전환 (PR 머지 시)
-        if: github.event.action == 'closed' && github.event.pull_request.merged == true
-        uses: atlassian/gajira-transition@v3
-        with:
-          issue: ${{ steps.find-issue-key.outputs.issue }}
-          transition: '31'
+        if: github.event.action == 'closed' && github.event.pull_request.merged == true && steps.extract-issue-key.outputs.issue_key != ''
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          ISSUE_KEY: ${{ steps.extract-issue-key.outputs.issue_key }}
+        run: |
+          BASE_URL="${JIRA_BASE_URL%/}"
+          AUTH=$(echo -n "$JIRA_USER_EMAIL:$JIRA_API_TOKEN" | base64 -w 0)
+
+          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST \
+            "$BASE_URL/rest/api/3/issue/$ISSUE_KEY/transitions" \
+            -H "Authorization: Basic $AUTH" \
+            -H "Content-Type: application/json" \
+            -d '{"transition":{"id":"31"}}')
+
+          HTTP_STATUS=$(echo "$RESPONSE" | grep "HTTP_STATUS:" | cut -d: -f2)
+          BODY=$(echo "$RESPONSE" | grep -v "HTTP_STATUS:")
+          echo "HTTP Status: $HTTP_STATUS"
+          echo "Response: $BODY"
