@@ -20,6 +20,7 @@ jobs:
           ISSUE_URL: ${{ github.event.issue.html_url }}
           ISSUE_BODY: ${{ github.event.issue.body || '' }}
         run: |
+          BASE_URL="${JIRA_BASE_URL%/}"
           AUTH=$(echo -n "$JIRA_USER_EMAIL:$JIRA_API_TOKEN" | base64 -w 0)
 
           PAYLOAD=$(jq -n \
@@ -31,7 +32,7 @@ jobs:
               "fields": {
                 "project": { "key": $project },
                 "summary": $summary,
-                "issuetype": { "name": "Task" },
+                "issuetype": { "name": "FE-Task" },
                 "description": {
                   "type": "doc",
                   "version": 1,
@@ -52,8 +53,8 @@ jobs:
           echo "Request Payload:"
           echo "$PAYLOAD" | jq .
 
-          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST \
-            "$JIRA_BASE_URL/rest/api/3/issue" \
+          RESPONSE=$(curl -s -L -w "\nHTTP_STATUS:%{http_code}" -X POST \
+            "$BASE_URL/rest/api/3/issue" \
             -H "Authorization: Basic $AUTH" \
             -H "Content-Type: application/json" \
             -d "$PAYLOAD")
