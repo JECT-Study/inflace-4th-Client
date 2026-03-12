@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build:tokens": "node scripts/build-tokens.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",

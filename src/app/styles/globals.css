@@ -1,1 +1,209 @@
 @import 'tailwindcss';
+
+@theme {
+
+  /* === Semantic Colors === */
+  --color-brand-primary: #5a44f2;
+  --color-brand-secondary: #0e2646;
+  --color-brand-tertiary: #5291eb;
+  --color-brand-primary-stronger: #472be0;
+  --color-brand-secondary-weaker: #273c5d;
+  --color-background-gray-default: #fafafa;
+  --color-background-brand-default: #fcf8ff;
+  --color-background-gray-stronger: #f2f2f2;
+  --color-background-brand-stronger: #f3effa;
+  --color-stroke-border-default: #c8c5d0;
+  --color-stroke-divider: #c8c5d0;
+  --color-stroke-border-primary: #e5e1ec;
+  --color-text-and-icon-default: #121212;
+  --color-text-and-icon-primary: #3c3a43;
+  --color-text-and-icon-tertiary: #787680;
+  --color-text-and-icon-disabled: #928f99;
+  --color-text-and-icon-inverse: #fcf8ff;
+  --color-text-and-icon-secondary: #53515a;
+  --color-feedback-success: #06a33c;
+  --color-feedback-error: #fd565f;
+  --color-feedback-informative: #0075ff;
+
+
+  /* === Component Tokens === */
+  --comp-button-primary-filled-filled-disabled: #e4dfff;
+  --comp-button-primary-filled-filled-pressed: #0d0d0d29;
+  --comp-button-primary-filled-filled-hover: #0d0d0d14;
+  --comp-button-primary-outlined-outlined-hover: #5a44f214;
+  --comp-button-primary-outlined-outlined-pressed: #5a44f229;
+  --comp-button-primary-outlined-outlined-stroke-enabled: #5a44f299;
+  --comp-button-primary-outlined-outlined-disabled: #fffbff;
+  --comp-button-primary-outlined-outlined-stroke-disabled: #5a44f23d;
+  --comp-button-primary-text-disabled: #a8a0ff;
+  --comp-button-secondary-outlined-outlined-hover: #0e264614;
+  --comp-button-secondary-outlined-outlined-stroke-disabled: #0e26463d;
+  --comp-button-secondary-outlined-outlined-disabled: #fdfbff;
+  --comp-button-secondary-outlined-outlined-stroke-enabled: #0e264680;
+  --comp-button-secondary-outlined-outlined-pressed: #0e264629;
+  --comp-button-secondary-text-disabled: #97acd3;
+  --comp-button-secondary-filled-filled-disabled: #d6e3ff;
+  --comp-button-secondary-filled-filled-pressed: #ffffff29;
+  --comp-button-secondary-filled-filled-hover: #ffffff14;
+
+
+  /* === Spacing — Named (Desktop default) === */
+  --spacing-2xs: 12px;
+  --spacing-xs: 16px;
+  --spacing-sm: 20px;
+  --spacing-md: 24px;
+  --spacing-xl: 32px;
+  --spacing-lg: 28px;
+  --spacing-2xl: 40px;
+  --spacing-3xl: 48px;
+
+
+  /* === Spacing — Unit Scale === */
+  --spacing-0: 0px;
+  --spacing-1: 1px;
+  --spacing-2: 2px;
+  --spacing-3: 3px;
+  --spacing-4: 4px;
+  --spacing-6: 6px;
+  --spacing-8: 8px;
+  --spacing-10: 10px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-56: 56px;
+  --spacing-64: 64px;
+  --spacing-72: 72px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+
+
+  /* === Typography === */
+  --font-point: "IBM Plex Sans KR";
+  --font-default: "Noto Sans KR";
+  --font-weight-heading-thin: 500;
+  --font-weight-heading-normal: 600;
+  --font-weight-heading-bold: 700;
+  --font-weight-title-normal: 500;
+  --font-weight-title-bold: 600;
+  --font-weight-title-thin: 400;
+  --font-weight-body-normal: 400;
+  --font-weight-body-bold: 500;
+  --font-weight-caption-normal: 400;
+  --font-weight-caption-bold: 500;
+  --font-weight-display-bold: 700;
+  --font-weight-display-normal: 600;
+  --font-weight-display-thin: 500;
+  --font-weight-label-normal: 500;
+  --font-weight-label-thin: 400;
+  --font-weight-label-bold: 600;
+  --text-heading-lg: 32px;
+  --text-heading-sm: 24px;
+  --text-heading-md: 28px;
+  --text-display-sm: 40px;
+  --text-display-lg: 56px;
+  --text-display-md: 48px;
+  --text-caption-sm: 10px;
+  --text-caption-lg: 13px;
+  --text-caption-md: 12px;
+  --text-title-md: 18px;
+  --text-title-sm: 16px;
+  --text-title-lg: 20px;
+  --text-body-sm: 15px;
+  --text-body-md: 16px;
+  --text-body-lg: 17px;
+  --text-body-xs: 14px;
+  --text-body-2xs: 13px;
+  --text-label-lg: 16px;
+  --text-label-sm: 13px;
+  --text-label-md: 15px;
+  --text-label-xs: 12px;
+  --leading-heading-sm: 32px;
+  --leading-heading-md: 36px;
+  --leading-heading-lg: 44px;
+  --leading-display-sm: 52px;
+  --leading-display-md: 60px;
+  --leading-display-lg: 72px;
+  --leading-caption-sm: 12px;
+  --leading-caption-lg: 16px;
+  --leading-caption-md: 16px;
+  --leading-body-xxs: 18px;
+  --leading-body-md: 24px;
+  --leading-body-lg: 26px;
+  --leading-body-xs: 20px;
+  --leading-body-sm: 22px;
+  --leading-title-sm: 24px;
+  --leading-title-md: 24px;
+  --leading-title-lg: 28px;
+  --leading-label-lg: 24px;
+  --leading-label-sm: 16px;
+  --leading-label-md: 20px;
+  --leading-label-xs: 16px;
+
+
+  /* === Border Radius === */
+  --radius-0: 0px;
+  --radius-2: 2px;
+  --radius-4: 4px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-10: 10px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-24: 24px;
+
+
+  /* === Opacity === */
+  --opacity-0: 0;
+  --opacity-5: 0.05;
+  --opacity-8: 0.08;
+  --opacity-12: 0.12;
+  --opacity-16: 0.16;
+  --opacity-23: 0.23;
+  --opacity-29: 0.29;
+  --opacity-36: 0.36;
+  --opacity-44: 0.44;
+  --opacity-54: 0.54;
+  --opacity-63: 0.63;
+  --opacity-76: 0.76;
+  --opacity-91: 0.91;
+  --opacity-100: 1;
+
+
+  /* === Breakpoints === */
+  --breakpoint-desktop: 1024px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-mobile: 375px;
+}
+
+/* === Responsive Spacing — Tablet (768px ~ 1023px) === */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --spacing-2xs: 8px;
+    --spacing-xs: 12px;
+    --spacing-sm: 16px;
+    --spacing-md: 20px;
+    --spacing-xl: 28px;
+    --spacing-lg: 24px;
+    --spacing-2xl: 32px;
+    --spacing-3xl: 40px;
+  }
+}
+
+/* === Responsive Spacing — Mobile (max 767px) === */
+@media (max-width: 767px) {
+  :root {
+    --spacing-2xs: 4px;
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 16px;
+    --spacing-xl: 24px;
+    --spacing-lg: 20px;
+    --spacing-2xl: 28px;
+    --spacing-3xl: 32px;
+  }
+}
