@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(node -e \":*)",
-      "Bash(node scripts/build-tokens.mjs)"
+      "Bash(node scripts/build-tokens.mjs)",
+      "Bash(npx prettier:*)"
     ]
   }
 }
