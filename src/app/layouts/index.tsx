@@ -1,7 +1,12 @@
+// 'use client'
+
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 import '../styles'
+import { SidebarProvider, SidebarTrigger } from '@/shared/ui/sidebar'
+import { AppSidebar } from '@/widgets/sidebar/AppSidebar'
+// import { useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,9 +16,30 @@ export const metadata: Metadata = {
 }
 
 export function RootLayout({ children }: { children: React.ReactNode }) {
+  // Free, Starter, Growth
+  const userPlan = 'free'
+  
   return (
     <html lang='en'>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <SidebarProvider>
+          <AppSidebar userPlan={userPlan} />
+          <SidebarTrigger/>
+          <main className="relative flex min-h-screen flex-1 flex-col">
+            {/* 헤더 */}
+            <header className="flex h-16.5 shrink-0 items-center border-b px-4 bg-background sticky top-0 z-10">
+              <div className="h-4 ml-4 w-[1px] bg-border" /> 
+              <div className="ml-4 text-sm font-medium text-muted-foreground">
+                Inplace App
+              </div>
+            </header>
+            {/* 컨텐츠 */}
+            <div className="flex-1 p-6">
+              {children}
+            </div>
+          </main>
+        </SidebarProvider>
+        </body>
     </html>
   )
 }
