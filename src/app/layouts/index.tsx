@@ -2,9 +2,10 @@
 
 import type { Metadata } from 'next'
 import { Inter, Noto_Sans_KR, IBM_Plex_Sans_KR } from 'next/font/google'
-import { NavigateToLoginButton } from '@/features/navigate-to-login'
 
 import '../styles'
+import { SidebarProvider, SidebarTrigger } from '@/shared/ui/sidebar'
+import { AppSidebar } from '@/widgets/sidebar/AppSidebar'
 // import { useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -27,23 +28,27 @@ export const metadata: Metadata = {
 }
 
 export function RootLayout({ children }: { children: React.ReactNode }) {
+  // Free, Starter, Growth
+  const userPlan = 'free'
+
   return (
-    <html
-      lang='ko'
-      className={`${notoSansKR.variable} ${ibmPlexSansKR.variable}`}>
+    <html lang='en'>
       <body className={inter.className}>
-        <main className='relative flex min-h-screen flex-1 flex-col'>
-          {/* 헤더 */}
-          <header className='sticky top-0 z-10 flex h-16.5 shrink-0 items-center border-b bg-background px-4'>
-            <div className='ml-4 h-4 w-[1px] bg-border' />
-            <div className='ml-4 text-sm font-medium text-muted-foreground'>
-              Inplace App
-            </div>
-            <NavigateToLoginButton />
-          </header>
-          {/* 컨텐츠 */}
-          <div className='flex-1 p-6'>{children}</div>
-        </main>
+        <SidebarProvider>
+          <AppSidebar userPlan={userPlan} />
+          <SidebarTrigger />
+          <main className='relative flex min-h-screen flex-1 flex-col'>
+            {/* 헤더 */}
+            <header className='sticky top-0 z-10 flex h-16.5 shrink-0 items-center border-b bg-background px-4'>
+              <div className='ml-4 h-4 w-[1px] bg-border' />
+              <div className='ml-4 text-sm font-medium text-muted-foreground'>
+                Inplace App
+              </div>
+            </header>
+            {/* 컨텐츠 */}
+            <div className='flex-1 p-6'>{children}</div>
+          </main>
+        </SidebarProvider>
       </body>
     </html>
   )
