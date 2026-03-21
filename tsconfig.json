@@ -22,13 +22,17 @@
       "@/*": ["./src/*"]
     }
   },
+
   "include": [
+    "svgr.d.ts",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    "next.config.js",
+    "next.config.js"
   ],
   "exclude": ["node_modules"]
 }

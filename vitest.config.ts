@@ -14,6 +14,43 @@ const dirname =
 export default defineConfig({
   test: {
     projects: [
+      // 단위 테스트 프로젝트 (jsdom + @testing-library/react)
+      {
+        plugins: [
+          {
+            name: 'svg-mock',
+            transform(_code, id) {
+              if (id.endsWith('.svg')) {
+                return {
+                  code: `
+                    import { createElement } from 'react';
+                    const SvgMock = (props) => createElement('svg', props);
+                    SvgMock.displayName = 'SvgMock';
+                    export default SvgMock;
+                  `,
+                  map: null,
+                };
+              }
+            },
+          },
+        ],
+        resolve: {
+          alias: {
+            '@': path.resolve(dirname, './src'),
+          },
+        },
+        esbuild: {
+          jsx: 'automatic',
+        },
+        test: {
+          name: 'unit',
+          environment: 'jsdom',
+          globals: true,
+          setupFiles: ['./vitest.setup.ts'],
+          include: ['src/**/*.test.{ts,tsx}'],
+        },
+      },
+      // Storybook 테스트 프로젝트
       {
         extends: true,
         plugins: [

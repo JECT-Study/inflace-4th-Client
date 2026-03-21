@@ -3,7 +3,18 @@
     "allow": [
       "Bash(node -e \":*)",
       "Bash(node scripts/build-tokens.mjs)",
-      "Bash(npx prettier:*)"
+      "Bash(npx prettier:*)",
+      "Bash(npm install:*)",
+      "Bash(npx vitest:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npx storybook:*)",
+      "Bash(npm search:*)",
+      "Bash(node -e \"const sd = require\\(''style-dictionary''\\); console.log\\(require\\(''./node_modules/style-dictionary/package.json''\\).version\\)\")",
+      "Bash(node -e \"console.log\\(require\\(''./node_modules/@tokens-studio/sd-transforms/package.json''\\).version\\)\")",
+      "Bash(node -e \"import\\(''@tokens-studio/sd-transforms''\\).then\\(m => console.log\\(Object.keys\\(m\\)\\)\\)\")",
+      "Bash(node scripts/sd.config.js)",
+      "Bash(npm run:*)",
+      "Bash(npx shadcn@latest add button --overwrite)"
     ]
   }
 }

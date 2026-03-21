@@ -1,14 +1,25 @@
 // 'use client'
 
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Noto_Sans_KR, IBM_Plex_Sans_KR } from 'next/font/google'
+import { NavigateToLoginButton } from '@/features/navigate-to-login'
 
 import '../styles'
-import { SidebarProvider, SidebarTrigger } from '@/shared/ui/sidebar'
-import { AppSidebar } from '@/widgets/sidebar/AppSidebar'
 // import { useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
+
+const notoSansKR = Noto_Sans_KR({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-default',
+})
+
+const ibmPlexSansKR = IBM_Plex_Sans_KR({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-point',
+})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,30 +27,24 @@ export const metadata: Metadata = {
 }
 
 export function RootLayout({ children }: { children: React.ReactNode }) {
-  // Free, Starter, Growth
-  const userPlan = 'free'
-  
   return (
-    <html lang='en'>
+    <html
+      lang='ko'
+      className={`${notoSansKR.variable} ${ibmPlexSansKR.variable}`}>
       <body className={inter.className}>
-        <SidebarProvider>
-          <AppSidebar userPlan={userPlan} />
-          <SidebarTrigger/>
-          <main className="relative flex min-h-screen flex-1 flex-col">
-            {/* 헤더 */}
-            <header className="flex h-16.5 shrink-0 items-center border-b px-4 bg-background sticky top-0 z-10">
-              <div className="h-4 ml-4 w-[1px] bg-border" /> 
-              <div className="ml-4 text-sm font-medium text-muted-foreground">
-                Inplace App
-              </div>
-            </header>
-            {/* 컨텐츠 */}
-            <div className="flex-1 p-6">
-              {children}
+        <main className='relative flex min-h-screen flex-1 flex-col'>
+          {/* 헤더 */}
+          <header className='sticky top-0 z-10 flex h-16.5 shrink-0 items-center border-b bg-background px-4'>
+            <div className='ml-4 h-4 w-[1px] bg-border' />
+            <div className='ml-4 text-sm font-medium text-muted-foreground'>
+              Inplace App
             </div>
-          </main>
-        </SidebarProvider>
-        </body>
+            <NavigateToLoginButton />
+          </header>
+          {/* 컨텐츠 */}
+          <div className='flex-1 p-6'>{children}</div>
+        </main>
+      </body>
     </html>
   )
 }

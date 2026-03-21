@@ -1,10 +1,10 @@
-import * as React from 'react'
-import { cva, type VariantProps } from 'class-variance-authority'
+import { cva } from 'class-variance-authority'
 
 import { cn } from '@/shared/lib/utils'
+import type { ButtonProps } from './type'
 
 const buttonVariants = cva(
-  "relative inline-flex items-center justify-center overflow-hidden font-[var(--font-weight-label-normal)] whitespace-nowrap transition-colors select-none after:pointer-events-none after:absolute after:inset-0 after:content-[''] disabled:pointer-events-none",
+  "relative inline-flex items-center justify-center overflow-hidden font-default [font-weight:var(--font-weight-label-normal)] tracking-[-0.015em] whitespace-nowrap transition-colors select-none after:pointer-events-none after:absolute after:inset-0 after:content-[''] hover:after:bg-[var(--btn-overlay-hover,transparent)] active:after:bg-[var(--btn-overlay-active,transparent)] disabled:pointer-events-none",
   {
     variants: {
       color: {
@@ -13,10 +13,10 @@ const buttonVariants = cva(
         gray: '',
       },
       size: {
-        lg: 'gap-[var(--spacing-6)] rounded-[var(--radius-6)] px-[var(--spacing-20)] py-[var(--spacing-10)] leading-[var(--leading-label-lg)] text-[var(--text-label-lg)]',
-        md: 'gap-[var(--spacing-6)] rounded-[var(--radius-6)] px-[var(--spacing-16)] py-[var(--spacing-8)] leading-[var(--leading-label-md)] text-[var(--text-label-md)]',
-        sm: 'gap-[var(--spacing-6)] rounded-[var(--radius-6)] px-[var(--spacing-12)] py-[var(--spacing-8)] leading-[var(--leading-label-sm)] text-[var(--text-label-sm)]',
-        xs: 'gap-[var(--spacing-4)] rounded-[var(--radius-6)] px-[var(--spacing-12)] py-[var(--spacing-6)] leading-[var(--leading-label-xs)] text-[var(--text-label-xs)]',
+        lg: 'gap-[var(--spacing-6)] rounded-[var(--radius-6)] px-[var(--spacing-20)] py-[var(--spacing-10)] text-[length:var(--text-label-lg)] leading-label-lg',
+        md: 'gap-[var(--spacing-6)] rounded-[var(--radius-6)] px-[var(--spacing-16)] py-[var(--spacing-8)] text-[length:var(--text-label-md)] leading-label-md',
+        sm: 'gap-[var(--spacing-6)] rounded-[var(--radius-6)] px-[var(--spacing-12)] py-[var(--spacing-8)] text-[length:var(--text-label-sm)] leading-label-sm',
+        xs: 'gap-[var(--spacing-4)] rounded-[var(--radius-6)] px-[var(--spacing-12)] py-[var(--spacing-6)] text-[length:var(--text-label-xs)] leading-label-xs',
       },
       style: {
         filled: '',
@@ -28,31 +28,31 @@ const buttonVariants = cva(
         color: 'gray',
         style: 'filled',
         class:
-          'bg-[#F2F2F2] text-[var(--color-text-and-icon-default)] hover:after:bg-[#F2F2F2] active:after:bg-[#F2F2F2] disabled:bg-[#F2F2F2] disabled:text-[var(--color-text-and-icon-disabled)]',
+          'bg-[var(--color-background-gray-stronger)] text-[var(--color-text-and-icon-primary)] [--btn-overlay-active:var(--comp-button-primary-filled-filled-pressed)] [--btn-overlay-hover:var(--comp-button-primary-filled-filled-hover)] disabled:bg-[var(--color-background-gray-stronger)] disabled:text-[var(--color-text-and-icon-disabled)]',
       },
       {
         color: 'primary',
         style: 'filled',
         class:
-          'bg-[var(--color-brand-primary)] text-[var(--color-text-and-icon-inverse)] hover:after:bg-[var(--comp-button-primary-filled-filled-hover)] active:after:bg-[var(--comp-button-primary-filled-filled-pressed)] disabled:bg-[var(--comp-button-primary-filled-filled-disabled)] disabled:text-[var(--color-text-and-icon-disabled)]',
+          'bg-[var(--color-brand-primary)] text-[var(--color-text-and-icon-inverse)] [--btn-overlay-active:var(--comp-button-primary-filled-filled-pressed)] [--btn-overlay-hover:var(--comp-button-primary-filled-filled-hover)] disabled:bg-[var(--comp-button-primary-filled-filled-disabled)] disabled:text-[var(--comp-button-primary-text-disabled)]',
       },
       {
         color: 'primary',
         style: 'outlined',
         class:
-          'border-[var(--comp-button-primary-outlined-outlined-stroke-enabled)] text-[var(--color-brand-primary)] hover:after:bg-[var(--comp-button-primary-outlined-outlined-hover)] active:after:bg-[var(--comp-button-primary-outlined-outlined-pressed)] disabled:border-[var(--comp-button-primary-outlined-outlined-stroke-disabled)] disabled:bg-[var(--comp-button-primary-outlined-outlined-disabled)] disabled:text-[var(--comp-button-primary-text-disabled)]',
+          'border-[var(--comp-button-primary-outlined-outlined-stroke-enabled)] text-[var(--color-brand-primary)] [--btn-overlay-active:var(--comp-button-primary-outlined-outlined-pressed)] [--btn-overlay-hover:var(--comp-button-primary-outlined-outlined-hover)] disabled:border-[var(--comp-button-primary-outlined-outlined-stroke-disabled)] disabled:bg-[var(--comp-button-primary-outlined-outlined-disabled)] disabled:text-[var(--comp-button-primary-text-disabled)]',
       },
       {
         color: 'secondary',
         style: 'filled',
         class:
-          'bg-[var(--color-brand-secondary)] text-[var(--color-text-and-icon-inverse)] hover:after:bg-[var(--comp-button-secondary-filled-filled-hover)] active:after:bg-[var(--comp-button-secondary-filled-filled-pressed)] disabled:bg-[var(--comp-button-secondary-filled-filled-disabled)] disabled:text-[var(--color-text-and-icon-disabled)]',
+          'bg-[var(--color-brand-secondary)] text-[var(--color-text-and-icon-inverse)] [--btn-overlay-active:var(--comp-button-secondary-filled-filled-pressed)] [--btn-overlay-hover:var(--comp-button-secondary-filled-filled-hover)] disabled:bg-[var(--comp-button-secondary-filled-filled-disabled)] disabled:text-[var(--comp-button-secondary-text-disabled)]',
       },
       {
         color: 'secondary',
         style: 'outlined',
         class:
-          'border-[var(--comp-button-secondary-outlined-outlined-stroke-enabled)] text-[var(--color-brand-secondary)] hover:after:bg-[var(--comp-button-secondary-outlined-outlined-hover)] active:after:bg-[var(--comp-button-secondary-outlined-outlined-pressed)] disabled:border-[var(--comp-button-secondary-outlined-outlined-stroke-disabled)] disabled:bg-[var(--comp-button-secondary-outlined-outlined-disabled)] disabled:text-[var(--comp-button-secondary-text-disabled)]',
+          'border-[var(--comp-button-secondary-outlined-outlined-stroke-enabled)] text-[var(--color-brand-secondary)] [--btn-overlay-active:var(--comp-button-secondary-outlined-outlined-pressed)] [--btn-overlay-hover:var(--comp-button-secondary-outlined-outlined-hover)] disabled:border-[var(--comp-button-secondary-outlined-outlined-stroke-disabled)] disabled:bg-[var(--comp-button-secondary-outlined-outlined-disabled)] disabled:text-[var(--comp-button-secondary-text-disabled)]',
       },
     ],
     defaultVariants: {
@@ -62,19 +62,6 @@ const buttonVariants = cva(
     },
   }
 )
-
-const iconSizeClass = {
-  lg: 'size-5',
-  md: 'size-5',
-  sm: 'size-5',
-  xs: 'size-4',
-}
-
-type ButtonProps = Omit<React.ComponentProps<'button'>, 'style'> &
-  VariantProps<typeof buttonVariants> & {
-    leftIcon?: React.ReactNode
-    rightIcon?: React.ReactNode
-  }
 
 function Button({
   className,
@@ -86,8 +73,6 @@ function Button({
   children,
   ...props
 }: ButtonProps) {
-  const iconClass = iconSizeClass[size ?? 'md']
-
   return (
     <button
       className={cn(buttonVariants({ color, style, size, className }))}
@@ -95,10 +80,7 @@ function Button({
       {leftIcon && (
         <span
           aria-hidden='true'
-          className={cn(
-            'flex shrink-0 items-center justify-center',
-            iconClass
-          )}>
+          className='flex h-[1em] w-[1em] shrink-0 items-center justify-center [&>svg]:h-full [&>svg]:w-full [&>svg_*]:fill-current'>
           {leftIcon}
         </span>
       )}
@@ -106,10 +88,7 @@ function Button({
       {rightIcon && (
         <span
           aria-hidden='true'
-          className={cn(
-            'flex shrink-0 items-center justify-center',
-            iconClass
-          )}>
+          className='flex h-[1em] w-[1em] shrink-0 items-center justify-center [&>svg]:h-full [&>svg]:w-full [&>svg_*]:fill-current'>
           {rightIcon}
         </span>
       )}
