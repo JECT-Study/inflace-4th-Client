@@ -1,5 +1,7 @@
 import type React from 'react'
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
+import { Button } from './Button'
+
 const ZapBold = () => (
   <svg
     width='24'
@@ -13,7 +15,6 @@ const ZapBold = () => (
     />
   </svg>
 )
-import { Button } from './Button'
 
 const meta: Meta<typeof Button> = {
   title: 'Widgets/Button',
@@ -65,31 +66,36 @@ const variants = [
 const ButtonGrid = ({
   leftIcon,
   rightIcon,
-  disabled,
 }: {
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
-  disabled?: boolean
 }) => (
   <div className='flex flex-col gap-8 p-6'>
-    {variants.map(({ color, style }) => (
-      <div key={`${color}-${style}`}>
-        <p className='mb-3 text-sm text-gray-400'>
-          {color} / {style}
-        </p>
+    {sizes.map((size) => (
+      <div key={size}>
+        <p className='mb-3 text-sm text-gray-400'>{size}</p>
         <div className='flex flex-wrap items-center gap-4'>
-          {sizes.map((size) => (
+          {variants.flatMap(({ color, style }) => [
             <Button
-              key={size}
+              key={`${color}-${style}-normal`}
+              color={color}
+              style={style}
+              size={size}
+              leftIcon={leftIcon}
+              rightIcon={rightIcon}>
+              레이블
+            </Button>,
+            <Button
+              key={`${color}-${style}-disabled`}
               color={color}
               style={style}
               size={size}
               leftIcon={leftIcon}
               rightIcon={rightIcon}
-              disabled={disabled}>
+              disabled>
               레이블
-            </Button>
-          ))}
+            </Button>,
+          ])}
         </div>
       </div>
     ))}
@@ -106,44 +112,22 @@ export const Default: Story = {
   },
 }
 
-// 모든 color × style × size 조합 (5 variants × 4 sizes = 20가지)
+// 모든 color × style × size 조합 (5 variants × 4 sizes × normal+disabled = 40가지)
 export const Overview: Story = {
   render: () => <ButtonGrid />,
 }
 
-// disabled 상태 전체 (5 variants × 4 sizes = 20가지)
-export const OverviewDisabled: Story = {
-  render: () => <ButtonGrid disabled />,
-}
-
-// LeftIcon (5 variants × 4 sizes = 20가지)
+// LeftIcon (5 variants × 4 sizes × normal+disabled = 40가지)
 export const LeftIcon: Story = {
   render: () => <ButtonGrid leftIcon={<ZapBold />} />,
 }
 
-// LeftIcon / disabled (5 variants × 4 sizes = 20가지)
-export const LeftIconDisabled: Story = {
-  render: () => <ButtonGrid leftIcon={<ZapBold />} disabled />,
-}
-
-// RightIcon (5 variants × 4 sizes = 20가지)
+// RightIcon (5 variants × 4 sizes × normal+disabled = 40가지)
 export const RightIcon: Story = {
   render: () => <ButtonGrid rightIcon={<ZapBold />} />,
 }
 
-// RightIcon / disabled (5 variants × 4 sizes = 20가지)
-export const RightIconDisabled: Story = {
-  render: () => <ButtonGrid rightIcon={<ZapBold />} disabled />,
-}
-
-// BothIcons (5 variants × 4 sizes = 20가지)
+// BothIcons (5 variants × 4 sizes × normal+disabled = 40가지)
 export const BothIcons: Story = {
   render: () => <ButtonGrid leftIcon={<ZapBold />} rightIcon={<ZapBold />} />,
-}
-
-// BothIcons / disabled (5 variants × 4 sizes = 20가지)
-export const BothIconsDisabled: Story = {
-  render: () => (
-    <ButtonGrid leftIcon={<ZapBold />} rightIcon={<ZapBold />} disabled />
-  ),
 }
