@@ -1,17 +1,14 @@
 import { SidebarMenuItem, SidebarMenuButton } from '@/shared/ui/sidebar'
-import { SidebarIcon } from '@/shared/ui/sidebarIcon'
-import type { NavItem } from '../config'
+import { SidebarIcon } from '@/features/navigation/ui/NavSidebarIcon'
+import type { NavItem } from '../model/types'
 import { NavLockedItem } from './NavLockedItem'
 import Link from 'next/link'
 
 interface NavMenuItemProps {
   item: NavItem
-  locked?: boolean
 }
 
-export const NavMenuItem = ({ item, locked = false }: NavMenuItemProps) => {
-  if (locked) return <NavLockedItem item={item} />
-
+export const NavMenuItem = ({ item }: NavMenuItemProps) => {
   return (
     <SidebarMenuItem>
       <SidebarMenuButton>

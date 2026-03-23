@@ -1,4 +1,4 @@
-import { NAV_ITEMS } from '@/features/navigation/config'
+import { NAV_ITEMS } from '@/features/navigation/model/navItems'
 
 export const FooterNav = () => {
   return (

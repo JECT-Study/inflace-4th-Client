@@ -2,17 +2,15 @@
 
 import { Sidebar, SidebarContent } from '@/shared/ui/sidebar'
 import { NavGroupList } from '@/features/navigation/ui/NavGroupList'
-import { UserPlan } from '@/features/navigation/config'
 import { UserStatusCard } from '@/features/userStatus'
-import { mockUserFree } from '@/features/userStatus/model/mock'
 
-export function AppSidebar({ userPlan }: { userPlan: UserPlan }) {
+export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarContent className='mt-[var(--spacing-header-height)]'>
-        <UserStatusCard user={mockUserFree} />
+        <UserStatusCard />
         <div className='mt-xs flex flex-col gap-xl'>
-          <NavGroupList userPlan={userPlan} />
+          <NavGroupList />
         </div>
       </SidebarContent>
     </Sidebar>

@@ -1,31 +1,19 @@
 'use client'
 
-import IconLock from '@/shared/assets/icons/iconLock.svg'
+import IconLock from '@/shared/assets/unlock-filled-bold.svg'
 import { Button } from '@/widgets/button'
-import type { Plan } from '../model/types'
 
-interface PlanButtonProps {
-  plan: Plan
-  onClick?: () => void
-}
-
-export const PlanButton = ({ plan, onClick }: PlanButtonProps) => {
-  const isFree = plan === 'free' || plan === 'starter'
+export const PlanButton = () => {
   return (
     <>
-      {isFree && (
-        <Button
-          color='primary'
-          style='filled'
-          size='xs'
-          className='gap-4 text-[12px]'
-          onClick={onClick}
-          // rightIcon={<IconLock className='size-[calc(var(--spacing-12))]' />}
-        >
-          플랜 업그레이드
-          {/* {isFree && } */}
-        </Button>
-      )}
+      <Button
+        color='primary'
+        style='filled'
+        size='xs'
+        className='gap-4 text-[length:var(--text-label-xs)]'
+        rightIcon={<IconLock className='size-[calc(var(--spacing-12))]' />}>
+        플랜 업그레이드
+      </Button>
     </>
   )
 }

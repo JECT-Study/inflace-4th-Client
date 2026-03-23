@@ -3,11 +3,10 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
 } from '@/shared/ui/sidebar'
-import { NAV_ITEMS, UserPlan } from '../config'
+import { NAV_ITEMS } from '../model/navItems'
 import { NavMenuItem } from './NavMenuItem'
-import { checkAccess } from '../lib/checkAccess'
 
-export function NavGroupList({ userPlan }: { userPlan: UserPlan }) {
+export function NavGroupList() {
   return (
     <>
       {NAV_ITEMS.map((group) => {
@@ -16,11 +15,7 @@ export function NavGroupList({ userPlan }: { userPlan: UserPlan }) {
             <SidebarGroupLabel>{group.group}</SidebarGroupLabel>
             <SidebarMenu>
               {group.items.map((item) => (
-                <NavMenuItem
-                  key={item.title}
-                  item={item}
-                  locked={!checkAccess(item.requiredPlan, userPlan)}
-                />
+                <NavMenuItem key={item.title} item={item} />
               ))}
             </SidebarMenu>
           </SidebarGroup>

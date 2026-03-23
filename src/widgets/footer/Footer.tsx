@@ -1,6 +1,6 @@
 'use client'
 
-import { FooterNav } from '@/features/navigation/ui/FooterNav'
+import { FooterNav } from '@/widgets/footer/ui/FooterNav'
 import { FooterInfo } from '@/widgets/footer/ui/FooterInfo'
 
 export function Footer() {

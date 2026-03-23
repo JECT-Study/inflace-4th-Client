@@ -1,20 +1,4 @@
-import type { IconName } from '@/shared/ui/sidebarIcon'
-
-export type UserPlan = 'free' | 'starter' | 'growth'
-
-export interface NavItem {
-  id?: string | number
-  title: string
-  icon?: IconName
-  url: string
-  requiredPlan?: UserPlan
-}
-
-export interface NavGroup {
-  id: number
-  group: string
-  items: NavItem[]
-}
+import type { NavGroup } from './types'
 
 export const NAV_ITEMS: NavGroup[] = [
   {
@@ -57,13 +41,13 @@ export const NAV_ITEMS: NavGroup[] = [
     items: [
       {
         title: '콘텐츠 전략',
-        icon: 'strategy',
+        icon: 'resing',
         url: '',
         requiredPlan: 'growth',
       },
       {
         title: '트렌드 매거진',
-        icon: 'trend',
+        icon: 'article',
         url: '',
         requiredPlan: 'growth',
       },
@@ -84,6 +68,6 @@ export const NAV_ITEMS: NavGroup[] = [
   {
     id: 5,
     group: '지원',
-    items: [{ title: '고객센터', icon: 'info', url: '' }],
+    items: [{ title: '고객센터', icon: 'question', url: '' }],
   },
 ]

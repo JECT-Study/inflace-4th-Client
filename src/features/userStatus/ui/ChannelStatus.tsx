@@ -1,13 +1,9 @@
 'use client'
 
-import { Button } from '@/shared/ui/button'
-import IconYoutube from '@/shared/assets/icons/iconYoutubeDisable.svg'
+import { Button } from '@/widgets/button'
+import IconYoutube from '@/shared/assets/youtube-disable.svg'
 
-interface ChannelStatusProps {
-  onConnect?: () => void
-}
-
-export const ChannelStatus = ({ onConnect }: ChannelStatusProps) => {
+export const ChannelStatus = () => {
   return (
     <div className='flex items-center justify-between gap-2'>
       <div className='flex items-center gap-2xs'>
@@ -22,8 +18,7 @@ export const ChannelStatus = ({ onConnect }: ChannelStatusProps) => {
         color='primary'
         style='filled'
         size='xs'
-        className='text-[length:var(--text-label-xs)] font-medium'
-        onClick={onConnect}>
+        className='text-[length:var(--text-label-xs)] font-medium'>
         연동하기
       </Button>
     </div>

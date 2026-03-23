@@ -1,6 +1,6 @@
 import { SidebarMenuItem, SidebarMenuButton } from '@/shared/ui/sidebar'
-import { SidebarIcon } from '@/shared/ui/sidebarIcon'
-import type { NavItem } from '../config'
+import { SidebarIcon } from '@/features/navigation/ui/NavSidebarIcon'
+import type { NavItem } from '../model/types'
 import Link from 'next/link'
 
 interface LockedNavItemProps {
@@ -24,7 +24,7 @@ export const NavLockedItem = ({ item }: LockedNavItemProps) => {
           <span>{item.title}</span>
           <SidebarIcon
             name={'lock'}
-            className='ml-auto shrink-0 text-[var(--color-text-and-icon-secondary)]'
+            className='ml-auto shrink-0 [&_path]:fill-[#ccc]'
             size={16}
           />
         </Link>

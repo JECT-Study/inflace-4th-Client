@@ -4,7 +4,7 @@ import * as React from 'react'
 import { mergeProps } from '@base-ui/react/merge-props'
 import { useRender } from '@base-ui/react/use-render'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { useIsMobile } from '@/hooks/use-mobile'
+import { useIsMobile } from '@/shared/lib/hooks/use-mobile'
 import { cn } from '@/lib/utils'
 import { Button } from '@/shared/ui/button'
 import { Input } from '@/shared/ui/input'
@@ -18,7 +18,7 @@ import {
 } from '@/shared/ui/sheet'
 import { Skeleton } from '@/shared/ui/skeleton'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/shared/ui/tooltip'
-import { SidebarIcon } from '@/shared/ui/sidebarIcon'
+import { SidebarIcon } from '@/features/navigation/ui/NavSidebarIcon'
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state'
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -221,18 +221,19 @@ function Sidebar({
         data-slot='sidebar-container'
         data-side={side}
         className={cn(
-          'fixed inset-y-0 z-10 hidden w-(--sidebar-width) transition-[left,right,width] duration-300 ease-linear data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] md:flex',
-          // Adjust the padding for floating and inset variants.
+          'sticky top-0 z-10 flex h-screen flex-col overflow-hidden transition-all duration-300 ease-in-out',
+          'w-(--sidebar-width)',
+          'group-data-[collapsible=offcanvas]:w-0 group-data-[collapsible=offcanvas]:-translate-x-full group-data-[collapsible=offcanvas]:opacity-0',
           variant === 'floating' || variant === 'inset'
             ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]'
-            : 'border-[var(--color-stroke-border-primary)] group-data-[collapsible=icon]:w-(--sidebar-width-icon)',
+            : 'border-r border-[var(--color-stroke-border-primary)] group-data-[collapsible=icon]:w-(--sidebar-width-icon)',
           className
         )}
         {...props}>
         <div
           data-sidebar='sidebar'
           data-slot='sidebar-inner'
-          className='flex size-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1 group-data-[variant=floating]:ring-sidebar-border'>
+          className='relative flex h-full min-w-(--sidebar-width) flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:shadow-sm'>
           {children}
         </div>
       </div>
@@ -398,7 +399,7 @@ function SidebarGroupLabel({
     props: mergeProps<'div'>(
       {
         className: cn(
-          'px-lg py-[calc(var(--spacing-xs)/2)] text-[13px] leading-sm text-[var(--color-text-and-icon-tertiary)]',
+          'px-lg py-[calc(var(--spacing-xs)/2)] text-[length:var(--text-label-sm)] leading-sm text-[var(--color-text-and-icon-tertiary)]',
           className
         ),
       },
@@ -467,7 +468,7 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<'li'>) {
       data-slot='sidebar-menu-item'
       data-sidebar='menu-item'
       className={cn(
-        'text-[15px] leading-md text-[var(--color-text-and-icon-tertiary)]',
+        'text-[length:var(--text-label-md)] leading-md text-[var(--color-text-and-icon-tertiary)]',
         className
       )}
       {...props}
@@ -482,14 +483,10 @@ const sidebarMenuButtonVariants = cva(
       variant: {
         default:
           'hover:bg-[var(--comp-button-primary-outlined-outlined-hover)] hover:text-[var(--color-brand-primary)] active:bg-[var(--comp-button-primary-outlined-outlined-pressed)] active:text-[var(--color-brand-primary)]',
-        // outline:
-        //   'bg-background shadow-[0_0_0_1px_hsl(var(--sidebar-border))] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-[0_0_0_1px_hsl(var(--sidebar-accent))]',
       },
       size: {
         default:
-          'px-2xl py-[calc(var(--spacing-xs)/2)] text-[15px] text-[var(--color-text-and-icon-primary)]',
-        // sm: 'h-7 text-xs',
-        // lg: 'h-12 text-sm group-data-[collapsible=icon]:p-0!',
+          'px-2xl py-[calc(var(--spacing-xs)/2)] text-[length:var(--text-label-md)] text-[var(--color-text-and-icon-primary)]',
       },
     },
     defaultVariants: {

@@ -1,7 +1,7 @@
 'use client'
 
-import type { StaticImageData } from 'next/image'
-import IconYoutube from '@/shared/assets/icons/iconYoutube.svg'
+import profileImg from '@/shared/assets/mockups/profilepng.png'
+import IconYoutube from '@/shared/assets/youtube.svg'
 import {
   Avatar,
   AvatarImage,
@@ -10,24 +10,21 @@ import {
 } from '@/shared/ui/avatar'
 
 interface UserAvatarProps {
-  src: string | StaticImageData
-  name: string
   size?: 'sm' | 'default' | 'lg'
   showBadge?: boolean
 }
 
-export const UserAvatar = ({
-  src,
-  name,
-  size = 'sm',
-  showBadge = false,
-}: UserAvatarProps) => {
+export const UserAvatar = ({ size, showBadge = false }: UserAvatarProps) => {
   return (
     <Avatar size={size}>
-      <AvatarImage src={typeof src === 'string' ? src : src.src} alt={name} />
-      {/* 데이터 이미지 미연동 시 백그라운드 이미지 */}
+      <AvatarImage src={profileImg.src} />
+      {/* 데이터 이미지 없을 시 백그라운드 이미지 */}
       {/* <AvatarFallback>{name[0]}</AvatarFallback> */}
-      {showBadge && <AvatarBadge icon={<IconYoutube />} />}
+      {showBadge && (
+        <AvatarBadge>
+          <IconYoutube className='size-sm' />
+        </AvatarBadge>
+      )}
     </Avatar>
   )
 }
