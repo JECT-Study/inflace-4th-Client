@@ -8,24 +8,7 @@ import IconSend from '@/shared/assets/send-bold.svg'
 import IconArticle from '@/shared/assets/article-bold.svg'
 import IconQuestion from '@/shared/assets/question-bold.svg'
 import IconLock from '@/shared/assets/lock-filled-bold.svg'
-
-export type IconName =
-  | 'sidebar'
-  | 'dashboard'
-  | 'video'
-  | 'search'
-  | 'chart'
-  | 'resing'
-  | 'article'
-  | 'message'
-  | 'question'
-  | 'lock'
-
-interface SidebarIconProps {
-  name: IconName
-  className?: string
-  size?: number | string
-}
+import type { IconName, SidebarIconProps } from '@/features/navigation/model/types'
 
 const iconMap: Record<
   IconName,

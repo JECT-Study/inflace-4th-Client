@@ -3,11 +3,7 @@
 import profileImg from '@/shared/assets/mock/profilepng.png'
 import IconYoutube from '@/shared/assets/youtube.svg'
 import { Avatar, AvatarImage, AvatarBadge } from '@/shared/ui/shadcn/avatar'
-
-interface UserAvatarProps {
-  size?: 'sm' | 'default' | 'lg'
-  showBadge?: boolean
-}
+import { UserAvatarProps } from '../model/types'
 
 export const UserAvatar = ({ size, showBadge = false }: UserAvatarProps) => {
   return (

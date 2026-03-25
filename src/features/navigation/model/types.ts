@@ -1,4 +1,20 @@
-import type { IconName } from '@/features/navigation/ui/NavSidebarIcon'
+export type IconName =
+  | 'sidebar'
+  | 'dashboard'
+  | 'video'
+  | 'search'
+  | 'chart'
+  | 'resing'
+  | 'article'
+  | 'message'
+  | 'question'
+  | 'lock'
+
+export interface SidebarIconProps {
+  name: IconName
+  className?: string
+  size?: number | string
+}
 
 export type UserPlan = 'free' | 'starter' | 'growth'
 
