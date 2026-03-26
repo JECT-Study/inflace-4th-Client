@@ -1,5 +1,3 @@
-// 'use client'
-
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
@@ -8,6 +6,8 @@ import { SidebarProvider, SidebarTrigger } from '@/shared/ui/shadcn/sidebar'
 import { AppSidebar } from '@/widgets/sidebar'
 import { Header } from '@/widgets/header'
 import { Footer } from '@/widgets/footer'
+import { AuthInitializer } from '@/features/auth'
+import { LoginModal } from '@/widgets/auth/login-modal'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,8 +18,10 @@ export const metadata: Metadata = {
 
 export function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en'>
+    <html lang='ko'>
       <body className={`${inter.className} flex min-h-screen flex-col`}>
+        <AuthInitializer />
+        <LoginModal />
         <div className='flex flex-1'>
           <SidebarProvider>
             <AppSidebar />

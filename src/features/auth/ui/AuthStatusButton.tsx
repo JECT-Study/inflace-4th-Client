@@ -1,11 +1,38 @@
 'use client'
 
-import { Button } from '@/widgets/button'
+import { Button } from '@/shared/ui/button'
 
+import { useAuth } from '../model/useAuth'
+import { useLoginModal } from '../model/useLoginModal'
+
+/*
+ * 로그인 여부에 따라 달라지는 버튼
+ * 비로그인 시 '로그인'
+ * 로그인 시 '로그아웃' 표시
+ */
 export function AuthStatusButton() {
+  const { isAuthenticated, isInitializing, logout } = useAuth()
+  const openModal = useLoginModal((s) => s.open)
+
+  if (isInitializing) {
+    return (
+      <Button color='gray' size='sm' style='filled' disabled>
+        <span className='text-label-sm'>로딩중...</span>
+      </Button>
+    )
+  }
+
+  if (isAuthenticated) {
+    return (
+      <Button color='secondary' size='sm' style='filled' onClick={logout}>
+        <span className='text-label-sm'>로그아웃</span>
+      </Button>
+    )
+  }
+
   return (
-    <Button color='secondary' size='sm' style='filled'>
-      <span className='text-label-sm'>로그아웃</span>
+    <Button color='secondary' size='sm' style='filled' onClick={openModal}>
+      <span className='text-label-sm'>로그인</span>
     </Button>
   )
 }

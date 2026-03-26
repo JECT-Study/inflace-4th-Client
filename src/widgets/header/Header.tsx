@@ -4,6 +4,8 @@ import { AuthStatusButton } from '@/features/auth'
 import { UserAvatar } from '@/features/userStatus/ui/UserAvatar'
 import { Logo } from '@/shared/ui/Logo'
 
+// 로그인 상태에 따라 이모티콘 보이고 안보이고 변경 필요
+
 export function Header() {
   return (
     <>

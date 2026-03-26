@@ -1,5 +1,3 @@
-import { NavigateToLoginButton } from '@/features/navigate-to-login'
-
 export default function HomePage() {
   return (
     <>
@@ -124,7 +122,6 @@ export default function HomePage() {
         <br />
         <br />
       </div>
-      <NavigateToLoginButton />
     </>
   )
 }

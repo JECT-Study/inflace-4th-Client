@@ -1,7 +1,7 @@
 'use client'
 
 import IconLock from '@/shared/assets/unlock-filled-bold.svg'
-import { Button } from '@/widgets/button'
+import { Button } from '@/shared/ui/button'
 
 export const PlanButton = () => {
   return (

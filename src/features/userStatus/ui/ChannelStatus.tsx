@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@/widgets/button'
+import { Button } from '@/shared/ui/button'
 import IconYoutube from '@/shared/assets/youtube-disable.svg'
 
 export const ChannelStatus = () => {
