@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Button } from '@/widgets/button'
+import { Button } from '@/shared/ui/button'
 import { FeatureCardItem } from '@/entities/featureCard/config/types'
 import IconRightArrow from '@/shared/assets/rightwards-arrow-bold.svg'
 import IconZap from '@/shared/assets/zap-bold.svg'

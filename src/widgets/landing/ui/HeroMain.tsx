@@ -2,7 +2,7 @@
 import swiper01 from '@/widgets/landing/assets/swiper01.jpg'
 import swiper02 from '@/widgets/landing/assets/swiper02.jpg'
 import IconSearch from '@/shared/assets/search-bold.svg'
-import { Button } from '@/widgets/button'
+import { Button } from '@/shared/ui/button'
 
 export function HeroMain() {
   return (
