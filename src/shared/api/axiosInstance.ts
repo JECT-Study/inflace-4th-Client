@@ -61,7 +61,7 @@ axiosInstance.interceptors.response.use(
     isRefreshing = true
 
     try {
-      const { data } = await axios.post('/api/auth/refresh', null, {
+      const { data } = await axios.post('/auth/refresh', null, {
         withCredentials: true,
       })
 

@@ -16,9 +16,9 @@ export const Logo = ({ variant = 'header', className }: LogoProps) => {
       <LogoSvg
         className={cn(
           variant === 'header' &&
-            'h-[var(--header-logo-height)] w-[var(--header-logo-width)]',
+            'h-(--header-logo-height) w-(--header-logo-width)',
           variant === 'footer' &&
-            'h-[var(--footer-logo-height)] w-[var(--footer-logo-width)]'
+            'h-(--footer-logo-height) w-(--footer-logo-width)'
         )}
         role='img'
       />

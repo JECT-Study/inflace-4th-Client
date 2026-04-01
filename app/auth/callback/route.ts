@@ -28,15 +28,10 @@ export async function GET(request: NextRequest) {
     )
   }
 
-  // authorization code를 백엔드 GET /api/v1/auth/login에 Query Parameter로 전달
+  // authorization code를 백엔드 GET /auth/login에 Query Parameter로 전달
   try {
-    const loginParams = new URLSearchParams({
-      provider: 'google',
-      code,
-    })
-
     const backendResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/login?${loginParams}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/login?provider=google&code=${code}`,
       { method: 'GET' }
     )
 

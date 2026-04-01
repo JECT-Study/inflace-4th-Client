@@ -5,7 +5,7 @@ import '../styles'
 import { SidebarProvider, SidebarTrigger } from '@/shared/ui/shadcn/sidebar'
 import { Header, Footer, AppSidebar } from '@/widgets/layout'
 import { AuthInitializer } from '@/features/auth'
-import { LoginModal } from '@/widgets/auth/login-modal'
+import { LoginModal } from '@/widgets/auth'
 import { OnboardingModal } from '@/widgets/onboarding'
 
 const inter = Inter({ subsets: ['latin'] })

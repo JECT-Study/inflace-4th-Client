@@ -12,7 +12,7 @@ export function useAuthInit() {
     // app/api/auth/refresh 실행(token refresh)
     async function init() {
       try {
-        const res = await fetch('/api/auth/refresh', { method: 'POST' })
+        const res = await fetch('/auth/refresh', { method: 'POST' })
         if (res.ok) {
           const { accessToken, user } = await res.json()
           setAuth(accessToken, user)

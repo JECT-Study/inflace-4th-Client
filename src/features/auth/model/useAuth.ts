@@ -14,7 +14,7 @@ export function useAuth() {
   const logout = useCallback(async () => {
     useAuthStore.getState().reset()
     try {
-      await fetch('/api/auth/logout', { method: 'POST' })
+      await fetch('/auth/logout', { method: 'POST' })
     } catch {
       // 쿠키 삭제 실패해도 클라이언트 상태는 이미 초기화됨
     }

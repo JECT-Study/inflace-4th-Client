@@ -11,7 +11,7 @@ import { UserAvatar } from '@/features/userStatus/ui/UserAvatar'
  * 비로그인 시 '로그인'
  * 로그인 시 '로그아웃' 표시
  */
-export function AuthStatusButton() {
+export function LoginButton() {
   const { isAuthenticated, isInitializing, logout } = useAuth()
   const openModal = useLoginModal((s) => s.open)
 
