@@ -1,32 +1,32 @@
 import { ToggleGroup, ToggleGroupItem } from '@/shared/ui/toggle-group'
-import { OPTION_ITEM } from '../model/optionsStep01'
+import { OPTION_ITEM } from '../model/optionsStep02'
 import { useOnboardingModal } from '../model/useOnboardingModal'
 
-export function OnboardingStep1() {
+export function OnboardingStep2() {
   const setSelection = useOnboardingModal((s) => s.setSelection)
-  const setSelections = useOnboardingModal((s) => s.selections[1])
+  const setSelections = useOnboardingModal((s) => s.selections[2])
 
   return (
     <>
       <p className='text-[length:var(--text-title-sm)] leading-[var(--leading-title-sm)] font-medium text-[var(--color-text-and-icon-default)]'>
-        어떤 일을 하시나요?
+        관심있는 기능을 모두 선택해주세요
       </p>
       <p className='mt-[var(--spacing-4)] text-[length:var(--text-label-xs)] leading-[var(--leading-label-xs)] font-normal text-[var(--color-text-and-icon-tertiary)]'>
         맞춤 콘텐츠를 제공해드려요
       </p>
 
       <ToggleGroup
-        type='single'
-        size='lg'
-        spacing={20}
+        type='multiple'
+        size='fit'
+        spacing={16}
         value={setSelections}
-        onValueChange={(value: string) => setSelection(1, value)}
+        onValueChange={(value: string) => setSelection(2, value)}
         className='mt-[var(--spacing-xl)]'>
         {OPTION_ITEM.map((item) => (
           <ToggleGroupItem
             key={item.label}
             value={item.value}
-            iconPosition='top'
+            iconPosition='left'
             imgSrc={item.imgSrc.src}
             imgAlt={item.label}
             aria-label={item.label}>

@@ -20,12 +20,12 @@ const ToggleGroupContext = React.createContext<{
 })
 
 const toggleGroupItemVariants = cva(
-  "relative inline-flex cursor-pointer items-center justify-center overflow-hidden border border-[#e6e6e6] bg-transparent font-default text-[length:var(--color-text-and-icon-secondary)] [font-weight:var(--font-weight-label-normal)] whitespace-nowrap transition-colors select-none after:pointer-events-none after:absolute after:inset-0 after:content-[''] hover:border-[var(--comp-button-primary-outlined-outlined-stroke-enabled)] hover:bg-[var(--comp-button-primary-outlined-outlined-hover)] hover:after:bg-[var(--btn-overlay-hover,transparent)] active:after:bg-[var(--btn-overlay-active,transparent)] disabled:pointer-events-none disabled:opacity-50 data-[state=on]:border-[var(--comp-button-primary-outlined-outlined-stroke-enabled)] data-[state=on]:bg-[var(--comp-button-primary-outlined-outlined-pressed)] data-[state=on]:text-[var(--color-brand-primary)]",
+  "relative inline-flex cursor-pointer items-center justify-center overflow-hidden border border-[#e6e6e6] bg-transparent font-default text-[length:var(--text-label-md)] [font-weight:var(--font-weight-label-normal)] whitespace-nowrap text-[var(--color-text-and-icon-secondary)] transition-colors select-none after:pointer-events-none after:absolute after:inset-0 after:content-[''] hover:border-[var(--comp-button-primary-outlined-outlined-stroke-enabled)] hover:bg-[var(--comp-button-primary-outlined-outlined-hover)] hover:after:bg-[var(--btn-overlay-hover,transparent)] active:after:bg-[var(--btn-overlay-active,transparent)] disabled:pointer-events-none disabled:opacity-50 data-[state=on]:border-[var(--comp-button-primary-outlined-outlined-stroke-enabled)] data-[state=on]:bg-[var(--comp-button-primary-outlined-outlined-pressed)] data-[state=on]:text-[var(--color-brand-primary)]",
   {
     variants: {
       size: {
-        lg: 'h-[86px] w-[118px] gap-[var(--spacing-2xs)] rounded-[var(--radius-6)] py-[var(--spacing-xs)] text-[length:var(--text-label-md)] leading-[var(--leading-label-md)] font-medium',
-        fit: 'gap-[var(--spacing-xs)] rounded-full px-[var(--spacing-2xs)] py-[var(--spacing-8)]',
+        lg: 'h-[86px] w-[118px] gap-[var(--spacing-2xs)] rounded-[var(--radius-6)] py-[var(--spacing-xs)] leading-[var(--leading-label-md)] font-medium',
+        fit: 'gap-[var(--spacing-4)] rounded-full px-[var(--spacing-2xs)] py-[var(--spacing-8)] leading-[var(--leading-label-md)]',
       },
     },
     defaultVariants: {
@@ -52,7 +52,7 @@ function ToggleGroup({
         className
       )}
       style={{ gap: `var(--spacing-${spacing})` }}
-      {...props}>
+      {...(props as React.ComponentProps<typeof ToggleGroupPrimitive.Root>)}>
       <ToggleGroupContext.Provider value={{ size, spacing, orientation }}>
         {children}
       </ToggleGroupContext.Provider>
@@ -88,7 +88,7 @@ function ToggleGroupItem({
             'relative shrink-0 transition-all',
             resolvedSize === 'lg'
               ? 'h-[var(--spacing-md)] w-[var(--spacing-md)]'
-              : 'h-[var(--spacing-2xs)] w-[var(--spacing-2xs)]'
+              : 'flex h-[var(--spacing-xs)] w-[var(--spacing-xs)]'
           )}>
           <Image src={imgSrc} alt={imgAlt} fill className='object-contain' />
         </div>

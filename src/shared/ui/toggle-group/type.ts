@@ -1,8 +1,10 @@
 import type React from 'react'
 import type { ToggleGroup as ToggleGroupPrimitive } from 'radix-ui'
+import type { ImageProps } from 'next/image'
 
-type ToggleGroupProps = React.ComponentProps<
-  typeof ToggleGroupPrimitive.Root
+type ToggleGroupProps = Omit<
+  React.ComponentProps<typeof ToggleGroupPrimitive.Root>,
+  'type'
 > & {
   type?: 'single' | 'multiple'
   spacing?: number
@@ -15,7 +17,7 @@ type ToggleGroupItemProps = React.ComponentProps<
 > & {
   size?: 'lg' | 'fit'
   iconPosition?: 'left' | 'top'
-  imgSrc?: string
+  imgSrc?: ImageProps['src']
   imgAlt?: string
 }
 

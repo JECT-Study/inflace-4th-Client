@@ -7,7 +7,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/shared/ui/shadcn/dialog'
-import { OnboardingStep1, useOnboardingModal } from '@/features/onboarding'
+import {
+  OnboardingStep1,
+  OnboardingStep2,
+  useOnboardingModal,
+} from '@/features/onboarding'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import { Button } from '@/shared/ui/button'
 import IconRightArrow from '@/shared/assets/rightwards-arrow-bold.svg'
@@ -15,13 +19,14 @@ import IconLeftArrow from '@/shared/assets/leftwards-arrow-bold.svg'
 
 const STEPS: Record<number, React.ReactNode> = {
   1: <OnboardingStep1 />,
+  2: <OnboardingStep2 />,
 }
 
 export function OnboardingModal() {
   const { step, nextStep, prevStep, selections } = useOnboardingModal()
 
   const isOpen = useOnboardingModal((s) => s.isOpen)
-
+  const close = useOnboardingModal((s) => s.close)
   const sel = selections[step]
   const hasSelection = Array.isArray(sel) ? sel.length > 0 : !!sel
   const isPrevDisabled = step <= 1
