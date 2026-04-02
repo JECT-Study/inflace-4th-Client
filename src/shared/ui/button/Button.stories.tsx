@@ -17,7 +17,7 @@ const ZapBold = () => (
 )
 
 const meta: Meta<typeof Button> = {
-  title: 'Widgets/Button',
+  title: 'Shared/Button',
   component: Button,
   tags: ['autodocs'],
   argTypes: {

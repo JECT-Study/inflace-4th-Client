@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 
 import { useAuthStore } from '@/shared/api/authStore'
 import { LoginButton } from './LoginButton'
+import LogoImage from '@/shared/assets/logo.svg'
 
 const meta = {
   title: 'Features/Auth/LoginButton',
@@ -16,13 +17,17 @@ const mockUser = {
   id: '1',
   name: 'inflace 사용자',
   email: 'user@inflace.com',
-  profileImage: '',
+  profileImage: LogoImage,
 }
 
 export const Loading: Story = {
   decorators: [
     (Story) => {
-      useAuthStore.setState({ accessToken: null, user: null, isInitializing: true })
+      useAuthStore.setState({
+        accessToken: null,
+        user: null,
+        isInitializing: true,
+      })
       return <Story />
     },
   ],
@@ -31,7 +36,11 @@ export const Loading: Story = {
 export const LoggedOut: Story = {
   decorators: [
     (Story) => {
-      useAuthStore.setState({ accessToken: null, user: null, isInitializing: false })
+      useAuthStore.setState({
+        accessToken: null,
+        user: null,
+        isInitializing: false,
+      })
       return <Story />
     },
   ],

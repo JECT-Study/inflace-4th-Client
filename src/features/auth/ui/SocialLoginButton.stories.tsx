@@ -84,15 +84,26 @@ export const Overview: Story = {
       </div>
       <div>
         <p className='mb-8 text-sm text-gray-400'>Google — 비활성</p>
-        <SocialLoginButton icon={<GoogleIcon />} label='Continue with Google' disabled />
+        <SocialLoginButton
+          icon={<GoogleIcon />}
+          label='Continue with Google'
+          disabled
+        />
       </div>
       <div>
         <p className='mb-8 text-sm text-gray-400'>YouTube — 활성</p>
-        <SocialLoginButton icon={<YouTubeIcon />} label='Continue with YouTube' />
+        <SocialLoginButton
+          icon={<YouTubeIcon />}
+          label='Continue with YouTube'
+        />
       </div>
       <div>
         <p className='mb-8 text-sm text-gray-400'>YouTube — 비활성</p>
-        <SocialLoginButton icon={<YouTubeIcon />} label='Continue with YouTube' disabled />
+        <SocialLoginButton
+          icon={<YouTubeIcon />}
+          label='Continue with YouTube'
+          disabled
+        />
       </div>
     </div>
   ),
