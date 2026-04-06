@@ -11,9 +11,9 @@ import {
   useLoginModal,
   usePopupOAuth,
 } from '@/features/auth'
-import GoogleIcon from '@/shared/assets/google.svg'
-import YouTubeIcon from '@/shared/assets/youtube.svg'
-import LogoSvg from '@/shared/assets/logo.svg'
+import GoogleIcon from '@/shared/assets/google.svg?react'
+import YouTubeIcon from '@/shared/assets/youtube.svg?react'
+import LogoSvg from '@/shared/assets/logo.svg?react'
 
 export function LoginModal() {
   const isOpen = useLoginModal((s) => s.isOpen)
