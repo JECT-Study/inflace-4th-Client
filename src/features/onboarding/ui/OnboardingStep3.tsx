@@ -22,13 +22,13 @@ export function OnboardingStep3() {
             modules={[Pagination, Autoplay]}
             className='h-75 w-full pb-5.5! [&_.swiper-pagination]:bottom-0! [&_.swiper-pagination-bullet]:h-10! [&_.swiper-pagination-bullet]:w-10! [&_.swiper-pagination-bullet]:border! [&_.swiper-pagination-bullet]:border-(--color-stroke-border-neutral-default)! [&_.swiper-pagination-bullet]:bg-white! [&_.swiper-pagination-bullet]:opacity-100! [&_.swiper-pagination-bullet-active]:bg-[#060404]!'>
             <SwiperSlide>
-              <Image src={ImgMock.src} alt='임시 목업 이미지' fill />
+              <Image src={ImgMock.src} alt='임시 목업 이미지' fill sizes='100%' />
             </SwiperSlide>
             <SwiperSlide>
-              <Image src={ImgMock.src} alt='임시 목업 이미지' fill />
+              <Image src={ImgMock.src} alt='임시 목업 이미지' fill sizes='100%' />
             </SwiperSlide>
             <SwiperSlide>
-              <Image src={ImgMock.src} alt='임시 목업 이미지' fill />
+              <Image src={ImgMock.src} alt='임시 목업 이미지' fill sizes='100%' />
             </SwiperSlide>
           </Swiper>
         </div>

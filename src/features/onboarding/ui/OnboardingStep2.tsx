@@ -19,7 +19,7 @@ export function OnboardingStep2() {
         type='multiple'
         size='fit'
         spacing={16}
-        value={setSelections}
+        value={(setSelections as string[]) ?? []}
         onValueChange={(value: string) => setSelection(2, value)}
         className='mt-(--spacing-xl)'>
         {OPTION_ITEM.map((item) => (

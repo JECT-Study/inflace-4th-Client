@@ -9,33 +9,33 @@ import Icon06 from '../assets/role-icon06.png'
 
 export const OPTION_ITEM: OptionItem[] = [
   {
-    value: '유튜버',
+    value: 'YOUTUBER',
     imgSrc: Icon01,
     label: '유튜버',
   },
   {
-    value: '마케터',
+    value: 'MARKETER',
     imgSrc: Icon02,
     label: '마케터',
   },
 
   {
-    value: '브랜드 담당자',
+    value: 'BRAND_MANAGER',
     imgSrc: Icon03,
     label: '브랜드 담당자',
   },
   {
-    value: 'MCN',
+    value: 'MCN_AGENCY',
     imgSrc: Icon04,
     label: 'MCN / 에이전시',
   },
   {
-    value: '콘텐츠기획자',
+    value: 'CONTENT_PLANNER',
     imgSrc: Icon05,
     label: '콘텐츠기획자',
   },
   {
-    value: '기타',
+    value: 'ETC',
     imgSrc: Icon06,
     label: '기타',
   },
