@@ -1,8 +1,17 @@
+export type UserPlan = 'free' | 'starter' | 'growth'
+
+export interface ApiResponse<T> {
+  success: boolean
+  responseDto: T
+  error: string | null
+}
+
 export interface AuthUser {
   id: string
   name: string
   email: string
   profileImage: string
+  plan: UserPlan
 }
 
 export interface AuthState {

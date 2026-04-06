@@ -41,6 +41,7 @@ const tokenRoot = { primitive: prim }
 /** Text Style 복합 토큰 참조 해석용 루트
  *  {semantic.*} → desktop semantic, {fontSize.*} → primSection.fontSize 등 */
 const textStyleRoot = {
+  primitive: prim,
   semantic: desktop,
   fontSize: primSection.fontSize,
   letterSpacing: primSection.letterSpacing,
@@ -87,6 +88,15 @@ function kebab(s) {
 function px(val) {
   const resolved = resolve(val)
   return transformDimension({ value: resolved, type: 'dimension' }) ?? resolved
+}
+
+/** letter-spacing 퍼센트값을 em 단위로 변환 (예: "-1%" → "-0.01em") */
+function letterSpacingToEm(val) {
+  const resolved = resolve(val)
+  if (typeof resolved === 'string' && resolved.endsWith('%')) {
+    return parseFloat(resolved) / 100 + 'em'
+  }
+  return resolved
 }
 
 /** 폰트 굵기 이름을 CSS 숫자값으로 변환 (@tokens-studio/sd-transforms 사용) */
@@ -186,6 +196,12 @@ function resolveTypoProp(key, val) {
   if (key === 'fontWeight') {
     return transformFontWeight({ value: raw, type: 'fontWeight' }) ?? raw
   }
+  if (key === 'letterSpacing') {
+    if (typeof raw === 'string' && raw.endsWith('%')) {
+      return parseFloat(raw) / 100 + 'em'
+    }
+    return raw
+  }
   return raw
 }
 
@@ -281,6 +297,12 @@ function genTypography(sem, indent = '  ') {
   return lines.join('\n')
 }
 
+function genLetterSpacing(indent = '  ') {
+  return Object.entries(primSection.letterSpacing)
+    .map(([k, v]) => `${indent}--tracking-${k}: ${letterSpacingToEm(v.value)};`)
+    .join('\n')
+}
+
 function genRadius(sem, indent = '  ') {
   return Object.entries(sem.radius)
     .map(([k, v]) => `${indent}--radius-${k}: ${px(v.value)};`)
@@ -357,6 +379,7 @@ ${genUnitSpacing()}
 
   /* === Typography === */
 ${genTypography(desktop)}
+${genLetterSpacing()}
 
 
   /* === Border Radius === */

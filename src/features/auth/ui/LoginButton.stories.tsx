@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { useAuthStore } from '@/shared/api/authStore'
 import { LoginButton } from './LoginButton'
 import LogoImage from '@/shared/assets/logo.svg'
+import { UserPlan } from '@/features/navigation'
 
 const meta = {
   title: 'Features/Auth/LoginButton',
@@ -18,6 +19,7 @@ const mockUser = {
   name: 'inflace 사용자',
   email: 'user@inflace.com',
   profileImage: LogoImage,
+  plan: 'free' as UserPlan,
 }
 
 export const Loading: Story = {

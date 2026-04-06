@@ -1,5 +1,5 @@
 import { Button } from '@/shared/ui/button'
-import { PlansCardItem } from '@/entities/plansCard/config/types'
+import { PlansCardItem } from '@/entities/landing/plansCard/config/types'
 
 import IconCheck from '@/shared/assets/check-bold.svg'
 

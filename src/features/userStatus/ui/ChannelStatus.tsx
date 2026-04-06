@@ -7,10 +7,10 @@ export const ChannelStatus = () => {
   return (
     <div className='flex items-center justify-between gap-2'>
       <div className='flex items-center gap-2xs'>
-        <div className='flex h-34 w-34 items-center justify-center rounded-full bg-[#e6e6e6]'>
+        <div className='flex h-34 w-34 items-center justify-center rounded-full bg-stroke-border-gray-default'>
           <IconYoutube className='size-sm' />
         </div>
-        <span className='text-[length:var(--text-label-sm)] font-medium text-[color:var(--color-text-and-icon-default)]'>
+        <span className='text-(length:--text-label-sm) font-medium text-text-and-icon-default'>
           채널 미연동
         </span>
       </div>
@@ -18,7 +18,7 @@ export const ChannelStatus = () => {
         color='primary'
         style='filled'
         size='xs'
-        className='text-[length:var(--text-label-xs)] font-medium'>
+        className='text-(length:--text-label-xs) font-medium'>
         연동하기
       </Button>
     </div>

@@ -1,5 +1,5 @@
-import { FEATURE_CARD_ITEM } from '@/entities/featureCard/config/featureCardItem'
-import { FeatureCard } from '@/entities/featureCard/FeatureCard'
+import { FEATURE_CARD_ITEM } from '@/entities/landing/featureCard/config/featureCardItem'
+import { FeatureCard } from '@/entities/landing/featureCard/FeatureCard'
 
 export function FeatureSection() {
   return (

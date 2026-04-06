@@ -1,5 +1,5 @@
 import { FeatureCardItem } from './types'
-import featureCardImg from '@/entities/featureCard/assets/featureCard.jpg'
+import featureCardImg from '@/entities/landing/featureCard/assets/featureCard.jpg'
 
 export const FEATURE_CARD_ITEM: FeatureCardItem[] = [
   {
