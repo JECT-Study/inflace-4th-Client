@@ -1,5 +1,5 @@
-import { PLANS_CARD_ITEM } from '@/entities/plansCard/config/plansCardItem'
-import { PlansCard } from '@/entities/plansCard/PlansCard'
+import { PLANS_CARD_ITEM } from '@/entities/landing/plansCard/config/plansCardItem'
+import { PlansCard } from '@/entities/landing/plansCard/PlansCard'
 
 export function PlansSection() {
   return (

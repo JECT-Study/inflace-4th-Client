@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 import '../styles'
-import { QueryProvider } from '../providers/QueryProvider'
+import { QueryProvider } from '@/app/providers/QueryProvider'
 import { SidebarProvider, SidebarTrigger } from '@/shared/ui/shadcn/sidebar'
 import { Header, Footer, AppSidebar } from '@/widgets/layout'
 import { AuthInitializer } from '@/features/auth'

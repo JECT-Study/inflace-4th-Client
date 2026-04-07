@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const PROTECTED_PATHS = ['/dashboard', '/analytics']
+const PROTECTED_PATHS = ['/dashboard', '/analytics', '/me']
 
 //라우팅 가드
 export function middleware(request: NextRequest) {
@@ -27,5 +27,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/analytics/:path*'],
+  matcher: ['/dashboard/:path*', '/analytics/:path*', '/me/:path*'],
 }
