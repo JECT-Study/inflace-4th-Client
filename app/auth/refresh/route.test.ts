@@ -19,7 +19,7 @@ afterEach(() => {
   vi.restoreAllMocks()
 })
 
-describe('POST /auth/refresh', () => {
+describe('POST /auth/reissue', () => {
   it('RT 쿠키가 없으면 401을 반환한다', async () => {
     mockCookieStore.get.mockReturnValue(undefined)
 
@@ -36,7 +36,12 @@ describe('POST /auth/refresh', () => {
         JSON.stringify({
           accessToken: 'new-at',
           refreshToken: 'new-rt',
-          user: { id: '1', name: 'Test', email: 'test@test.com', profileImage: '' },
+          user: {
+            id: '1',
+            name: 'Test',
+            email: 'test@test.com',
+            profileImage: '',
+          },
         }),
         { status: 200 }
       )
@@ -53,11 +58,20 @@ describe('POST /auth/refresh', () => {
   })
 
   it('백엔드 성공 시 { accessToken, user }를 반환한다', async () => {
-    const mockUser = { id: '1', name: 'Test', email: 'test@test.com', profileImage: '' }
+    const mockUser = {
+      id: '1',
+      name: 'Test',
+      email: 'test@test.com',
+      profileImage: '',
+    }
     mockCookieStore.get.mockReturnValue({ value: 'old-refresh-token' })
     vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
       new Response(
-        JSON.stringify({ accessToken: 'new-at', refreshToken: 'new-rt', user: mockUser }),
+        JSON.stringify({
+          accessToken: 'new-at',
+          refreshToken: 'new-rt',
+          user: mockUser,
+        }),
         { status: 200 }
       )
     )
@@ -85,7 +99,9 @@ describe('POST /auth/refresh', () => {
 
   it('네트워크 에러 시 500을 반환한다', async () => {
     mockCookieStore.get.mockReturnValue({ value: 'old-refresh-token' })
-    vi.spyOn(globalThis, 'fetch').mockRejectedValueOnce(new Error('Network error'))
+    vi.spyOn(globalThis, 'fetch').mockRejectedValueOnce(
+      new Error('Network error')
+    )
 
     const { POST } = await import('./route')
     const response = await POST()

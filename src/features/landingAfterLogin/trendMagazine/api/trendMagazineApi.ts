@@ -1,8 +1,12 @@
+import type { ApiResponse } from '@/shared/api/types'
+import { axiosInstance } from '@/shared/api'
 import type { MagazineCardItem } from '@/entities/landingAfterLogin/magazineCard'
-import { trendMagazineMock } from '../mock/trendMagazineMock'
 
 export async function fetchTrendMagazine(
-  _channelId: string
+  channelId: string
 ): Promise<MagazineCardItem[]> {
-  return trendMagazineMock
+  const response = await axiosInstance.get<ApiResponse<MagazineCardItem[]>>(
+    `/channels/${channelId}/trend-magazine`
+  )
+  return response.data.responseDto
 }

@@ -2,9 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import { useAuthStore } from '@/shared/api'
-
-import { useLoginModal } from './useLoginModal'
 import type { PopupOAuthConfig } from './types'
 
 const POPUP_WIDTH = 500
@@ -15,26 +12,20 @@ export function usePopupOAuth({ apiPath, popupName }: PopupOAuthConfig) {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const popupRef = useRef<Window | null>(null)
-  const closeModal = useLoginModal((s) => s.close)
 
   // app/api/auth/callback으로부터 전달받은 메세지 활용
-  const handleMessage = useCallback(
-    (event: MessageEvent) => {
-      if (event.origin !== window.location.origin) return
+  const handleMessage = useCallback((event: MessageEvent) => {
+    if (event.origin !== window.location.origin) return
 
-      const { type, accessToken, user, error: authError } = event.data
+    const { type, error: authError } = event.data
 
-      if (type === 'AUTH_SUCCESS') {
-        useAuthStore.getState().setAuth(accessToken, user)
-        closeModal()
-        setIsLoading(false)
-      } else if (type === 'AUTH_ERROR') {
-        setError(authError || '로그인에 실패했습니다.')
-        setIsLoading(false)
-      }
-    },
-    [closeModal]
-  )
+    if (type === 'AUTH_SUCCESS') {
+      window.location.href = '/'
+    } else if (type === 'AUTH_ERROR') {
+      setError(authError || '로그인에 실패했습니다.')
+      setIsLoading(false)
+    }
+  }, [])
 
   //전달받은 메세지를 표시
   useEffect(() => {

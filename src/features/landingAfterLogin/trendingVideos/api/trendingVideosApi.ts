@@ -1,8 +1,12 @@
+import type { ApiResponse } from '@/shared/api/types'
+import { axiosInstance } from '@/shared/api'
 import type { VideoCardItem } from '@/entities/landingAfterLogin/videoCard'
-import { trendingVideosMock } from '../mock/trendingVideosMock'
 
 export async function fetchTrendingVideos(
-  _channelId: string
+  channelId: string
 ): Promise<VideoCardItem[]> {
-  return trendingVideosMock
+  const response = await axiosInstance.get<ApiResponse<VideoCardItem[]>>(
+    `/channels/${channelId}/main/tops`
+  )
+  return response.data.responseDto
 }

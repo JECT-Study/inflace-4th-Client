@@ -1,4 +1,4 @@
-export type UserPlan = 'free' | 'starter' | 'growth'
+export type UserPlan = 'FREE' | 'STARTER' | 'GROWTH'
 
 export interface ApiResponse<T> {
   success: boolean
@@ -6,12 +6,20 @@ export interface ApiResponse<T> {
   error: string | null
 }
 
+export interface JwtPayload {
+  sub: string
+  iat: number
+  exp: number
+  profileImage: string
+  plan: string
+  isNewUser: boolean
+}
+
 export interface AuthUser {
   id: string
-  name: string
-  email: string
   profileImage: string
   plan: UserPlan
+  isNewUser: boolean
 }
 
 export interface AuthState {

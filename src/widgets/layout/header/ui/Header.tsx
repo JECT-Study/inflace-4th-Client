@@ -1,7 +1,7 @@
 'use client'
 
 import { LoginButton } from '@/features/auth'
-import { OnboardingButton } from '@/features/onboarding'
+
 import { Logo } from '@/shared/ui/Logo'
 
 export function Header() {
@@ -12,8 +12,6 @@ export function Header() {
           <div className='flex shrink-0 basis-full items-center justify-between'>
             <Logo variant='header' />
             <div className='flex items-center gap-x-16'>
-              {/* 임시 온보딩 버튼 */}
-              <OnboardingButton />
               <LoginButton />
             </div>
           </div>

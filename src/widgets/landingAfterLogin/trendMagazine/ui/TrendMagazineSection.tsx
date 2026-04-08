@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 import { MagazineCard } from '@/entities/landingAfterLogin/magazineCard'
 import { useTrendMagazine } from '@/features/landingAfterLogin/trendMagazine'
+import { formatMonthAndWeek } from '@/shared/lib/format'
 
 interface TrendMagazineSectionProps {
   channelId: string
@@ -11,13 +12,17 @@ interface TrendMagazineSectionProps {
 export function TrendMagazineSection({ channelId }: TrendMagazineSectionProps) {
   const { data: magazines, isLoading } = useTrendMagazine(channelId)
 
+  //현재 월 + 몇 주차인지
+  const now = new Date().toDateString()
+  const { month, weekNumber } = formatMonthAndWeek(now)
+
   return (
     /* 트렌드 매거진을 모아서 보여주는 섹션 */
     <section className='flex h-fit w-full flex-col gap-16'>
       {/* 트렌드 매거진 헤더 */}
       <div className='flex h-fit w-full flex-col items-start justify-between gap-3'>
         <h3 className='text-title-lg font-semibold text-text-and-icon-default'>
-          2월 4주차 트렌드 매거진
+          {`${month}월 ${weekNumber}주차 트렌드 매거진`}
         </h3>
 
         {/* 서브텍스트 + 더보기 */}

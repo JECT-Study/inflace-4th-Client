@@ -5,8 +5,23 @@ import { useParams } from 'next/navigation'
 import { ChannelProfileSection } from '@/widgets/landingAfterLogin/channelProfile'
 import { TrendingVideosSection } from '@/widgets/landingAfterLogin/trendingVideos'
 import { TrendMagazineSection } from '@/widgets/landingAfterLogin/trendMagazine'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { useAuth } from '@/features/auth'
 
 export function ChannelProfilePage() {
+  /* 유저가 로그아웃 상태라면 해당 페이지가 아닌
+   * home 페이지를 렌더링함
+   */
+  const router = useRouter()
+  const { isAuthenticated, isInitializing, user } = useAuth()
+
+  useEffect(() => {
+    if (!isInitializing && !isAuthenticated && !user?.id) {
+      router.replace(`/`)
+    }
+  }, [isInitializing, isAuthenticated, user?.id, router])
+
   const params = useParams<{ id: string }>()
   const id = params!.id
 

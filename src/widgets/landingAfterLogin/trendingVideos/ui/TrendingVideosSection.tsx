@@ -44,7 +44,7 @@ export function TrendingVideosSection({
           ))}
         </div>
       ) : (
-        <PlanGate requiredPlan='starter'>
+        <PlanGate requiredPlan='STARTER'>
           {' '}
           <div className='grid grid-cols-2 gap-4'>
             {' '}

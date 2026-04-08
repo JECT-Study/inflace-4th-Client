@@ -21,19 +21,30 @@ export function LatestUploadDateCard({ value }: RecenetUploadDateCardProps) {
       </div>
 
       {/* 년 월 일*/}
-      <div className='flex h-fit w-full items-center gap-4'>
-        <span className='text-heading-sm font-medium text-brand-secondary'>
-          {value.year}
-        </span>
-        <span className='font-medium text-text-and-icon-tertiary'>년</span>
-        <span className='text-heading-sm font-medium text-brand-secondary'>
-          {value.month}
-        </span>
-        <span className='font-medium text-text-and-icon-tertiary'>월</span>
-        <span className='text-heading-sm font-medium text-brand-secondary'>
-          {value.day}
-        </span>
-        <span className='font-medium text-text-and-icon-tertiary'>일</span>
+      <div className='flex h-fit w-full items-center gap-8'>
+        {/* 년 */}
+        <div className='flex items-center gap-2'>
+          <span className='text-heading-sm font-medium text-brand-secondary'>
+            {value.year}
+          </span>
+          <span className='font-medium text-text-and-icon-tertiary'>년</span>
+        </div>
+
+        {/* 월 */}
+        <div className='flex items-center gap-2'>
+          <span className='text-heading-sm font-medium text-brand-secondary'>
+            {value.month}
+          </span>
+          <span className='font-medium text-text-and-icon-tertiary'>월</span>
+        </div>
+
+        {/* 일 */}
+        <div className='flex items-center gap-2'>
+          <span className='text-heading-sm font-medium text-brand-secondary'>
+            {value.day}
+          </span>
+          <span className='font-medium text-text-and-icon-tertiary'>일</span>
+        </div>
       </div>
     </div>
   )

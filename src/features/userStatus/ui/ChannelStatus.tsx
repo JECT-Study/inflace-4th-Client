@@ -2,8 +2,11 @@
 
 import { Button } from '@/shared/ui/button'
 import IconYoutube from '@/shared/assets/youtube-disable.svg'
+import { useLoginModal } from '@/features/auth/model/useLoginModal'
 
 export const ChannelStatus = () => {
+  const openModal = useLoginModal((s) => s.open)
+
   return (
     <div className='flex items-center justify-between gap-2'>
       <div className='flex items-center gap-2xs'>
@@ -18,7 +21,8 @@ export const ChannelStatus = () => {
         color='primary'
         style='filled'
         size='xs'
-        className='text-(length:--text-label-xs) font-medium'>
+        className='text-(length:--text-label-xs) font-medium'
+        onClick={openModal}>
         연동하기
       </Button>
     </div>

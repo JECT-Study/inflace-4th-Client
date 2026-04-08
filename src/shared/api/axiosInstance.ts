@@ -1,9 +1,11 @@
 import axios from 'axios'
 
+import { decodeJwt, jwtToAuthUser } from '@/shared/lib/decodeJwt'
+
 import { useAuthStore } from './authStore'
 
 const axiosInstance = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api/v1`,
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
   withCredentials: true,
 })
 
@@ -65,7 +67,8 @@ axiosInstance.interceptors.response.use(
         withCredentials: true,
       })
 
-      const { accessToken, user } = data
+      const { accessToken } = data
+      const user = jwtToAuthUser(decodeJwt(accessToken))
       useAuthStore.getState().setAuth(accessToken, user)
       processQueue(null, accessToken)
 

@@ -12,7 +12,7 @@ import { UserAvatar } from '@/features/userStatus/ui/UserAvatar'
  * 로그인 시 '로그아웃' 표시
  */
 export function LoginButton() {
-  const { isAuthenticated, isInitializing, logout } = useAuth()
+  const { isAuthenticated, isInitializing, logout, user } = useAuth()
   const openModal = useLoginModal((s) => s.open)
 
   if (isInitializing) {
@@ -29,7 +29,7 @@ export function LoginButton() {
         <Button color='secondary' size='sm' style='filled' onClick={logout}>
           <span className='text-label-sm'>로그아웃</span>
         </Button>
-        <UserAvatar size={'sm'} showBadge={false} />
+        <UserAvatar size={'sm'} showBadge={false} profileImage={user?.profileImage} />
       </>
     )
   }

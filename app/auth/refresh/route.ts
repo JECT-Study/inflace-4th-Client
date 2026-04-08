@@ -16,7 +16,7 @@ export async function POST() {
   //백엔드 서버에 토큰 갱신 요청
   try {
     const backendResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/reissue`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
