@@ -24,15 +24,15 @@ export function ChannelProfileCard({
 
       {/* 콘텐츠 종류, 채널 이름, handle name  */}
       <div className='flex h-fit w-full flex-col justify-center gap-8 p-7'>
-        <span className='font-md size-fit gap-10 rounded-[30px] bg-brand-secondary px-12 py-6 text-xs text-label-sm font-medium text-white'>
+        <span className='size-fit gap-10 rounded-[30px] bg-brand-secondary px-12 py-6 text-noto-label-sm-normal text-white'>
           {category}
         </span>
 
         <div className='flex h-fit w-full flex-col gap-4'>
-          <h2 className='text-heading-md font-semibold text-text-and-icon-default'>
+          <h2 className='text-ibm-heading-md-normal text-text-and-icon-default'>
             {name}
           </h2>
-          <p className='text-label-sm font-normal text-text-and-icon-default'>
+          <p className='text-ibm-label-sm-thin text-text-and-icon-default'>
             {channelHandle}
           </p>
         </div>
