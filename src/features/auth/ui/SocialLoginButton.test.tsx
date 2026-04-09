@@ -2,13 +2,16 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
+import YouTubeIcon from '@/shared/assets/youtube.svg'
 import { SocialLoginButton } from './SocialLoginButton'
 
-const TestIcon = () => <svg data-testid='test-icon' />
+const TestIcon = () => <YouTubeIcon data-testid='test-icon' />
 
 describe('SocialLoginButton', () => {
   it('label prop 텍스트가 버튼에 렌더링된다', () => {
-    render(<SocialLoginButton icon={<TestIcon />} label='Continue with Google' />)
+    render(
+      <SocialLoginButton icon={<TestIcon />} label='Continue with Google' />
+    )
     expect(screen.getByText('Continue with Google')).toBeInTheDocument()
   })
 
@@ -19,7 +22,13 @@ describe('SocialLoginButton', () => {
 
   it('클릭 시 onClick이 호출된다', async () => {
     const handleClick = vi.fn()
-    render(<SocialLoginButton icon={<TestIcon />} label='Test' onClick={handleClick} />)
+    render(
+      <SocialLoginButton
+        icon={<TestIcon />}
+        label='Test'
+        onClick={handleClick}
+      />
+    )
 
     await userEvent.click(screen.getByRole('button'))
 
@@ -34,7 +43,12 @@ describe('SocialLoginButton', () => {
   it('disabled 시 클릭해도 onClick이 호출되지 않는다', async () => {
     const handleClick = vi.fn()
     render(
-      <SocialLoginButton icon={<TestIcon />} label='Test' onClick={handleClick} disabled />
+      <SocialLoginButton
+        icon={<TestIcon />}
+        label='Test'
+        onClick={handleClick}
+        disabled
+      />
     )
 
     await userEvent.click(screen.getByRole('button'))

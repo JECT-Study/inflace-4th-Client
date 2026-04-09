@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/nextjs-vite'
+import tailwindcss from '@tailwindcss/vite'
 import svgr from 'vite-plugin-svgr'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -20,6 +21,7 @@ const config: StorybookConfig = {
     config.plugins = config.plugins ?? []
 
     config.plugins.unshift(
+      tailwindcss(),
       svgr({
         include: '**/*.svg?react', // 쿼리 스트링이 붙은 경우만 타겟팅
         svgrOptions: {

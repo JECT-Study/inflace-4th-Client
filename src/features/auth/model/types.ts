@@ -9,11 +9,16 @@ export interface PopupOAuthConfig {
   popupName: string
 }
 
+export interface LoginErrorDetail {
+  code: string
+  message: string
+}
+
 export interface LoginResponse {
   responseDto: {
     AccessToken: string
     RefreshToken: string
-  }
-  error: string | null
+  } | string
+  error: LoginErrorDetail | null
   success: boolean
 }

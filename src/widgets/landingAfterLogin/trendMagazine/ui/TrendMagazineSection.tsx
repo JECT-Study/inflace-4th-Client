@@ -2,7 +2,10 @@ import Link from 'next/link'
 
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 import { MagazineCard } from '@/entities/landingAfterLogin/magazineCard'
-import { useTrendMagazine } from '@/features/landingAfterLogin/trendMagazine'
+import {
+  useTrendMagazine,
+  mockTrendMagazines,
+} from '@/features/landingAfterLogin/trendMagazine'
 import { formatMonthAndWeek } from '@/shared/lib/format'
 
 interface TrendMagazineSectionProps {
@@ -10,7 +13,8 @@ interface TrendMagazineSectionProps {
 }
 
 export function TrendMagazineSection({ channelId }: TrendMagazineSectionProps) {
-  const { data: magazines, isLoading } = useTrendMagazine(channelId)
+  const { data, isLoading } = useTrendMagazine(channelId)
+  const magazines = data?.length ? data : mockTrendMagazines
 
   //현재 월 + 몇 주차인지
   const now = new Date().toDateString()
@@ -47,7 +51,7 @@ export function TrendMagazineSection({ channelId }: TrendMagazineSectionProps) {
         </div>
       ) : (
         <div className='grid h-fit w-full grid-cols-3 gap-24'>
-          {(magazines ?? []).map((magazine) => (
+          {magazines.map((magazine) => (
             <MagazineCard key={magazine.id} {...magazine} />
           ))}
         </div>

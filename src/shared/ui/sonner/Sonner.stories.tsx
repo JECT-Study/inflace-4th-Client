@@ -36,7 +36,7 @@ export const Success: Story = {
       <div className='p-24'>
         <Button
           color='primary'
-          style='filled'
+          variant='filled'
           size='sm'
           onClick={() =>
             toast.success(
@@ -57,7 +57,7 @@ export const Info: Story = {
       <div className='p-24'>
         <Button
           color='secondary'
-          style='filled'
+          variant='filled'
           size='sm'
           onClick={() => toast.info('정보 메세지')}>
           Info
@@ -74,7 +74,7 @@ export const Error: Story = {
       <div className='p-24'>
         <Button
           color='secondary'
-          style='outlined'
+          variant='outlined'
           size='sm'
           onClick={() => toast.error('오류 메세지')}>
           Error

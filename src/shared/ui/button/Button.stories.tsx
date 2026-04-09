@@ -31,7 +31,7 @@ const meta: Meta<typeof Button> = {
       options: ['lg', 'md', 'sm', 'xs'],
       description: '버튼 크기',
     },
-    style: {
+    variant: {
       control: 'select',
       options: ['filled', 'outlined'],
       description: '버튼 스타일 (gray는 filled만 지원)',
@@ -56,11 +56,11 @@ type Story = StoryObj<typeof meta>
 
 const sizes = ['lg', 'md', 'sm', 'xs'] as const
 const variants = [
-  { color: 'gray', style: 'filled' },
-  { color: 'primary', style: 'filled' },
-  { color: 'primary', style: 'outlined' },
-  { color: 'secondary', style: 'filled' },
-  { color: 'secondary', style: 'outlined' },
+  { color: 'gray', variant: 'filled' },
+  { color: 'primary', variant: 'filled' },
+  { color: 'primary', variant: 'outlined' },
+  { color: 'secondary', variant: 'filled' },
+  { color: 'secondary', variant: 'outlined' },
 ] as const
 
 const ButtonGrid = ({
@@ -75,20 +75,20 @@ const ButtonGrid = ({
       <div key={size}>
         <p className='mb-3 text-sm text-gray-400'>{size}</p>
         <div className='flex flex-wrap items-center gap-4'>
-          {variants.flatMap(({ color, style }) => [
+          {variants.flatMap(({ color, variant }) => [
             <Button
-              key={`${color}-${style}-normal`}
+              key={`${color}-${variant}-normal`}
               color={color}
-              style={style}
+              variant={variant}
               size={size}
               leftIcon={leftIcon}
               rightIcon={rightIcon}>
               레이블
             </Button>,
             <Button
-              key={`${color}-${style}-disabled`}
+              key={`${color}-${variant}-disabled`}
               color={color}
-              style={style}
+              variant={variant}
               size={size}
               leftIcon={leftIcon}
               rightIcon={rightIcon}
@@ -107,7 +107,7 @@ export const Default: Story = {
   args: {
     children: '레이블',
     color: 'primary',
-    style: 'filled',
+    variant: 'filled',
     size: 'lg',
   },
 }

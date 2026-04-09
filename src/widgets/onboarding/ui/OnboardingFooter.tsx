@@ -23,7 +23,7 @@ export function OnboardingFooter() {
             <Button
               color={'gray'}
               size={'lg'}
-              style={'filled'}
+              variant={'filled'}
               leftIcon={<IconLeftArrow />}
               disabled={isPrevDisabled}
               onClick={prevStep}>
@@ -32,7 +32,7 @@ export function OnboardingFooter() {
             <Button
               color={'primary'}
               size={'lg'}
-              style={'filled'}
+              variant={'filled'}
               rightIcon={<IconRightArrow />}
               disabled={isNextDisabled}
               onClick={nextStep}>

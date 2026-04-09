@@ -1,5 +1,27 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
-import axios from 'axios'
+import axios, { type AxiosInstance } from 'axios'
+
+import { mockAccessToken, mockJwtPayload, mockUser } from './mock/mockAuth'
+
+type InterceptorHandler = { fulfilled?: unknown; rejected?: unknown }
+
+function getRequestHandler(instance: AxiosInstance) {
+  const handlers = (
+    instance.interceptors.request as unknown as {
+      handlers: InterceptorHandler[]
+    }
+  ).handlers
+  return handlers.find((h) => h !== null) as InterceptorHandler
+}
+
+function getResponseHandler(instance: AxiosInstance) {
+  const handlers = (
+    instance.interceptors.response as unknown as {
+      handlers: InterceptorHandler[]
+    }
+  ).handlers
+  return handlers.find((h) => h !== null) as InterceptorHandler
+}
 
 /*
  * 모듈 레벨 isRefreshing, failedQueue 변수가 테스트 간 공유되므로
@@ -11,8 +33,8 @@ describe('axiosInstance', () => {
     vi.resetModules()
     // resetModules 후에도 decodeJwt mock이 유지되도록 재등록
     vi.doMock('@/shared/lib/decodeJwt', () => ({
-      decodeJwt: vi.fn().mockReturnValue({ sub: 'user-1', profileImage: '', plan: 'FREE', isNewUser: false }),
-      jwtToAuthUser: vi.fn().mockReturnValue({ id: 'user-1', profileImage: '', plan: 'FREE', isNewUser: false }),
+      decodeJwt: vi.fn().mockReturnValue(mockJwtPayload),
+      jwtToAuthUser: vi.fn().mockReturnValue(mockUser),
     }))
   })
 
@@ -23,16 +45,17 @@ describe('axiosInstance', () => {
   describe('Request interceptor', () => {
     it('AT가 있을 때 Authorization: Bearer 헤더를 주입한다', async () => {
       const { useAuthStore } = await import('./authStore')
-      useAuthStore.getState().setAuth('test-access-token', null)
+      useAuthStore.getState().setAuth(mockAccessToken, null)
 
       const { axiosInstance } = await import('./axiosInstance')
-      const handlers = (axiosInstance.interceptors.request as any).handlers
-      const { fulfilled } = handlers.find((h: any) => h !== null)
+      const { fulfilled } = getRequestHandler(axiosInstance)
 
       const config = { headers: new axios.AxiosHeaders() }
-      const result = await fulfilled(config)
+      const result = await (
+        fulfilled as (c: unknown) => Promise<typeof config>
+      )(config)
 
-      expect(result.headers.Authorization).toBe('Bearer test-access-token')
+      expect(result.headers.Authorization).toBe(`Bearer ${mockAccessToken}`)
     })
 
     it('AT가 없을 때 Authorization 헤더를 포함하지 않는다', async () => {
@@ -40,11 +63,12 @@ describe('axiosInstance', () => {
       useAuthStore.getState().reset()
 
       const { axiosInstance } = await import('./axiosInstance')
-      const handlers = (axiosInstance.interceptors.request as any).handlers
-      const { fulfilled } = handlers.find((h: any) => h !== null)
+      const { fulfilled } = getRequestHandler(axiosInstance)
 
       const config = { headers: new axios.AxiosHeaders() }
-      const result = await fulfilled(config)
+      const result = await (
+        fulfilled as (c: unknown) => Promise<typeof config>
+      )(config)
 
       expect(result.headers.Authorization).toBeUndefined()
     })
@@ -53,23 +77,25 @@ describe('axiosInstance', () => {
   describe('Response interceptor', () => {
     it('401 이외의 에러는 그대로 reject한다', async () => {
       const { axiosInstance } = await import('./axiosInstance')
-      const handlers = (axiosInstance.interceptors.response as any).handlers
-      const { rejected } = handlers.find((h: any) => h !== null)
+      const { rejected } = getResponseHandler(axiosInstance)
 
       const error = { response: { status: 500 }, config: { headers: {} } }
-      await expect(rejected(error)).rejects.toEqual(error)
+      await expect(
+        (rejected as (e: unknown) => Promise<unknown>)(error)
+      ).rejects.toEqual(error)
     })
 
     it('이미 _retry된 요청은 다시 retry하지 않는다', async () => {
       const { axiosInstance } = await import('./axiosInstance')
-      const handlers = (axiosInstance.interceptors.response as any).handlers
-      const { rejected } = handlers.find((h: any) => h !== null)
+      const { rejected } = getResponseHandler(axiosInstance)
 
       const error = {
         response: { status: 401 },
         config: { headers: {}, _retry: true },
       }
-      await expect(rejected(error)).rejects.toEqual(error)
+      await expect(
+        (rejected as (e: unknown) => Promise<unknown>)(error)
+      ).rejects.toEqual(error)
     })
 
     it('401 응답 시 /auth/refresh를 호출한다', async () => {
@@ -77,22 +103,26 @@ describe('axiosInstance', () => {
 
       const axiosPostSpy = vi
         .spyOn(axios, 'post')
-        .mockResolvedValueOnce({ data: { accessToken: 'new-token' } })
+        .mockResolvedValueOnce({ data: { accessToken: mockAccessToken } })
 
       // 재시도 요청은 axiosInstance 어댑터를 mock하여 실제 HTTP 요청 방지
       axiosInstance.defaults.adapter = vi
         .fn()
-        .mockResolvedValueOnce({ data: 'retried', status: 200, headers: {}, config: {} })
+        .mockResolvedValueOnce({
+          data: 'retried',
+          status: 200,
+          headers: {},
+          config: {},
+        })
 
-      const handlers = (axiosInstance.interceptors.response as any).handlers
-      const { rejected } = handlers.find((h: any) => h !== null)
+      const { rejected } = getResponseHandler(axiosInstance)
 
       const error = {
         response: { status: 401 },
         config: { headers: new axios.AxiosHeaders(), _retry: false },
       }
 
-      await rejected(error)
+      await (rejected as (e: unknown) => Promise<unknown>)(error)
 
       expect(axiosPostSpy).toHaveBeenCalledWith('/auth/refresh', null, {
         withCredentials: true,
@@ -103,75 +133,83 @@ describe('axiosInstance', () => {
       const { useAuthStore } = await import('./authStore')
       const { axiosInstance } = await import('./axiosInstance')
 
-      const newToken = 'new-access-token'
       vi.spyOn(axios, 'post').mockResolvedValueOnce({
-        data: { accessToken: newToken },
+        data: { accessToken: mockAccessToken },
       })
 
       axiosInstance.defaults.adapter = vi
         .fn()
-        .mockResolvedValueOnce({ data: 'success', status: 200, headers: {}, config: {} })
+        .mockResolvedValueOnce({
+          data: 'success',
+          status: 200,
+          headers: {},
+          config: {},
+        })
 
-      const handlers = (axiosInstance.interceptors.response as any).handlers
-      const { rejected } = handlers.find((h: any) => h !== null)
+      const { rejected } = getResponseHandler(axiosInstance)
 
       const error = {
         response: { status: 401 },
         config: { headers: new axios.AxiosHeaders(), _retry: false },
       }
 
-      await rejected(error)
+      await (rejected as (e: unknown) => Promise<unknown>)(error)
 
-      expect(useAuthStore.getState().accessToken).toBe(newToken)
+      expect(useAuthStore.getState().accessToken).toBe(mockAccessToken)
     })
 
     it('refresh 실패 시 authStore.reset()을 호출한다', async () => {
       const { useAuthStore } = await import('./authStore')
-      useAuthStore.getState().setAuth('old-token', null)
+      useAuthStore.getState().setAuth(mockAccessToken, null)
 
       const { axiosInstance } = await import('./axiosInstance')
 
       vi.spyOn(axios, 'post').mockRejectedValueOnce(new Error('refresh failed'))
 
-      const handlers = (axiosInstance.interceptors.response as any).handlers
-      const { rejected } = handlers.find((h: any) => h !== null)
+      const { rejected } = getResponseHandler(axiosInstance)
 
       const error = {
         response: { status: 401 },
         config: { headers: new axios.AxiosHeaders(), _retry: false },
       }
 
-      await expect(rejected(error)).rejects.toThrow()
+      await expect(
+        (rejected as (e: unknown) => Promise<unknown>)(error)
+      ).rejects.toThrow()
       expect(useAuthStore.getState().accessToken).toBeNull()
     })
 
     it('동시 401 요청 시 refresh는 한 번만 호출된다', async () => {
       const { axiosInstance } = await import('./axiosInstance')
 
-      let resolveRefresh!: (val: any) => void
+      let resolveRefresh!: (val: unknown) => void
       const refreshPromise = new Promise((res) => {
         resolveRefresh = res
       })
 
-      const axiosPostSpy = vi.spyOn(axios, 'post').mockReturnValueOnce(
-        refreshPromise as any
-      )
+      const axiosPostSpy = vi
+        .spyOn(axios, 'post')
+        .mockReturnValueOnce(refreshPromise as ReturnType<typeof axios.post>)
       axiosInstance.defaults.adapter = vi
         .fn()
-        .mockResolvedValue({ data: 'retried', status: 200, headers: {}, config: {} })
+        .mockResolvedValue({
+          data: 'retried',
+          status: 200,
+          headers: {},
+          config: {},
+        })
 
-      const handlers = (axiosInstance.interceptors.response as any).handlers
-      const { rejected } = handlers.find((h: any) => h !== null)
+      const { rejected } = getResponseHandler(axiosInstance)
 
       const makeError = () => ({
         response: { status: 401 },
         config: { headers: new axios.AxiosHeaders(), _retry: false },
       })
 
-      const p1 = rejected(makeError())
-      const p2 = rejected(makeError())
+      const p1 = (rejected as (e: unknown) => Promise<unknown>)(makeError())
+      const p2 = (rejected as (e: unknown) => Promise<unknown>)(makeError())
 
-      resolveRefresh({ data: { accessToken: 'shared-token', user: null } })
+      resolveRefresh({ data: { accessToken: mockAccessToken, user: null } })
 
       await Promise.all([p1, p2])
 

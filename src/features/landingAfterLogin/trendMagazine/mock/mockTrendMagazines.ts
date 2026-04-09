@@ -1,7 +1,7 @@
 import thumbnail from './thumbnail.png'
 import type { MagazineCardItem } from '@/entities/landingAfterLogin/magazineCard'
 
-export const trendMagazineMock: MagazineCardItem[] = [
+export const mockTrendMagazines: MagazineCardItem[] = [
   {
     id: 'm1',
     thumbnailUrl: thumbnail.src,

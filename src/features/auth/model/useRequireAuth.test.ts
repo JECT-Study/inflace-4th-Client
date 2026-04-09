@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import { renderHook, act, waitFor } from '@testing-library/react'
 
 import { useAuthStore } from '@/shared/api'
+import { mockAccessToken, mockUser } from '@/shared/api/mock/mockAuth'
 import { useLoginModal } from './useLoginModal'
 import { useRequireAuth } from './useRequireAuth'
 
@@ -13,8 +14,8 @@ describe('useRequireAuth', () => {
 
   it('인증됨 + 초기화 완료 시 모달을 오픈하지 않는다', () => {
     useAuthStore.setState({
-      accessToken: 'token',
-      user: null,
+      accessToken: mockAccessToken,
+      user: mockUser,
       isInitializing: false,
     })
 

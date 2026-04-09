@@ -11,7 +11,10 @@ import {
   formatThousands,
   formatDate,
 } from '@/shared/lib/format'
-import { useChannelProfile } from '@/features/landingAfterLogin/channelProfile'
+import {
+  useChannelProfile,
+  mockChannelProfile,
+} from '@/features/landingAfterLogin/channelProfile'
 import RedirectIcon from '@/shared/assets/redirect-bold.svg'
 
 interface ChannelProfileSectionProps {
@@ -23,7 +26,8 @@ interface ChannelProfileSectionProps {
 export function ChannelProfileSection({
   channelId,
 }: ChannelProfileSectionProps) {
-  const { data, isLoading } = useChannelProfile(channelId)
+  const { data: apiData, isLoading } = useChannelProfile(channelId)
+  const data = apiData ?? mockChannelProfile
 
   if (isLoading) {
     return (
@@ -42,8 +46,6 @@ export function ChannelProfileSection({
       </section>
     )
   }
-
-  if (!data) return null
 
   return (
     <section className='flex flex-col gap-25 bg-background-gray-default p-3xl md:flex-row'>

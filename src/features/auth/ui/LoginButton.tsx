@@ -17,7 +17,7 @@ export function LoginButton() {
 
   if (isInitializing) {
     return (
-      <Button color='gray' size='sm' style='filled' disabled>
+      <Button color='gray' size='sm' variant='filled' disabled>
         <span className='text-label-sm'>로딩중...</span>
       </Button>
     )
@@ -26,7 +26,7 @@ export function LoginButton() {
   if (isAuthenticated) {
     return (
       <>
-        <Button color='secondary' size='sm' style='filled' onClick={logout}>
+        <Button color='secondary' size='sm' variant='filled' onClick={logout}>
           <span className='text-label-sm'>로그아웃</span>
         </Button>
         <UserAvatar size={'sm'} showBadge={false} profileImage={user?.profileImage} />
@@ -35,7 +35,7 @@ export function LoginButton() {
   }
 
   return (
-    <Button color='secondary' size='sm' style='filled' onClick={openModal}>
+    <Button color='secondary' size='sm' variant='filled' onClick={openModal}>
       <span className='text-label-sm'>로그인</span>
     </Button>
   )

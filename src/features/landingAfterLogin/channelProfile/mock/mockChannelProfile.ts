@@ -1,8 +1,8 @@
 import type { ChannelProfileDto } from '@/entities/landingAfterLogin/channelProfile'
-import profilePng from '@/shared/assets/mock/profilepng.png'
+import mockProfileImage from '@/shared/assets/mock/mockProfileImage.png'
 
-export const channelProfileMock: ChannelProfileDto = {
-  profileImageUrl: profilePng.src,
+export const mockChannelProfile: ChannelProfileDto = {
+  profileImageUrl: mockProfileImage.src,
   name: '김튜브 스튜디오 김튜브 스튜디오',
   youtubeStudioUrl: 'https://studio.youtube.com/channel/1',
   channelHandle: '@kimtube_studio',

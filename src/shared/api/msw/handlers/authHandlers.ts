@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
 
-import { userMock } from '@/shared/api/mock/userMock'
+import { mockAccessToken, mockUser } from '@/shared/api/mock/mockAuth'
 
 // 서비스 워커 컨텍스트에서 mock 로그인 상태를 추적하는 플래그
 // httpOnly 쿠키는 서비스 워커에서 읽을 수 없으므로 모듈 변수로 관리
@@ -18,8 +18,8 @@ export const authHandlers = [
     }
 
     return HttpResponse.json({
-      accessToken: 'mock-access-token',
-      user: userMock,
+      accessToken: mockAccessToken,
+      user: mockUser,
     })
   }),
 

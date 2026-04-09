@@ -15,18 +15,18 @@ export function FeatureCard({
   const router = useRouter()
   return (
     <>
-      <div className='bd-[var(--color-stroke-border-primary)] rounded-[var(--radius-12)] border bg-[var(--color-background-gray-default)] px-[var(--spacing-xl)] py-[var(--spacing-2xl)]'>
-        <h4 className='flex items-center gap-[var(--spacing-8)] text-[length:var(--text-title-lg)] font-semibold text-[var(--color-brand-primary)] [&_path]:fill-[var(--color-brand-primary)]'>
+      <div className='bd-[var(--color-stroke-border-primary)] rounded-12--color-background-gray-default)] px-(--spacing-xl)var(--spacing-2xl)]'>
+        <h4 className='flex items-center gap-8 text-title-lg font-semibold text-brand-primary [&_path]:fill-brand-primary'>
           <IconZap className='size-26' />
           {title}
         </h4>
-        <h5 className='mt-[var(--spacing-2xl)] text-[length:var(--text-title-sm)] font-medium'>
+        <h5 className='mt-(--spacing-2xl) text-(length:--text-title-sm) font-medium'>
           {subTitle}
         </h5>
-        <p className='mt-[var(--spacing-xs)] text-[length:var(--text-body-sm)] font-normal'>
+        <p className='mt-(--spacing-xs) text-(length:--text-body-sm) font-normal'>
           {description}
         </p>
-        <div className='mt-[var(--spacing-xl)] h-[232px] w-full overflow-hidden rounded-[var(--radius-8)]'>
+        <div className='mt-(--spacing-xl) h-58 w-full overflow-hidden rounded-8'>
           <Image
             src={imgSrc}
             alt={title}
@@ -34,10 +34,10 @@ export function FeatureCard({
           />
         </div>
         <Button
-          className='float-right mt-[var(--spacing-xl)] cursor-pointer'
+          className='float-right mt-(--spacing-xl) cursor-pointer'
           color='secondary'
           size={'sm'}
-          style={'filled'}
+          variant='filled'
           rightIcon={<IconRightArrow />}
           onClick={() => router.push(url)}>
           바로가기

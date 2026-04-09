@@ -8,7 +8,7 @@ export const PlanButton = () => {
     <>
       <Button
         color='primary'
-        style='filled'
+        variant='filled'
         size='xs'
         className='gap-4 text-(length:--text-label-xs)'
         rightIcon={<IconLock className='size-[calc(var(--spacing-12))]' />}>

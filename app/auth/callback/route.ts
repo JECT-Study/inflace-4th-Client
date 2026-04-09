@@ -42,7 +42,15 @@ export async function GET(request: NextRequest) {
     const data: LoginResponse = await backendResponse.json()
 
     if (!data.success) {
-      throw new Error(data.error || '백엔드 인증에 실패했습니다.')
+      throw new Error(
+        typeof data.error === 'object' && data.error !== null
+          ? data.error.message
+          : '백엔드 인증에 실패했습니다.'
+      )
+    }
+
+    if (typeof data.responseDto !== 'object') {
+      throw new Error('백엔드 인증에 실패했습니다.')
     }
 
     const { AccessToken } = data.responseDto

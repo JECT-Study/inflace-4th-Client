@@ -14,7 +14,7 @@ describe('Button', () => {
     it('기본 variant(primary/filled/lg) 클래스가 적용된다', () => {
       render(<Button>버튼</Button>)
       const button = screen.getByRole('button')
-      expect(button.className).toMatch(/bg-\[var\(--color-brand-primary\)\]/)
+      expect(button).toHaveClass('bg-brand-primary')
     })
 
     it('추가 className이 기존 클래스와 병합된다', () => {
@@ -99,17 +99,17 @@ describe('Button', () => {
   describe('variant 클래스', () => {
     it('color="secondary" 적용 시 secondary 클래스가 포함된다', () => {
       render(
-        <Button color='secondary' style='filled'>
+        <Button color='secondary' variant='filled'>
           버튼
         </Button>
       )
       const button = screen.getByRole('button')
-      expect(button.className).toMatch(/bg-\[var\(--color-brand-secondary\)\]/)
+      expect(button).toHaveClass('bg-brand-secondary')
     })
 
-    it('style="outlined" 적용 시 border 클래스가 포함된다', () => {
+    it('variant="outlined" 적용 시 border 클래스가 포함된다', () => {
       render(
-        <Button color='primary' style='outlined'>
+        <Button color='primary' variant='outlined'>
           버튼
         </Button>
       )
@@ -119,8 +119,7 @@ describe('Button', () => {
     it('size="xs" 적용 시 xs 크기 클래스가 포함된다', () => {
       render(<Button size='xs'>버튼</Button>)
       const button = screen.getByRole('button')
-      // leading-label-xs는 tailwind-merge 충돌 없이 xs size를 식별하는 고유 클래스
-      expect(button.className).toMatch(/leading-\[var\(--leading-label-xs\)\]/)
+      expect(button).toHaveClass('text-noto-label-xs-normal')
     })
   })
 })

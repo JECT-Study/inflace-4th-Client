@@ -43,7 +43,7 @@ export function LoginModal() {
           </div>
 
           {/* 메인 문구 */}
-          <DialogTitle className='size-fit text-center text-body-xs leading-(--leading-body-md) font-medium tracking-[-1%] text-text-and-icon-default'>
+          <DialogTitle className='size-fit text-center text-noto-body-xs-bold text-text-and-icon-default'>
             인플루언서 탐색, 채널 분석, 콘텐츠 분석까지 모두 경험하세요
           </DialogTitle>
         </div>
@@ -75,7 +75,7 @@ export function LoginModal() {
           </div>
 
           {/* 하단 링크 */}
-          <div className='flex size-fit items-center justify-center gap-16 text-label-md leading-(--leading-caption-sm) text-text-and-icon-secondary'>
+          <div className='flex size-fit items-center justify-center gap-16 text-noto-label-md-thin text-text-and-icon-secondary'>
             <span>이용약관</span>
             <span>개인정보처리방침</span>
           </div>

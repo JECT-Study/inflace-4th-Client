@@ -1,5 +1,12 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 
+import {
+  mockAccessToken,
+  mockRefreshToken,
+  mockNewRefreshToken,
+  mockReissueResponse,
+} from '@/shared/api/mock/mockAuth'
+
 const mockCookieStore = {
   set: vi.fn(),
   get: vi.fn(),
@@ -30,13 +37,12 @@ describe('POST /auth/reissue', () => {
   })
 
   it('fetch 요청 시 refreshToken을 Cookie 헤더로 전달한다', async () => {
-    mockCookieStore.get.mockReturnValue({ value: 'old-refresh-token' })
-    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
-      new Response(
-        JSON.stringify({ responseDto: { AccessToken: 'new-at' } }),
-        { status: 200 }
+    mockCookieStore.get.mockReturnValue({ value: mockRefreshToken })
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(mockReissueResponse), { status: 200 })
       )
-    )
 
     const { POST } = await import('./route')
     await POST()
@@ -45,21 +51,22 @@ describe('POST /auth/reissue', () => {
       expect.stringContaining('/auth/reissue'),
       expect.objectContaining({
         method: 'POST',
-        headers: expect.objectContaining({ Cookie: 'refreshToken=old-refresh-token' }),
+        headers: expect.objectContaining({
+          Cookie: `refreshToken=${mockRefreshToken}`,
+        }),
       })
     )
   })
 
   it('백엔드 성공 시 Set-Cookie 헤더에서 추출한 새 RT 쿠키를 설정한다', async () => {
-    mockCookieStore.get.mockReturnValue({ value: 'old-refresh-token' })
+    mockCookieStore.get.mockReturnValue({ value: mockRefreshToken })
     vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
-      new Response(
-        JSON.stringify({ responseDto: { AccessToken: 'new-at' } }),
-        {
-          status: 200,
-          headers: { 'set-cookie': 'refreshToken=new-rt; Path=/; HttpOnly' },
-        }
-      )
+      new Response(JSON.stringify(mockReissueResponse), {
+        status: 200,
+        headers: {
+          'set-cookie': `refreshToken=${mockNewRefreshToken}; Path=/; HttpOnly`,
+        },
+      })
     )
 
     const { POST } = await import('./route')
@@ -67,30 +74,29 @@ describe('POST /auth/reissue', () => {
 
     expect(mockCookieStore.set).toHaveBeenCalledWith(
       'refreshToken',
-      'new-rt',
+      mockNewRefreshToken,
       expect.objectContaining({ httpOnly: true, secure: false })
     )
   })
 
   it('백엔드 성공 시 { accessToken, user }를 반환한다', async () => {
-    mockCookieStore.get.mockReturnValue({ value: 'old-refresh-token' })
+    mockCookieStore.get.mockReturnValue({ value: mockRefreshToken })
     vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
-      new Response(
-        JSON.stringify({ responseDto: { AccessToken: 'new-at' } }),
-        { status: 200 }
-      )
+      new Response(JSON.stringify(mockReissueResponse), { status: 200 })
     )
 
     const { POST } = await import('./route')
     const response = await POST()
     const data = await response.json()
 
-    expect(data.accessToken).toBe('new-at')
-    expect(data.user).toBeNull()
+    expect(data.accessToken).toBe(mockAccessToken)
+    expect(data.user).toEqual(
+      expect.objectContaining({ id: '1', plan: 'FREE' })
+    )
   })
 
   it('백엔드 실패 시 RT 쿠키를 삭제하고 401을 반환한다', async () => {
-    mockCookieStore.get.mockReturnValue({ value: 'old-refresh-token' })
+    mockCookieStore.get.mockReturnValue({ value: mockRefreshToken })
     vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
       new Response('Unauthorized', { status: 401 })
     )
@@ -103,7 +109,7 @@ describe('POST /auth/reissue', () => {
   })
 
   it('네트워크 에러 시 500을 반환한다', async () => {
-    mockCookieStore.get.mockReturnValue({ value: 'old-refresh-token' })
+    mockCookieStore.get.mockReturnValue({ value: mockRefreshToken })
     vi.spyOn(globalThis, 'fetch').mockRejectedValueOnce(
       new Error('Network error')
     )

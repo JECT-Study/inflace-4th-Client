@@ -48,7 +48,7 @@ export function PlansCard({
         <Button
           className='h-fit w-full gap-10 rounded-6 px-20 py-10'
           color={`${planName == 'Growth' ? 'primary' : 'secondary'}`}
-          style={'filled'}>
+          variant={'filled'}>
           {buttonLabel}
         </Button>
       </div>

@@ -53,7 +53,7 @@ export function OnboardingActionButtons() {
         <Button
           color={'primary'}
           size={'lg'}
-          style={'filled'}
+          variant={'filled'}
           onClick={handelComplete}
           rightIcon={<IconRightArrow />}
           className='ml-auto'>

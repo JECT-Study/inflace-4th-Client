@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 
+import { mockRefreshToken } from '@/shared/api/mock/mockAuth'
+
 const mockCookieStore = {
   set: vi.fn(),
   get: vi.fn(),
@@ -21,10 +23,10 @@ afterEach(() => {
 
 describe('POST /auth/logout', () => {
   it('RT 쿠키가 있을 때 백엔드 로그아웃을 호출한다', async () => {
-    mockCookieStore.get.mockReturnValue({ value: 'refresh-token' })
-    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
-      new Response(null, { status: 200 })
-    )
+    mockCookieStore.get.mockReturnValue({ value: mockRefreshToken })
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(new Response(null, { status: 200 }))
 
     const { POST } = await import('./route')
     await POST()
@@ -36,7 +38,7 @@ describe('POST /auth/logout', () => {
   })
 
   it('RT 쿠키가 있을 때 로그아웃 후 쿠키를 삭제한다', async () => {
-    mockCookieStore.get.mockReturnValue({ value: 'refresh-token' })
+    mockCookieStore.get.mockReturnValue({ value: mockRefreshToken })
     vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
       new Response(null, { status: 200 })
     )
@@ -69,8 +71,10 @@ describe('POST /auth/logout', () => {
   })
 
   it('백엔드 로그아웃 실패해도 쿠키를 삭제하고 성공을 반환한다', async () => {
-    mockCookieStore.get.mockReturnValue({ value: 'refresh-token' })
-    vi.spyOn(globalThis, 'fetch').mockRejectedValueOnce(new Error('Network error'))
+    mockCookieStore.get.mockReturnValue({ value: mockRefreshToken })
+    vi.spyOn(globalThis, 'fetch').mockRejectedValueOnce(
+      new Error('Network error')
+    )
 
     const { POST } = await import('./route')
     const response = await POST()

@@ -19,7 +19,7 @@ export const ChannelStatus = () => {
       </div>
       <Button
         color='primary'
-        style='filled'
+        variant='filled'
         size='xs'
         className='text-(length:--text-label-xs) font-medium'
         onClick={openModal}>

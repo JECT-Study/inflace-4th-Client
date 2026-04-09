@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest'
 
 import { useAuthStore } from './authStore'
 
-import { userMock } from './mock/userMock'
+import { mockUser } from './mock/mockAuth'
 
 describe('authStore', () => {
   beforeEach(() => {
@@ -24,23 +24,23 @@ describe('authStore', () => {
   })
 
   it('setAuth 호출 시 accessToken이 설정된다', () => {
-    useAuthStore.getState().setAuth('token123', userMock)
+    useAuthStore.getState().setAuth('token123', mockUser)
     expect(useAuthStore.getState().accessToken).toBe('token123')
   })
 
   it('setAuth 호출 시 user가 설정된다', () => {
-    useAuthStore.getState().setAuth('token123', userMock)
-    expect(useAuthStore.getState().user).toEqual(userMock)
+    useAuthStore.getState().setAuth('token123', mockUser)
+    expect(useAuthStore.getState().user).toEqual(mockUser)
   })
 
   it('reset 호출 시 accessToken이 null로 초기화된다', () => {
-    useAuthStore.getState().setAuth('token123', userMock)
+    useAuthStore.getState().setAuth('token123', mockUser)
     useAuthStore.getState().reset()
     expect(useAuthStore.getState().accessToken).toBeNull()
   })
 
   it('reset 호출 시 user가 null로 초기화된다', () => {
-    useAuthStore.getState().setAuth('token123', userMock)
+    useAuthStore.getState().setAuth('token123', mockUser)
     useAuthStore.getState().reset()
     expect(useAuthStore.getState().user).toBeNull()
   })
@@ -57,9 +57,9 @@ describe('authStore', () => {
   })
 
   it('getState()로 React 외부에서 상태에 접근할 수 있다', () => {
-    useAuthStore.getState().setAuth('external-token', userMock)
+    useAuthStore.getState().setAuth('external-token', mockUser)
     const state = useAuthStore.getState()
     expect(state.accessToken).toBe('external-token')
-    expect(state.user).toEqual(userMock)
+    expect(state.user).toEqual(mockUser)
   })
 })

@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
 
-import { trendMagazineMock } from '@/features/landingAfterLogin/trendMagazine/mock/trendMagazineMock'
+import { mockTrendMagazines } from '@/features/landingAfterLogin/trendMagazine/mock/mockTrendMagazines'
 
 export const trendMagazineHandlers = [
   http.get(
@@ -8,7 +8,7 @@ export const trendMagazineHandlers = [
     () => {
       return HttpResponse.json({
         success: true,
-        responseDto: trendMagazineMock,
+        responseDto: mockTrendMagazines,
         error: null,
       })
     }

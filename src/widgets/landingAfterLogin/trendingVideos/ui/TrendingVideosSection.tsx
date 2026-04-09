@@ -3,7 +3,10 @@ import Link from 'next/link'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 import { VideoCard } from '@/entities/landingAfterLogin/videoCard'
 import { PlanGate } from '@/features/planGate'
-import { useTrendingVideos } from '@/features/landingAfterLogin/trendingVideos'
+import {
+  useTrendingVideos,
+  mockTrendingVideos,
+} from '@/features/landingAfterLogin/trendingVideos'
 
 interface TrendingVideosSectionProps {
   channelId: string
@@ -13,7 +16,8 @@ interface TrendingVideosSectionProps {
 export function TrendingVideosSection({
   channelId,
 }: TrendingVideosSectionProps) {
-  const { data: videos, isLoading } = useTrendingVideos(channelId)
+  const { data, isLoading } = useTrendingVideos(channelId)
+  const videos = data?.length ? data : mockTrendingVideos
 
   return (
     <section className='flex h-fit w-full flex-col gap-16'>
@@ -48,7 +52,7 @@ export function TrendingVideosSection({
           {' '}
           <div className='grid grid-cols-2 gap-4'>
             {' '}
-            {(videos ?? []).slice(0, 4).map((video) => (
+            {videos.slice(0, 4).map((video) => (
               <VideoCard key={video.id} {...video} />
             ))}{' '}
           </div>{' '}
