@@ -1,0 +1,80 @@
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { renderHook, act } from '@testing-library/react'
+
+import { useAuthStore } from '@/shared/api'
+import { useAuth } from './useAuth'
+
+const mockUser = { id: '1', name: 'Test User', email: 'test@test.com', profileImage: '' }
+
+describe('useAuth', () => {
+  beforeEach(() => {
+    useAuthStore.getState().reset()
+    useAuthStore.getState().setInitializing(false)
+  })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it('accessToken이 있을 때 isAuthenticated가 true다', () => {
+    useAuthStore.setState({ accessToken: 'token', user: mockUser, isInitializing: false })
+    const { result } = renderHook(() => useAuth())
+    expect(result.current.isAuthenticated).toBe(true)
+  })
+
+  it('accessToken이 없을 때 isAuthenticated가 false다', () => {
+    useAuthStore.setState({ accessToken: null, user: null, isInitializing: false })
+    const { result } = renderHook(() => useAuth())
+    expect(result.current.isAuthenticated).toBe(false)
+  })
+
+  it('isInitializing이 authStore.isInitializing을 반영한다', () => {
+    useAuthStore.setState({ isInitializing: true, accessToken: null, user: null })
+    const { result } = renderHook(() => useAuth())
+    expect(result.current.isInitializing).toBe(true)
+  })
+
+  it('user가 authStore.user를 반영한다', () => {
+    useAuthStore.setState({ accessToken: 'token', user: mockUser, isInitializing: false })
+    const { result } = renderHook(() => useAuth())
+    expect(result.current.user).toEqual(mockUser)
+  })
+
+  it('logout 호출 시 authStore가 reset된다', async () => {
+    useAuthStore.setState({ accessToken: 'token', user: mockUser, isInitializing: false })
+    vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(new Response())
+
+    const { result } = renderHook(() => useAuth())
+    await act(async () => {
+      await result.current.logout()
+    })
+
+    expect(useAuthStore.getState().accessToken).toBeNull()
+    expect(useAuthStore.getState().user).toBeNull()
+  })
+
+  it('logout 호출 시 /auth/logout으로 POST 요청을 보낸다', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(new Response())
+
+    const { result } = renderHook(() => useAuth())
+    await act(async () => {
+      await result.current.logout()
+    })
+
+    expect(fetchSpy).toHaveBeenCalledWith('/auth/logout', { method: 'POST' })
+  })
+
+  it('logout 시 fetch 실패해도 에러가 전파되지 않는다', async () => {
+    useAuthStore.setState({ accessToken: 'token', user: mockUser, isInitializing: false })
+    vi.spyOn(globalThis, 'fetch').mockRejectedValueOnce(new Error('Network error'))
+
+    const { result } = renderHook(() => useAuth())
+    await expect(
+      act(async () => {
+        await result.current.logout()
+      })
+    ).resolves.not.toThrow()
+
+    expect(useAuthStore.getState().accessToken).toBeNull()
+  })
+})
