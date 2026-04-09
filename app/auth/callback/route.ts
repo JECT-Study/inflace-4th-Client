@@ -45,16 +45,22 @@ export async function GET(request: NextRequest) {
       throw new Error(data.error || '백엔드 인증에 실패했습니다.')
     }
 
-    const { AccessToken, RefreshToken } = data.responseDto
+    const { AccessToken } = data.responseDto
 
-    //Refresh token을 httpOnly/Secure/SameSite=Lax 쿠키로 저장
-    cookieStore.set('__Host-refresh-token', RefreshToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 60 * 60 * 24 * 14,
-    })
+    // 백엔드가 Set-Cookie 헤더로 refreshToken을 내려주므로 값을 추출하여 재설정
+    const setCookieHeader = backendResponse.headers.get('set-cookie')
+    const refreshTokenMatch = setCookieHeader?.match(/refreshToken=([^;]+)/)
+    const refreshToken = refreshTokenMatch?.[1]
+
+    if (refreshToken) {
+      cookieStore.set('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7,
+      })
+    }
 
     // 현재 로그인 응답에 user 정보가 없으므로, accessToken만 전달
     // 향후 /me 엔드포인트가 생기면 user 정보도 함께 전달

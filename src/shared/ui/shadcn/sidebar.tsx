@@ -215,7 +215,7 @@ function Sidebar({
         className={cn(
           'relative w-(--sidebar-width) bg-transparent transition-[width] duration-300 ease-linear',
           'group-data-[collapsible=offcanvas]:w-0',
-          'min-w-[var(--spacing-80)]',
+          'min-w-80',
           variant === 'floating' || variant === 'inset'
             ? 'group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]'
             : 'group-data-[collapsible=icon]:w-(--sidebar-width-icon)'
@@ -230,7 +230,7 @@ function Sidebar({
           'group-data-[collapsible=offcanvas]:w-0 group-data-[collapsible=offcanvas]:-translate-x-full group-data-[collapsible=offcanvas]:opacity-0',
           variant === 'floating' || variant === 'inset'
             ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]'
-            : 'border-[var(--color-stroke-border-primary)] group-data-[collapsible=icon]:w-(--sidebar-width-icon)',
+            : 'border-(--color-stroke-border-primary) group-data-[collapsible=icon]:w-(--sidebar-width-icon)',
           className
         )}
         {...props}>
@@ -246,7 +246,6 @@ function Sidebar({
 }
 
 function SidebarTrigger({
-  className,
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
@@ -258,7 +257,7 @@ function SidebarTrigger({
       data-slot='sidebar-trigger'
       color='secondary'
       className={cn(
-        'fixed top-[var(--spacing-2xs)] left-[var(--spacing-sm)] z-99 flex h-[var(--spacing-2xl)] w-[var(--spacing-2xl)] cursor-pointer items-center justify-center rounded-[var(--radius-8)] bg-transparent hover:bg-[var(--comp-button-secondary-outlined-outlined-hover)] active:bg-[var(--comp-button-secondary-outlined-outlined-pressed)]',
+        'fixed top-2xs left-(--spacing-sm) z-99 flex h-(--spacing-2xl) w-(--spacing-2xl) cursor-pointer items-center justify-center rounded-8 bg-transparent hover:bg-(--comp-button-secondary-outlined-outlined-hover) active:bg-(--comp-button-secondary-outlined-outlined-pressed)',
         open && 'rotate-180'
       )}
       onClick={(event) => {
@@ -268,7 +267,7 @@ function SidebarTrigger({
       {...props}>
       <SidebarIcon
         name={'sidebar'}
-        className='text-[var(--color-text-and-icon-secondary)]'
+        className='text-text-and-icon-secondary'
         size={20}
       />
     </Button>
@@ -287,7 +286,7 @@ function SidebarRail({ className, ...props }: React.ComponentProps<'button'>) {
       onClick={toggleSidebar}
       title='Toggle Sidebar'
       className={cn(
-        'absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] hover:after:bg-sidebar-border sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2',
+        'absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:inset-s-1/2 after:w-[2px] hover:after:bg-sidebar-border sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2',
         'in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize',
         '[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize',
         'group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full hover:group-data-[collapsible=offcanvas]:bg-sidebar',
@@ -472,7 +471,7 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<'li'>) {
       data-slot='sidebar-menu-item'
       data-sidebar='menu-item'
       className={cn(
-        'text-[length:var(--text-label-md)] leading-md text-[var(--color-text-and-icon-tertiary)]',
+        'text-(length:--text-label-md) leading-md text-text-and-icon-tertiary',
         className
       )}
       {...props}

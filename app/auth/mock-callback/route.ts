@@ -22,12 +22,12 @@ export async function GET() {
 
   // mock refresh token 쿠키 저장 (새로고침 시 /auth/refresh MSW 핸들러가 처리)
   const cookieStore = await cookies()
-  cookieStore.set('__Host-refresh-token', 'mock-refresh-token', {
+  cookieStore.set('refreshToken', 'mock-refresh-token', {
     httpOnly: true,
-    secure: true,
+    secure: false,
     sameSite: 'lax',
     path: '/',
-    maxAge: 60 * 60 * 24 * 14,
+    maxAge: 60 * 60 * 24 * 7,
   })
 
   return new NextResponse(

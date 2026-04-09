@@ -1,8 +1,6 @@
 'use client'
 
-import profileImg from '@/shared/assets/mock/profilepng.png'
-import { userMock } from '@/shared/api/mock/userMock'
-import IconYoutube from '@/shared/assets/youtube.svg'
+import IconYoutube from '@/shared/assets/youtube.svg?react'
 import { Avatar, AvatarImage, AvatarBadge } from '@/shared/ui/shadcn/avatar'
 import { UserAvatarProps } from '../model/types'
 
@@ -11,7 +9,7 @@ export const UserAvatar = ({
   showBadge = false,
   profileImage,
 }: UserAvatarProps) => {
-  const imageSrc = profileImage ?? userMock.profileImage ?? profileImg.src
+  const imageSrc = profileImage ?? ''
 
   return (
     <Avatar size={size}>

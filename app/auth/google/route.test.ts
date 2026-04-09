@@ -14,6 +14,7 @@ vi.mock('next/headers', () => ({
 beforeEach(() => {
   process.env.GOOGLE_CLIENT_ID = 'test-client-id'
   process.env.NEXT_PUBLIC_APP_URL = 'http://localhost:3000'
+  process.env.NEXT_PUBLIC_MOCK_ENABLED = 'false'
   vi.clearAllMocks()
 })
 
@@ -42,7 +43,7 @@ describe('GET /auth/google', () => {
     const { GET } = await import('./route')
     const response = await GET()
 
-    expect(response.status).toBe(302)
+    expect(response.status).toBe(307)
     const location = response.headers.get('location')
     expect(location).toContain('accounts.google.com/o/oauth2/v2/auth')
   })
@@ -86,6 +87,8 @@ describe('GET /auth/google', () => {
     const response = await GET()
 
     const location = response.headers.get('location')!
-    expect(decodeURIComponent(location)).toContain('openid email profile')
+    // URLSearchParams는 공백을 '+'로 인코딩하므로 디코딩 후 확인
+    const decodedLocation = location.replace(/\+/g, ' ')
+    expect(decodedLocation).toContain('openid email profile')
   })
 })

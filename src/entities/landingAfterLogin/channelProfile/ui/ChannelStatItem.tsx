@@ -17,14 +17,14 @@ export function ChannelStatItem({
   return (
     <div className='min-w[168px] flex h-fit w-full flex-col gap-4 rounded-12 border bg-white px-32 py-16'>
       {/* 아이콘 + 내용 ex. 구독자 수 */}
-      <div className='flex h-fit w-full items-center gap-4 text-body-xs text-text-and-icon-tertiary'>
+      <div className='flex h-fit w-full items-center gap-4 text-noto-body-xs-bold text-text-and-icon-tertiary'>
         {icon && <span>{icon}</span>}
         <span>{label}</span>
       </div>
 
       {/* 값 + 단위 ex. 28.5만 명 */}
       <div className='flex h-fit w-full items-center gap-4'>
-        <span className='text-heading-sm font-medium text-brand-secondary'>
+        <span className='text-ibm-heading-sm-thin text-brand-secondary'>
           {value}
         </span>
         {unit && (

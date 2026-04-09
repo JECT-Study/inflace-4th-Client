@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 
 import { useAuthStore } from '@/shared/api/authStore'
 import { LoginButton } from './LoginButton'
-import { userMock } from '@/shared/api/mock/userMock'
 
 const meta = {
   title: 'Features/Auth/LoginButton',
@@ -44,7 +43,7 @@ export const LoggedIn: Story = {
     (Story) => {
       useAuthStore.setState({
         accessToken: 'mock-access-token',
-        user: userMock,
+        user: { id: '1', profileImage: '', plan: 'FREE', isNewUser: false },
         isInitializing: false,
       })
       return <Story />

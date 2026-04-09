@@ -57,12 +57,38 @@ describe('GET /auth/callback', () => {
     expect(text).toContain('AUTH_ERROR')
   })
 
-  it('백엔드 성공 시 __Host-refresh-token 쿠키를 설정한다', async () => {
+  it('백엔드 성공 시 Set-Cookie 헤더에서 추출한 refreshToken 쿠키를 설정한다', async () => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
       new Response(
         JSON.stringify({
           success: true,
-          responseDto: { AccessToken: 'at-123', RefreshToken: 'rt-456' },
+          responseDto: { AccessToken: 'at-123' },
+          error: null,
+        }),
+        {
+          status: 200,
+          headers: { 'set-cookie': 'refreshToken=rt-456; Path=/; HttpOnly' },
+        }
+      )
+    )
+
+    const { GET } = await import('./route')
+    const request = makeRequest({ code: 'auth-code', state: 'valid-state' })
+    await GET(request)
+
+    expect(mockCookieStore.set).toHaveBeenCalledWith(
+      'refreshToken',
+      'rt-456',
+      expect.objectContaining({ httpOnly: true, secure: false })
+    )
+  })
+
+  it('Set-Cookie 헤더가 없으면 refreshToken 쿠키를 설정하지 않는다', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
+      new Response(
+        JSON.stringify({
+          success: true,
+          responseDto: { AccessToken: 'at-123' },
           error: null,
         }),
         { status: 200 }
@@ -73,10 +99,10 @@ describe('GET /auth/callback', () => {
     const request = makeRequest({ code: 'auth-code', state: 'valid-state' })
     await GET(request)
 
-    expect(mockCookieStore.set).toHaveBeenCalledWith(
-      '__Host-refresh-token',
-      'rt-456',
-      expect.objectContaining({ httpOnly: true, secure: true })
+    expect(mockCookieStore.set).not.toHaveBeenCalledWith(
+      'refreshToken',
+      expect.anything(),
+      expect.anything()
     )
   })
 
@@ -85,10 +111,13 @@ describe('GET /auth/callback', () => {
       new Response(
         JSON.stringify({
           success: true,
-          responseDto: { AccessToken: 'at-123', RefreshToken: 'rt-456' },
+          responseDto: { AccessToken: 'at-123' },
           error: null,
         }),
-        { status: 200 }
+        {
+          status: 200,
+          headers: { 'set-cookie': 'refreshToken=rt-456; Path=/; HttpOnly' },
+        }
       )
     )
 

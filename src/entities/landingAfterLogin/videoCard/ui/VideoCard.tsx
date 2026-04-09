@@ -48,24 +48,24 @@ export function VideoCard({
         <div className='flex h-fit w-full flex-col gap-4'>
           {/* 참여율 / CTR */}
           <div className='flex size-fit gap-4'>
-            <span className='flex size-fit items-center justify-center rounded-4 bg-brand-primary px-6 py-4 text-label-md font-normal text-white'>
+            <span className='flex size-fit items-center justify-center rounded-4 bg-brand-primary px-6 py-4 text-noto-label-md-normal text-white'>
               <Participation className='h-20 w-20' />
               참여율 {engagementRate.toFixed(1)}%
             </span>
 
-            <span className='flex size-fit items-center justify-center rounded-4 bg-brand-secondary px-6 py-4 text-label-md font-normal text-white'>
+            <span className='flex size-fit items-center justify-center rounded-4 bg-brand-secondary px-6 py-4 text-noto-label-md-normal text-white'>
               <ClickBold className='h-20 w-20' />
               CTR {ctr.toFixed(1)}%
             </span>
           </div>
           {/* 영상 제목 */}
-          <p className='line-clamp-2 text-title-sm leading-title-sm font-medium tracking-[-1%] text-text-and-icon-default'>
+          <p className='line-clamp-2 text-noto-title-sm-normal text-text-and-icon-default'>
             {title}
           </p>
         </div>
 
-        {/* 우측 하단 정보 */}
-        <div className='flex size-fit py-2 text-caption-md font-normal text-text-and-icon-secondary'>
+        {/* 우측 하단 정보: 조회수, 좋아요, 댓글, 업로드일 */}
+        <div className='flex size-fit py-2 text-noto-caption-md-normal text-text-and-icon-secondary'>
           <span className='flex size-fit items-center justify-center'>
             <Eye /> {format10Thousands(viewCount)}
           </span>

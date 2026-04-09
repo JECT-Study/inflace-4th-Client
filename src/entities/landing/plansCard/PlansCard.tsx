@@ -12,30 +12,41 @@ export function PlansCard({
 }: PlansCardItem) {
   return (
     <>
-      <div className='bd-[var(--color-stroke-border-primary)] flex min-h-[480px] flex-col rounded-[var(--radius-12)] border bg-[var(--color-background-gray-default)] p-[var(--spacing-xl)] text-[var(--color-text-and-icon-default)] md:last:col-span-2 lg:last:col-span-1'>
-        <span className='text-[length:var(--text-title-lg)] leading-[var(--leading-title-lg)] font-semibold'>
-          {planName}
-        </span>
-        <h5 className='mt-[var(--spacing-2xs)] flex items-center gap-[var(--spacing-4)] text-[length:var(--text-heading-md)] leading-[var(--leading-heading-lg)] font-semibold'>
-          {price}
-          {period && (
-            <span className='text-[length:var(--text-body-xs)] font-semibold text-[var(--color-text-and-icon-secondary)]'>
-              {}
+      <div className='flex min-h-120 flex-col justify-between rounded-12 border border-stroke-border-neutral-default bg-background-gray-default p-32 md:last:col-span-2 lg:last:col-span-1'>
+        <div className='felx h-fit w-full flex-col gap-32'>
+          <div className='flex h-fit w-full flex-col gap-12'>
+            {/* 플랜 이름 ex. Free  */}
+            <span className='= text-ibm-title-lg-normal text-text-and-icon-default'>
+              {planName}
             </span>
-          )}
-        </h5>
-        <ul className='mt-[var(--spacing-xl)] flex flex-col gap-[var(--spacing-8)]'>
-          {features.map((item, idx) => (
-            <li
-              key={idx}
-              className={`flex items-center gap-[var(--spacing-6)] text-[length:var(--text-body-md)] font-normal ${item.active ? 'text-[var(--color-brand-primary)] [&_path]:fill-[var(--color-brand-primary)]' : ''}`}>
-              <IconCheck className='size-[15px]' /> {item.label}
-            </li>
-          ))}
-        </ul>
+
+            {/* 가격 / 월 ex. 기본 분석 무료 */}
+            <div className='flex size-fit items-center gap-4'>
+              <h5 className='text-ibm-heading-lg-normal text-text-and-icon-default'>
+                {price}
+              </h5>
+              {period && (
+                <span className='text-noto-body-xs-bold text-text-and-icon-secondary'>
+                  / 월
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* 플랜 기능 설명 */}
+          <ul className='flex h-fit w-full flex-col gap-8'>
+            {features.map((item, idx) => (
+              <li
+                key={idx}
+                className={`flex h-fit w-full items-center gap-6 ${item.active ? 'text-noto-body-md-bold text-brand-primary' : 'text-noto-body-md-normal text-text-and-icon-default'}`}>
+                <IconCheck className='size-3.75' /> {item.label}
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <Button
-          className='mt-auto'
+          className='h-fit w-full gap-10 rounded-6 px-20 py-10'
           color={`${planName == 'Growth' ? 'primary' : 'secondary'}`}
           style={'filled'}>
           {buttonLabel}

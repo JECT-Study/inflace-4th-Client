@@ -44,7 +44,7 @@ describe('POST /auth/logout', () => {
     const { POST } = await import('./route')
     await POST()
 
-    expect(mockCookieStore.delete).toHaveBeenCalledWith('__Host-refresh-token')
+    expect(mockCookieStore.delete).toHaveBeenCalledWith('refreshToken')
   })
 
   it('RT 쿠키가 없을 때도 쿠키 삭제를 호출한다 (멱등)', async () => {
@@ -53,7 +53,7 @@ describe('POST /auth/logout', () => {
     const { POST } = await import('./route')
     await POST()
 
-    expect(mockCookieStore.delete).toHaveBeenCalledWith('__Host-refresh-token')
+    expect(mockCookieStore.delete).toHaveBeenCalledWith('refreshToken')
   })
 
   it('RT 쿠키가 없을 때 백엔드 호출 없이 성공을 반환한다', async () => {
@@ -76,7 +76,7 @@ describe('POST /auth/logout', () => {
     const response = await POST()
     const data = await response.json()
 
-    expect(mockCookieStore.delete).toHaveBeenCalledWith('__Host-refresh-token')
+    expect(mockCookieStore.delete).toHaveBeenCalledWith('refreshToken')
     expect(data.success).toBe(true)
   })
 })

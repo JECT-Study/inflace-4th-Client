@@ -58,7 +58,7 @@ export function ChannelProfileSection({
       {/* 상세정보  */}
       <div className='h-fit- flex w-full flex-col'>
         {/* 유튜브 스튜디오 링크 */}
-        <span className='flex items-center justify-end px-4 py-2 text-sm text-label-xs font-normal text-text-and-icon-tertiary transition-colors hover:bg-gray-50'>
+        <span className='flex items-center justify-end px-4 py-2 text-noto-label-xs-thin text-text-and-icon-tertiary transition-colors hover:bg-gray-50'>
           <a
             href={data.youtubeStudioUrl}
             target='_blank'

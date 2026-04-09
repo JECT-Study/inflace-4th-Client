@@ -1,10 +1,12 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 
+import { decodeJwt, jwtToAuthUser } from '@/shared/lib/decodeJwt'
+
 // 토큰을 refresh
 export async function POST() {
   const cookieStore = await cookies()
-  const refreshToken = cookieStore.get('__Host-refresh-token')?.value
+  const refreshToken = cookieStore.get('refreshToken')?.value
 
   if (!refreshToken) {
     return NextResponse.json(
@@ -19,36 +21,43 @@ export async function POST() {
       `${process.env.NEXT_PUBLIC_API_URL}/auth/reissue`,
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ refreshToken }),
+        headers: { Cookie: `refreshToken=${refreshToken}` },
       }
     )
 
+    const responseText = await backendResponse.text()
+
     if (!backendResponse.ok) {
-      cookieStore.delete('__Host-refresh-token')
+      cookieStore.delete('refreshToken')
       return NextResponse.json(
         { error: '토큰 갱신에 실패했습니다.' },
         { status: 401 }
       )
     }
 
-    const {
-      accessToken,
-      refreshToken: newRefreshToken,
-      user,
-    } = await backendResponse.json()
+    const { responseDto } = JSON.parse(responseText)
+    const accessToken = responseDto?.AccessToken
 
-    //새 RT는 쿠키로 교체
-    cookieStore.set('__Host-refresh-token', newRefreshToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 60 * 60 * 24 * 14,
-    })
+    // 백엔드가 새 refreshToken을 Set-Cookie로 내려주는 경우 재설정
+    const setCookieHeader = backendResponse.headers.get('set-cookie')
+    const newRefreshTokenMatch = setCookieHeader?.match(/refreshToken=([^;]+)/)
+    const newRefreshToken = newRefreshTokenMatch?.[1]
+
+    if (newRefreshToken) {
+      cookieStore.set('refreshToken', newRefreshToken, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7,
+      })
+    }
 
     //새 AT는 response body로 전달
-    return NextResponse.json({ accessToken, user })
+    return NextResponse.json({
+      accessToken,
+      user: jwtToAuthUser(decodeJwt(accessToken)),
+    })
   } catch {
     return NextResponse.json(
       { error: '토큰 갱신 중 오류가 발생했습니다.' },

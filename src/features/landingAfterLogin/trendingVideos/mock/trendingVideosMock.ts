@@ -8,7 +8,7 @@ export const trendingVideosMock: VideoCardItem[] = [
     title:
       '2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교 2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교',
     duration: '12:49',
-    viewCount: 4820000,
+    viewCount: 482000,
     likeCount: 18200,
     commentCount: 2110,
     publishedAt: '2025-01-10T10:00:00',
@@ -21,7 +21,7 @@ export const trendingVideosMock: VideoCardItem[] = [
     title:
       '2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교 2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교',
     duration: '12:49',
-    viewCount: 4820000,
+    viewCount: 482000,
     likeCount: 18200,
     commentCount: 2110,
     publishedAt: '2025-01-10T10:00:00',
@@ -34,7 +34,7 @@ export const trendingVideosMock: VideoCardItem[] = [
     title:
       '2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교 2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교',
     duration: '12:49',
-    viewCount: 4820000,
+    viewCount: 482000,
     likeCount: 18200,
     commentCount: 2110,
     publishedAt: '2025-01-10T10:00:00',
@@ -47,7 +47,7 @@ export const trendingVideosMock: VideoCardItem[] = [
     title:
       '2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교 2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교',
     duration: '12:49',
-    viewCount: 4820000,
+    viewCount: 482000,
     likeCount: 18200,
     commentCount: 2110,
     publishedAt: '2025-01-10T10:00:00',

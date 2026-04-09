@@ -355,6 +355,62 @@ ${opacityVars}
 }`
 }
 
+// ── Text Style Utilities (@utility 블록) ──────────────────────────────────────
+
+/** fontFamily 참조값 → CSS 변수명 매핑 */
+const FONT_VAR_MAP = {
+  'Noto Sans KR': 'var(--font-noto)',
+  'IBM Plex Sans KR': 'var(--font-ibm)',
+}
+
+/**
+ * Text Style 복합 토큰 트리를 재귀 순회하여 @utility 블록 문자열 배열로 변환
+ * @param {object} obj  - 토큰 트리 노드
+ * @param {string[]} pathParts - 현재 경로 세그먼트 (클래스명 생성용)
+ * @returns {string[]}  - "@utility text-xxx { ... }" 문자열 배열
+ */
+function collectTextStyleUtilities(obj, pathParts = []) {
+  const blocks = []
+  for (const [k, v] of Object.entries(obj)) {
+    if (
+      v &&
+      typeof v === 'object' &&
+      v.type === 'typography' &&
+      typeof v.value === 'object'
+    ) {
+      const className = ['text', ...pathParts, k].join('-').toLowerCase()
+      const val = v.value
+
+      const rawFamily = resolveReference(val.fontFamily, textStyleRoot)
+      const fontVar = FONT_VAR_MAP[rawFamily] ?? `"${rawFamily}"`
+
+      const fontSize = resolveTypoProp('fontSize', val.fontSize)
+      const fontWeight = resolveTypoProp('fontWeight', val.fontWeight)
+      const lineHeight = resolveTypoProp('lineHeight', val.lineHeight)
+      const letterSpacing = resolveTypoProp('letterSpacing', val.letterSpacing)
+
+      blocks.push(
+        `@utility ${className} {\n` +
+          `  font-family: ${fontVar};\n` +
+          `  font-size: ${fontSize};\n` +
+          `  font-weight: ${fontWeight};\n` +
+          `  line-height: ${lineHeight};\n` +
+          `  letter-spacing: ${letterSpacing};\n` +
+          `}`
+      )
+    } else if (v && typeof v === 'object' && !('type' in v)) {
+      blocks.push(...collectTextStyleUtilities(v, [...pathParts, k]))
+    }
+  }
+  return blocks
+}
+
+function genTextStyleUtilities() {
+  const textStyles = primSection['Text Style']
+  const blocks = collectTextStyleUtilities(textStyles)
+  return blocks.join('\n\n')
+}
+
 // ── Assemble ──────────────────────────────────────────────────────────────────
 
 const css = `/* 자동생성 파일 — 직접 편집하지 마세요. npm run build:tokens 로 재생성 */
@@ -399,6 +455,9 @@ ${genResponsiveBlock(tablet, '(min-width: 768px) and (max-width: 1023px)')}
 
 /* === Responsive — Mobile (max 767px) === */
 ${genResponsiveBlock(mobile, '(max-width: 767px)')}
+
+/* === Text Style Utilities === */
+${genTextStyleUtilities()}
 `
 
 const outPath = join(root, 'src/app/styles/tokens.generated.css')

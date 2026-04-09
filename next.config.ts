@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
       missing: [
         {
           type: 'cookie',
-          key: '__Host-refresh-token',
+          key: 'refreshToken',
         },
       ],
       destination: '/login',

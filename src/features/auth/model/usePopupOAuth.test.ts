@@ -69,27 +69,25 @@ describe('usePopupOAuth', () => {
     expect(result.current.isLoading).toBe(false)
   })
 
-  it('AUTH_SUCCESS 메시지 수신 시 authStore.setAuth가 호출된다', () => {
+  it('AUTH_SUCCESS 메시지 수신 시 window.location.href가 "/"로 이동한다', () => {
     const { result } = renderHook(() => usePopupOAuth(CONFIG))
     act(() => {
       result.current.handleClick()
     })
 
-    const mockUser = { id: '1', name: 'Test', email: 'test@test.com', profileImage: '' }
     act(() => {
       window.dispatchEvent(
         new MessageEvent('message', {
           origin: window.location.origin,
-          data: { type: 'AUTH_SUCCESS', accessToken: 'new-token', user: mockUser },
+          data: { type: 'AUTH_SUCCESS' },
         })
       )
     })
 
-    expect(useAuthStore.getState().accessToken).toBe('new-token')
-    expect(useAuthStore.getState().user).toEqual(mockUser)
+    expect(window.location.href).toBe('http://localhost:3000/')
   })
 
-  it('AUTH_SUCCESS 메시지 수신 시 loginModal이 닫히고 isLoading이 false가 된다', () => {
+  it('AUTH_SUCCESS 메시지 수신 시 loginModal은 열린 채로 유지된다', () => {
     const { result } = renderHook(() => usePopupOAuth(CONFIG))
     act(() => {
       result.current.handleClick()
@@ -99,13 +97,13 @@ describe('usePopupOAuth', () => {
       window.dispatchEvent(
         new MessageEvent('message', {
           origin: window.location.origin,
-          data: { type: 'AUTH_SUCCESS', accessToken: 'token', user: null },
+          data: { type: 'AUTH_SUCCESS' },
         })
       )
     })
 
-    expect(useLoginModal.getState().isOpen).toBe(false)
-    expect(result.current.isLoading).toBe(false)
+    // AUTH_SUCCESS는 window.location.href로 페이지를 이동하며 모달을 직접 닫지 않는다
+    expect(useLoginModal.getState().isOpen).toBe(true)
   })
 
   it('AUTH_ERROR 메시지 수신 시 error 상태가 설정되고 isLoading이 false가 된다', () => {

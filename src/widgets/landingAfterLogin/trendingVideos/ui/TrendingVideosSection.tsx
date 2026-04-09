@@ -19,18 +19,18 @@ export function TrendingVideosSection({
     <section className='flex h-fit w-full flex-col gap-16'>
       {/* 급상승 동영상 헤더 */}
       <div className='flex h-fit w-full flex-col items-start justify-between gap-3'>
-        <h3 className='text-title-lg font-semibold text-text-and-icon-default'>
+        <h3 className='text-ibm-title-lg-normal text-text-and-icon-default'>
           시청자 반응 급상승 동영상
         </h3>
 
         {/* 서브텍스트 + 더보기 */}
         <div className='flex h-fit w-full justify-between'>
-          <p className='text-title-sm font-normal tracking-[-1%] text-text-and-icon-tertiary'>
+          <p className='text-noto-title-sm-thin text-text-and-icon-tertiary'>
             조회수 대비 참여율이 채널 평균보다 높은 영상이에요
           </p>
           <Link
             href={`/me/${channelId}/videos`}
-            className='size-fit gap-10 pt-1 pr-2 pb-3 pl-2 text-label-sm font-normal tracking-[-1.5%] text-brand-primary hover:underline'>
+            className='size-fit gap-10 pt-1 pr-2 pb-3 pl-2 text-noto-label-sm-bold text-brand-primary hover:underline'>
             더보기
           </Link>
         </div>
