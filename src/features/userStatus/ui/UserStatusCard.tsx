@@ -1,41 +1,79 @@
 'use client'
 
 import { useAuthStore } from '@/shared/api/authStore'
-import { UserAvatar } from './UserAvatar'
-import { PlanButton } from './PlanButton'
-import { ChannelStatus } from './ChannelStatus'
+import { UserIcon } from './UserIcon'
 
+import { Button } from '@/shared/ui/button'
+import IconYoutube from '@/shared/assets/youtube-disable.svg'
+import { useLoginModal } from '@/features/auth/model/useLoginModal'
+
+import IconLock from '@/shared/assets/unlock-filled-bold.svg'
+
+/* 사이드바에 표시되는 유저의 상태 (유튜브 채널 정보, 현재 플랜 등) */
 export const UserStatusCard = () => {
+  /* 유저의 정보를 불러옵니다. */
   const accessToken = useAuthStore((state) => state.accessToken)
   const plan = useAuthStore((state) => state.user?.plan)
+  const youtubeChannelName = useAuthStore(
+    (state) => state.user?.youtubeChannelName
+  )
 
-  if (accessToken) {
+  /*  유튜브 채널 연동 여부를 이름으로 확인합니다. */
+  const isChannelConnected = Boolean(accessToken && youtubeChannelName)
+
+  /* 채널 미연동 시 연동하기 버튼을 누르면 모달이 열립니다. */
+  const openModal = useLoginModal((s) => s.open)
+
+  if (isChannelConnected) {
+    /* 로그인 상태일 때 랜더링 되는 카드 */
     return (
-      <div className='flex flex-col px-sm'>
-        <div className='flex w-full flex-col gap-y-12 rounded-10 border border-(--color-stroke-border-primary) bg-background-gray-default p-2xs'>
-          <div className='flex items-center gap-12'>
-            <UserAvatar size='default' showBadge />
-            <div className='flex min-w-0 flex-1 flex-col gap-6'>
-              <p className='truncate text-(length:--text-label-sm) leading-(--leading-caption-md) font-medium text-text-and-icon-default'>
-                말줄임표를 적용한 닉네임입니다
-              </p>
-              <p className='text-(length:--text-label-sm) leading-(--leading-caption-md) text-brand-primary'>
-                {plan?.toLowerCase() ?? 'free'}
-              </p>
-            </div>
-          </div>
+      <div className='flex h-fit w-55 flex-col items-center gap-12 rounded-10 border border-stroke-border-neutral-default bg-background-gray-default p-12'>
+        <div className='flex h-fit w-full items-center gap-12'>
+          {/* 채널 아이콘 */}
+          <UserIcon size={38} showBadge />
 
-          <PlanButton />
+          <div className='flex h-fit w-full flex-1 flex-col gap-6'>
+            {/* 채널 이름 */}
+            <p className='truncate text-noto-label-sm-normal text-text-and-icon-default'>
+              {youtubeChannelName}
+            </p>
+
+            {/* 플랜 표시 */}
+            <p className='text-noto-label-sm-bold text-brand-primary'>
+              {plan?.toLocaleUpperCase() ?? 'Free'}
+            </p>
+          </div>
         </div>
+
+        {/* 플랜 업그레이드 버튼 */}
+        {plan !== 'GROWTH' && (
+          <Button
+            color='primary'
+            variant='filled'
+            size='xs'
+            className='h-fit w-full'
+            rightIcon={<IconLock />}>
+            플랜 업그레이드
+          </Button>
+        )}
       </div>
     )
   }
 
-  /* 로그인 상태가 아니라면 채널 미연동 표시 */
+  /* 로그인 상태가 아니거나 채널 미연동 상태일 때 랜더링 되는 카드 */
   return (
-    <div className='flex flex-col px-sm'>
-      <div className='flex w-full flex-col gap-y-12 rounded-10 border border-(--color-stroke-border-primary) bg-background-gray-default p-2xs'>
-        <ChannelStatus />
+    <div className='flex h-fit w-55 items-center justify-center gap-12 rounded-10 border border-stroke-border-neutral-default bg-background-gray-default p-12'>
+      <div className='flex h-34 w-34 items-center justify-center rounded-full bg-stroke-border-gray-default'>
+        <IconYoutube className='size-sm' />
+      </div>
+
+      <div className='flex h-fit w-37.5 items-center justify-between'>
+        <span className='text-noto-label-sm-normal text-text-and-icon-default'>
+          채널 미연동
+        </span>
+        <Button color='primary' variant='filled' size='xs' onClick={openModal}>
+          연동하기
+        </Button>
       </div>
     </div>
   )

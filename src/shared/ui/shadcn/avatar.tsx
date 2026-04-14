@@ -8,14 +8,18 @@ import { cn } from '@/shared/lib/utils'
 function Avatar({
   className,
   size = 'default',
+  style,
   ...props
 }: React.ComponentProps<typeof AvatarPrimitive.Root> & {
-  size?: 'default' | 'sm' | 'lg'
+  size?: 'default' | 'sm' | 'lg' | number
 }) {
+  const isPixel = typeof size === 'number'
+
   return (
     <AvatarPrimitive.Root
       data-slot='avatar'
-      data-size={size}
+      data-size={isPixel ? undefined : size}
+      style={isPixel ? { width: size, height: size, ...style } : style}
       className={cn(
         'group/avatar relative flex w-38 shrink-0 rounded-full select-none after:absolute after:inset-0 after:rounded-full after:border after:border-border after:mix-blend-darken data-[size=lg]:size-10 data-[size=sm]:w-34 dark:after:mix-blend-lighten',
         className

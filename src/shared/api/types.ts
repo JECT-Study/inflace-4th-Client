@@ -13,17 +13,19 @@ export interface JwtPayload {
   sub: string
   iat: number
   exp: number
-  profileImage: string
   plan: string
-  isNewUser: boolean
+  youtubeChannelName?: string
+  youtubeChannelProfileImage?: string
+  isOnboardingCompleted: boolean
 }
 
 //유저 정보
 export interface AuthUser {
   id: string
-  profileImage: string
   plan: UserPlan
-  isNewUser: boolean
+  youtubeChannelName?: string
+  youtubeChannelProfileImage?: string
+  isOnboardingCompleted: boolean
 }
 
 //유저의 상태

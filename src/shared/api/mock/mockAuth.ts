@@ -1,26 +1,31 @@
+import mockProfileImage from '@/shared/assets/mock/mockProfileImage.png'
+
 import type { AuthUser, JwtPayload } from '../types'
 import type {
   LoginResponse,
   LoginErrorDetail,
 } from '@/features/auth/model/types'
 
+// payload: {"sub":"1","iat":1774031128,"exp":9999999999,"plan":"FREE","youtubeChannelName":"mock-channel","youtubeChannelProfileImage":"","isOnboardingCompleted":false}
 export const mockAccessToken =
-  'eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzc0MDMxMTI4LCJleHAiOjk5OTk5OTk5OTksInByb2ZpbGVJbWFnZSI6IiIsInBsYW4iOiJGUkVFIiwiaXNOZXdVc2VyIjpmYWxzZX0.mock-signature'
+  'eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzc0MDMxMTI4LCJleHAiOjk5OTk5OTk5OTksInBsYW4iOiJGUkVFIiwieW91dHViZUNoYW5uZWxOYW1lIjoibW9jay1jaGFubmVsIiwieW91dHViZUNoYW5uZWxQcm9maWxlSW1hZ2UiOiIiLCJpc09uYm9hcmRpbmdDb21wbGV0ZWQiOmZhbHNlfQ.mock-signature'
 
 export const mockJwtPayload: JwtPayload = {
   sub: '1',
   iat: 1774031128,
   exp: 9999999999,
-  profileImage: '',
   plan: 'FREE',
-  isNewUser: false,
+  youtubeChannelName: 'mock-channel',
+  youtubeChannelProfileImage: mockProfileImage.src,
+  isOnboardingCompleted: false,
 }
 
 export const mockUser: AuthUser = {
   id: '1',
-  profileImage: '',
   plan: 'FREE',
-  isNewUser: false,
+  youtubeChannelName: 'mock-channel',
+  youtubeChannelProfileImage: mockProfileImage.src,
+  isOnboardingCompleted: true,
 }
 
 export const mockRefreshToken = 'mock-refresh-token'

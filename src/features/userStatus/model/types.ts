@@ -1,5 +1,5 @@
 export interface UserAvatarProps {
-  size?: 'sm' | 'default' | 'lg'
+  size?: number
   showBadge?: boolean
   profileImage?: string
 }
