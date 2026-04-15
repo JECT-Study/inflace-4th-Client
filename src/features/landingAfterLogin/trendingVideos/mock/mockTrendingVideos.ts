@@ -1,5 +1,5 @@
 import type { VideoCardItem } from '@/entities/landingAfterLogin/videoCard'
-import thumbnail from './thumbnail.png'
+import thumbnail from '@/shared/assets/mock/mocklVideoThumbnail.png'
 
 export const mockTrendingVideos: VideoCardItem[] = [
   {
