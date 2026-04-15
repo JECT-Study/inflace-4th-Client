@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { useState } from 'react'
 import React from 'react'
 import mockImage from './assets/mock/mock-image.png'
-
 import {
   Table,
   TableBody,
@@ -13,54 +12,7 @@ import {
   TableRow,
 } from './table'
 import { Button } from '../button'
-
-const mockData = [
-  {
-    rank: 1,
-    title:
-      '제목입니다. 2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교 2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교',
-    viewCount: 1000000,
-    engagementRate: 100,
-    ctr: 100,
-    retentionRate: 100,
-  },
-  {
-    rank: 2,
-    title:
-      '제목입니다. 2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교 2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교',
-    viewCount: 1000000,
-    engagementRate: 100,
-    ctr: 100,
-    retentionRate: 100,
-  },
-  {
-    rank: 3,
-    title:
-      '제목입니다. 2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교 2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교',
-    viewCount: 1000000,
-    engagementRate: 100,
-    ctr: 100,
-    retentionRate: 100,
-  },
-  {
-    rank: 4,
-    title:
-      '제목입니다. 2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교 2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교',
-    viewCount: 1000000,
-    engagementRate: 100,
-    ctr: 100,
-    retentionRate: 100,
-  },
-  {
-    rank: 5,
-    title:
-      '제목입니다. 2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교 2026 최신 AI 폰 총정리 | 갤럭시 S26 vs 아이폰 17 비교',
-    viewCount: 1000000,
-    engagementRate: 100,
-    ctr: 100,
-    retentionRate: 100,
-  },
-]
+import { mockTrendingVideos } from '@/features/channelDashboard/trendingVideos/mock/mockTrendingVideos'
 
 function SidebarDecorator({
   defaultOpen,
@@ -138,7 +90,7 @@ export const WithThumbnail: Story = {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {mockData.map((data) => (
+            {mockTrendingVideos.map((data) => (
               <TableRow key={data.rank}>
                 <TableCell>
                   <div className='relative h-22 overflow-hidden rounded-4'>
@@ -186,7 +138,7 @@ export const WithoutThumbnail: Story = {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {mockData.map((data) => (
+            {mockTrendingVideos.map((data) => (
               <TableRow key={data.rank}>
                 <TableCell className='text-center'>{data.rank}</TableCell>
                 <TableCell className='text-left text-text-and-icon-primary'>
@@ -225,7 +177,7 @@ export const SidebarCollapsed: Story = {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {mockData.map((data) => (
+            {mockTrendingVideos.map((data) => (
               <TableRow key={data.rank}>
                 <TableCell>
                   <div className='relative h-22 overflow-hidden rounded-4'>
