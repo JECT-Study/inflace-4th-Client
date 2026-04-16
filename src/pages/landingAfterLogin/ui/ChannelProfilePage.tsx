@@ -14,13 +14,13 @@ export function ChannelProfilePage() {
    * home 페이지를 렌더링함
    */
   const router = useRouter()
-  const { isAuthenticated, isInitializing, user } = useAuth()
+  const { isLoggedIn, isInitializing, user } = useAuth()
 
   useEffect(() => {
-    if (!isInitializing && !isAuthenticated && !user?.id) {
+    if (!isInitializing && !isLoggedIn && !user?.id) {
       router.replace(`/`)
     }
-  }, [isInitializing, isAuthenticated, user?.id, router])
+  }, [isInitializing, isLoggedIn, user?.id, router])
 
   const params = useParams<{ id: string }>()
   const id = params!.id

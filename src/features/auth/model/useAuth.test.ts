@@ -15,24 +15,24 @@ describe('useAuth', () => {
     vi.restoreAllMocks()
   })
 
-  it('accessToken이 있을 때 isAuthenticated가 true다', () => {
+  it('accessToken이 있을 때 isLoggedIn가 true다', () => {
     useAuthStore.setState({
       accessToken: 'token',
       user: mockUser,
       isInitializing: false,
     })
     const { result } = renderHook(() => useAuth())
-    expect(result.current.isAuthenticated).toBe(true)
+    expect(result.current.isLoggedIn).toBe(true)
   })
 
-  it('accessToken이 없을 때 isAuthenticated가 false다', () => {
+  it('accessToken이 없을 때 isLoggedIn가 false다', () => {
     useAuthStore.setState({
       accessToken: null,
       user: null,
       isInitializing: false,
     })
     const { result } = renderHook(() => useAuth())
-    expect(result.current.isAuthenticated).toBe(false)
+    expect(result.current.isLoggedIn).toBe(false)
   })
 
   it('isInitializing이 authStore.isInitializing을 반영한다', () => {

@@ -19,8 +19,9 @@ export function decodeJwt(token: string): JwtPayload {
 export function jwtToAuthUser(payload: JwtPayload): AuthUser {
   return {
     id: payload.sub,
-    profileImage: payload.profileImage,
     plan: payload.plan as UserPlan,
-    isNewUser: payload.isNewUser,
+    youtubeChannelName: payload.youtubeChannelName,
+    youtubeChannelProfileImage: payload.youtubeChannelProfileImage,
+    isOnboardingCompleted: payload.isOnboardingCompleted,
   }
 }

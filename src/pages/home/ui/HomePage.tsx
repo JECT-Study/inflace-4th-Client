@@ -10,13 +10,13 @@ export default function HomePage() {
    * landingAfterLogin 페이지를 렌더링함
    */
   const router = useRouter()
-  const { isAuthenticated, isInitializing, user } = useAuth()
+  const { isLoggedIn, isInitializing, user } = useAuth()
 
   useEffect(() => {
-    if (!isInitializing && isAuthenticated && user?.id) {
+    if (!isInitializing && isLoggedIn && user?.id) {
       router.replace(`/${user.id}`)
     }
-  }, [isInitializing, isAuthenticated, user?.id, router])
+  }, [isInitializing, isLoggedIn, user?.id, router])
 
   /* auth 초기화 완료 후 snap 클래스를 추가하도록 함
    * isInitializing 중에 snap을 활성화하면 컨텐츠 렌더 시점에 snap-start로 강제 스크롤됨
@@ -33,7 +33,7 @@ export default function HomePage() {
     }
   }, [isInitializing])
 
-  if (isInitializing || (isAuthenticated && user?.id)) return null
+  if (isInitializing || (isLoggedIn && user?.id)) return null
 
   return (
     <>

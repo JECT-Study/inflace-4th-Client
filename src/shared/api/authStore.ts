@@ -11,3 +11,5 @@ export const useAuthStore = create<AuthState>((set) => ({
   reset: () => set({ accessToken: null, user: null }),
   setInitializing: (value) => set({ isInitializing: value }),
 }))
+
+export const isLoggedIn = (state: AuthState) => !!state.accessToken

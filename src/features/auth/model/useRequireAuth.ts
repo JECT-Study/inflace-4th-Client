@@ -7,14 +7,14 @@ import { useLoginModal } from './useLoginModal'
 
 //refresh token은 있지만 access token은 아직 없는 엣지 케이스(초기화 중 등)를 대응
 export function useRequireAuth() {
-  const { isAuthenticated, isInitializing } = useAuth()
+  const { isLoggedIn, isInitializing } = useAuth()
   const openModal = useLoginModal((s) => s.open)
 
   useEffect(() => {
-    if (!isInitializing && !isAuthenticated) {
+    if (!isInitializing && !isLoggedIn) {
       openModal()
     }
-  }, [isInitializing, isAuthenticated, openModal])
+  }, [isInitializing, isLoggedIn, openModal])
 
-  return { isAuthenticated, isInitializing }
+  return { isLoggedIn, isInitializing }
 }
