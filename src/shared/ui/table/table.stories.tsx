@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from './table'
-import { mockChannelTrendingVideo as mockTrendingVideos } from '@/entities/channelDashboard/channelTrendingVideo'
+import { mockChannelTrendingVideo } from '@/entities/channelDashboard/channelTrendingVideo'
 
 const meta: Meta = {
   title: 'Shared/Table',
@@ -43,7 +43,7 @@ export const WithThumbnail: Story = {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {mockTrendingVideos.map((data) => (
+        {mockChannelTrendingVideo.map((data) => (
           <TableRow key={data.rank}>
             <TableCell>
               <div className='relative h-22 overflow-hidden rounded-4'>
@@ -83,7 +83,7 @@ export const WithoutThumbnail: Story = {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {mockTrendingVideos.map((data) => (
+        {mockChannelTrendingVideo.map((data) => (
           <TableRow key={data.rank}>
             <TableCell className='w-72'>{data.rank}</TableCell>
             <TableCell className='text-left'>{data.title}</TableCell>
@@ -115,7 +115,7 @@ export const SidebarCollapsed: Story = {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {mockTrendingVideos.map((data) => (
+          {mockChannelTrendingVideo.map((data) => (
             <TableRow key={data.rank}>
               <TableCell>
                 <div className='relative h-22 overflow-hidden rounded-4'>
