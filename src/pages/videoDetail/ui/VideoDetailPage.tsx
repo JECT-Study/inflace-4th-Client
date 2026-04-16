@@ -9,13 +9,13 @@ import { VideoBasicInfo } from '@/widgets/videoDetail/basicInfo'
 
 export function VideoDetailPage() {
   const router = useRouter()
-  const { isAuthenticated, isInitializing, user } = useAuth()
+  const { isAuthenticated, isInitializing } = useAuth()
 
   useEffect(() => {
-    if (!isInitializing && !isAuthenticated && !user?.id) {
+    if (!isInitializing && !isAuthenticated) {
       router.replace('/')
     }
-  }, [isInitializing, isAuthenticated, user?.id, router])
+  }, [isInitializing, isAuthenticated, router])
 
   const params = useParams<{ videoId: string }>()
   const videoId = params!.videoId

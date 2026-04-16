@@ -7,6 +7,7 @@ interface VideoBasicInfoProps {
   video: VideoDetailDto
 }
 
+// API는 YouTube watch URL(youtube.com/watch?v=...) 형식만 반환한다고 가정
 function getYouTubeVideoId(url: string): string | null {
   const match = url.match(/[?&]v=([^&]+)/)
   return match ? match[1] : null
@@ -39,11 +40,11 @@ export function VideoBasicInfo({ video }: VideoBasicInfoProps) {
       <div className='flex min-w-0 flex-1 flex-col gap-24 sm:self-stretch'>
         {/* 제목 + 설명 */}
         <div className='flex flex-col gap-8'>
-          <p className='w-full overflow-hidden text-noto-title-sm-bold text-ellipsis text-text-and-icon-default'>
+          <p className='w-full text-noto-title-sm-bold text-text-and-icon-default'>
             {title}
           </p>
           {description && (
-            <p className='w-full overflow-hidden text-noto-body-xs-normal text-ellipsis text-text-and-icon-primary'>
+            <p className='w-full text-noto-body-xs-normal text-text-and-icon-primary'>
               {description}
             </p>
           )}
@@ -53,8 +54,8 @@ export function VideoBasicInfo({ video }: VideoBasicInfoProps) {
         <div className='flex flex-col gap-8'>
           <div className='flex items-center gap-8'>
             <CalendarIcon className='size-16 shrink-0 text-text-and-icon-secondary' />
-            <span className='text-noto-label-sm-thin whitespace-nowrap text-text-and-icon-primary'>
-              {`${year}년 ${parseInt(month)}월 ${parseInt(day)}일`}
+            <span className='whitespace-nowrap text-noto-label-sm-thin text-text-and-icon-primary'>
+              {`${year}년 ${Number(month)}월 ${Number(day)}일`}
             </span>
           </div>
 
@@ -65,7 +66,7 @@ export function VideoBasicInfo({ video }: VideoBasicInfoProps) {
                 {displayHashtags.map((tag) => (
                   <span
                     key={tag}
-                    className='rounded-full bg-brand-secondary-weaker px-8 py-4 text-noto-label-sm-thin whitespace-nowrap text-white'>
+                    className='whitespace-nowrap rounded-full bg-brand-secondary-weaker px-8 py-4 text-noto-label-sm-thin text-white'>
                     {tag}
                   </span>
                 ))}
