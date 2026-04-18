@@ -22,6 +22,16 @@ export function format10Thousands(count: number): string {
   return String(count)
 }
 
+// Y축 퍼센트 포맷팅 (0, 25%, 50%, 75%, 100%)
+export function formatYAxisPercent(value: number, ticks: number[]): string {
+  if (value === 0) return '0'
+  if (value === ticks[1]) return '25%'
+  if (value === ticks[2]) return '50%'
+  if (value === ticks[3]) return '75%'
+  if (value === ticks[4]) return '100%'
+  return String(value)
+}
+
 /* 날짜 포맷팅 */
 
 // 년, 월, 일, 시, 분을 반환
