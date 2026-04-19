@@ -6,6 +6,7 @@ import LeftwardsArrowIcon from '@/shared/assets/leftwards-arrow-bold.svg'
 import { useAuth } from '@/features/auth'
 import { useVideoDetail, mockVideoDetail } from '@/features/videoDetail'
 import { VideoBasicInfo } from '@/widgets/videoDetail/basicInfo'
+import { VideoStatsSection } from '@/widgets/videoDetail/stats'
 
 export function VideoDetailPage() {
   const router = useRouter()
@@ -34,6 +35,7 @@ export function VideoDetailPage() {
       </div>
     )
   }
+  if (isInitializing) return null
 
   return (
     <div className='flex w-full flex-col gap-24 bg-background-gray-default px-24 pt-24 pb-96'>
@@ -52,7 +54,8 @@ export function VideoDetailPage() {
         {/* 영상 기본 정보 */}
         <VideoBasicInfo video={video} />
 
-        {/* TODO: 티켓 2 — 핵심 지표 카드 영역 */}
+        {/* 핵심 성과 지표 카드 */}
+        <VideoStatsSection videoId={videoId} />
 
         {/* TODO: 티켓 3 — 시청 지속률 그래프 영역 */}
       </div>

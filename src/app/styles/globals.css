@@ -23,6 +23,10 @@
   /* === section Footer === */
   --footer-logo-width: 180px;
   --footer-logo-height: 59px;
+
+  /* === Dashboard 색상 — TODO: tokens.json에 추가 필요 === */
+  --color-dashboard-positive: #008443;
+  --color-dashboard-negative: #f13d5d;
 }
 
 :root {

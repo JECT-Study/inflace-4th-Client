@@ -5,6 +5,7 @@ import { trendMagazineHandlers } from './trendMagazineHandlers'
 import { trendingVideosHandlers } from './trendingVideosHandlers'
 import { videoDetailHandlers } from './videoDetailHandlers'
 import { channelKpiHandlers } from './channelKpiHandlers'
+import { videoStatsHandlers } from './videoStatsHandlers'
 
 export const handlers = [
   ...authHandlers,
@@ -14,4 +15,5 @@ export const handlers = [
   ...onboardingHandlers,
   ...videoDetailHandlers,
   ...channelKpiHandlers,
+  ...videoStatsHandlers,
 ]
