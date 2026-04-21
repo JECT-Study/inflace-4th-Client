@@ -40,7 +40,7 @@ export function BaseAreaChart<T extends object>({
   ]
 
   return (
-    <div className='h-94 w-full text-noto-caption-sm-bold text-text-and-icon-tertiary [&_*:focus]:outline-none [&_svg]:outline-none'>
+    <div className='h-[40rem] w-full text-noto-caption-sm-bold text-text-and-icon-tertiary [&_*:focus]:outline-none [&_svg]:outline-none'>
       <ResponsiveContainer>
         <AreaChart
           style={{ outline: 'none' }}

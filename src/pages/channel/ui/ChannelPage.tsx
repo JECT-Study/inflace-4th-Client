@@ -4,6 +4,7 @@ import { useAuth } from '@/features/auth'
 import { ChannelProfileSection } from '@/widgets/main/channelProfile'
 import { KpiSection } from '@/widgets/channel/Kpi'
 import { SubscriberGrowthSection } from '@/widgets/channel/SubscriberGrowth'
+import { ChannelTrendingVideoSection } from '@/widgets/channelDashboard/channelTrendingVideo'
 
 export function ChannelPage() {
   const { user } = useAuth()
@@ -24,6 +25,10 @@ export function ChannelPage() {
       {/* 구독자 추이 그래프 */}
       <div className='px-24'>
         <SubscriberGrowthSection channelId={id} />
+      </div>
+      {/* 영상 성과 테이블 */}
+      <div className='px-24'>
+        <ChannelTrendingVideoSection channelId={id} />
       </div>
     </div>
   )
