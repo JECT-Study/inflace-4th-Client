@@ -24,8 +24,9 @@ export function useAuth() {
       await fetch('/auth/logout', { method: 'POST' })
     } catch {
       // 쿠키 삭제 실패해도 클라이언트 상태는 이미 초기화됨
+    } finally {
+      router.replace('/')
     }
-    router.replace('/')
   }, [router])
 
   return {

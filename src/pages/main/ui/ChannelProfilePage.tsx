@@ -3,14 +3,11 @@
 import { ChannelProfileSection } from '@/widgets/main/channelProfile'
 import { TrendingVideosSection } from '@/widgets/main/trendingVideos'
 import { TrendMagazineSection } from '@/widgets/main/trendMagazine'
-import { useRequireAuth, useAuth } from '@/features/auth'
+import { useAuth } from '@/features/auth'
 
 export function ChannelProfilePage() {
-  const { isLoggedIn, isInitializing } = useRequireAuth()
   const { user } = useAuth()
   const id = user?.id ?? ''
-
-  if (isInitializing || !isLoggedIn) return null
 
   return (
     <div className='flex flex-col divide-y'>
