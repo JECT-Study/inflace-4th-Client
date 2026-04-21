@@ -22,7 +22,7 @@ export const subscriberGrowthHandlers = [
     `${process.env.NEXT_PUBLIC_API_URL}/channels/:channelId/subscriber-trend`,
     ({ request }) => {
       const url = new URL(request.url)
-      const range = url.searchParams.get('range') ?? '30D'
+      const range = url.searchParams.get('range') ?? '7D'
 
       return HttpResponse.json({
         success: true,

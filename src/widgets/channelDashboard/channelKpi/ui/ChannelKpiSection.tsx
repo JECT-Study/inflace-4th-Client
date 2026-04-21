@@ -8,10 +8,10 @@ import { useChannelKpi } from '@/features/channelDashboard/channelKpi'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 
 export function ChannelKpiSection({ channelId }: { channelId: string }) {
-  const { data: apiData, isLoading } = useChannelKpi(channelId)
+  const { data: apiData, isFetching } = useChannelKpi(channelId)
   const data = apiData ?? mockChannelKpi
 
-  if (isLoading) {
+  if (isFetching) {
     return (
       //스켈레톤 UI, 로딩중일 때 상태를 표시합니다.
       <section className='flex h-fit w-full gap-24'>
