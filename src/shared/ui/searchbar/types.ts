@@ -1,3 +1,5 @@
 import * as React from 'react'
 
-export type InputProps = React.ComponentProps<'input'>
+export type InputProps = React.ComponentProps<'input'> & {
+  onClear?: () => void
+}

@@ -32,11 +32,9 @@ export function VideoCard({
   const typeLabel = isShort ? '숏폼' : '롱폼'
 
   return (
-    <div className='flex h-fit w-full max-w-133 min-w-86.5 flex-col gap-10'>
+    <div className='flex h-fit w-full max-w-[53.2rem] min-w-[34.6rem] flex-col gap-10'>
       {/* 썸네일 */}
-      <div
-        className='relative w-full overflow-hidden rounded-4'
-        style={{ aspectRatio: '16 / 9' }}>
+      <div className='relative aspect-video w-full overflow-hidden rounded-4'>
         <Image
           src={thumbnailUrl}
           alt={title}

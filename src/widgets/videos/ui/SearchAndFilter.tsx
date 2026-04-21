@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { SearchBar } from '@/shared/ui/searchbar'
 import {
   FilterSelect,
@@ -10,9 +11,16 @@ import {
 } from '@/shared/ui/filter-select'
 
 export function SearchAndFilter() {
+  const [query, setQuery] = useState('')
+
   return (
     <div className='flex h-fit w-full items-center gap-16 p-24 pb-16'>
-      <SearchBar placeholder='영상 제목으로 검색' />
+      <SearchBar
+        placeholder='영상 제목으로 검색'
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onClear={() => setQuery('')}
+      />
 
       <FilterSelect defaultValue='최신순'>
         <FilterSelectTrigger>
