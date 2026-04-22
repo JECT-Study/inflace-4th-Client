@@ -16,10 +16,10 @@ export function OnboardingStep1() {
       </p>
 
       <ToggleGroup
-        type='single'
+        type='multiple'
         size='lg'
         spacing={20}
-        value={setSelections}
+        value={(setSelections as string[]) ?? []}
         onValueChange={(value: string) => setSelection(1, value)}
         className='mt-xl'>
         {OPTION_ITEM.map((item) => (
