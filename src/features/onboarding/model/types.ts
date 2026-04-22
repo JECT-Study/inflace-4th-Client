@@ -34,3 +34,9 @@ export interface OptionItem {
   imgSrc: StaticImageData
   label: string
 }
+
+export interface FeatureSlide {
+  title: string
+  desc: string
+  image: StaticImageData
+}

@@ -1,6 +1,7 @@
 import ImgMock from '../assets/mock/onboardingMock.jpg'
+import { FeatureSlide } from './types'
 
-export const FEATURE_SLIDES = [
+export const FEATURE_SLIDES: FeatureSlide[] = [
   {
     title: '수천 개 채널 중, 딱 맞는 인플루언서만 골라드려요',
     desc: '카테고리, 구독자 수, 평균 조회수, 오디언스 성별·연령까지 필터링해서 캠페인에 맞는 채널만 골라드려요.',
@@ -17,3 +18,5 @@ export const FEATURE_SLIDES = [
     image: ImgMock,
   },
 ]
+
+export const FEATURE_SLIDES_COUNT = FEATURE_SLIDES.length

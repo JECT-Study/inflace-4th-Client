@@ -1,12 +1,14 @@
 'use client'
 
 import { DialogFooter } from '@/shared/ui/shadcn/dialog'
-import { useOnboardingModal } from '@/features/onboarding'
-import { FEATURE_SLIDES_COUNT } from '@/features/onboarding/ui/OnboardingStep3'
+import {
+  useOnboardingModal,
+  FEATURE_SLIDES_COUNT,
+  OnboardingActionButtons,
+} from '@/features/onboarding'
 import { Button } from '@/shared/ui/button'
 import IconRightArrow from '@/shared/assets/rightwards-arrow-bold.svg'
 import IconLeftArrow from '@/shared/assets/leftwards-arrow-bold.svg'
-import { OnboardingActionButtons } from '@/features/onboarding'
 
 export function OnboardingFooter() {
   const { step, prevStep, nextStep, nextFeature, featureIndex, selections } =

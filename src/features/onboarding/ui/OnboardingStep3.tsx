@@ -5,8 +5,6 @@ import { FEATURE_SLIDES } from '../model/optionsStep03'
 import Image from 'next/image'
 import { cn } from '@/shared/lib/utils'
 
-export const FEATURE_SLIDES_COUNT = FEATURE_SLIDES.length
-
 export function OnboardingStep3() {
   const { featureIndex } = useOnboardingModal()
   const slide = FEATURE_SLIDES[featureIndex]
