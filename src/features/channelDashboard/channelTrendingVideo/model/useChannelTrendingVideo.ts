@@ -9,7 +9,7 @@ export function useChannelTrendingVideo(
   contentType: ContentType
 ) {
   return useQuery({
-    queryKey: ['channelDashboard', channelId, contentType],
+    queryKey: ['channelDashboard', channelId, 'trendingVideo', contentType],
     queryFn: () => fetchChannelTrendingVideo(channelId, contentType),
     enabled: !!channelId,
   })
