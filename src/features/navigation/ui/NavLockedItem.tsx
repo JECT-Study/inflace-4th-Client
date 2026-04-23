@@ -13,15 +13,15 @@ export const NavLockedItem = ({ item }: LockedNavItemProps) => {
       <SidebarMenuButton>
         <Link
           href={item.url}
-          className='flex w-full items-center justify-between gap-8'>
+          className='flex w-full items-center gap-8'>
           {item.icon && (
             <SidebarIcon
               name={item.icon}
-              className='transition-colors [&>path]:fill-current'
-              size={20}
+              className='shrink-0 transition-colors [&>path]:fill-current'
+              size={18}
             />
           )}
-          <span>{item.title}</span>
+          <span className='flex-1 whitespace-nowrap'>{item.title}</span>
           <SidebarIcon
             name={'lock'}
             className='ml-auto shrink-0 [&_path]:fill-[#ccc]'

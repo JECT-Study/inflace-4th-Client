@@ -136,18 +136,18 @@ function Calendar({
           'relative flex flex-col gap-64 md:flex-row',
           defaultClassNames.months
         ),
-        month: cn('flex w-full flex-col gap-y-[14px]', defaultClassNames.month),
+        month: cn('flex w-full flex-col gap-y-[1.4rem]', defaultClassNames.month),
         nav: cn(
-          'absolute inset-x-0 top-0 flex size-4.5 w-full items-center justify-between pr-[54px] pl-[54px] after:absolute after:top-0 after:left-[50%] after:text-sm after:content-["~"]',
+          'absolute inset-x-0 top-0 flex size-[1.8rem] w-full items-center justify-between pr-[5.4rem] pl-[5.4rem] after:absolute after:top-0 after:left-[50%] after:text-sm after:content-["~"]',
           defaultClassNames.nav
         ),
 
         button_previous: cn(
-          'group/nav size-[18px] p-0 select-none aria-disabled:opacity-50',
+          'group/nav size-[1.8rem] p-0 select-none aria-disabled:opacity-50',
           defaultClassNames.button_previous
         ),
         button_next: cn(
-          'group/nav size-[18px] p-0 select-none aria-disabled:opacity-50',
+          'group/nav size-[1.8rem] p-0 select-none aria-disabled:opacity-50',
           defaultClassNames.button_next
         ),
         month_caption: cn(
@@ -155,7 +155,7 @@ function Calendar({
           defaultClassNames.month_caption
         ),
         dropdowns: cn(
-          'flex h-(--cell-size) w-full items-center justify-center gap-1.5 text-(length:--text-label-sm) font-medium',
+          'flex h-(--cell-size) w-full items-center justify-center gap-6 text-(length:--text-label-sm) font-medium',
           defaultClassNames.dropdowns
         ),
         dropdown_root: cn(
@@ -170,7 +170,7 @@ function Calendar({
           'leading-body-xxs font-medium text-text-and-icon-default select-none',
           captionLayout === 'label'
             ? 'text-(length:--text-label-sm)'
-            : 'flex items-center gap-1 rounded-(--cell-radius) text-sm [&>svg]:size-3.5 [&>svg]:text-muted-foreground',
+            : 'flex items-center gap-1 rounded-(--cell-radius) text-sm [&>svg]:size-[1.4rem] [&>svg]:text-muted-foreground',
           defaultClassNames.caption_label
         ),
         table: 'w-full border-collapse ',
@@ -246,7 +246,7 @@ function Calendar({
             return (
               <IconLeftArrow
                 className={cn(
-                  'size-4.5 gap-0 group-hover/nav:text-brand-secondary',
+                  'size-[1.8rem] gap-0 group-hover/nav:text-brand-secondary',
                   className
                 )}
                 {...props}
@@ -258,7 +258,7 @@ function Calendar({
             return (
               <IconRightArrow
                 className={cn(
-                  'size-4.5 group-hover/nav:text-brand-secondary',
+                  'size-[1.8rem] group-hover/nav:text-brand-secondary',
                   className
                 )}
                 {...props}

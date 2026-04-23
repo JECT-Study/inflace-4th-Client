@@ -26,7 +26,7 @@ export function ChannelKpiCard({
         )}
         <span className='text-ibm-title-md-thin'>{label}</span>
       </div>
-      <div className='h-fit w-full pl-11 text-text-and-icon-default'>
+      <div className='h-fit w-full pl-[4.4rem] text-text-and-icon-default'>
         {prefix && <span className='text-ibm-heading-md-normal'>{prefix}</span>}
         <span className='text-ibm-heading-md-normal'>{value}</span>
         <span className='text-ibm-heading-md-normal'>{unit}</span>

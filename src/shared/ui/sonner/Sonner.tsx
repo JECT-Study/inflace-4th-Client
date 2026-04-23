@@ -38,7 +38,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         classNames: {
           toast:
-            'cn-toast relative w-max! min-w-49 pl-24! py-16! pr-48! rounded-6 gap-8',
+            'cn-toast relative w-max! min-w-[19.6rem] pl-24! py-16! pr-48! rounded-6 gap-8',
           title:
             'text-(length:--text-label-md)! lending-(--leading-label-md) font-normal',
           closeButton:

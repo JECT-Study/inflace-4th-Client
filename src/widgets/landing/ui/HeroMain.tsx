@@ -10,7 +10,7 @@ export function HeroMain() {
       <section
         className='relative h-[calc(100vh-var(--spacing-header-height))] w-full snap-start snap-always bg-cover bg-center bg-no-repeat'
         style={{ backgroundImage: `url(${swiper01.src})` }}>
-        <div className='absolute top-67.5 gap-32 px-30'>
+        <div className='absolute top-[27rem] gap-32 px-[12rem]'>
           <h3 className='text-ibm-display-sm-normal text-white'>
             인플루언서 선택, 감이 아닌
             <strong className='text-[#8B80FF]'> 데이터</strong>로
@@ -25,7 +25,7 @@ export function HeroMain() {
         className='relative h-[calc(100vh-var(--spacing-header-height))] w-full snap-start snap-always bg-cover bg-center bg-no-repeat'
         style={{ backgroundImage: `url(${swiper02.src})` }}>
         {/* 섹션 제목 */}
-        <div className='absolute top-67.5 flex flex-col gap-40 px-30'>
+        <div className='absolute top-[27rem] flex flex-col gap-40 px-[12rem]'>
           <h3 className='text-ibm-display-sm-normal text-white'>
             진짜 영향력을 가진 인플루언서만,
             <strong className='text-[#8B80FF]'> 인플레이스</strong>

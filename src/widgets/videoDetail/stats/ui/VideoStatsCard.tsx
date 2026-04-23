@@ -65,11 +65,11 @@ export function VideoStatsCard({
   valueFormat,
 }: VideoStatsCardProps) {
   return (
-    <div className='flex w-full flex-1 items-center gap-24 rounded-12 bg-white p-32 shadow-[0px_2px_6px_0px_rgba(13,13,13,0.04)] sm:min-w-[374px] sm:max-w-[558px]'>
+    <div className='flex w-full flex-1 items-center gap-24 rounded-12 bg-white p-32 shadow-[0px_2px_6px_0px_rgba(13,13,13,0.04)] sm:min-w-[37.4rem] sm:max-w-[55.8rem]'>
       {/* 왼쪽: 아이콘 + 레이블 */}
       <div className='flex min-w-0 flex-1 items-center gap-16'>
-        <div className='flex shrink-0 items-center rounded-[15px] bg-[#fcf8ff] p-5'>
-          <div className='flex size-[30px] items-center justify-center'>
+        <div className='flex shrink-0 items-center rounded-[1.5rem] bg-[#fcf8ff] p-5'>
+          <div className='flex size-[3rem] items-center justify-center'>
             {icon}
           </div>
         </div>
