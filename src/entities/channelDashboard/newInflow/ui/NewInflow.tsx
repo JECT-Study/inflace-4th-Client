@@ -6,15 +6,15 @@ import {
   TableHeader,
   TableRow,
 } from '@/shared/ui/table'
-import type { TrendingVideoResponseDto } from '../model/types'
+import type { NewInflowResponseDto } from '../model/types'
 import Image from 'next/image'
 import { formatComma } from '@/shared/lib/format'
 
 interface Props {
-  data: TrendingVideoResponseDto[]
+  data: NewInflowResponseDto[]
 }
 
-export function ChannelTrendingVideo({ data }: Props) {
+export function NewInflow({ data }: Props) {
   return (
     <Table className='w-full table-fixed'>
       <TableHeader>
@@ -22,8 +22,8 @@ export function ChannelTrendingVideo({ data }: Props) {
           <TableHead className='w-[15.6rem]'>썸네일</TableHead>
           <TableHead>제목</TableHead>
           <TableHead className='w-[12.68%]'>조회수</TableHead>
-          <TableHead className='w-[12.68%]'>참여율</TableHead>
-          <TableHead className='w-[12.68%]'>CTR</TableHead>
+          <TableHead className='w-[12.68%]'>신규 유입 비율</TableHead>
+          <TableHead className='w-[12.68%]'>구독 전환 수</TableHead>
           <TableHead className='w-[12.68%]'>시청 유지율</TableHead>
         </TableRow>
       </TableHeader>
@@ -42,8 +42,10 @@ export function ChannelTrendingVideo({ data }: Props) {
             </TableCell>
             <TableCell className='text-left'>{item.title}</TableCell>
             <TableCell>{formatComma(item.viewCount)}</TableCell>
-            <TableCell>{item.engagementRate}%</TableCell>
-            <TableCell>{item.ctr}%</TableCell>
+            <TableCell>{item.newSubscriberRatio}%</TableCell>
+            <TableCell>
+              {formatComma(item.subscriptionConversionCount)}
+            </TableCell>
             <TableCell>{item.retentionRate}%</TableCell>
           </TableRow>
         ))}
