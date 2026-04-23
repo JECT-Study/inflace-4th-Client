@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
 
-import { mockTrendMagazines } from '@/features/landingAfterLogin/trendMagazine/mock/mockTrendMagazines'
+import { mockTrendMagazines } from '@/features/main/trendMagazine/mock/mockTrendMagazines'
 
 export const trendMagazineHandlers = [
   http.get(

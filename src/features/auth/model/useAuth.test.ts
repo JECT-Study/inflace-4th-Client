@@ -5,10 +5,17 @@ import { useAuthStore } from '@/shared/api'
 import { mockUser } from '@/shared/api/mock/mockAuth'
 import { useAuth } from './useAuth'
 
+const mockReplace = vi.fn()
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ replace: mockReplace }),
+}))
+
 describe('useAuth', () => {
   beforeEach(() => {
     useAuthStore.getState().reset()
     useAuthStore.getState().setInitializing(false)
+    vi.clearAllMocks()
   })
 
   afterEach(() => {
@@ -85,7 +92,18 @@ describe('useAuth', () => {
     expect(fetchSpy).toHaveBeenCalledWith('/auth/logout', { method: 'POST' })
   })
 
-  it('logout 시 fetch 실패해도 에러가 전파되지 않는다', async () => {
+  it('logout 호출 시 /로 이동한다', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(new Response())
+
+    const { result } = renderHook(() => useAuth())
+    await act(async () => {
+      await result.current.logout()
+    })
+
+    expect(mockReplace).toHaveBeenCalledWith('/')
+  })
+
+  it('logout 시 fetch 실패해도 에러가 전파되지 않고 /로 이동한다', async () => {
     useAuthStore.setState({
       accessToken: 'token',
       user: mockUser,
@@ -103,5 +121,6 @@ describe('useAuth', () => {
     ).resolves.not.toThrow()
 
     expect(useAuthStore.getState().accessToken).toBeNull()
+    expect(mockReplace).toHaveBeenCalledWith('/')
   })
 })

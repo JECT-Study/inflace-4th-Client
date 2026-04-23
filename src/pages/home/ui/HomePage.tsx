@@ -1,22 +1,25 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/features/auth/model/useAuth'
-import { FeatureSection, HeroMain, PlansSection } from '@/widgets/landing'
+import { useLoginModal } from '@/features/auth'
+import { FeatureSection, HeroMain, PlansSection } from '@/widgets/home'
 
 export default function HomePage() {
   /* 유저가 로그인 한 후라면 해당 페이지가 아닌
-   * landingAfterLogin 페이지를 렌더링함
+   * main 페이지를 렌더링함
    */
   const router = useRouter()
+  const searchParams = useSearchParams()
   const { isLoggedIn, isInitializing, user } = useAuth()
+  const openLoginModal = useLoginModal((s) => s.open)
 
   useEffect(() => {
     if (!isInitializing && isLoggedIn && user?.userDetails.id) {
       router.replace(`/${user.userDetails.id}`)
     }
-  }, [isInitializing, isLoggedIn, user?.userDetails.id, router])
+  }, [isInitializing, isLoggedIn, user?.id, router])
 
   /* auth 초기화 완료 후 snap 클래스를 추가하도록 함
    * isInitializing 중에 snap을 활성화하면 컨텐츠 렌더 시점에 snap-start로 강제 스크롤됨

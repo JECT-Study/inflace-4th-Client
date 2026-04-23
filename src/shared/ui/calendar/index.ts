@@ -1,1 +1,1 @@
-export { Calendar, CalendarRangePicker } from './Calendar'
+export { Calendar } from './Calendar'

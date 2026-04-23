@@ -244,6 +244,12 @@ function genColors() {
     .join('\n')
 }
 
+function genPrimitiveTransparentColors() {
+  return flatten(prim.color.trasparent)
+    .map(([k, v]) => `  --primitivecolortrasparent-${k}: ${resolve(v)};`)
+    .join('\n')
+}
+
 function genComponent() {
   return flatten(comp.button, 'button')
     .map(([k, v]) => `  --comp-${k}: ${resolve(v)};`)
@@ -419,6 +425,10 @@ const css = `/* 자동생성 파일 — 직접 편집하지 마세요. npm run b
 
   /* === Semantic Colors === */
 ${genColors()}
+
+
+  /* === Primitive Transparent Colors === */
+${genPrimitiveTransparentColors()}
 
 
   /* === Component Tokens === */

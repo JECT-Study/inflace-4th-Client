@@ -1,3 +1,10 @@
+// cursor 기반 페이지네이션 공통 타입
+export interface PageInfo {
+  size: number
+  nextCursor: string | null
+  hasNext: boolean
+}
+
 // API 응답 형식
 export interface ApiResponse<T> {
   responseDto: T
