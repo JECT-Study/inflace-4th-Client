@@ -13,15 +13,15 @@ export const NavMenuItem = ({ item }: NavMenuItemProps) => {
       <SidebarMenuButton>
         <Link
           href={item.url}
-          className='flex items-center justify-between gap-8'>
+          className='flex items-center gap-8'>
           {item.icon && (
             <SidebarIcon
               name={item.icon}
-              className='[&>path]:fill-current'
-              size={20}
+              className='shrink-0 [&>path]:fill-current'
+              size={18}
             />
           )}
-          <span>{item.title}</span>
+          <span className='whitespace-nowrap'>{item.title}</span>
         </Link>
       </SidebarMenuButton>
     </SidebarMenuItem>

@@ -7,7 +7,7 @@ const meta: Meta<typeof Calendar> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <div className='flex min-h-120 items-start justify-center p-24'>
+      <div className='flex min-h-[48rem] items-start justify-end p-24'>
         <Story />
       </div>
     ),

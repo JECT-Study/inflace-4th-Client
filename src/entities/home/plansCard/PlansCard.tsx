@@ -12,7 +12,7 @@ export function PlansCard({
 }: PlansCardItem) {
   return (
     <>
-      <div className='flex min-h-120 flex-col justify-between rounded-12 border border-stroke-border-neutral-default bg-background-gray-default p-32 md:last:col-span-2 lg:last:col-span-1'>
+      <div className='flex min-h-[48rem] flex-col justify-between rounded-12 border border-stroke-border-neutral-default bg-background-gray-default p-32 md:last:col-span-2 lg:last:col-span-1'>
         <div className='felx h-fit w-full flex-col gap-32'>
           <div className='flex h-fit w-full flex-col gap-12'>
             {/* 플랜 이름 ex. Free  */}

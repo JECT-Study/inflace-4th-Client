@@ -46,7 +46,7 @@ export const WithThumbnail: Story = {
         {mockChannelTrendingVideo.map((data) => (
           <TableRow key={data.rank}>
             <TableCell>
-              <div className='relative h-22 overflow-hidden rounded-4'>
+              <div className='relative h-[8.8rem] overflow-hidden rounded-4'>
                 <Image
                   src={mockImage.src}
                   alt={data.title}
@@ -118,7 +118,7 @@ export const SidebarCollapsed: Story = {
           {mockChannelTrendingVideo.map((data) => (
             <TableRow key={data.rank}>
               <TableCell>
-                <div className='relative h-22 overflow-hidden rounded-4'>
+                <div className='relative h-[8.8rem] overflow-hidden rounded-4'>
                   <Image
                     src={mockImage.src}
                     alt={data.title}
