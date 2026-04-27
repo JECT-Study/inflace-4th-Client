@@ -1,7 +1,7 @@
 'use client'
 
 import { useParams } from 'next/navigation'
-import { ChannelProfileSection } from '@/widgets/landingAfterLogin/channelProfile'
+import { ChannelProfileSection } from '@/widgets/main/channelProfile'
 import { ChannelKpiSection } from '@/widgets/channelDashboard/channelKpi'
 import { SubscriberGrowthSection } from '@/widgets/channelDashboard/SubscriberGrowth'
 
