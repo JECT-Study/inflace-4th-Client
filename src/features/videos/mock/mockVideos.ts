@@ -1,8 +1,8 @@
 import type { VideoCardItem } from '@/entities/videos'
-import type { VideosResponse } from '../api/videosApi'
+import type { VideosResponse } from '../model/types'
 import thumbnail from '@/shared/assets/mock/mocklVideoThumbnail.png'
 
-const mockVideoItems: VideoCardItem[] = [
+const mockVideoItemsPage1: VideoCardItem[] = [
   {
     videoId: '1',
     title:
@@ -175,8 +175,67 @@ const mockVideoItems: VideoCardItem[] = [
   },
 ]
 
-export const mockVideos: VideosResponse = {
-  videos: mockVideoItems,
+const mockVideoItemsPage2: VideoCardItem[] = [
+  {
+    videoId: '13',
+    title: '2026 AI 트렌드 총정리 | ChatGPT vs Claude 비교',
+    thumbnailUrl: thumbnail.src,
+    publishedAt: '2026-02-15',
+    viewCount: 312000,
+    likeCount: 12500,
+    commentCount: 1800,
+    vph: 55,
+    outLierScore: 3.8,
+    duration: 620,
+    isShort: false,
+    isAd: false,
+  },
+  {
+    videoId: '14',
+    title: '2026 AI 트렌드 총정리 | ChatGPT vs Claude 비교',
+    thumbnailUrl: thumbnail.src,
+    publishedAt: '2026-02-15',
+    viewCount: 198000,
+    likeCount: 8700,
+    commentCount: 950,
+    vph: 41,
+    outLierScore: 2.9,
+    duration: 45,
+    isShort: true,
+    isAd: false,
+  },
+  {
+    videoId: '15',
+    title: '2026 AI 트렌드 총정리 | ChatGPT vs Claude 비교',
+    thumbnailUrl: thumbnail.src,
+    publishedAt: '2026-02-10',
+    viewCount: 540000,
+    likeCount: 22300,
+    commentCount: 3400,
+    vph: 89,
+    outLierScore: 5.2,
+    duration: 870,
+    isShort: false,
+    isAd: true,
+  },
+  {
+    videoId: '16',
+    title: '2026 AI 트렌드 총정리 | ChatGPT vs Claude 비교',
+    thumbnailUrl: thumbnail.src,
+    publishedAt: '2026-02-08',
+    viewCount: 75000,
+    likeCount: 3100,
+    commentCount: 420,
+    vph: 18,
+    outLierScore: 1.4,
+    duration: 55,
+    isShort: true,
+    isAd: false,
+  },
+]
+
+export const mockVideosPage1: VideosResponse = {
+  videos: mockVideoItemsPage1,
   pageInfo: {
     size: 12,
     nextCursor:
@@ -184,3 +243,14 @@ export const mockVideos: VideosResponse = {
     hasNext: true,
   },
 }
+
+export const mockVideosPage2: VideosResponse = {
+  videos: mockVideoItemsPage2,
+  pageInfo: {
+    size: 4,
+    nextCursor: null,
+    hasNext: false,
+  },
+}
+
+export const mockVideos = mockVideosPage1

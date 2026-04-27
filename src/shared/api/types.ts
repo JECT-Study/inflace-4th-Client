@@ -5,6 +5,8 @@ export interface PageInfo {
   hasNext: boolean
 }
 
+export type CursorPageInfo = PageInfo
+
 // API 응답 형식
 export interface ApiResponse<T> {
   success: boolean

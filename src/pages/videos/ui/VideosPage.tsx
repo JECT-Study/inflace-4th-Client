@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 
 import { useAuth } from '@/features/auth'
 import { useVideos, VideoList } from '@/features/videos'
+import { InfiniteScrollList } from '@/shared/ui'
 import { SearchAndFilter } from '@/widgets/videos'
 
 export function VideosPage() {
@@ -20,12 +21,19 @@ export function VideosPage() {
   }, [isInitializing, user?.youtubeChannelName, router])
 
   const channelId = user?.id ?? ''
-  const { data } = useVideos(channelId)
+  const { videos, sentinelRef, isFetchingNextPage, hasNextPage } =
+    useVideos(channelId)
 
   return (
     <>
       <SearchAndFilter />
-      <VideoList videos={data?.videos ?? []} />
+      <InfiniteScrollList
+        sentinelRef={sentinelRef}
+        isFetchingNextPage={isFetchingNextPage}
+        hasNextPage={!!hasNextPage}
+      >
+        <VideoList videos={videos} />
+      </InfiniteScrollList>
     </>
   )
 }
