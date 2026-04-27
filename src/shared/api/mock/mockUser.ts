@@ -13,7 +13,7 @@ export const mockUserDetails: UserDetails = {
   profileImage: mockProfileImage.src,
   userRoles: [],
   plan: 'FREE',
-  isOnboardingCompleted: true,
+  isOnboardingCompleted: false,
 }
 
 /* 유튜브 채널 정보 */
@@ -27,4 +27,33 @@ export const mockUserChannelDetails: UserChannelDetails = {
 export const mockUser: UserInfo = {
   userDetails: mockUserDetails,
   userChannelDetails: mockUserChannelDetails,
+}
+
+/* 로그인 API 성공 응답 */
+export const mockLoginResponse = {
+  success: true,
+  error: null,
+  responseDto: {
+    accessToken: mockAccessToken,
+    userDetails: mockUserDetails,
+    userChannelDetails: mockUserChannelDetails,
+  },
+}
+
+/* 로그인 API 실패 응답 */
+export const mockLoginErrorResponse = {
+  success: false,
+  error: { code: 'AUTH_FAILED', message: '인증에 실패했습니다.' },
+  responseDto: null,
+}
+
+/* 토큰 재발급 API 성공 응답 */
+export const mockReissueResponse = {
+  success: true,
+  error: null,
+  responseDto: {
+    accessToken: mockAccessToken,
+    userDetails: mockUserDetails,
+    userChannelDetails: mockUserChannelDetails,
+  },
 }

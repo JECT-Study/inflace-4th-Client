@@ -34,7 +34,7 @@ export function ChannelProfileSection({
   isExpanded,
   variant = 'default',
 }: ChannelProfileSectionProps) {
-  const { data: apiData, isLoading } = useChannelProfile(channelId)
+  const { data: apiData, isLoading } = useChannelProfile()
   const data = apiData ?? mockChannelProfile
 
   if (isLoading) {
@@ -115,7 +115,7 @@ export function ChannelProfileSection({
         {isExpanded && (
           <ChannelRefreshButton
             queryKeys={[
-              ['channelProfile', channelId],
+              ['channelProfile'],
               ['channelDashboard', channelId],
             ]}
           />

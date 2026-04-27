@@ -29,7 +29,7 @@ export interface UserDetails {
   id: string
   profileImage: string | null
   userRoles: string[]
-  plan: string
+  plan: UserPlan
   isOnboardingCompleted: boolean
 }
 
