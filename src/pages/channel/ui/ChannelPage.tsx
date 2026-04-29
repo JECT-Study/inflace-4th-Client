@@ -7,7 +7,7 @@ import { SubscriberGrowthSection } from '@/widgets/channel/SubscriberGrowth'
 
 export function ChannelPage() {
   const { user } = useAuth()
-  const id = user?.id ?? ''
+  const id = user?.userDetails.id ?? ''
 
   return (
     <div className='flex flex-col gap-y-24 divide-y bg-background-gray-default'>

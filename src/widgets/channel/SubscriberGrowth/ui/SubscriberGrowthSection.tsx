@@ -13,12 +13,12 @@ import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 
 export function SubscriberGrowthSection({ channelId }: { channelId: string }) {
   const [active, setActive] = useState<FilterOption>('1주일')
-  const { data, isLoading } = useSubscriberGrowth(
+  const { data, isLoading, isError } = useSubscriberGrowth(
     channelId,
     FILTER_TO_RANGE[active]
   )
 
-  if (isLoading) {
+  if (isLoading || isError) {
     return (
       //스켈레톤 UI, 로딩중일 때 상태를 표시합니다.
       <div className='flex flex-col gap-24 rounded-16 bg-white p-24 shadow-[0_2px_6px_0_rgba(13,13,13,0.04)]'>

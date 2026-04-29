@@ -118,7 +118,10 @@ export function ChannelProfileSection({
           <ChannelRefreshButton
             onRefresh={() => {
               queryClient.invalidateQueries({ queryKey: ['channelProfile'] })
-              queryClient.invalidateQueries({ queryKey: ['channel', channelId] })
+              queryClient.invalidateQueries({ queryKey: ['kpi', channelId] })
+              queryClient.invalidateQueries({
+                queryKey: ['subscriberGrowth', channelId],
+              })
             }}
           />
         )}
