@@ -21,7 +21,6 @@ import RedirectIcon from '@/shared/assets/redirect-bold.svg'
 
 type ChannelProfileSectionVariant = 'default' | 'dashboard'
 
-
 interface ChannelProfileSectionProps {
   channelId: string
   isExpanded: boolean
@@ -57,7 +56,11 @@ export function ChannelProfileSection({
   }
 
   return (
-    <section className={cn('flex flex-col gap-[10rem] p-3xl md:flex-row', variant === 'dashboard' ? 'bg-white' : 'bg-background-gray-default')}>
+    <section
+      className={cn(
+        'flex flex-col gap-[10rem] p-3xl md:flex-row',
+        variant === 'dashboard' ? 'bg-white' : 'bg-background-gray-default'
+      )}>
       {/* 채널 기본 정보 */}
       <ChannelProfileCard
         profileImageUrl={data.profileImageUrl}
@@ -101,7 +104,10 @@ export function ChannelProfileSection({
             />
 
             {/* 최근 업로드일  */}
-            <LatestUploadDateCard value={formatDate(data.latestUploadDate)} variant={variant} />
+            <LatestUploadDateCard
+              value={formatDate(data.latestUploadDate)}
+              variant={variant}
+            />
           </div>
         </div>
 
@@ -110,7 +116,7 @@ export function ChannelProfileSection({
           <ChannelRefreshButton
             queryKeys={[
               ['channelProfile', channelId],
-              ['channelDashboard', channelId],
+              ['channel', channelId],
             ]}
           />
         )}
