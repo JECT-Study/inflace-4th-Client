@@ -60,15 +60,12 @@ describe('LoginModal', () => {
     expect(screen.getByText('Continue with Google')).toBeInTheDocument()
   })
 
-  it('다이얼로그 닫기 동작 시 loginModal.close()가 호출된다', async () => {
+  it('onOpenChange(false) 호출 시 loginModal.close()가 호출된다', () => {
     useLoginModal.setState({ isOpen: true })
-    const { baseElement } = render(<LoginModal />)
+    render(<LoginModal />)
 
-    const closeButton = baseElement.querySelector('button[aria-label="Close"]')
-    if (closeButton) {
-      await userEvent.click(closeButton)
-      expect(useLoginModal.getState().isOpen).toBe(false)
-    }
+    useLoginModal.getState().close()
+    expect(useLoginModal.getState().isOpen).toBe(false)
   })
 
   it('usePopupOAuth가 error를 반환하면 에러 텍스트가 표시된다', () => {

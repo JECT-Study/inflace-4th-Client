@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { renderHook, act, waitFor } from '@testing-library/react'
 
 import { useAuthStore } from '@/shared/api'
-import { mockAccessToken, mockUser } from '@/shared/api/mock/mockAuth'
+import { mockAccessToken, mockUser } from '@/shared/api/mock/mockUser'
 import { useRequireAuth } from './useRequireAuth'
 
 const mockReplace = vi.fn()

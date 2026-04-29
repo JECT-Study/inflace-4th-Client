@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 
-import { decodeJwt, jwtToAuthUser } from '@/shared/lib/decodeJwt'
-
 // 토큰을 refresh
 export async function POST() {
   const cookieStore = await cookies()
@@ -36,7 +34,7 @@ export async function POST() {
     }
 
     const { responseDto } = JSON.parse(responseText)
-    const accessToken = responseDto?.AccessToken
+    const { accessToken, userDetails, userChannelDetails } = responseDto
 
     // 백엔드가 새 refreshToken을 Set-Cookie로 내려주는 경우 재설정
     const setCookieHeader = backendResponse.headers.get('set-cookie')
@@ -53,11 +51,10 @@ export async function POST() {
       })
     }
 
-    //새 AT는 response body로 전달
-    return NextResponse.json({
-      accessToken,
-      user: jwtToAuthUser(decodeJwt(accessToken)),
-    })
+    const user = { userDetails, userChannelDetails: userChannelDetails ?? null }
+
+    //새 AT와 user 정보는 response body로 전달
+    return NextResponse.json({ accessToken, user })
   } catch {
     return NextResponse.json(
       { error: '토큰 갱신 중 오류가 발생했습니다.' },

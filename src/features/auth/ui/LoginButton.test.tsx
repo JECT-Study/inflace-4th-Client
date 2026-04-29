@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { mockUser } from '@/shared/api/mock/mockAuth'
+import { mockUser } from '@/shared/api/mock/mockUser'
 import { LoginButton } from './LoginButton'
 
 const mockLogout = vi.fn()
@@ -16,12 +16,13 @@ vi.mock('../model/useLoginModal', () => ({
   useLoginModal: vi.fn(),
 }))
 
-vi.mock('@/features/userStatus/ui/UserAvatar', () => ({
-  UserAvatar: () => <div data-testid='user-avatar' />,
+vi.mock('@/features/userStatus', () => ({
+  UserIcon: () => <div data-testid='user-avatar' />,
 }))
 
 import { useAuth } from '../model/useAuth'
 import { useLoginModal } from '../model/useLoginModal'
+import type { LoginModalState } from '../model/types'
 
 const mockUseAuth = vi.mocked(useAuth)
 const mockUseLoginModal = vi.mocked(useLoginModal)
@@ -29,7 +30,7 @@ const mockUseLoginModal = vi.mocked(useLoginModal)
 describe('LoginButton', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    mockUseLoginModal.mockImplementation((selector: any) =>
+    mockUseLoginModal.mockImplementation((selector: (state: LoginModalState) => unknown) =>
       selector({ isOpen: false, open: mockOpenModal, close: vi.fn() })
     )
   })

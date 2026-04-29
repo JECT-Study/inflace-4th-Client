@@ -8,11 +8,7 @@ import {
 } from '@/features/main/trendMagazine'
 import { formatMonthAndWeek } from '@/shared/lib/format'
 
-interface TrendMagazineSectionProps {
-  channelId: string
-}
-
-export function TrendMagazineSection({ channelId }: TrendMagazineSectionProps) {
+export function TrendMagazineSection({ channelId }: { channelId: string }) {
   const { data, isLoading } = useTrendMagazine(channelId)
   const magazines = data?.length ? data : mockTrendMagazines
 
@@ -35,7 +31,7 @@ export function TrendMagazineSection({ channelId }: TrendMagazineSectionProps) {
             매주 월요일 업데이트 되는 AI 추천 매거진
           </p>
           <Link
-            href={`/me/${channelId}/videos`}
+            href={`/videos`} /* TODO: 에픽 진행 후 라우팅 변경 */
             className='size-fit gap-10 pt-1 pr-2 pb-3 pl-2 text-noto-label-sm-bold text-brand-primary hover:underline'>
             더보기
           </Link>

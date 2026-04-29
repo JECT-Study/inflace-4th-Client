@@ -5,20 +5,18 @@ import { cookies } from 'next/headers'
 export async function GET() {
   const origin = process.env.NEXT_PUBLIC_APP_URL!
 
-  // decodeJwt 호환 포맷의 mock JWT 생성 (header.payload.signature)
-  const now = Math.floor(Date.now() / 1000)
-  const payloadData = {
-    sub: 'mock-user-1',
-    iat: now,
-    exp: now + 3600,
-    profileImage: '',
-    plan: 'FREE',
-    isNewUser: false,
-  }
+  const mockAccessToken = 'mock-access-token'
 
-  const header = Buffer.from(JSON.stringify({ alg: 'none', typ: 'JWT' })).toString('base64')
-  const payload = Buffer.from(JSON.stringify(payloadData)).toString('base64')
-  const mockAccessToken = `${header}.${payload}.mock-signature`
+  const mockUser = {
+    userDetails: {
+      id: '019da065-7cf7-7f75-a712-d5bae90738f0',
+      profileImage: '',
+      userRoles: [],
+      plan: 'FREE',
+      isOnboardingCompleted: false,
+    },
+    userChannelDetails: null,
+  }
 
   // mock refresh token 쿠키 저장 (새로고침 시 /auth/refresh MSW 핸들러가 처리)
   const cookieStore = await cookies()
@@ -33,7 +31,7 @@ export async function GET() {
   return new NextResponse(
     buildPostMessageHtml('AUTH_SUCCESS', origin, {
       accessToken: mockAccessToken,
-      user: null,
+      user: mockUser,
     }),
     { headers: { 'Content-Type': 'text/html' } }
   )

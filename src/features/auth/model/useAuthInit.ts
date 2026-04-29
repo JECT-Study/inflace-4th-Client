@@ -19,7 +19,7 @@ export function useAuthInit() {
           setAuth(accessToken, user)
 
           //온보딩이 완료되지 않은 유저라면 온보딩 절차를 진행
-          if (user && !user.isOnboardingCompleted) {
+          if (user && !user.userDetails.isOnboardingCompleted) {
             useOnboardingModal.getState().open()
           }
         }

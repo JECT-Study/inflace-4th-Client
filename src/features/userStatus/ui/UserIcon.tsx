@@ -8,7 +8,7 @@ import { useAuthStore } from '@/shared/api'
 
 export const UserIcon = ({ size, showBadge = false }: UserAvatarProps) => {
   const youtubeChannelProfileImage = useAuthStore(
-    (state) => state.user?.youtubeChannelProfileImage
+    (state) => state.user?.userChannelDetails?.youtubeChannelProfileImageUrl
   )
 
   return (
