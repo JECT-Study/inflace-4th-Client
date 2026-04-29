@@ -1,16 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
-import {
-  fetchChannelTrendingVideo,
-  type ContentType,
-} from '../api/channelTrendingVideoApi'
+import { fetchChannelTrendingVideo } from '../api/channelTrendingVideoApi'
 
-export function useChannelTrendingVideo(
-  channelId: string,
-  contentType: ContentType
-) {
+export function useChannelTrendingVideo(channelId: string, isShort: boolean) {
   return useQuery({
-    queryKey: ['channelDashboard', channelId, 'trendingVideo', contentType],
-    queryFn: () => fetchChannelTrendingVideo(channelId, contentType),
+    queryKey: ['channelDashboard', channelId, 'trendingVideo', isShort],
+    queryFn: () => fetchChannelTrendingVideo(channelId, isShort),
     enabled: !!channelId,
   })
 }

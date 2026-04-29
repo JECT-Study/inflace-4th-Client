@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchNewInflow, type ContentType } from '../api/newInflowApi'
+import { fetchNewInflow } from '../api/newInflowApi'
 
-export function useNewInflow(channelId: string, contentType: ContentType) {
+export function useNewInflow(channelId: string, isShort: boolean) {
   return useQuery({
-    queryKey: ['channelDashboard', channelId, 'newInflow', contentType],
-    queryFn: () => fetchNewInflow(channelId, contentType),
+    queryKey: ['channelDashboard', channelId, 'newInflow', isShort],
+    queryFn: () => fetchNewInflow(channelId, isShort),
     enabled: !!channelId,
   })
 }

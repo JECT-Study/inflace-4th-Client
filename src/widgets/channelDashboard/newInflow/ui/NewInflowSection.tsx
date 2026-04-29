@@ -1,18 +1,15 @@
 import { NewInflow } from '@/entities/channelDashboard/newInflow'
-import {
-  ChannelContentType,
-  FilterOption,
-} from '@/features/channelDashboard/channelContentType'
+import { ChannelContentType } from '@/features/channelDashboard/channelContentType'
 import { useNewInflow } from '@/features/channelDashboard/newInflow'
 import IconNewEye from '@/shared/assets/newEye-bold.svg'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 import { useState } from 'react'
 
 export function NewInflowSection({ channelId }: { channelId: string }) {
-  const [active, setActive] = useState<FilterOption>('롱폼')
-  const { data, isFetching } = useNewInflow(channelId, active)
+  const [isShort, setIsShort] = useState(false)
+  const { data, isFetching, isError } = useNewInflow(channelId, isShort)
 
-  if (isFetching) {
+  if (isFetching || isError) {
     return (
       <div className='flex flex-col gap-24 rounded-16 bg-white p-24 shadow-[0_2px_6px_0_rgba(13,13,13,0.04)]'>
         <div className='flex h-fit w-full items-center justify-between'>
@@ -41,7 +38,7 @@ export function NewInflowSection({ channelId }: { channelId: string }) {
           </span>
           <span className='text-ibm-title-md-normal'>신규 유입 비율 TOP 5</span>
         </div>
-        <ChannelContentType active={active} onActiveChange={setActive} />
+        <ChannelContentType isShort={isShort} onIsShortChange={setIsShort} />
       </div>
       <div className='h-fit w-full'>
         <NewInflow data={data ?? []} />

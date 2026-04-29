@@ -1,8 +1,5 @@
 import { ChannelTrendingVideo } from '@/entities/channelDashboard/channelTrendingVideo'
-import {
-  ChannelContentType,
-  FilterOption,
-} from '@/features/channelDashboard/channelContentType'
+import { ChannelContentType } from '@/features/channelDashboard/channelContentType'
 import { useChannelTrendingVideo } from '@/features/channelDashboard/channelTrendingVideo/model/useChannelTrendingVideo'
 import IconRising from '@/shared/assets/rising-bold.svg'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
@@ -13,10 +10,13 @@ export function ChannelTrendingVideoSection({
 }: {
   channelId: string
 }) {
-  const [active, setActive] = useState<FilterOption>('롱폼')
-  const { data, isFetching } = useChannelTrendingVideo(channelId, active)
+  const [isShort, setIsShort] = useState(false)
+  const { data, isFetching, isError } = useChannelTrendingVideo(
+    channelId,
+    isShort
+  )
 
-  if (isFetching) {
+  if (isFetching || isError) {
     return (
       <div className='flex flex-col gap-24 rounded-16 bg-white p-24 shadow-[0_2px_6px_0_rgba(13,13,13,0.04)]'>
         <div className='flex h-fit w-full items-end justify-between'>
@@ -57,7 +57,7 @@ export function ChannelTrendingVideoSection({
             </span>
           </div>
         </div>
-        <ChannelContentType active={active} onActiveChange={setActive} />
+        <ChannelContentType isShort={isShort} onIsShortChange={setIsShort} />
       </div>
       <div className='h-fit w-full'>
         <ChannelTrendingVideo data={data ?? []} />

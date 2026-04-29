@@ -1,5 +1,3 @@
-export type ContentType = '롱폼' | '숏폼'
-
 export type NewInflowResponseDto = {
   rank: number
   videoId: string

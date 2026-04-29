@@ -1,5 +1,3 @@
-export type ContentType = '롱폼' | '숏폼'
-
 export type TrendingVideoResponseDto = {
   rank: number
   videoId: number
