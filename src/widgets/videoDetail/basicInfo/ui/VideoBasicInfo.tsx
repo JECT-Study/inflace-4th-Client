@@ -28,12 +28,12 @@ export function VideoBasicInfo({ video }: VideoBasicInfoProps) {
         <iframe
           src={embedUrl}
           title={title}
-          className='aspect-video w-full shrink-0 rounded-4 sm:aspect-auto sm:h-[170px] sm:w-[302px]'
+          className='aspect-video w-full shrink-0 rounded-4 sm:aspect-auto sm:h-[17rem] sm:w-[30.2rem]'
           allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
           allowFullScreen
         />
       ) : (
-        <div className='aspect-video w-full shrink-0 rounded-4 bg-stroke-border-gray-default sm:aspect-auto sm:h-[170px] sm:w-[302px]' />
+        <div className='aspect-video w-full shrink-0 rounded-4 bg-stroke-border-gray-default sm:aspect-auto sm:h-[17rem] sm:w-[30.2rem]' />
       )}
 
       {/* 영상 정보 */}

@@ -17,14 +17,14 @@ export function ChannelProfileCard({
   return (
     <div className='flex h-fit w-full items-center gap-4'>
       {/* 스튜디오 이미지 */}
-      <Avatar className='h-37.5 w-37.5'>
+      <Avatar className='h-[15rem] w-[15rem]'>
         <AvatarImage src={profileImageUrl} alt={name} />
         <AvatarFallback>{name.slice(0, 2)}</AvatarFallback>
       </Avatar>
 
       {/* 콘텐츠 종류, 채널 이름, handle name  */}
-      <div className='flex h-fit w-full flex-col justify-center gap-8 p-7'>
-        <span className='size-fit gap-10 rounded-[30px] bg-brand-secondary px-12 py-6 text-noto-label-sm-normal text-white'>
+      <div className='flex h-fit w-full flex-col justify-center gap-8 p-28'>
+        <span className='size-fit gap-10 rounded-[3rem] bg-brand-secondary px-12 py-6 text-noto-label-sm-normal text-white'>
           {category}
         </span>
 

@@ -24,7 +24,7 @@ const toggleGroupItemVariants = cva(
   {
     variants: {
       size: {
-        lg: 'h-[86px] w-[118px] gap-[var(--spacing-2xs)] rounded-[var(--radius-6)] py-[var(--spacing-xs)] leading-[var(--leading-label-md)] font-medium',
+        lg: 'h-[8.6rem] w-[11.8rem] gap-[var(--spacing-2xs)] rounded-[var(--radius-6)] py-[var(--spacing-xs)] leading-[var(--leading-label-md)] font-medium',
         fit: 'gap-[var(--spacing-4)] rounded-full px-[var(--spacing-2xs)] py-[var(--spacing-8)] leading-[var(--leading-label-md)]',
       },
     },

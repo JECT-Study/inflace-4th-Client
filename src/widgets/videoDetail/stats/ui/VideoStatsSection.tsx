@@ -135,7 +135,7 @@ export function VideoStatsSection({ videoId }: VideoStatsSectionProps) {
     <section className='flex flex-col gap-32'>
       {groups.map((group) => (
         <div key={group.title} className='flex flex-col gap-16'>
-          <div className='flex w-full items-center justify-center px-[2px]'>
+          <div className='flex w-full items-center justify-center px-[0.2rem]'>
             <p className='min-w-px flex-1 text-ibm-title-md-normal text-text-and-icon-default'>
               {group.title}
             </p>
