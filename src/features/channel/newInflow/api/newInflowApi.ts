@@ -1,17 +1,17 @@
 import type { ApiResponse } from '@/shared/api/types'
 import { axiosInstance } from '@/shared/api'
 import type {
-  TrendingVideoResponseDto,
-  TrendingVideoListResponseDto,
-} from '@/entities/channelDashboard/channelTrendingVideo'
+  NewInflowListResponseDto,
+  NewInflowResponseDto,
+} from '@/entities/channel/newInflow'
 
-export async function fetchChannelTrendingVideo(
+export async function fetchNewInflow(
   channelId: string,
   isShort: boolean
-): Promise<TrendingVideoResponseDto[]> {
+): Promise<NewInflowResponseDto[]> {
   const response = await axiosInstance.get<
-    ApiResponse<TrendingVideoListResponseDto>
-  >(`/channels/${channelId}/tops`, {
+    ApiResponse<NewInflowListResponseDto>
+  >(`/channels/${channelId}/new-subscriber`, {
     params: isShort ? { filter: 'SHORT_FORM' } : undefined,
   })
   return response.data.responseDto.videos

@@ -14,7 +14,7 @@ interface Props {
   data: TrendingVideoResponseDto[]
 }
 
-export function ChannelTrendingVideo({ data }: Props) {
+export function TrendingVideo({ data }: Props) {
   return (
     <Table className='w-full table-fixed'>
       <TableHeader>

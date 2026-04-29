@@ -1,20 +1,13 @@
-import { ChannelTrendingVideo } from '@/entities/channelDashboard/channelTrendingVideo'
-import { ChannelContentType } from '@/features/channelDashboard/channelContentType'
-import { useChannelTrendingVideo } from '@/features/channelDashboard/channelTrendingVideo/model/useChannelTrendingVideo'
+import { TrendingVideo } from '@/entities/channel/trendingVideo'
+import { ContentType } from '@/features/channel/contentType'
+import { useTrendingVideo } from '@/features/channel/trendingVideo'
 import IconRising from '@/shared/assets/rising-bold.svg'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 import { useState } from 'react'
 
-export function ChannelTrendingVideoSection({
-  channelId,
-}: {
-  channelId: string
-}) {
+export function TrendingVideoSection({ channelId }: { channelId: string }) {
   const [isShort, setIsShort] = useState(false)
-  const { data, isFetching, isError } = useChannelTrendingVideo(
-    channelId,
-    isShort
-  )
+  const { data, isFetching, isError } = useTrendingVideo(channelId, isShort)
 
   if (isFetching || isError) {
     return (
@@ -22,7 +15,7 @@ export function ChannelTrendingVideoSection({
         <div className='flex h-fit w-full items-end justify-between'>
           <div className='flex h-fit w-fit items-start gap-8'>
             <span className='rounded-full bg-background-brand-default p-4'>
-              <IconRising className='size-24 text-(--comp-button-primary-text-disabled)' />
+              <IconRising className='size-24 text-btn-primary-text-disabled' />
             </span>
             <div className='flex flex-col gap-4'>
               <span className='text-ibm-title-md-normal'>
@@ -46,7 +39,7 @@ export function ChannelTrendingVideoSection({
       <div className='flex h-fit w-full items-end justify-between'>
         <div className='flex h-fit w-fit items-start gap-8'>
           <span className='rounded-full bg-background-brand-default p-4'>
-            <IconRising className='size-24 text-(--comp-button-primary-text-disabled)' />
+            <IconRising className='size-24 text-btn-primary-text-disabled' />
           </span>
           <div className='flex flex-col gap-4'>
             <span className='text-ibm-title-md-normal'>
@@ -57,10 +50,10 @@ export function ChannelTrendingVideoSection({
             </span>
           </div>
         </div>
-        <ChannelContentType isShort={isShort} onIsShortChange={setIsShort} />
+        <ContentType isShort={isShort} onIsShortChange={setIsShort} />
       </div>
       <div className='h-fit w-full'>
-        <ChannelTrendingVideo data={data ?? []} />
+        <TrendingVideo data={data ?? []} />
       </div>
     </div>
   )

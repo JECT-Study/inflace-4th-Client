@@ -3,7 +3,7 @@ import {
   mockNewInflow,
   mockNewInflowShort,
   type NewInflowResponseDto,
-} from '@/entities/channelDashboard/newInflow'
+} from '@/entities/channel/newInflow'
 
 export const newInflowHandlers = [
   http.get(

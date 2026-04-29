@@ -6,11 +6,11 @@ import { formatComma } from '@/shared/lib/format'
 import { useKpi } from '@/features/channel/kpi'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 
-export function ChannelKpiSection({ channelId }: { channelId: string }) {
-  const { data: apiData, isFetching } = useKpi(channelId)
+export function KpiSection({ channelId }: { channelId: string }) {
+  const { data: apiData, isFetching, isError } = useKpi(channelId)
   const data = apiData ?? mockKpi
 
-  if (isFetching) {
+  if (isFetching || isError) {
     return (
       //스켈레톤 UI, 로딩중일 때 상태를 표시합니다.
       <section className='flex h-fit w-full gap-24'>
@@ -26,7 +26,7 @@ export function ChannelKpiSection({ channelId }: { channelId: string }) {
     <div className='flex flex-col gap-24 md:flex-row'>
       {/* 총 조회수 */}
       <KpiCard
-        icon={<IconEye className='text-btn-primary-text-disabled size-20' />}
+        icon={<IconEye className='size-20 text-btn-primary-text-disabled' />}
         label='총 조회수'
         value={formatComma(data.totalViews)}
         unit='회'
@@ -35,7 +35,7 @@ export function ChannelKpiSection({ channelId }: { channelId: string }) {
       {/* 평균 참여율 */}
       <KpiCard
         icon={
-          <IconParticipation className='text-btn-primary-text-disabled size-20' />
+          <IconParticipation className='size-20 text-btn-primary-text-disabled' />
         }
         label='평균 참여율'
         value={data.avgEngagementRate}
@@ -44,7 +44,7 @@ export function ChannelKpiSection({ channelId }: { channelId: string }) {
 
       {/* 시청 유지율 */}
       <KpiCard
-        icon={<IconEye className='text-btn-primary-text-disabled size-20' />}
+        icon={<IconEye className='size-20 text-btn-primary-text-disabled' />}
         label='시청 유지율'
         value={data.avgRetentionRate}
         unit='%'
@@ -52,7 +52,7 @@ export function ChannelKpiSection({ channelId }: { channelId: string }) {
 
       {/* 업로드 주기 */}
       <KpiCard
-        icon={<IconClock className='text-btn-primary-text-disabled size-20' />}
+        icon={<IconClock className='size-20 text-btn-primary-text-disabled' />}
         prefix='주 '
         label='업로드 주기'
         value={data.weeklyUploadCount}

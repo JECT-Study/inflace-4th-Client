@@ -3,7 +3,7 @@ import {
   mockChannelTrendingVideo,
   mockChannelTrendingVideoShort,
   type TrendingVideoResponseDto,
-} from '@/entities/channelDashboard/channelTrendingVideo'
+} from '@/entities/channel/trendingVideo'
 
 export const channelTrendingVideoHandlers = [
   http.get(

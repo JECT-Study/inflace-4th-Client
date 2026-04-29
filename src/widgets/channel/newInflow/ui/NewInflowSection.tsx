@@ -1,6 +1,6 @@
-import { NewInflow } from '@/entities/channelDashboard/newInflow'
-import { ChannelContentType } from '@/features/channelDashboard/channelContentType'
-import { useNewInflow } from '@/features/channelDashboard/newInflow'
+import { NewInflow } from '@/entities/channel/newInflow'
+import { ContentType } from '@/features/channel/contentType'
+import { useNewInflow } from '@/features/channel/newInflow/model/useNewInflow'
 import IconNewEye from '@/shared/assets/newEye-bold.svg'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 import { useState } from 'react'
@@ -15,7 +15,7 @@ export function NewInflowSection({ channelId }: { channelId: string }) {
         <div className='flex h-fit w-full items-center justify-between'>
           <div className='flex h-fit w-fit items-center gap-8'>
             <span className='rounded-full bg-background-brand-default p-4'>
-              <IconNewEye className='size-24 text-(--comp-button-primary-text-disabled)' />
+              <IconNewEye className='size-24 text-btn-primary-text-disabled' />
             </span>
             <span className='text-ibm-title-md-normal'>
               신규 유입 비율 TOP 5
@@ -34,11 +34,11 @@ export function NewInflowSection({ channelId }: { channelId: string }) {
       <div className='flex h-fit w-full items-center justify-between'>
         <div className='flex h-fit w-fit items-center gap-8'>
           <span className='rounded-full bg-background-brand-default p-4'>
-            <IconNewEye className='size-24 text-(--comp-button-primary-text-disabled)' />
+            <IconNewEye className='size-24 text-btn-primary-text-disabled' />
           </span>
           <span className='text-ibm-title-md-normal'>신규 유입 비율 TOP 5</span>
         </div>
-        <ChannelContentType isShort={isShort} onIsShortChange={setIsShort} />
+        <ContentType isShort={isShort} onIsShortChange={setIsShort} />
       </div>
       <div className='h-fit w-full'>
         <NewInflow data={data ?? []} />

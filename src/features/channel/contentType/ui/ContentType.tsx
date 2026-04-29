@@ -12,7 +12,7 @@ interface Props {
   onIsShortChange: (isShort: boolean) => void
 }
 
-export function ChannelContentType({ isShort, onIsShortChange }: Props) {
+export function ContentType({ isShort, onIsShortChange }: Props) {
   return (
     <div className='flex h-full w-fit gap-8 text-noto-label-sm-normal text-text-and-icon-disabled'>
       {FILTER_OPTIONS.map((option, index) => (

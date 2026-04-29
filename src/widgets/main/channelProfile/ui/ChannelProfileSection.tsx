@@ -122,6 +122,12 @@ export function ChannelProfileSection({
               queryClient.invalidateQueries({
                 queryKey: ['subscriberGrowth', channelId],
               })
+              queryClient.invalidateQueries({
+                queryKey: ['trendingVideo', channelId],
+              })
+              queryClient.invalidateQueries({
+                queryKey: ['newInflow', channelId],
+              })
             }}
           />
         )}

@@ -2,10 +2,10 @@
 
 import { useAuth } from '@/features/auth'
 import { ChannelProfileSection } from '@/widgets/main/channelProfile'
-import { KpiSection } from '@/widgets/channel/Kpi'
+import { KpiSection } from '@/widgets/channel/kpi'
 import { SubscriberGrowthSection } from '@/widgets/channel/SubscriberGrowth'
-import { ChannelTrendingVideoSection } from '@/widgets/channelDashboard/channelTrendingVideo'
-import { NewInflowSection } from '@/widgets/channelDashboard/newInflow'
+import { TrendingVideoSection } from '@/widgets/channel/trendingVideo'
+import { NewInflowSection } from '@/widgets/channel/newInflow'
 
 export function ChannelPage() {
   const { user } = useAuth()
@@ -28,7 +28,7 @@ export function ChannelPage() {
         <SubscriberGrowthSection channelId={id} />
 
         {/* 영상 성과 테이블 */}
-        <ChannelTrendingVideoSection channelId={id} />
+        <TrendingVideoSection channelId={id} />
 
         {/* 신규 유입 비율 TOP5 */}
         <NewInflowSection channelId={id} />
