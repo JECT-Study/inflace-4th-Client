@@ -4,7 +4,6 @@ import type { VideosResponse } from '../model/types'
 
 /**
  * 채널 영상 목록 조회 API
- *
  * cursor가 있으면 해당 커서 이후의 다음 페이지를 요청하고,
  * 없으면 첫 페이지를 요청합니다.
  */
