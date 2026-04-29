@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
 
-import { mockChannelKpi } from '@/entities/channelDashboard/channelKpiCard'
+import { mockChannelKpi } from '@/entities/channel/channelKpiCard'
 
 export const channelKpiHandlers = [
   http.get(

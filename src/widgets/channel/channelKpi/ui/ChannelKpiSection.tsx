@@ -1,10 +1,10 @@
-import { ChannelKpiCard } from '@/entities/channelDashboard/channelKpiCard'
-import { mockChannelKpi } from '@/entities/channelDashboard/channelKpiCard'
+import { ChannelKpiCard } from '@/entities/channel/channelKpiCard'
+import { mockChannelKpi } from '@/entities/channel/channelKpiCard'
 import IconEye from '@/shared/assets/eye-bold.svg'
 import IconParticipation from '@/shared/assets/participation-bold.svg'
 import IconClock from '@/shared/assets/clock-bold.svg'
 import { formatComma } from '@/shared/lib/format'
-import { useChannelKpi } from '@/features/channelDashboard/channelKpi'
+import { useChannelKpi } from '@/features/channel/channelKpi'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 
 export function ChannelKpiSection({ channelId }: { channelId: string }) {

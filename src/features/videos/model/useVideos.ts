@@ -5,10 +5,6 @@ import type { VideosResponse } from './types'
 
 /**
  * 영상 목록 무한 스크롤 훅
- *
- * useInfiniteScroll의 도메인 래퍼입니다.
- * useInfiniteScroll은 pages 원본을 반환하므로,
- * 여기서 videos 키로 플랫닝하여 단순 배열로 노출합니다.
  */
 export function useVideos(channelId: string) {
   const result = useInfiniteScroll<VideosResponse>({

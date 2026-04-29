@@ -8,7 +8,7 @@ import { SearchAndFilter } from '@/widgets/videos'
 export function VideosPage() {
   const { user } = useAuth()
 
-  const channelId = user?.id ?? ''
+  const channelId = user?.userDetails.id ?? ''
   const { videos, sentinelRef, isFetchingNextPage, hasNextPage } =
     useVideos(channelId)
 

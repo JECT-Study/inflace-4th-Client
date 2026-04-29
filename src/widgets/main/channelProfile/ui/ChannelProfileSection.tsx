@@ -58,7 +58,11 @@ export function ChannelProfileSection({
   }
 
   return (
-    <section className={cn('flex flex-col gap-[10rem] p-3xl md:flex-row', variant === 'dashboard' ? 'bg-white' : 'bg-background-gray-default')}>
+    <section
+      className={cn(
+        'flex flex-col gap-[10rem] p-3xl md:flex-row',
+        variant === 'dashboard' ? 'bg-white' : 'bg-background-gray-default'
+      )}>
       {/* 채널 기본 정보 */}
       <ChannelProfileCard
         profileImageUrl={data.profileImageUrl}
@@ -114,7 +118,9 @@ export function ChannelProfileSection({
           <ChannelRefreshButton
             onRefresh={() => {
               queryClient.invalidateQueries({ queryKey: ['channelProfile'] })
-              queryClient.invalidateQueries({ queryKey: ['channelDashboard', channelId] })
+              queryClient.invalidateQueries({
+                queryKey: ['channel', channelId],
+              })
             }}
           />
         )}

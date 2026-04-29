@@ -3,7 +3,7 @@ import { fetchChannelKpi } from '../api/channelKpiApi'
 
 export function useChannelKpi(channelId: string) {
   return useQuery({
-    queryKey: ['channelDashboard', channelId],
+    queryKey: ['channel', channelId],
     queryFn: () => fetchChannelKpi(channelId),
     enabled: !!channelId,
   })

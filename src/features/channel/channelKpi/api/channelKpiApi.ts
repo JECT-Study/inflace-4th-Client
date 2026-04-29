@@ -1,6 +1,6 @@
 import type { ApiResponse } from '@/shared/api/types'
 import { axiosInstance } from '@/shared/api'
-import type { ChannelKpiDto } from '@/entities/channelDashboard/channelKpiCard'
+import type { ChannelKpiDto } from '@/entities/channel/channelKpiCard'
 
 export async function fetchChannelKpi(
   channelId: string

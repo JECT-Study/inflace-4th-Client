@@ -2,9 +2,9 @@
 
 import { useParams } from 'next/navigation'
 import { ChannelProfileSection } from '@/widgets/main/channelProfile'
-import { ChannelKpiSection } from '@/widgets/channelDashboard/channelKpi'
+import { ChannelKpiSection } from '@/widgets/channel/channelKpi'
 
-export function ChannelDashboardPage() {
+export function ChannelPage() {
   const params = useParams<{ id: string }>()
   const id = params!.id
 
