@@ -1,20 +1,18 @@
 import { useState } from 'react'
-import { useQueryClient } from '@tanstack/react-query'
 import { formatDate } from '@/shared/lib/format'
 import { Button } from '@/shared/ui/button'
 import IconRefresh from '@/shared/assets/refresh-bold.svg'
 
 interface ChannelRefreshButtonProps {
-  queryKeys: string[][]
+  onRefresh: () => void
 }
 
-export function ChannelRefreshButton({ queryKeys }: ChannelRefreshButtonProps) {
+export function ChannelRefreshButton({ onRefresh }: ChannelRefreshButtonProps) {
   const [date, setDate] = useState<string>(() => new Date().toISOString())
   const { year, month, day, hour, minute } = formatDate(date)
 
-  const queryClient = useQueryClient()
   const handleRefresh = () => {
-    queryKeys.forEach((key) => queryClient.invalidateQueries({ queryKey: key }))
+    onRefresh()
     setDate(new Date().toISOString())
   }
 

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 
 import { useAuthStore } from '@/shared/api/authStore'
-import { mockAccessToken, mockUser } from '@/shared/api/mock/mockAuth'
+import { mockAccessToken, mockUser } from '@/shared/api/mock/mockUser'
 import { LoginButton } from './LoginButton'
 
 const meta = {

@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 import {
   formatMonthAgo,
@@ -17,6 +18,7 @@ import Vph from '@/shared/assets/vph-thin.svg'
 import Outlier from '@/shared/assets/outlier-thin.svg'
 
 export function VideoCard({
+  videoId,
   thumbnailUrl,
   title,
   viewCount,
@@ -32,7 +34,7 @@ export function VideoCard({
   const typeLabel = isShort ? '숏폼' : '롱폼'
 
   return (
-    <div className='flex h-fit w-full max-w-[53.2rem] min-w-[34.6rem] flex-col gap-10'>
+    <Link href={`/videos/${videoId}`} className='flex h-fit w-full max-w-[53.2rem] min-w-[34.6rem] flex-col gap-10'>
       {/* 썸네일 */}
       <div className='relative aspect-video w-full overflow-hidden rounded-4'>
         <Image
@@ -103,6 +105,6 @@ export function VideoCard({
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }

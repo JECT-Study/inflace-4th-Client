@@ -1,4 +1,5 @@
 import { Users, Video } from 'lucide-react'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { cn } from '@/shared/lib/utils'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
@@ -34,7 +35,8 @@ export function ChannelProfileSection({
   isExpanded,
   variant = 'default',
 }: ChannelProfileSectionProps) {
-  const { data: apiData, isLoading } = useChannelProfile(channelId)
+  const queryClient = useQueryClient()
+  const { data: apiData, isLoading } = useChannelProfile()
   const data = apiData ?? mockChannelProfile
 
   if (isLoading) {
@@ -114,10 +116,10 @@ export function ChannelProfileSection({
         {/* 대시보드용 새로고침 */}
         {isExpanded && (
           <ChannelRefreshButton
-            queryKeys={[
-              ['channelProfile', channelId],
-              ['channel', channelId],
-            ]}
+            onRefresh={() => {
+              queryClient.invalidateQueries({ queryKey: ['channelProfile'] })
+              queryClient.invalidateQueries({ queryKey: ['channel', channelId] })
+            }}
           />
         )}
       </div>

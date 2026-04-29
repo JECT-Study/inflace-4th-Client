@@ -2,7 +2,6 @@
 
 import { useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-
 import { useShallow } from 'zustand/react/shallow'
 import { isLoggedIn, useAuthStore } from '@/shared/api/authStore'
 

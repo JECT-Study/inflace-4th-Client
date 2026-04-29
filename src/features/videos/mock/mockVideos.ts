@@ -1,5 +1,5 @@
 import type { VideoCardItem } from '@/entities/videos'
-import type { VideosResponse } from '../api/videosApi'
+import type { VideosResponse } from '../model/types'
 import thumbnail from '@/shared/assets/mock/mocklVideoThumbnail.png'
 
 const mockVideoItems: VideoCardItem[] = [

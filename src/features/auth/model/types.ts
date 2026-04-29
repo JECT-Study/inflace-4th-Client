@@ -1,3 +1,10 @@
+import type {
+  UserDetails,
+  UserChannelDetails,
+  ApiResponse,
+} from '@/shared/api/types'
+
+/* 로그인 모달 상태 */
 export interface LoginModalState {
   isOpen: boolean
   open: () => void
@@ -9,16 +16,12 @@ export interface PopupOAuthConfig {
   popupName: string
 }
 
-export interface LoginErrorDetail {
-  code: string
-  message: string
+/* 로그인 API 응답 DTO */
+export interface LoginResponseDto {
+  accessToken: string
+  userDetails: UserDetails
+  userChannelDetails: UserChannelDetails | null
 }
 
-export interface LoginResponse {
-  responseDto: {
-    AccessToken: string
-    RefreshToken: string
-  } | string
-  error: LoginErrorDetail | null
-  success: boolean
-}
+/* 로그인 API 응답 */
+export type LoginResponse = ApiResponse<LoginResponseDto | string>
