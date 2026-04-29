@@ -8,7 +8,10 @@ import IconSend from '@/shared/assets/send-bold.svg'
 import IconArticle from '@/shared/assets/article-bold.svg'
 import IconQuestion from '@/shared/assets/question-bold.svg'
 import IconLock from '@/shared/assets/lock-filled-bold.svg'
-import type { IconName, SidebarIconProps } from '@/features/navigation/model/types'
+import type {
+  IconName,
+  SidebarIconProps,
+} from '@/features/navigation/model/types'
 
 const iconMap: Record<
   IconName,
@@ -39,8 +42,8 @@ export const SidebarIcon = ({
     <IconComponent
       className={className}
       style={{
-        width: `${size}px`,
-        height: `${size}px`,
+        width: `${Number(size) / 10}rem`,
+        height: `${Number(size) / 10}rem`,
         flexShrink: 0,
         display: 'block',
       }}

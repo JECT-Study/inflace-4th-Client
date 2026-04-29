@@ -41,7 +41,7 @@ export function ChannelProfileSection({
   if (isLoading) {
     return (
       //스켈레톤 UI, 로딩중일 때 상태를 표시합니다.
-      <section className='flex h-fit w-full flex-col gap-25 p-(--semantic-breakpoint-spacing-3xl) md:flex-row'>
+      <section className='flex h-fit w-full flex-col gap-[10rem] p-(--semantic-breakpoint-spacing-3xl) md:flex-row'>
         <Skeleton className='h-48 w-48 rounded-full' />
         <div className='flex flex-1 flex-col gap-3'>
           <Skeleton className='h-6 w-40' />
@@ -57,7 +57,7 @@ export function ChannelProfileSection({
   }
 
   return (
-    <section className={cn('flex flex-col gap-25 p-3xl md:flex-row', variant === 'dashboard' ? 'bg-white' : 'bg-background-gray-default')}>
+    <section className={cn('flex flex-col gap-[10rem] p-3xl md:flex-row', variant === 'dashboard' ? 'bg-white' : 'bg-background-gray-default')}>
       {/* 채널 기본 정보 */}
       <ChannelProfileCard
         profileImageUrl={data.profileImageUrl}

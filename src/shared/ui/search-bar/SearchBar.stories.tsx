@@ -42,7 +42,7 @@ function SearchBarPreview({ placeholder, defaultValue, disabled, className }: Se
   const [inputValue, setInputValue] = useState(defaultValue ?? '')
 
   return (
-    <div className='border-transparen flex h-fit w-140 items-center gap-16 rounded-16 border bg-background-gray-stronger px-16 py-12 has-[input:focus]:border has-[input:focus]:border-brand-primary has-[input:focus]:bg-white'>
+    <div className='border-transparen flex h-fit w-[56rem] items-center gap-16 rounded-16 border bg-background-gray-stronger px-16 py-12 has-[input:focus]:border has-[input:focus]:border-brand-primary has-[input:focus]:bg-white'>
       <IconSearch />
       <Input
         type='text'
@@ -52,7 +52,7 @@ function SearchBarPreview({ placeholder, defaultValue, disabled, className }: Se
         placeholder={placeholder}
         disabled={disabled}
         className={cn(
-          'h-20 w-127 text-noto-body-xs-normal text-text-and-icon-secondary transition-colors outline-none focus:text-text-and-icon-primary',
+          'h-20 w-[50.8rem] text-noto-body-xs-normal text-text-and-icon-secondary transition-colors outline-none focus:text-text-and-icon-primary',
           className
         )}
       />

@@ -7,22 +7,22 @@
 
 @theme {
   /* === Spacing — 추가 유닛 (tokens.json 미포함) === */
-  --spacing-5: 5px;
-  --spacing-26: 26px;
-  --spacing-34: 34px;
-  --spacing-38: 38px;
-  --spacing-112: 112px;
-  --spacing-128: 128px;
-  --spacing-144: 144px;
+  --spacing-5: 0.5rem;
+  --spacing-26: 2.6rem;
+  --spacing-34: 3.4rem;
+  --spacing-38: 3.8rem;
+  --spacing-112: 11.2rem;
+  --spacing-128: 12.8rem;
+  --spacing-144: 14.4rem;
 
   /* === section Header === */
-  --header-logo-width: 87px;
-  --header-logo-height: 28px;
-  --spacing-header-height: 66px;
+  --header-logo-width: 8.7rem;
+  --header-logo-height: 2.8rem;
+  --spacing-header-height: 6.6rem;
 
   /* === section Footer === */
-  --footer-logo-width: 180px;
-  --footer-logo-height: 59px;
+  --footer-logo-width: 18rem;
+  --footer-logo-height: 5.9rem;
 }
 
 :root {
