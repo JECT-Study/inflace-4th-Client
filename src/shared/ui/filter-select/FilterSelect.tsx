@@ -36,7 +36,7 @@ function FilterSelectTrigger(
         /* placeholder */
         'data-placeholder:text-muted-foreground',
         /* select-value 자식 = FilterSelectValue */
-        '*:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5'
+        '*:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-6'
       )}
       {...props}>
       <div className='flex size-fit gap-4'>

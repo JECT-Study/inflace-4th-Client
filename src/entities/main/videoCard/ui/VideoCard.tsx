@@ -27,8 +27,8 @@ export function VideoCard({
   ctr,
 }: VideoCardItem) {
   return (
-    <div className='flex h-fit w-full min-w-[512px] gap-20 rounded-8 border border-stroke-border-gray-default bg-background-gray-default p-20'>
-      <div className='relative min-h-29 min-w-52'>
+    <div className='flex h-fit w-full min-w-[51.2rem] gap-20 rounded-8 border border-stroke-border-gray-default bg-background-gray-default p-20'>
+      <div className='relative min-h-[11.6rem] min-w-[20.8rem]'>
         {/* 썸네일 */}
         <Image
           src={thumbnailUrl}

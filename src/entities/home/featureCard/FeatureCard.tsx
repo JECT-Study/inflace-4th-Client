@@ -26,7 +26,7 @@ export function FeatureCard({
         <p className='mt-(--spacing-xs) text-(length:--text-body-sm) font-normal'>
           {description}
         </p>
-        <div className='mt-(--spacing-xl) h-58 w-full overflow-hidden rounded-8'>
+        <div className='mt-(--spacing-xl) h-[23.2rem] w-full overflow-hidden rounded-8'>
           <Image
             src={imgSrc}
             alt={title}
