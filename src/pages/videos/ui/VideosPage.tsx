@@ -2,7 +2,7 @@
 
 import { useAuth } from '@/features/auth'
 import { useVideos, VideoList } from '@/features/videos'
-import { InfiniteScrollList } from '@/shared/ui'
+import { InfiniteScrollList } from '@/shared/ui/infinite-scroll-list/InfiniteScrollList'
 import { SearchAndFilter } from '@/widgets/videos'
 
 export function VideosPage() {

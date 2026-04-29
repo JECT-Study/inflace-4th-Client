@@ -43,6 +43,8 @@ export function useInfiniteScroll<TPage extends { pageInfo: PageInfo }>({
 }: InfiniteScrollOptions<TPage>) {
   // 리스트 끝에 붙는 빈 div의 ref — 이 요소가 화면에 보이는 순간 다음 페이지를 요청
   const sentinelRef = useRef<HTMLDivElement>(null)
+  // Observer 생성 옵션은 마운트 시 1회만 적용하므로 ref로 초기값을 고정
+  const intersectionOptionsRef = useRef(intersectionOptions)
 
   const query = useInfiniteQuery<
     TPage,
@@ -62,24 +64,44 @@ export function useInfiniteScroll<TPage extends { pageInfo: PageInfo }>({
 
   const { fetchNextPage, hasNextPage, isFetchingNextPage } = query
 
+  // ref로 감싸 항상 최신 값을 참조하도록 함
+  const fetchNextPageRef = useRef(fetchNextPage)
+  const hasNextPageRef = useRef(hasNextPage)
+  const isFetchingNextPageRef = useRef(isFetchingNextPage)
+
+  // 렌더마다 ref를 최신 값으로 동기화
+  useEffect(() => {
+    fetchNextPageRef.current = fetchNextPage
+  }, [fetchNextPage])
+  useEffect(() => {
+    hasNextPageRef.current = hasNextPage
+  }, [hasNextPage])
+  useEffect(() => {
+    isFetchingNextPageRef.current = isFetchingNextPage
+  }, [isFetchingNextPage])
+
+  // Observer를 마운트 시 1회만 생성
   useEffect(() => {
     const sentinel = sentinelRef.current
     if (!sentinel) return
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // fetch 중이거나 다음 페이지가 없으면 무시
-        if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage()
+        if (
+          entry.isIntersecting &&
+          hasNextPageRef.current &&
+          !isFetchingNextPageRef.current
+        ) {
+          fetchNextPageRef.current()
         }
       },
       // 하단 100px 전방에서 미리 요청해 스크롤 끊김 방지
-      { rootMargin: '0px 0px 100px 0px', ...intersectionOptions }
+      { rootMargin: '0px 0px 100px 0px', ...intersectionOptionsRef.current }
     )
 
     observer.observe(sentinel)
-    return () => observer.disconnect() // 언마운트 시 메모리 누수 방지
-  }, [fetchNextPage, hasNextPage, isFetchingNextPage, intersectionOptions])
+    return () => observer.disconnect()
+  }, [])
 
   return { ...query, sentinelRef }
 }
