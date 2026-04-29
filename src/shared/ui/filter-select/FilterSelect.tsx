@@ -105,7 +105,7 @@ function FilterSelectItem({
         /* 기본 상태 */
         'outline-hidden select-none',
         /* focus */
-        'focus:bg-(--comp-button-secondary-outlined-outlined-hover) focus:text-text-and-icon-default',
+        'focus:bg-btn-secondary-outlined-hover focus:text-text-and-icon-default',
         /* disabled */
         'data-disabled:pointer-events-none data-disabled:opacity-50',
         className

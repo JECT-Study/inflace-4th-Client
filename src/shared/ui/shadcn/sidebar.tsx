@@ -257,7 +257,7 @@ function SidebarTrigger({
       data-slot='sidebar-trigger'
       color='secondary'
       className={cn(
-        'fixed top-2xs left-(--spacing-sm) z-99 flex h-(--spacing-2xl) w-(--spacing-2xl) cursor-pointer items-center justify-center rounded-8 bg-transparent hover:bg-(--comp-button-secondary-outlined-outlined-hover) active:bg-(--comp-button-secondary-outlined-outlined-pressed)',
+        'fixed top-2xs left-(--spacing-sm) z-99 flex h-(--spacing-2xl) w-(--spacing-2xl) cursor-pointer items-center justify-center rounded-8 bg-transparent hover:bg-btn-secondary-outlined-hover active:bg-btn-secondary-outlined-pressed',
         open && 'rotate-180'
       )}
       onClick={(event) => {
@@ -485,7 +485,7 @@ const sidebarMenuButtonVariants = cva(
     variants: {
       variant: {
         default:
-          'hover:bg-[var(--comp-button-primary-outlined-outlined-hover)] hover:text-[var(--color-brand-primary)] active:bg-[var(--comp-button-primary-outlined-outlined-pressed)] active:text-[var(--color-brand-primary)]',
+          'hover:bg-btn-primary-outlined-hover hover:text-brand-primary active:bg-btn-primary-outlined-pressed active:text-brand-primary',
       },
       size: {
         default:

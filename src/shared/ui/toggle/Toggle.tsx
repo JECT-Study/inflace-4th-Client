@@ -35,7 +35,7 @@ function Toggle({ label, pressed, onClick, className, children }: ToggleProps) {
         'cursor-pointer transition-all outline-none select-none',
 
         /* hover */
-        'hover:bg-(--comp-button-secondary-outlined-outlined-hover) hover:text-text-and-icon-secondary',
+        'hover:bg-btn-secondary-outlined-hover hover:text-text-and-icon-secondary',
 
         /* disabled */
         'disabled:pointer-events-none disabled:opacity-50',
