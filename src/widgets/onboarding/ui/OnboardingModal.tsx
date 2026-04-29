@@ -35,7 +35,7 @@ export function OnboardingModal() {
       <DialogOverlay className='bg-background-dim-default' />
       <DialogContent
         showCloseButton={false}
-        className={`flex h-136 w-250 max-w-250! flex-col overflow-hidden rounded-16 bg-white p-80 ${
+        className={`flex h-[54.4rem] w-[100rem] max-w-[100rem]! flex-col overflow-hidden rounded-16 bg-white p-80 ${
           step >= 3
             ? 'after:absolute after:top-0 after:right-0 after:h-full after:w-1/2 after:bg-background-gray-default after:content-[""]'
             : ''

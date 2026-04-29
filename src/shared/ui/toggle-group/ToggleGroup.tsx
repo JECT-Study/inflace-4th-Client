@@ -20,11 +20,11 @@ const ToggleGroupContext = React.createContext<{
 })
 
 const toggleGroupItemVariants = cva(
-  "relative inline-flex cursor-pointer items-center justify-center overflow-hidden border border-[#e6e6e6] bg-transparent font-default text-[length:var(--text-label-md)] [font-weight:var(--font-weight-label-normal)] whitespace-nowrap text-[var(--color-text-and-icon-secondary)] transition-colors select-none after:pointer-events-none after:absolute after:inset-0 after:content-[''] hover:border-[var(--comp-button-primary-outlined-outlined-stroke-enabled)] hover:bg-[var(--comp-button-primary-outlined-outlined-hover)] hover:after:bg-[var(--btn-overlay-hover,transparent)] active:after:bg-[var(--btn-overlay-active,transparent)] disabled:pointer-events-none disabled:opacity-50 data-[state=on]:border-[var(--comp-button-primary-outlined-outlined-stroke-enabled)] data-[state=on]:bg-[var(--comp-button-primary-outlined-outlined-pressed)] data-[state=on]:text-[var(--color-brand-primary)]",
+  "relative inline-flex cursor-pointer items-center justify-center overflow-hidden border border-[#e6e6e6] bg-transparent font-default text-[length:var(--text-label-md)] [font-weight:var(--font-weight-label-normal)] whitespace-nowrap text-[var(--color-text-and-icon-secondary)] transition-colors select-none after:pointer-events-none after:absolute after:inset-0 after:content-[''] hover:border-btn-primary-outlined-stroke-enabled hover:bg-btn-primary-outlined-hover hover:after:bg-[var(--btn-overlay-hover,transparent)] active:after:bg-[var(--btn-overlay-active,transparent)] disabled:pointer-events-none disabled:opacity-50 data-[state=on]:border-btn-primary-outlined-stroke-enabled data-[state=on]:bg-btn-primary-outlined-pressed data-[state=on]:text-[var(--color-brand-primary)]",
   {
     variants: {
       size: {
-        lg: 'h-[86px] w-[118px] gap-[var(--spacing-2xs)] rounded-[var(--radius-6)] py-[var(--spacing-xs)] leading-[var(--leading-label-md)] font-medium',
+        lg: 'h-[8.6rem] w-[11.8rem] gap-[var(--spacing-2xs)] rounded-[var(--radius-6)] py-[var(--spacing-xs)] leading-[var(--leading-label-md)] font-medium',
         fit: 'gap-[var(--spacing-4)] rounded-full px-[var(--spacing-2xs)] py-[var(--spacing-8)] leading-[var(--leading-label-md)]',
       },
     },

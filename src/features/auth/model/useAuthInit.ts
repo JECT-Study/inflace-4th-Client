@@ -18,8 +18,8 @@ export function useAuthInit() {
           const { accessToken, user } = await res.json()
           setAuth(accessToken, user)
 
-          //만약 처음 로그인한 유저라면 온보딩 절차를 진행
-          if (user?.isNewUser) {
+          //온보딩이 완료되지 않은 유저라면 온보딩 절차를 진행
+          if (user && !user.userDetails.isOnboardingCompleted) {
             useOnboardingModal.getState().open()
           }
         }

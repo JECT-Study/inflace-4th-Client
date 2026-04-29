@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { mockUser } from '@/shared/api/mock/mockAuth'
+import { mockUser } from '@/shared/api/mock/mockUser'
 import { LoginButton } from './LoginButton'
 
 const mockLogout = vi.fn()
@@ -16,12 +16,13 @@ vi.mock('../model/useLoginModal', () => ({
   useLoginModal: vi.fn(),
 }))
 
-vi.mock('@/features/userStatus/ui/UserAvatar', () => ({
-  UserAvatar: () => <div data-testid='user-avatar' />,
+vi.mock('@/features/userStatus', () => ({
+  UserIcon: () => <div data-testid='user-avatar' />,
 }))
 
 import { useAuth } from '../model/useAuth'
 import { useLoginModal } from '../model/useLoginModal'
+import type { LoginModalState } from '../model/types'
 
 const mockUseAuth = vi.mocked(useAuth)
 const mockUseLoginModal = vi.mocked(useLoginModal)
@@ -29,14 +30,14 @@ const mockUseLoginModal = vi.mocked(useLoginModal)
 describe('LoginButton', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    mockUseLoginModal.mockImplementation((selector: any) =>
+    mockUseLoginModal.mockImplementation((selector: (state: LoginModalState) => unknown) =>
       selector({ isOpen: false, open: mockOpenModal, close: vi.fn() })
     )
   })
 
   it('초기화 중일 때 disabled된 "로딩중..." 버튼을 렌더링한다', () => {
     mockUseAuth.mockReturnValue({
-      isAuthenticated: false,
+      isLoggedIn: false,
       isInitializing: true,
       user: null,
       logout: mockLogout,
@@ -51,7 +52,7 @@ describe('LoginButton', () => {
 
   it('로그인 상태일 때 "로그아웃" 버튼을 렌더링한다', () => {
     mockUseAuth.mockReturnValue({
-      isAuthenticated: true,
+      isLoggedIn: true,
       isInitializing: false,
       user: mockUser,
       logout: mockLogout,
@@ -64,7 +65,7 @@ describe('LoginButton', () => {
 
   it('로그인 상태일 때 UserAvatar를 렌더링한다', () => {
     mockUseAuth.mockReturnValue({
-      isAuthenticated: true,
+      isLoggedIn: true,
       isInitializing: false,
       user: mockUser,
       logout: mockLogout,
@@ -77,7 +78,7 @@ describe('LoginButton', () => {
 
   it('로그인 상태에서 로그아웃 버튼 클릭 시 logout이 호출된다', async () => {
     mockUseAuth.mockReturnValue({
-      isAuthenticated: true,
+      isLoggedIn: true,
       isInitializing: false,
       user: null,
       logout: mockLogout,
@@ -91,7 +92,7 @@ describe('LoginButton', () => {
 
   it('비로그인 상태일 때 "로그인" 버튼을 렌더링한다', () => {
     mockUseAuth.mockReturnValue({
-      isAuthenticated: false,
+      isLoggedIn: false,
       isInitializing: false,
       user: null,
       logout: mockLogout,
@@ -104,7 +105,7 @@ describe('LoginButton', () => {
 
   it('비로그인 상태에서 로그인 버튼 클릭 시 로그인 모달을 오픈한다', async () => {
     mockUseAuth.mockReturnValue({
-      isAuthenticated: false,
+      isLoggedIn: false,
       isInitializing: false,
       user: null,
       logout: mockLogout,

@@ -1,37 +1,57 @@
+/* -------API-------- */
 // API 응답 형식
 export interface ApiResponse<T> {
-  success: boolean
   responseDto: T
-  error: string | null
+  error: ApiError | null
+  success: boolean
 }
 
+// API 에러 형식
+export interface ApiError {
+  code: string
+  message: string
+}
+
+/* -------무한 스크롤-------- */
+// cursor 기반 페이지네이션 공통 타입
+export interface PageInfo {
+  size: number
+  nextCursor: string | null
+  hasNext: boolean
+}
+
+/* -------유저 정보-------- */
 // 유저가 결제한 플랜
 export type UserPlan = 'FREE' | 'STARTER' | 'GROWTH'
 
-// Jwt Payload 형식: 해당 값을 추출해 유저 정보(AuthUser) 활용
-export interface JwtPayload {
-  sub: string
-  iat: number
-  exp: number
-  profileImage: string
-  plan: string
-  isNewUser: boolean
-}
-
-//유저 정보
-export interface AuthUser {
+// 유저 기본 정보
+export interface UserDetails {
   id: string
-  profileImage: string
+  profileImage: string | null
+  userRoles: string[]
   plan: UserPlan
-  isNewUser: boolean
+  isOnboardingCompleted: boolean
 }
 
-//유저의 상태
+// 유튜브 채널 정보 (미연동 시 null)
+export interface UserChannelDetails {
+  youtubeChannelId: string | null
+  youtubeChannelName: string | null
+  youtubeChannelProfileImageUrl: string | null
+}
+
+// 유저 정보 (유저 기본 정보 + 유튜브 채널 정보)
+export interface UserInfo {
+  userDetails: UserDetails
+  userChannelDetails: UserChannelDetails | null
+}
+
+// 유저의 상태
 export interface AuthState {
   accessToken: string | null
-  user: AuthUser | null
+  user: UserInfo | null
   isInitializing: boolean
-  setAuth: (accessToken: string, user: AuthUser | null) => void
+  setAuth: (accessToken: string, user: UserInfo | null) => void
   reset: () => void
   setInitializing: (value: boolean) => void
 }

@@ -1,20 +1,22 @@
 'use client'
 
 import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { useAuth } from './useAuth'
-import { useLoginModal } from './useLoginModal'
 
-//refresh token은 있지만 access token은 아직 없는 엣지 케이스(초기화 중 등)를 대응
+/* refreshToken 쿠키는 있지만 서버 유효성 실패(만료 등) 엣지 케이스 대응
+ * proxy.ts의 /?from=protected 이동 → 라우팅 가드
+ */
 export function useRequireAuth() {
-  const { isAuthenticated, isInitializing } = useAuth()
-  const openModal = useLoginModal((s) => s.open)
+  const { isLoggedIn, isInitializing } = useAuth()
+  const router = useRouter()
 
   useEffect(() => {
-    if (!isInitializing && !isAuthenticated) {
-      openModal()
+    if (!isInitializing && !isLoggedIn) {
+      router.replace('/?from=protected')
     }
-  }, [isInitializing, isAuthenticated, openModal])
+  }, [isInitializing, isLoggedIn, router])
 
-  return { isAuthenticated, isInitializing }
+  return { isLoggedIn, isInitializing }
 }

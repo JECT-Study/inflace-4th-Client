@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
       throw new Error('백엔드 인증에 실패했습니다.')
     }
 
-    const { AccessToken } = data.responseDto
+    const { accessToken, userDetails, userChannelDetails } = data.responseDto
 
     // 백엔드가 Set-Cookie 헤더로 refreshToken을 내려주므로 값을 추출하여 재설정
     const setCookieHeader = backendResponse.headers.get('set-cookie')
@@ -70,12 +70,12 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    // 현재 로그인 응답에 user 정보가 없으므로, accessToken만 전달
-    // 향후 /me 엔드포인트가 생기면 user 정보도 함께 전달
+    const user = { userDetails, userChannelDetails: userChannelDetails ?? null }
+
     return new NextResponse(
       buildPostMessageHtml('AUTH_SUCCESS', origin, {
-        accessToken: AccessToken,
-        user: null,
+        accessToken,
+        user,
       }),
       { headers: { 'Content-Type': 'text/html' } }
     )

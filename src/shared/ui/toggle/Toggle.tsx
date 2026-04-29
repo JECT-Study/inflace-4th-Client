@@ -1,27 +1,55 @@
 'use client'
 
-import * as React from 'react'
 import { Toggle as TogglePrimitive } from 'radix-ui'
 import IconDelete from '@/shared/assets/x-bold.svg?react'
 
 import { cn } from '@/shared/lib/utils'
 
-const toggleClass =
-  'group cursor-pointer inline-flex items-center rounded-full border border-stroke-border-gray-default bg-transparent px-16 py-8 text-(length:--text-label-sm) leading-(--leading-label-sm) font-medium whitespace-nowrap text-text-and-icon-secondary transition-all outline-none select-none hover:bg-(--comp-button-secondary-outlined-outlined-hover) hover:text-text-and-icon-secondary disabled:pointer-events-none disabled:opacity-50 data-[state=on]:border-primary data-[state=on]:bg-brand-secondary data-[state=on]:text-white'
+type ToggleProps = {
+  label?: string
+  pressed?: boolean
+  onClick?: () => void
+  className?: string
+  children?: React.ReactNode
+}
 
-type ToggleProps = React.ComponentProps<typeof TogglePrimitive.Root>
-
-function Toggle({ className, children, ...props }: ToggleProps) {
+function Toggle({ label, pressed, onClick, className, children }: ToggleProps) {
   return (
     <TogglePrimitive.Root
       data-slot='toggle'
-      className={cn(toggleClass, className)}
-      {...props}>
-      {children}
-      <span
-        className='flex w-0 shrink-0 items-center overflow-hidden opacity-0 transition-all duration-200 group-data-[state=on]:ml-4 group-data-[state=on]:w-12 group-data-[state=on]:opacity-100'>
-        <IconDelete className='size-12 shrink-0 [&_path]:fill-white' />
-      </span>
+      pressed={pressed}
+      className={cn(
+        /* 레이아웃 */
+        'group inline-flex items-center',
+
+        /* 크기 & 간격 */
+        'size-fit rounded-[50rem] px-16 py-10',
+
+        /* 타이포그래피 */
+        'text-noto-label-sm-thin text-text-and-icon-secondary',
+
+        /* 색상 */
+        'border border-stroke-border-gray-default bg-transparent',
+
+        /* 기본 상태 */
+        'cursor-pointer transition-all outline-none select-none',
+
+        /* hover */
+        'hover:bg-btn-secondary-outlined-hover hover:text-text-and-icon-secondary',
+
+        /* disabled */
+        'disabled:pointer-events-none disabled:opacity-50',
+
+        /* selected */
+        'data-[state=on]:bg-brand-secondary data-[state=on]:text-noto-label-sm-normal data-[state=on]:text-white',
+
+        className
+      )}
+      onClick={onClick}>
+      <div className='flex size-fit items-center gap-4'>
+        {children ?? label}
+        <IconDelete className='my-auto w-0 overflow-hidden transition-all duration-200 group-data-[state=on]:w-[1em] [&_path]:fill-white' />
+      </div>
     </TogglePrimitive.Root>
   )
 }

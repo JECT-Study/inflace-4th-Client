@@ -6,7 +6,7 @@ import {
   mockLoginResponse,
   mockLoginErrorResponse,
   mockRefreshToken,
-} from '@/shared/api/mock/mockAuth'
+} from '@/shared/api/mock/mockUser'
 
 const mockCookieStore = {
   set: vi.fn(),
