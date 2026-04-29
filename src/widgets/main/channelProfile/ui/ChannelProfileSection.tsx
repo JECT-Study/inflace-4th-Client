@@ -1,4 +1,5 @@
 import { Users, Video } from 'lucide-react'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { cn } from '@/shared/lib/utils'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
@@ -21,7 +22,6 @@ import RedirectIcon from '@/shared/assets/redirect-bold.svg'
 
 type ChannelProfileSectionVariant = 'default' | 'dashboard'
 
-
 interface ChannelProfileSectionProps {
   channelId: string
   isExpanded: boolean
@@ -35,7 +35,8 @@ export function ChannelProfileSection({
   isExpanded,
   variant = 'default',
 }: ChannelProfileSectionProps) {
-  const { data: apiData, isLoading } = useChannelProfile(channelId)
+  const queryClient = useQueryClient()
+  const { data: apiData, isLoading } = useChannelProfile()
   const data = apiData ?? mockChannelProfile
 
   if (isLoading) {
@@ -101,17 +102,20 @@ export function ChannelProfileSection({
             />
 
             {/* 최근 업로드일  */}
-            <LatestUploadDateCard value={formatDate(data.latestUploadDate)} variant={variant} />
+            <LatestUploadDateCard
+              value={formatDate(data.latestUploadDate)}
+              variant={variant}
+            />
           </div>
         </div>
 
         {/* 대시보드용 새로고침 */}
         {isExpanded && (
           <ChannelRefreshButton
-            queryKeys={[
-              ['channelProfile', channelId],
-              ['channelDashboard', channelId],
-            ]}
+            onRefresh={() => {
+              queryClient.invalidateQueries({ queryKey: ['channelProfile'] })
+              queryClient.invalidateQueries({ queryKey: ['channelDashboard', channelId] })
+            }}
           />
         )}
       </div>

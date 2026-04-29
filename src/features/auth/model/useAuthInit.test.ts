@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { renderHook, waitFor } from '@testing-library/react'
 
 import { useAuthStore } from '@/shared/api'
-import { mockUser, mockAccessToken } from '@/shared/api/mock/mockAuth'
+import { mockUser, mockAccessToken } from '@/shared/api/mock/mockUser'
 import { useAuthInit } from './useAuthInit'
 
 describe('useAuthInit', () => {

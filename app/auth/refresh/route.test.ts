@@ -5,7 +5,8 @@ import {
   mockRefreshToken,
   mockNewRefreshToken,
   mockReissueResponse,
-} from '@/shared/api/mock/mockAuth'
+  mockUserDetails,
+} from '@/shared/api/mock/mockUser'
 
 const mockCookieStore = {
   set: vi.fn(),
@@ -91,7 +92,12 @@ describe('POST /auth/reissue', () => {
 
     expect(data.accessToken).toBe(mockAccessToken)
     expect(data.user).toEqual(
-      expect.objectContaining({ id: '1', plan: 'FREE' })
+      expect.objectContaining({
+        userDetails: expect.objectContaining({
+          id: mockUserDetails.id,
+          isOnboardingCompleted: false,
+        }),
+      })
     )
   })
 

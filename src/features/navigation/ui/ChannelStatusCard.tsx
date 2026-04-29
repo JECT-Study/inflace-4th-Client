@@ -13,16 +13,16 @@ import IconLock from '@/shared/assets/unlock-filled-bold.svg'
 /* 사이드바에 표시되는 유저의 상태 (유튜브 채널 정보, 현재 플랜 등) */
 export const ChannelStatusCard = () => {
   /* 유저의 정보를 불러옵니다. */
-  const { loggedIn, plan, youtubeChannelName } = useAuthStore(
+  const { loggedIn, plan, userChannelDetails } = useAuthStore(
     useShallow((state) => ({
       loggedIn: isLoggedIn(state),
-      plan: state.user?.plan,
-      youtubeChannelName: state.user?.youtubeChannelName,
+      plan: state.user?.userDetails.plan,
+      userChannelDetails: state.user?.userChannelDetails,
     }))
   )
 
-  /*  유튜브 채널 연동 여부를 이름으로 확인합니다. */
-  const isChannelConnected = loggedIn && Boolean(youtubeChannelName)
+  /*  유튜브 채널 연동 여부를 채널 정보 존재 유무로 확인합니다. */
+  const isChannelConnected = loggedIn && Boolean(userChannelDetails)
 
   /* 채널 미연동 시 연동하기 버튼을 누르면 모달이 열립니다. */
   const openModal = useLoginModal((s) => s.open)
@@ -38,7 +38,7 @@ export const ChannelStatusCard = () => {
           <div className='flex h-fit w-full flex-1 flex-col gap-6'>
             {/* 채널 이름 */}
             <p className='truncate text-noto-label-sm-normal text-text-and-icon-default'>
-              {youtubeChannelName}
+              {userChannelDetails?.youtubeChannelName}
             </p>
 
             {/* 플랜 표시 */}

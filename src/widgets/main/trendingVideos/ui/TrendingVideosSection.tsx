@@ -8,14 +8,8 @@ import {
   mockTrendingVideos,
 } from '@/features/main/trendingVideos'
 
-interface TrendingVideosSectionProps {
-  channelId: string
-}
-
 //인기 급상승 동영상의 리스트를 보여줌
-export function TrendingVideosSection({
-  channelId,
-}: TrendingVideosSectionProps) {
+export function TrendingVideosSection({ channelId }: { channelId: string }) {
   const { data, isLoading } = useTrendingVideos(channelId)
   const videos = data?.length ? data : mockTrendingVideos
 
@@ -33,7 +27,7 @@ export function TrendingVideosSection({
             조회수 대비 참여율이 채널 평균보다 높은 영상이에요
           </p>
           <Link
-            href={`/me/${channelId}/videos`}
+            href={`/videos`}
             className='size-fit gap-10 pt-1 pr-2 pb-3 pl-2 text-noto-label-sm-bold text-brand-primary hover:underline'>
             더보기
           </Link>
@@ -49,13 +43,11 @@ export function TrendingVideosSection({
         </div>
       ) : (
         <PlanGate requiredPlan='STARTER'>
-          {' '}
           <div className='grid grid-cols-2 gap-4'>
-            {' '}
             {videos.slice(0, 4).map((video) => (
               <VideoCard key={video.id} {...video} />
-            ))}{' '}
-          </div>{' '}
+            ))}
+          </div>
         </PlanGate>
       )}
     </section>
