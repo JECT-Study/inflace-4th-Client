@@ -13,7 +13,7 @@ export interface ApiError {
 }
 
 /* -------무한 스크롤-------- */
-// cursor 기반 페이지네이션 공통 타입
+// 페이지네이션 공통 타입
 export interface PageInfo {
   size: number
   nextCursor: string | null
