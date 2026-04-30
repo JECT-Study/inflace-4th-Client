@@ -8,6 +8,7 @@ import { videoDetailHandlers } from './videoDetailHandlers'
 import { kpiHandlers } from './kpiHandlers'
 import { subscriberGrowthHandlers } from './subscriberGrowthHandlers'
 import { videoStatsHandlers } from './videoStatsHandlers'
+import { influencerHandlers } from './influencerHandlers'
 
 export const handlers = [
   ...authHandlers,
@@ -20,4 +21,5 @@ export const handlers = [
   ...kpiHandlers,
   ...subscriberGrowthHandlers,
   ...videoStatsHandlers,
+  ...influencerHandlers,
 ]
