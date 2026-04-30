@@ -14,7 +14,7 @@ export function OnboardingHeader() {
             style={{ width: `calc(100% / 4 * ${step})` }}></span>
         </div>
         <div className='mt-sm'>
-          <p className='text-title-lg leading-(--leading-title-lg) font-semibold text-brand-primary'>
+          <p className='text-ibm-title-lg-normal text-brand-primary'>
             {step}
             <span className='text-text-and-icon-disabled'>/4</span>
             <b className='ml-2xs'>
@@ -26,7 +26,7 @@ export function OnboardingHeader() {
             </b>
           </p>
           {step <= 2 && (
-            <p className='mt-4 text-(length:--text-label-xs) leading-label-xs font-normal text-text-and-icon-tertiary'>
+            <p className='mt-4 text-noto-caption-md-normal text-text-and-icon-tertiary'>
               마이페이지에서 변경할 수 있어요
             </p>
           )}

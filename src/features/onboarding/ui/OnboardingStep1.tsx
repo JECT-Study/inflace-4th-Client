@@ -8,20 +8,20 @@ export function OnboardingStep1() {
 
   return (
     <>
-      <p className='text-(length:--text-title-sm) leading-(--leading-title-sm) font-medium text-text-and-icon-default'>
+      <p className='text-noto-title-sm-bold text-text-and-icon-default'>
         어떤 일을 하시나요?
       </p>
-      <p className='mt-4 text-(length:--text-label-xs) leading-(--leading-label-xs) font-normal text-text-and-icon-tertiary'>
+      <p className='mt-4 text-noto-caption-md-normal text-text-and-icon-tertiary'>
         맞춤 콘텐츠를 제공해드려요
       </p>
 
       <ToggleGroup
-        type='single'
+        type='multiple'
         size='lg'
         spacing={20}
-        value={setSelections}
+        value={(setSelections as string[]) ?? []}
         onValueChange={(value: string) => setSelection(1, value)}
-        className='mt-(--spacing-xl)'>
+        className='mt-xl'>
         {OPTION_ITEM.map((item) => (
           <ToggleGroupItem
             key={item.label}

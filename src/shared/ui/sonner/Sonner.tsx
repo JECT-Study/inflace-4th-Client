@@ -13,10 +13,10 @@ const Toaster = ({ ...props }: ToasterProps) => {
       richColors
       closeButton
       icons={{
-        success: <IconSuccess className='size-24 [&_path]:fill-[#008A3C]' />,
-        info: <IconInfo className='size-24 [&_path]:fill-[#2473E6]' />,
-        error: <IconError className='size-24 [&_path]:fill-[#E02F52]' />,
-        close: <IconClose className='size-16 [&_path]:fill-[#77757F]' />,
+        success: <IconSuccess className='size-24 [&_path]:fill-feedback-success' />,
+        info: <IconInfo className='size-24 [&_path]:fill-feedback-informative' />,
+        error: <IconError className='size-24 [&_path]:fill-feedback-error' />,
+        close: <IconClose className='size-16 [&_path]:fill-text-and-icon-tertiary' />,
       }}
       style={
         {
@@ -38,7 +38,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         classNames: {
           toast:
-            'cn-toast relative w-max! min-w-49 pl-24! py-16! pr-48! rounded-6 gap-8',
+            'cn-toast relative w-max! min-w-[19.6rem] pl-24! py-16! pr-48! rounded-6 gap-8',
           title:
             'text-(length:--text-label-md)! lending-(--leading-label-md) font-normal',
           closeButton:

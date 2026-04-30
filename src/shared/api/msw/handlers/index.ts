@@ -3,8 +3,11 @@ import { channelProfileHandlers } from './channelProfileHandlers'
 import { onboardingHandlers } from './onboardingHandlers'
 import { trendMagazineHandlers } from './trendMagazineHandlers'
 import { trendingVideosHandlers } from './trendingVideosHandlers'
-import { channelKpiHandlers } from './channelKpiHandlers'
+import { videosHandlers } from './videosHandlers'
+import { videoDetailHandlers } from './videoDetailHandlers'
+import { kpiHandlers } from './kpiHandlers'
 import { subscriberGrowthHandlers } from './subscriberGrowthHandlers'
+import { videoStatsHandlers } from './videoStatsHandlers'
 import { channelTrendingVideoHandlers } from './channelTrendingVideoHandlers'
 import { newInflowHandlers } from './newInflowHandlers'
 
@@ -14,8 +17,11 @@ export const handlers = [
   ...trendingVideosHandlers,
   ...trendMagazineHandlers,
   ...onboardingHandlers,
-  ...channelKpiHandlers,
+  ...videosHandlers,
+  ...videoDetailHandlers,
+  ...kpiHandlers,
   ...subscriberGrowthHandlers,
+  ...videoStatsHandlers,
   ...channelTrendingVideoHandlers,
   ...newInflowHandlers,
 ]

@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import axios, { type AxiosInstance } from 'axios'
 
-import { mockAccessToken, mockJwtPayload, mockUser } from './mock/mockAuth'
+import { mockAccessToken, mockUser } from './mock/mockUser'
 
 type InterceptorHandler = { fulfilled?: unknown; rejected?: unknown }
 
@@ -31,11 +31,6 @@ function getResponseHandler(instance: AxiosInstance) {
 describe('axiosInstance', () => {
   beforeEach(() => {
     vi.resetModules()
-    // resetModules 후에도 decodeJwt mock이 유지되도록 재등록
-    vi.doMock('@/shared/lib/decodeJwt', () => ({
-      decodeJwt: vi.fn().mockReturnValue(mockJwtPayload),
-      jwtToAuthUser: vi.fn().mockReturnValue(mockUser),
-    }))
   })
 
   afterEach(() => {
@@ -103,17 +98,17 @@ describe('axiosInstance', () => {
 
       const axiosPostSpy = vi
         .spyOn(axios, 'post')
-        .mockResolvedValueOnce({ data: { accessToken: mockAccessToken } })
+        .mockResolvedValueOnce({
+          data: { accessToken: mockAccessToken, user: mockUser },
+        })
 
       // 재시도 요청은 axiosInstance 어댑터를 mock하여 실제 HTTP 요청 방지
-      axiosInstance.defaults.adapter = vi
-        .fn()
-        .mockResolvedValueOnce({
-          data: 'retried',
-          status: 200,
-          headers: {},
-          config: {},
-        })
+      axiosInstance.defaults.adapter = vi.fn().mockResolvedValueOnce({
+        data: 'retried',
+        status: 200,
+        headers: {},
+        config: {},
+      })
 
       const { rejected } = getResponseHandler(axiosInstance)
 
@@ -134,17 +129,15 @@ describe('axiosInstance', () => {
       const { axiosInstance } = await import('./axiosInstance')
 
       vi.spyOn(axios, 'post').mockResolvedValueOnce({
-        data: { accessToken: mockAccessToken },
+        data: { accessToken: mockAccessToken, user: mockUser },
       })
 
-      axiosInstance.defaults.adapter = vi
-        .fn()
-        .mockResolvedValueOnce({
-          data: 'success',
-          status: 200,
-          headers: {},
-          config: {},
-        })
+      axiosInstance.defaults.adapter = vi.fn().mockResolvedValueOnce({
+        data: 'success',
+        status: 200,
+        headers: {},
+        config: {},
+      })
 
       const { rejected } = getResponseHandler(axiosInstance)
 
@@ -190,14 +183,12 @@ describe('axiosInstance', () => {
       const axiosPostSpy = vi
         .spyOn(axios, 'post')
         .mockReturnValueOnce(refreshPromise as ReturnType<typeof axios.post>)
-      axiosInstance.defaults.adapter = vi
-        .fn()
-        .mockResolvedValue({
-          data: 'retried',
-          status: 200,
-          headers: {},
-          config: {},
-        })
+      axiosInstance.defaults.adapter = vi.fn().mockResolvedValue({
+        data: 'retried',
+        status: 200,
+        headers: {},
+        config: {},
+      })
 
       const { rejected } = getResponseHandler(axiosInstance)
 
@@ -209,7 +200,7 @@ describe('axiosInstance', () => {
       const p1 = (rejected as (e: unknown) => Promise<unknown>)(makeError())
       const p2 = (rejected as (e: unknown) => Promise<unknown>)(makeError())
 
-      resolveRefresh({ data: { accessToken: mockAccessToken, user: null } })
+      resolveRefresh({ data: { accessToken: mockAccessToken, user: mockUser } })
 
       await Promise.all([p1, p2])
 

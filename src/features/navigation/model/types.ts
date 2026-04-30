@@ -1,3 +1,5 @@
+import { UserPlan } from '@/shared/api/types'
+
 export type IconName =
   | 'sidebar'
   | 'dashboard'
@@ -15,8 +17,6 @@ export interface SidebarIconProps {
   className?: string
   size?: number | string
 }
-
-export type UserPlan = 'free' | 'starter' | 'growth'
 
 export interface NavItem {
   id?: string | number

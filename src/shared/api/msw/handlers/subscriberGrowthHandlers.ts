@@ -6,10 +6,10 @@ import {
   mockSubscriberGrowth3Months,
   mockSubscriberGrowth6Months,
   mockSubscriberGrowth1Year,
-} from '@/entities/channelDashboard/channelSubscriberGrowth/mock/mockChannelSubscriberGrowth'
-import type { ChannelSubscriberGrowthDto } from '@/entities/channelDashboard/channelSubscriberGrowth'
+} from '@/entities/channel/subscriberGrowth/mock/mockSubscriberGrowth'
+import type { SubscriberGrowthDto } from '@/entities/channel/subscriberGrowth/model/types'
 
-const RANGE_MOCK_MAP: Record<string, ChannelSubscriberGrowthDto> = {
+const RANGE_MOCK_MAP: Record<string, SubscriberGrowthDto> = {
   '7D': mockSubscriberGrowth1Week,
   '30D': mockSubscriberGrowth1Month,
   '90D': mockSubscriberGrowth3Months,

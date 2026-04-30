@@ -8,10 +8,10 @@ export function OnboardingStep2() {
 
   return (
     <>
-      <p className='text-(length:--text-title-sm) leading-(--leading-title-sm) font-medium text-text-and-icon-default'>
+      <p className='text-noto-title-sm-bold text-text-and-icon-default'>
         관심있는 기능을 모두 선택해주세요
       </p>
-      <p className='mt-4 text-(length:--text-label-xs) leading-(--leading-label-xs) font-normal text-text-and-icon-tertiary'>
+      <p className='mt-4 text-noto-caption-md-normal text-text-and-icon-tertiary'>
         맞춤 콘텐츠를 제공해드려요
       </p>
 
@@ -21,7 +21,7 @@ export function OnboardingStep2() {
         spacing={16}
         value={(setSelections as string[]) ?? []}
         onValueChange={(value: string) => setSelection(2, value)}
-        className='mt-(--spacing-xl)'>
+        className='mt-xl'>
         {OPTION_ITEM.map((item) => (
           <ToggleGroupItem
             key={item.label}

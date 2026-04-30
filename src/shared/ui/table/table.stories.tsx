@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from './table'
-import { mockChannelTrendingVideo } from '@/entities/channelDashboard/channelTrendingVideo'
+import { mockVideoList } from '@/shared/mock/mockVideoList'
 
 const meta: Meta = {
   title: 'Shared/Table',
@@ -43,10 +43,10 @@ export const WithThumbnail: Story = {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {mockChannelTrendingVideo.map((data) => (
+        {mockVideoList.map((data) => (
           <TableRow key={data.rank}>
             <TableCell>
-              <div className='relative h-22 overflow-hidden rounded-4'>
+              <div className='relative h-[8.8rem] overflow-hidden rounded-4'>
                 <Image
                   src={mockImage.src}
                   alt={data.title}
@@ -83,7 +83,7 @@ export const WithoutThumbnail: Story = {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {mockChannelTrendingVideo.map((data) => (
+        {mockVideoList.map((data) => (
           <TableRow key={data.rank}>
             <TableCell className='w-72'>{data.rank}</TableCell>
             <TableCell className='text-left'>{data.title}</TableCell>
@@ -115,10 +115,10 @@ export const SidebarCollapsed: Story = {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {mockChannelTrendingVideo.map((data) => (
+          {mockVideoList.map((data) => (
             <TableRow key={data.rank}>
               <TableCell>
-                <div className='relative h-22 overflow-hidden rounded-4'>
+                <div className='relative h-[8.8rem] overflow-hidden rounded-4'>
                   <Image
                     src={mockImage.src}
                     alt={data.title}

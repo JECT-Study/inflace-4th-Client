@@ -3,20 +3,22 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/features/auth/model/useAuth'
-import { FeatureSection, HeroMain, PlansSection } from '@/widgets/landing'
+
+import { FeatureSection, HeroMain, PlansSection } from '@/widgets/home'
 
 export default function HomePage() {
   /* 유저가 로그인 한 후라면 해당 페이지가 아닌
-   * landingAfterLogin 페이지를 렌더링함
+   * main 페이지를 렌더링함
    */
   const router = useRouter()
-  const { isLoggedIn, isInitializing, user } = useAuth()
+
+  const { isLoggedIn, isInitializing } = useAuth()
 
   useEffect(() => {
-    if (!isInitializing && isLoggedIn && user?.id) {
-      router.replace(`/${user.id}`)
+    if (!isInitializing && isLoggedIn) {
+      router.replace('/main')
     }
-  }, [isInitializing, isLoggedIn, user?.id, router])
+  }, [isInitializing, isLoggedIn, router])
 
   /* auth 초기화 완료 후 snap 클래스를 추가하도록 함
    * isInitializing 중에 snap을 활성화하면 컨텐츠 렌더 시점에 snap-start로 강제 스크롤됨
@@ -33,7 +35,7 @@ export default function HomePage() {
     }
   }, [isInitializing])
 
-  if (isInitializing || (isLoggedIn && user?.id)) return null
+  if (isInitializing || isLoggedIn) return null
 
   return (
     <>

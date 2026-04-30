@@ -43,7 +43,7 @@ export const OPTION_ITEM: OptionItem[] = [
     label: '협업 제안 관리',
   },
   {
-    value: 'INSIGHT_MAGAZINE ',
+    value: 'INSIGHT_MAGAZINE',
     imgSrc: Icon07,
     label: '인사이트 매거진',
   },

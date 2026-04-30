@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { BaseAreaChart } from './BaseAreaChart'
-import { mockSubscriberGrowth1Week } from '@/entities/channelDashboard/channelSubscriberGrowth/mock/mockChannelSubscriberGrowth'
-import type { SubscriberGrowthPoint } from '@/entities/channelDashboard/channelSubscriberGrowth/model/types'
+import { mockSubscriberGrowth1Week } from '@/entities/channel/subscriberGrowth/mock/mockSubscriberGrowth'
+import type { SubscriberGrowthPoint } from '@/entities/channel/subscriberGrowth'
 import { ChartTooltip } from '@/shared/ui/chart'
 import { format10Thousands, formatDate } from '@/shared/lib/format'
 

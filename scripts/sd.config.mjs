@@ -244,9 +244,21 @@ function genColors() {
     .join('\n')
 }
 
+function genPrimitiveTransparentColors() {
+  return flatten(prim.color.trasparent)
+    .map(([k, v]) => `  --primitivecolortrasparent-${k}: ${resolve(v)};`)
+    .join('\n')
+}
+
 function genComponent() {
-  return flatten(comp.button, 'button')
-    .map(([k, v]) => `  --comp-${k}: ${resolve(v)};`)
+  return flatten(comp.button, 'btn')
+    .map(([k, v]) => {
+      const deduped = k
+        .split('-')
+        .filter((seg, i, arr) => seg !== arr[i - 1])
+        .join('-')
+      return `  --color-${deduped}: ${resolve(v)};`
+    })
     .join('\n')
 }
 
@@ -419,6 +431,10 @@ const css = `/* 자동생성 파일 — 직접 편집하지 마세요. npm run b
 
   /* === Semantic Colors === */
 ${genColors()}
+
+
+  /* === Primitive Transparent Colors === */
+${genPrimitiveTransparentColors()}
 
 
   /* === Component Tokens === */

@@ -6,6 +6,17 @@ export function formatComma(count: number | null | undefined): string {
   return count.toLocaleString('ko-KR')
 }
 
+// 만 단위 포맷팅 37,687,938 => 3768만 7938 / 83,904 => 8만 3904 / 187 => 187
+export function formatKoreanUnit(value: number): string {
+  const floor = Math.floor(value)
+  if (floor >= 10000) {
+    const man = Math.floor(floor / 10000)
+    const remainder = floor % 10000
+    return remainder > 0 ? `${man}만 ${remainder}` : `${man}만`
+  }
+  return String(floor)
+}
+
 // 1000명 단위 포맷팅 3,700 => 3천
 export function formatThousands(count: number): string {
   if (count >= 1000) {
@@ -58,6 +69,15 @@ export function formatMonthAgo(iso: string): string {
   const date = new Date(iso)
   const month = String(date.getMonth() + 1)
   return `${month}개월 전`
+}
+
+// 초를 MM:SS 형식으로 변환
+// ex. 769 => "12:49"
+export function formatDuration(seconds: number): string {
+  const total = Math.round(seconds)
+  const m = Math.floor(total / 60)
+  const s = total % 60
+  return `${m}:${String(s).padStart(2, '0')}`
 }
 
 //현재가 몇 월이고, 몇 주차인지 반환 일요일 시작을 기준으로 반환

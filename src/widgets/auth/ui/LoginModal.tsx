@@ -33,12 +33,12 @@ export function LoginModal() {
       <DialogOverlay className='bg-background-dim-default' />
       <DialogContent
         showCloseButton={false}
-        className='flex h-170 w-140 shrink-0 flex-col items-center gap-80 rounded-16 bg-white px-40 py-80 sm:min-h-170 sm:min-w-140'>
+        className='flex h-[68rem] w-[56rem] shrink-0 flex-col items-center gap-80 rounded-16 bg-white px-40 py-80 sm:min-h-[68rem] sm:min-w-[56rem]'>
         {/* title containter */}
         <div className='flex h-fit w-full flex-col items-center justify-center gap-16'>
           {/* logo */}
           <div className='flex items-center justify-center'>
-            <LogoSvg className='h-13.75 w-41.5' />
+            <LogoSvg className='h-[5.5rem] w-[16.6rem]' />
             <span className='sr-only'>inflace</span>
           </div>
 
