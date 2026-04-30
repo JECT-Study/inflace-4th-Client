@@ -11,6 +11,7 @@ export interface VideoFilterParams {
   sort?: 'LATEST' | 'VIEWS' | 'LIKES' | 'VPH' | 'OUTLIER'
   format?: 'ALL' | 'LONG_FORM' | 'SHORT_FORM'
   isAd?: boolean
+  keyword?: string
   cursor?: string
   size?: number
 }

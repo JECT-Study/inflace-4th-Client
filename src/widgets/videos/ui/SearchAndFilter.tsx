@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useState } from 'react'
+import { Suspense, useState, useEffect } from 'react'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { SearchBar } from '@/shared/ui/search-bar'
 import {
@@ -23,15 +23,31 @@ export function SearchAndFilter() {
 
 /* 필터를 쿼리 파라미터에 반영 */
 function SearchAndFilterInner() {
-  const [query, setQuery] = useState('')
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
   const sort = searchParams?.get('sort') ?? 'LATEST'
-  const isLong = searchParams?.get('LONG_FORM') === 'true'
-  const isShort = searchParams?.get('SHORT_FORM') === 'true'
+  const format = searchParams?.get('format')
+  const isLong = format === 'LONG_FORM'
+  const isShort = format === 'SHORT_FORM'
   const isAd = searchParams?.get('isAd') === 'true'
+
+  /* 검색값 반영 */
+  const [query, setQuery] = useState(searchParams?.get('keyword') ?? '')
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const params = new URLSearchParams(searchParams?.toString())
+      if (query) {
+        params.set('keyword', query)
+      } else {
+        params.delete('keyword')
+      }
+      router.replace(`${pathname}?${params.toString()}`)
+    }, 500) //debounce 500ms
+    return () => clearTimeout(timer)
+  }, [query, searchParams, router, pathname])
 
   function updateParam(key: string, value: string | null) {
     const params = new URLSearchParams(searchParams?.toString())
@@ -43,6 +59,7 @@ function SearchAndFilterInner() {
     router.replace(`${pathname}?${params.toString()}`)
   }
 
+  /* 정렬기준 선택 */
   function handleSortChange(value: string) {
     if (value === 'LATEST') {
       updateParam('sort', null)
@@ -51,11 +68,13 @@ function SearchAndFilterInner() {
     }
   }
 
+  /* 숏폼 / 롱폼 선택 */
   function handleFormatToggle(type: 'LONG_FORM' | 'SHORT_FORM') {
-    const current = type === 'LONG_FORM' ? isLong : isShort
-    updateParam(type, current ? null : 'true')
+    const isCurrentlyActive = format === type
+    updateParam('format', isCurrentlyActive ? null : type)
   }
 
+  /* 광고여부 선택 */
   function handleIsAdToggle() {
     updateParam('isAd', isAd ? null : 'true')
   }

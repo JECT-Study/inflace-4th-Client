@@ -18,7 +18,7 @@ export function VideosPage() {
   )
 }
 
-/* 필터값 반영 */
+/* useVideos API 요청 */
 function VideoListSection() {
   const { user } = useAuth()
   const searchParams = useSearchParams()
@@ -26,17 +26,15 @@ function VideoListSection() {
   const channelId = user?.userChannelDetails?.youtubeChannelId ?? ''
 
   const sort = searchParams?.get('sort') as VideoFilterParams['sort']
-  const isLong = searchParams?.get('LONG_FORM') === 'true'
-  const isShort = searchParams?.get('SHORT_FORM') === 'true'
+  const format = searchParams?.get('format') as VideoFilterParams['format']
   const isAd = searchParams?.get('isAd') === 'true'
-
-  const format: VideoFilterParams['format'] =
-    isLong && isShort ? 'ALL' : isLong ? 'LONG_FORM' : isShort ? 'SHORT_FORM' : undefined
+  const keyword = searchParams?.get('keyword') ?? ''
 
   const params: VideoFilterParams = {
     ...(sort && { sort }),
     ...(format && { format }),
     ...(isAd && { isAd }),
+    ...(keyword && { keyword }),
   }
 
   const { data } = useVideos(channelId, params)
