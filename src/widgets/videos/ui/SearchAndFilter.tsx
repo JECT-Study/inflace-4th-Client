@@ -29,14 +29,19 @@ function SearchAndFilterInner() {
 
   const sort = searchParams?.get('sort') ?? 'LATEST'
   const format = searchParams?.get('format')
-  const isLong = format === 'LONG_FORM'
-  const isShort = format === 'SHORT_FORM'
+  const isLong = format === 'LONG_FORM' || format === 'ALL'
+  const isShort = format === 'SHORT_FORM' || format === 'ALL'
   const isAd = searchParams?.get('isAd') === 'true'
 
-  /* 검색값 반영 */
+  /**
+   * 검색값 반영
+   * 검색창이 focused일 때만 500ms 간격으로 api 요청
+   */
   const [query, setQuery] = useState(searchParams?.get('keyword') ?? '')
+  const [isFocused, setIsFocused] = useState(false)
 
   useEffect(() => {
+    if (!isFocused) return
     const timer = setTimeout(() => {
       const params = new URLSearchParams(searchParams?.toString())
       if (query) {
@@ -47,7 +52,7 @@ function SearchAndFilterInner() {
       router.replace(`${pathname}?${params.toString()}`)
     }, 500) //debounce 500ms
     return () => clearTimeout(timer)
-  }, [query, searchParams, router, pathname])
+  }, [query, isFocused, searchParams, router, pathname])
 
   function updateParam(key: string, value: string | null) {
     const params = new URLSearchParams(searchParams?.toString())
@@ -70,8 +75,20 @@ function SearchAndFilterInner() {
 
   /* 숏폼 / 롱폼 선택 */
   function handleFormatToggle(type: 'LONG_FORM' | 'SHORT_FORM') {
-    const isCurrentlyActive = format === type
-    updateParam('format', isCurrentlyActive ? null : type)
+    if (format === 'ALL') {
+      // 둘 다 선택 → 클릭한 것만 해제 (반대 타입만 남김)
+      const opposite = type === 'LONG_FORM' ? 'SHORT_FORM' : 'LONG_FORM'
+      updateParam('format', opposite)
+    } else if (format === type) {
+      // 이미 단독 선택 → 해제
+      updateParam('format', null)
+    } else if (format !== null) {
+      // 반대 타입이 선택된 상태 → 둘 다 선택
+      updateParam('format', 'ALL')
+    } else {
+      // 아무것도 선택 안 됨 → 단독 선택
+      updateParam('format', type)
+    }
   }
 
   /* 광고여부 선택 */
@@ -87,6 +104,9 @@ function SearchAndFilterInner() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onClear={() => setQuery('')}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        onKeyDown={(e) => e.key === 'Enter' && e.currentTarget.blur()}
       />
 
       <div className='flex size-fit items-center gap-6'>
