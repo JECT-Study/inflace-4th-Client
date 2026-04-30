@@ -6,7 +6,7 @@ import {
 } from '@/features/videos/mock/mockVideos'
 
 export const videosHandlers = [
-  http.get(`${process.env.NEXT_PUBLIC_API_URL}/videos`, async ({ request }) => {
+  http.get(`${process.env.NEXT_PUBLIC_API_URL}/channel/:channelId/videos`, async ({ request }) => {
     const url = new URL(request.url)
     const cursor = url.searchParams.get('cursor')
 
