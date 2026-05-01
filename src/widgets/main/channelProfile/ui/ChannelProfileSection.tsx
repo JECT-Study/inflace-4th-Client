@@ -119,15 +119,10 @@ export function ChannelProfileSection({
             onRefresh={() => {
               queryClient.invalidateQueries({ queryKey: ['channelProfile'] })
               queryClient.invalidateQueries({ queryKey: ['kpi', channelId] })
-              queryClient.invalidateQueries({
-                queryKey: ['subscriberGrowth', channelId],
-              })
-              queryClient.invalidateQueries({
-                queryKey: ['trendingVideo', channelId],
-              })
-              queryClient.invalidateQueries({
-                queryKey: ['newInflow', channelId],
-              })
+              queryClient.invalidateQueries({ queryKey: ['subscriberGrowth', channelId] })
+              queryClient.invalidateQueries({ queryKey: ['trendingVideo', channelId] })
+              queryClient.invalidateQueries({ queryKey: ['newInflow', channelId] })
+              queryClient.invalidateQueries({ queryKey: ['typeEngagement', channelId] })
             }}
           />
         )}
