@@ -10,6 +10,8 @@ import { subscriberGrowthHandlers } from './subscriberGrowthHandlers'
 import { videoStatsHandlers } from './videoStatsHandlers'
 import { channelTrendingVideoHandlers } from './channelTrendingVideoHandlers'
 import { newInflowHandlers } from './newInflowHandlers'
+import { typeEngagementHandlers } from './typeEngagementHandlers'
+
 
 export const handlers = [
   ...authHandlers,
@@ -24,4 +26,5 @@ export const handlers = [
   ...videoStatsHandlers,
   ...channelTrendingVideoHandlers,
   ...newInflowHandlers,
+  ...typeEngagementHandlers,
 ]
