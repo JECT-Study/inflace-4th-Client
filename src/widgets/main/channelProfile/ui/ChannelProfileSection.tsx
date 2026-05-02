@@ -123,6 +123,8 @@ export function ChannelProfileSection({
               queryClient.invalidateQueries({ queryKey: ['trendingVideo', channelId] })
               queryClient.invalidateQueries({ queryKey: ['newInflow', channelId] })
               queryClient.invalidateQueries({ queryKey: ['typeEngagement', channelId] })
+              queryClient.invalidateQueries({ queryKey: ['subscriberChart', channelId]})
+              queryClient.invalidateQueries({ queryKey: ['distributionChart', channelId] })
             }}
           />
         )}

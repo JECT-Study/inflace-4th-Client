@@ -38,7 +38,14 @@ export function NewInflowSection({ channelId }: { channelId: string }) {
           </span>
           <span className='text-ibm-title-md-normal'>신규 유입 비율 TOP 5</span>
         </div>
-        <ContentType isShort={isShort} onIsShortChange={setIsShort} />
+        <ContentType
+          options={[
+            { label: '롱폼', filter: false },
+            { label: '숏폼', filter: true },
+          ]}
+          filter={isShort}
+          onFilterChange={setIsShort}
+        />
       </div>
       <div className='h-fit w-full'>
         <NewInflow data={data ?? []} />
