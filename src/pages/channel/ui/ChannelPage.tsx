@@ -2,10 +2,12 @@
 
 import { useAuth } from '@/features/auth'
 import { ChannelProfileSection } from '@/widgets/main/channelProfile'
-import { KpiSection } from '@/widgets/channel/kpi'
+import { KpiSection } from '@/widgets/channel/Kpi'
 import { SubscriberGrowthSection } from '@/widgets/channel/SubscriberGrowth'
 import { TrendingVideoSection } from '@/widgets/channel/trendingVideo'
 import { NewInflowSection } from '@/widgets/channel/newInflow'
+import { TypeEngagementSection } from '@/widgets/channel/typeEngagement'
+import { SubscriberDemographicsSection } from '@/widgets/channel/subscriberDemographics'
 
 export function ChannelPage() {
   const { user } = useAuth()
@@ -32,6 +34,12 @@ export function ChannelPage() {
 
         {/* 신규 유입 비율 TOP5 */}
         <NewInflowSection channelId={id} />
+
+        <div className='flex items-start gap-24'>
+          {/* 롱폼/숏폼 평균 참여율 TOP5 */}
+          <TypeEngagementSection channelId={id} />
+          <SubscriberDemographicsSection channelId={id} />
+        </div>
       </div>
     </div>
   )

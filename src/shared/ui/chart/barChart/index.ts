@@ -1,0 +1,1 @@
+export { BaseBarChart } from './BaseBarChart'
