@@ -25,7 +25,7 @@ export const NAV_ITEMS: NavGroup[] = [
       {
         title: '인플루언서 검색',
         icon: 'search',
-        url: '',
+        url: '/influencer',
       },
       {
         title: '경쟁 채널 분석',
