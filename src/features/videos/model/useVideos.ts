@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { fetchVideoAnalysis } from '../api/videosApi'
+import { fetchVideoList } from '../api/videosApi'
+import type { VideoFilterParams } from './types'
 
-export function useVideos(channelId: string) {
+export function useVideos(channelId: string, params?: VideoFilterParams) {
   return useQuery({
-    queryKey: ['videoAnalysis', channelId],
-    queryFn: () => fetchVideoAnalysis(channelId),
+    queryKey: ['videoList', channelId, params],
+    queryFn: () => fetchVideoList(channelId, params),
     enabled: !!channelId,
   })
 }

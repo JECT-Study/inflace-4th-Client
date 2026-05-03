@@ -5,3 +5,13 @@ export interface VideosResponse {
   videos: VideoCardItem[]
   pageInfo: PageInfo
 }
+
+/* 영상 목록 조회 API 쿼리 파라미터 */
+export interface VideoFilterParams {
+  sort?: 'LATEST' | 'VIEWS' | 'LIKES' | 'VPH' | 'OUTLIER'
+  format?: 'ALL' | 'LONG_FORM' | 'SHORT_FORM'
+  isAd?: boolean
+  keyword?: string
+  cursor?: string
+  size?: number
+}

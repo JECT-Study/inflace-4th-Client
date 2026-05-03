@@ -35,7 +35,7 @@ export const ChannelStatusCard = () => {
           {/* 채널 아이콘 */}
           <UserIcon size={38} showBadge />
 
-          <div className='flex h-fit w-full flex-1 flex-col gap-6'>
+          <div className='flex h-fit w-full min-w-0 flex-1 flex-col gap-6'>
             {/* 채널 이름 */}
             <p className='truncate text-noto-label-sm-normal text-text-and-icon-default'>
               {userChannelDetails?.youtubeChannelName}
