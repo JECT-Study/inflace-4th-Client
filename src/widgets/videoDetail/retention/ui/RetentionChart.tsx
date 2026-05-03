@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import {
   ComposedChart,
   Area,
@@ -26,9 +26,9 @@ interface RetentionChartProps {
 const LINE_COLOR = '#5A44F2'
 const HIGHLIGHT_COLOR = '#F13D5D'
 const SECTION_KEYS = ['s0', 's1', 's2', 's3'] as const
+const SECTION_BOUNDARIES = [0.25, 0.5, 0.75]
 
 type SectionKey = (typeof SECTION_KEYS)[number]
-
 type SectionDataPoint = RetentionDataPoint & Record<SectionKey, number | undefined>
 
 function getSectionIndex(timeRatio: number): number {
@@ -38,38 +38,43 @@ function getSectionIndex(timeRatio: number): number {
   return 3
 }
 
-function parseDuration(displayTime: string): number {
+export function parseDuration(displayTime: string): number {
   const [min, sec] = displayTime.split(':').map(Number)
   return (min ?? 0) * 60 + (sec ?? 0)
 }
 
-function formatDuration(seconds: number): string {
+export function formatDuration(seconds: number): string {
   const m = Math.floor(seconds / 60)
   const s = Math.floor(seconds % 60)
   return `${m}분 ${s}초`
 }
 
-/* 0.25, 0.5, 0.75 경계에 보간값을 삽입하고 s0~s3 필드를 생성 */
+/* 경계 포인트를 보간 삽입하고 s0~s3 구간 필드 생성 — 정렬 1회 */
 function buildSectionData(data: RetentionDataPoint[]): SectionDataPoint[] {
-  const BOUNDARIES = [0.25, 0.5, 0.75]
+  const existingRatios = new Set(data.map((d) => d.timeRatio))
+  const extraPoints: RetentionDataPoint[] = []
 
-  let augmented = [...data]
+  for (const boundary of SECTION_BOUNDARIES) {
+    if (existingRatios.has(boundary)) continue
 
-  for (const boundary of BOUNDARIES) {
-    if (augmented.find((d) => d.timeRatio === boundary)) continue
-
-    const before = [...augmented].reverse().find((d) => d.timeRatio < boundary)
-    const after = augmented.find((d) => d.timeRatio > boundary)
+    let before: RetentionDataPoint | undefined
+    let after: RetentionDataPoint | undefined
+    for (const d of data) {
+      if (d.timeRatio < boundary) before = d
+      else if (!after) { after = d; break }
+    }
     if (!before || !after) continue
 
     const t = (boundary - before.timeRatio) / (after.timeRatio - before.timeRatio)
-    const watchRatio = before.watchRatio + (after.watchRatio - before.watchRatio) * t
-
-    augmented = [
-      ...augmented,
-      { timeRatio: boundary, watchRatio, displayTime: '', isDrop: false },
-    ].sort((a, b) => a.timeRatio - b.timeRatio)
+    extraPoints.push({
+      timeRatio: boundary,
+      watchRatio: before.watchRatio + (after.watchRatio - before.watchRatio) * t,
+      displayTime: '',
+      isDrop: false,
+    })
   }
+
+  const augmented = [...data, ...extraPoints].sort((a, b) => a.timeRatio - b.timeRatio)
 
   return augmented.map((d) => ({
     ...d,
@@ -89,14 +94,13 @@ function RetentionTooltip({
 }) {
   if (!active || !payload?.length) return null
   const main = payload.find((p) => p.dataKey === 'watchRatio') ?? payload[0]
-  if (!main) return null
-  const point = main.payload
-  if (!point.displayTime) return null
+  if (!main?.payload.displayTime) return null
+  const { displayTime, watchRatio, isDrop } = main.payload
   return (
     <ChartTooltip
-      topLabel={point.displayTime}
-      primaryValue={`${Math.round(point.watchRatio * 100)}%`}
-      annotation={point.isDrop ? '급이탈 구간' : undefined}
+      topLabel={displayTime}
+      primaryValue={`${Math.round(watchRatio * 100)}%`}
+      annotation={isDrop ? '급이탈 구간' : undefined}
     />
   )
 }
@@ -110,15 +114,12 @@ function AvgDurationLabel({
   onEnter: (e: React.MouseEvent<SVGRectElement>) => void
   onLeave: () => void
 }) {
-  const x = viewBox?.x ?? 0
-  const y = viewBox?.y ?? 0
-  const height = viewBox?.height ?? 0
   return (
     <rect
-      x={x - 8}
-      y={y}
+      x={(viewBox?.x ?? 0) - 8}
+      y={viewBox?.y ?? 0}
       width={16}
-      height={height}
+      height={viewBox?.height ?? 0}
       fill='transparent'
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
@@ -132,12 +133,15 @@ export function RetentionChart({
   hoveredSection,
   onSectionHover,
 }: RetentionChartProps) {
-  const [avgTooltipPos, setAvgTooltipPos] = useState<{
-    x: number
-    y: number
-  } | null>(null)
+  const [avgTooltipPos, setAvgTooltipPos] = useState<{ x: number; y: number } | null>(null)
 
   const sectionData = useMemo(() => buildSectionData(data), [data])
+
+  /* O(n) find → O(1) Map 조회 */
+  const displayTimeMap = useMemo(
+    () => new Map(data.map((d) => [d.timeRatio, d.displayTime])),
+    [data]
+  )
 
   const steepestDropPoint = useMemo(() => {
     let max: { point: RetentionDataPoint; drop: number } | null = null
@@ -149,21 +153,24 @@ export function RetentionChart({
     return max?.point ?? null
   }, [data])
 
-  const lastPoint = data[data.length - 1]
-  const totalDurationSec = lastPoint ? parseDuration(lastPoint.displayTime) : 0
-  const avgTimeRatio =
-    avgWatchDuration && totalDurationSec > 0
-      ? Math.min(avgWatchDuration / totalDurationSec, 1)
+  const avgTimeRatio = useMemo(() => {
+    const lastPoint = data[data.length - 1]
+    const totalSec = lastPoint ? parseDuration(lastPoint.displayTime) : 0
+    return avgWatchDuration && totalSec > 0
+      ? Math.min(avgWatchDuration / totalSec, 1)
       : null
+  }, [data, avgWatchDuration])
 
-  function handleChartMouseMove(state: {
-    activeLabel?: string | number
-    isTooltipActive?: boolean
-  }) {
-    if (state.activeLabel !== undefined && state.isTooltipActive) {
-      onSectionHover(getSectionIndex(Number(state.activeLabel)))
-    }
-  }
+  const handleChartMouseMove = useCallback(
+    (state: { activeLabel?: string | number; isTooltipActive?: boolean }) => {
+      if (state.activeLabel !== undefined && state.isTooltipActive) {
+        onSectionHover(getSectionIndex(Number(state.activeLabel)))
+      }
+    },
+    [onSectionHover]
+  )
+
+  const handleChartMouseLeave = useCallback(() => onSectionHover(null), [onSectionHover])
 
   return (
     <div className='relative h-[32.8rem] w-full text-noto-caption-sm-bold text-text-and-icon-tertiary [&_*:focus]:outline-none [&_svg]:outline-none'>
@@ -172,7 +179,7 @@ export function RetentionChart({
           data={sectionData}
           margin={{ top: 8, right: 0, left: 0, bottom: 0 }}
           onMouseMove={handleChartMouseMove}
-          onMouseLeave={() => onSectionHover(null)}>
+          onMouseLeave={handleChartMouseLeave}>
           <defs>
             <linearGradient id='retentionGradient' x1='0' y1='0' x2='0' y2='1'>
               <stop offset='0%' stopColor='#5A44F2' stopOpacity={0.24} />
@@ -188,10 +195,7 @@ export function RetentionChart({
             tickLine={false}
             tickMargin={8}
             tickCount={5}
-            tickFormatter={(value: number) => {
-              const point = data.find((d) => d.timeRatio === value)
-              return point?.displayTime ?? ''
-            }}
+            tickFormatter={(v: number) => displayTimeMap.get(v) ?? ''}
           />
 
           <YAxis
@@ -204,7 +208,6 @@ export function RetentionChart({
             tickFormatter={(v: number) => `${Math.round(v * 100)}%`}
           />
 
-          {/* 가장 급감하는 구간 세로선 — 1개만 표시 */}
           {steepestDropPoint && (
             <ReferenceLine
               x={steepestDropPoint.timeRatio}
@@ -215,21 +218,16 @@ export function RetentionChart({
             />
           )}
 
-          {/* 평균 시청 지속시간 세로선 */}
           {avgTimeRatio !== null && (
             <ReferenceLine
               x={avgTimeRatio}
               stroke='#77757F'
               strokeDasharray='6 3'
               strokeWidth={1.5}
-              label={(props: {
-                viewBox?: { x?: number; y?: number; height?: number }
-              }) => (
+              label={(props: { viewBox?: { x?: number; y?: number; height?: number } }) => (
                 <AvgDurationLabel
                   viewBox={props.viewBox}
-                  onEnter={(e) =>
-                    setAvgTooltipPos({ x: e.clientX, y: e.clientY })
-                  }
+                  onEnter={(e) => setAvgTooltipPos({ x: e.clientX, y: e.clientY })}
                   onLeave={() => setAvgTooltipPos(null)}
                 />
               )}
@@ -238,7 +236,6 @@ export function RetentionChart({
 
           <Tooltip content={<RetentionTooltip />} cursor={false} />
 
-          {/* 그라디언트 채우기 영역 — 선 없이 fill만 */}
           <Area
             type='monotone'
             dataKey='watchRatio'
@@ -246,15 +243,9 @@ export function RetentionChart({
             fillOpacity={1}
             stroke='none'
             dot={false}
-            activeDot={{
-              r: 6,
-              strokeWidth: 2,
-              stroke: '#fff',
-              fill: '#5A44F2',
-            }}
+            activeDot={{ r: 6, strokeWidth: 2, stroke: '#fff', fill: '#5A44F2' }}
           />
 
-          {/* 구간별 선 — 호버 시 해당 구간만 빨간색 */}
           {SECTION_KEYS.map((key, i) => (
             <Line
               key={key}
@@ -280,7 +271,6 @@ export function RetentionChart({
         </ComposedChart>
       </ResponsiveContainer>
 
-      {/* 평균 시청 지속시간 호버 툴팁 */}
       {avgTooltipPos && avgWatchDuration && (
         <div
           className='pointer-events-none fixed z-50 flex flex-col gap-4 rounded-12 bg-white p-20 shadow-[0_0_8px_0_rgba(13,13,13,0.08),0_6px_12px_0_rgba(13,13,13,0.08)]'
