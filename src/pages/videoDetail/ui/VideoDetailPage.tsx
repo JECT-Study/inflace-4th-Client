@@ -7,6 +7,7 @@ import { useAuth } from '@/features/auth'
 import { useVideoDetail, mockVideoDetail } from '@/features/videoDetail'
 import { VideoBasicInfo } from '@/widgets/videoDetail/basicInfo'
 import { VideoStatsSection } from '@/widgets/videoDetail/stats'
+import { RetentionSection } from '@/widgets/videoDetail/retention'
 
 export function VideoDetailPage() {
   const router = useRouter()
@@ -54,10 +55,11 @@ export function VideoDetailPage() {
         {/* 영상 기본 정보 */}
         <VideoBasicInfo video={video} />
 
+        {/* 시청 지속률 그래프 영역 */}
+        <RetentionSection videoId={videoId} />
+
         {/* 핵심 성과 지표 카드 */}
         <VideoStatsSection videoId={videoId} />
-
-        {/* TODO: 티켓 3 — 시청 지속률 그래프 영역 */}
       </div>
     </div>
   )
