@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { cn } from '@/shared/lib/utils'
 import { formatDate } from '@/shared/lib/format'
 import { Button } from '@/shared/ui/button'
@@ -24,6 +24,9 @@ interface CompetitorFilterPanelProps {
   ) => void
   onReset: () => void
   onSearch: () => void
+  /* 상세 검색 영역 열림 상태 (외부 controlled 가능) — 미전달 시 내부 state로 동작 */
+  isDetailOpen?: boolean
+  onDetailOpenChange?: (open: boolean) => void
 }
 
 export function CompetitorFilterPanel({
@@ -31,8 +34,16 @@ export function CompetitorFilterPanel({
   onChange,
   onReset,
   onSearch,
+  isDetailOpen: isDetailOpenProp,
+  onDetailOpenChange,
 }: CompetitorFilterPanelProps) {
-  const [isDetailOpen, setIsDetailOpen] = useState(false)
+  /* controlled/uncontrolled 모두 지원 */
+  const [isDetailOpenInternal, setIsDetailOpenInternal] = useState(false)
+  const isDetailOpen = isDetailOpenProp ?? isDetailOpenInternal
+  const setIsDetailOpen = (next: boolean) => {
+    onDetailOpenChange?.(next)
+    if (isDetailOpenProp === undefined) setIsDetailOpenInternal(next)
+  }
 
   return (
     <div className='flex w-full flex-col gap-24 bg-background-gray-default py-24'>
@@ -102,7 +113,7 @@ export function CompetitorFilterPanel({
       <div className='flex justify-center'>
         <button
           type='button'
-          onClick={() => setIsDetailOpen((prev) => !prev)}
+          onClick={() => setIsDetailOpen(!isDetailOpen)}
           className='flex cursor-pointer items-center gap-4 rounded-full px-16 py-6 text-noto-label-md-normal text-text-and-icon-secondary transition-colors hover:bg-background-gray-default'>
           상세 검색
           <IconChevronDown

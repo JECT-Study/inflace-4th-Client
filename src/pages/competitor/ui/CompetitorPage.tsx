@@ -7,6 +7,7 @@ import { Lightbulb } from 'lucide-react'
 
 import {
   CompetitorFilterPanel,
+  CompetitorInsightSection,
   CompetitorResultSection,
   CompetitorSelectionBar,
 } from '@/widgets/competitor'
@@ -37,6 +38,12 @@ export function CompetitorPage() {
     new Set()
   )
 
+  /* 분석 트리거된 영상 ID 배열 — '영상 분석하기' 클릭 시 선택 영상의 스냅샷 */
+  const [analyzedVideoIds, setAnalyzedVideoIds] = useState<string[]>([])
+
+  /* 상세 검색 영역 열림 상태 — 분석 완료 시 자동 닫기 위해 페이지에서 관리 */
+  const [isDetailOpen, setIsDetailOpen] = useState(false)
+
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useBrandCollaborations({ filter: appliedFilter })
 
@@ -50,17 +57,19 @@ export function CompetitorPage() {
     setDraftFilter((prev) => ({ ...prev, [key]: value }))
   }
 
-  /* 초기화: 편집 필터 + 적용 필터 + 선택 영상 모두 초기 상태로 */
+  /* 초기화: 편집 필터 + 적용 필터 + 선택/분석 영상 모두 초기 상태로 */
   function handleReset() {
     setDraftFilter(DEFAULT_COMPETITOR_FILTER)
     setAppliedFilter(null)
     setSelectedVideoIds(new Set())
+    setAnalyzedVideoIds([])
   }
 
   /* 검색: 편집 필터를 확정. 동일 조건 재검색 시에도 강제 refetch */
   function handleSearch() {
     setAppliedFilter(draftFilter)
     setSelectedVideoIds(new Set())
+    setAnalyzedVideoIds([])
     queryClient.invalidateQueries({ queryKey: ['brand-collaborations'] })
   }
 
@@ -86,12 +95,16 @@ export function CompetitorPage() {
     })
   }
 
+  /* Clear All: 선택 영상 + 분석 결과만 초기화 (검색 필터/영상 리스트 유지) */
   function handleClearSelection() {
     setSelectedVideoIds(new Set())
+    setAnalyzedVideoIds([])
   }
 
+  /* '영상 분석하기' — 현재 선택 영상으로 trends 분석 트리거 */
   function handleAnalyze() {
-    /* TODO: 분석 결과 페이지가 만들어지면 push 처리 (IN-270 범위 밖) */
+    if (selectedVideoIds.size === 0) return
+    setAnalyzedVideoIds(Array.from(selectedVideoIds))
   }
 
   return (
@@ -101,10 +114,19 @@ export function CompetitorPage() {
         onChange={handleChange}
         onReset={handleReset}
         onSearch={handleSearch}
+        isDetailOpen={isDetailOpen}
+        onDetailOpenChange={setIsDetailOpen}
       />
 
       <div className='flex w-full flex-col gap-16 px-24 pt-24'>
         <AnalysisInsightCard hasResults={hasResults} />
+
+        {analyzedVideoIds.length > 0 && (
+          <CompetitorInsightSection
+            videoIds={analyzedVideoIds}
+            onAnalysisComplete={() => setIsDetailOpen(false)}
+          />
+        )}
 
         {appliedFilter && (
           <>
