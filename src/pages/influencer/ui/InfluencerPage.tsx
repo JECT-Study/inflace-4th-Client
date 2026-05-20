@@ -1,8 +1,9 @@
 'use client'
 
 import { Suspense, useState } from 'react'
-import { InfluencerList, useInfluencers, useYoutubeCategories } from '@/features/influencer'
+import { InfluencerList, useInfluencers } from '@/features/influencer'
 import type { SortCriteria, SortOrder } from '@/entities/influencer'
+import { useYoutubeCategories } from '@/entities/youtubeCategory'
 import { InfluencerFilter } from '@/widgets/influencer'
 
 export function InfluencerPage() {

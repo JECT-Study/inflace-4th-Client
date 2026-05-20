@@ -11,10 +11,10 @@ import {
   OutlierRangeDropdown,
   HasAdHistoryDropdown,
   EngagementRateDropdown,
-  type YoutubeCategory,
   type SubscriberQuery,
   type EngagementRateQuery,
 } from '@/features/influencer'
+import type { YoutubeCategory } from '@/entities/youtubeCategory'
 
 type CategoryFilterState = {
   output: string

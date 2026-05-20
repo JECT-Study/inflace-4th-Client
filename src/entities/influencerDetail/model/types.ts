@@ -30,6 +30,7 @@ export interface Advertisement {
 }
 
 export interface FormatMetrics {
+  count: number
   averageViews30d: number
   engagementRate: number
 }

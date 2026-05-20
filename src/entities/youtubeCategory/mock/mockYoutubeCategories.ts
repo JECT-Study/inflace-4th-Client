@@ -1,7 +1,4 @@
-export interface YoutubeCategory {
-  id: number
-  title: string
-}
+import type { YoutubeCategory } from '../model/types'
 
 export const mockYoutubeCategories: YoutubeCategory[] = [
   { id: 1, title: '영화/애니메이션' },

@@ -4,7 +4,7 @@ import { cn } from '@/shared/lib/utils'
 import type { ButtonProps } from './type'
 
 const buttonVariants = cva(
-  "font-sans relative flex size-fit items-center justify-center gap-6 overflow-hidden whitespace-nowrap transition-colors select-none after:pointer-events-none after:absolute after:inset-0 after:content-[''] hover:after:bg-[var(--btn-overlay-hover,transparent)] active:after:bg-[var(--btn-overlay-active,transparent)] disabled:pointer-events-none",
+  "font-sans relative flex size-fit cursor-pointer items-center justify-center gap-6 overflow-hidden whitespace-nowrap transition-colors select-none after:pointer-events-none after:absolute after:inset-0 after:content-[''] hover:after:bg-[var(--btn-overlay-hover,transparent)] active:after:bg-[var(--btn-overlay-active,transparent)] disabled:pointer-events-none",
   {
     variants: {
       color: {

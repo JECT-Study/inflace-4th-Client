@@ -1,7 +1,6 @@
 import { axiosInstance } from '@/shared/api'
-import type { ApiResponse, PageInfo } from '@/shared/api/types'
+import type { PageInfo } from '@/shared/api/types'
 import type { Influencer, SortCriteria, SortOrder } from '@/entities/influencer'
-import type { YoutubeCategory } from '../mock/mockYoutubeCategories'
 import { mockInfluencers } from '../mock/mockInfluencers'
 
 export interface BookmarkResponse {
@@ -21,10 +20,6 @@ export interface InfluencerListResponse {
     sortCriteria: SortCriteria | ''
     sortOrder: SortOrder
   }
-}
-
-export interface YoutubeCategoriesResponse {
-  youtubeCategories: YoutubeCategory[]
 }
 
 export interface FetchInfluencersParams {
@@ -59,14 +54,6 @@ export async function fetchInfluencers(
       sortOrder: 'ASC',
     },
   }
-}
-
-/* 카테고리 드롭다운 목록 */
-export async function fetchYoutubeCategories(): Promise<YoutubeCategoriesResponse> {
-  const response = await axiosInstance.get<
-    ApiResponse<YoutubeCategoriesResponse>
-  >('/youtube-categories')
-  return response.data.responseDto
 }
 
 /* 인플루언서 북마크 추가 / 삭제 */

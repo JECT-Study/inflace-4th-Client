@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { useInfiniteScroll } from '@/shared/lib/hooks/useInfiniteScroll'
 import type { Influencer } from '@/entities/influencer'
@@ -6,22 +6,12 @@ import type { InfiniteData } from '@tanstack/react-query'
 
 import {
   fetchInfluencers,
-  fetchYoutubeCategories,
   addBookmark,
   removeBookmark,
 } from '../api/influencerApi'
 import type { FetchInfluencersParams, InfluencerListResponse } from '../api/influencerApi'
 
 const INFLUENCERS_QUERY_KEY = ['influencers']
-const YOUTUBE_CATEGORIES_QUERY_KEY = ['youtube-categories']
-
-export function useYoutubeCategories() {
-  return useQuery({
-    queryKey: YOUTUBE_CATEGORIES_QUERY_KEY,
-    queryFn: fetchYoutubeCategories,
-    staleTime: 1000 * 60 * 60 * 24,
-  })
-}
 
 export function useInfluencers(
   params?: Pick<FetchInfluencersParams, 'sortCriteria' | 'sortOrder'>

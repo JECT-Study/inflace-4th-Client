@@ -1,1 +1,1 @@
-export { BaseBarChart } from './BaseBarChart'
+export { BaseBarChart, type BarChartItem } from './BaseBarChart'
