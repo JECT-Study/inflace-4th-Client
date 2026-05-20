@@ -11,14 +11,16 @@ export const FooterInfo = () => {
           <li className='text-noto-label-md-normal text-text-and-icon-primary'>
             <Link
               href='https://accidental-ironclad-397.notion.site/inflace-legecy'
-              target='_blank'>
+              target='_blank'
+              rel='noopener noreferrer'>
               개인정보처리방침
             </Link>
           </li>
           <li className='text-noto-label-md-normal text-text-and-icon-primary'>
             <Link
               href='https://accidental-ironclad-397.notion.site/inflace-legecy-personal'
-              target='_blank'>
+              target='_blank'
+              rel='noopener noreferrer'>
               이용약관
             </Link>
           </li>
