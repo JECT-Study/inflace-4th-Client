@@ -36,7 +36,6 @@ const toggleGroupItemVariants = cva(
 
 function ToggleGroup({
   className,
-  spacing = 2,
   orientation = 'horizontal',
   size = 'lg',
   children,
@@ -47,13 +46,12 @@ function ToggleGroup({
       data-slot='toggle-group'
       data-orientation={orientation}
       className={cn(
-        'flex w-fit flex-wrap items-center',
+        'flex w-fit flex-wrap items-center gap-16',
         orientation === 'vertical' ? 'flex-col items-stretch' : 'flex-row',
         className
       )}
-      style={{ gap: `var(--spacing-${spacing})` }}
       {...(props as React.ComponentProps<typeof ToggleGroupPrimitive.Root>)}>
-      <ToggleGroupContext.Provider value={{ size, spacing, orientation }}>
+      <ToggleGroupContext.Provider value={{ size, orientation }}>
         {children}
       </ToggleGroupContext.Provider>
     </ToggleGroupPrimitive.Root>
