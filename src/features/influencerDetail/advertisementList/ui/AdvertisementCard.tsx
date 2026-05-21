@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import type { AdvertisementVideoItem } from '@/features/influencerDetail/advertisementList/model/types'
+import type { AdvertisementVideoItem } from '../model/types'
 import { HashtagBox } from '@/shared/ui'
 import {
   format10Thousands,

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { ContentType, TabGroup } from '@/shared/ui'
 import { InfiniteScrollList } from '@/shared/ui/infinite-scroll-list'
-import { AdvertisementCard } from '@/entities/influencerDetail/advertisementCard'
+import { AdvertisementCard } from './AdvertisementCard'
 import { useInfluencerBrand } from '../model/useInfluencerBrand'
 import type { VideoFormat, SortCriteria } from '../model/types'
 

@@ -29,6 +29,7 @@ export function TabGroup<T extends string>({
       {tabs.map((tab) => (
         <button
           key={tab.id}
+          type='button'
           onClick={() => onTabChange(tab.id)}
           className={cn(
             'rounded-12 py-16 text-noto-label-lg-bold',
