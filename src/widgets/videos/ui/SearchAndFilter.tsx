@@ -3,13 +3,6 @@
 import { Suspense, useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { SearchBar } from '@/shared/ui/search-bar'
-import {
-  FilterSelect,
-  FilterSelectContent,
-  FilterSelectTrigger,
-  FilterSelectValue,
-  FilterSelectItem,
-} from '@/shared/ui/filter-select'
 import { Toggle } from '@/shared/ui/toggle'
 import { CalendarFilter } from './CalendarFilter'
 
@@ -27,7 +20,6 @@ function SearchAndFilterInner() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const sort = searchParams?.get('sort') ?? 'LATEST'
   const format = searchParams?.get('format')
   const isLong = format === 'LONG_FORM' || format === 'ALL'
   const isShort = format === 'SHORT_FORM' || format === 'ALL'
@@ -54,7 +46,7 @@ function SearchAndFilterInner() {
       }
       router.replace(`${pathname}?${params.toString()}`)
     },
-    [router, pathname],
+    [router, pathname]
   )
 
   useEffect(() => {
@@ -73,15 +65,6 @@ function SearchAndFilterInner() {
       params.set(key, value)
     }
     router.replace(`${pathname}?${params.toString()}`)
-  }
-
-  /* 정렬기준 선택 */
-  function handleSortChange(value: string) {
-    if (value === 'LATEST') {
-      updateParam('sort', null)
-    } else {
-      updateParam('sort', value)
-    }
   }
 
   /* 숏폼 / 롱폼 선택 */
@@ -108,7 +91,7 @@ function SearchAndFilterInner() {
   }
 
   return (
-    <div className='flex h-fit w-full items-center gap-16 p-24 pb-16'>
+    <div className='flex h-fit w-full items-center gap-16 bg-background-gray-default p-24'>
       {/* 검색바 */}
       <SearchBar
         placeholder='영상 제목으로 검색'
@@ -129,22 +112,20 @@ function SearchAndFilterInner() {
       />
 
       <div className='flex size-fit items-center gap-6'>
-        {/* 정렬기준 선택 Drop down */}
-        <FilterSelect value={sort} onValueChange={handleSortChange}>
-          <FilterSelectTrigger>
-            <FilterSelectValue />
-          </FilterSelectTrigger>
-          <FilterSelectContent>
-            <FilterSelectItem value='LATEST'>최신순</FilterSelectItem>
-            <FilterSelectItem value='VIEWS'>조회수순</FilterSelectItem>
-            <FilterSelectItem value='LIKES'>좋아요순</FilterSelectItem>
-            <FilterSelectItem value='VPH'>VPH순</FilterSelectItem>
-            <FilterSelectItem value='OUTLIER'>Outlier순</FilterSelectItem>
-          </FilterSelectContent>
-        </FilterSelect>
-
         {/* 기간 선택 */}
-        <CalendarFilter />
+        <CalendarFilter
+          onRangeChange={(startDate, endDate) => {
+            const params = new URLSearchParams(searchParams?.toString())
+            if (startDate && endDate) {
+              params.set('startDate', startDate)
+              params.set('endDate', endDate)
+            } else {
+              params.delete('startDate')
+              params.delete('endDate')
+            }
+            router.replace(`${pathname}?${params.toString()}`)
+          }}
+        />
 
         {/* 롱폼 / 숏폼 / 광고 포함 토글 */}
         <Toggle
