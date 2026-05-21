@@ -4,7 +4,8 @@ import { Noto_Sans_KR, IBM_Plex_Sans_KR } from 'next/font/google'
 import '../styles'
 import { MSWProvider } from '@/app/providers/MSWProvider'
 import { QueryProvider } from '@/app/providers/QueryProvider'
-import { SidebarProvider, SidebarTrigger } from '@/shared/ui/shadcn/sidebar'
+import { SidebarTrigger } from '@/shared/ui/shadcn/sidebar'
+import { SidebarStoreProvider } from './SidebarStoreProvider'
 import { Header, Footer, AppSidebar } from '@/widgets/layout'
 import { AuthInitializer } from '@/features/auth'
 import { LoginModal, YoutubeConnectModal } from '@/widgets/auth'
@@ -40,14 +41,14 @@ export function RootLayout({ children }: { children: React.ReactNode }) {
             <YoutubeConnectModal />
             <OnboardingModal />
             <div className='flex flex-1'>
-              <SidebarProvider>
+              <SidebarStoreProvider>
                 <AppSidebar />
                 <main className='relative flex min-h-screen flex-1 flex-col'>
                   <SidebarTrigger />
                   <Header />
                   <div className='flex-1'>{children}</div>
                 </main>
-              </SidebarProvider>
+              </SidebarStoreProvider>
             </div>
             <Footer />
           </QueryProvider>

@@ -14,6 +14,7 @@ import {
 import GoogleIcon from '@/shared/assets/google.svg?react'
 import YouTubeIcon from '@/shared/assets/youtube.svg?react'
 import LogoSvg from '@/shared/assets/logo.svg?react'
+import Link from 'next/link'
 
 export function LoginModal() {
   const isOpen = useLoginModal((s) => s.isOpen)
@@ -76,8 +77,18 @@ export function LoginModal() {
 
           {/* 하단 링크 */}
           <div className='flex size-fit items-center justify-center gap-16 text-noto-label-md-thin text-text-and-icon-secondary'>
-            <span>이용약관</span>
-            <span>개인정보처리방침</span>
+            <Link
+              href='https://accidental-ironclad-397.notion.site/inflace-legecy-personal'
+              target='_blank'
+              rel='noopener noreferrer'>
+              이용약관
+            </Link>
+            <Link
+              href='https://accidental-ironclad-397.notion.site/inflace-legecy'
+              target='_blank'
+              rel='noopener noreferrer'>
+              개인정보처리방침
+            </Link>
           </div>
         </div>
       </DialogContent>
