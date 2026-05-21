@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
-import { TAB, Tab, TabGroup } from '@/features/influencerDetail/tabGroup'
+import { TabGroup } from '@/shared/ui'
 import { ChannelSummarySection } from '@/widgets/influencerDetail/channelSummary'
 import { EngagementAnalyticsSection } from '@/widgets/influencerDetail/engagementAnalytics'
 import { ImpactMetricsSection } from '@/widgets/influencerDetail/impactMetrics'
@@ -10,6 +10,18 @@ import { InfluencerBaseInfo } from '@/widgets/influencerDetail/influencerBaseInf
 import { AdvertisementFilter } from '@/widgets/influencerDetail/advertisementFilter'
 import { AdvertisementMetricsSection } from '@/widgets/influencerDetail/advertisementMetrics'
 import { AdvertisementList } from '@/features/influencerDetail/advertisementList'
+
+export const TAB = {
+  PERFORMANCE: 'performance',
+  ADVERTISEMENT: 'advertisement',
+} as const
+
+const TABS = [
+  { id: TAB.PERFORMANCE, label: '성과' },
+  { id: TAB.ADVERTISEMENT, label: '광고' },
+] as const
+
+export type Tab = (typeof TAB)[keyof typeof TAB]
 
 /* 인플루언서 디테일 기본화면 */
 export function InfluencerDetailPage() {
@@ -25,7 +37,7 @@ export function InfluencerDetailPage() {
       {/* 인플루언서 채널 정보 영역 */}
       <InfluencerBaseInfo channelId={channelId} />
       {/* 성과 / 광고 탭 영역 */}
-      <TabGroup activeTab={activeTab} onTabChange={setActiveTab} />
+      <TabGroup tabs={TABS} activeTab={activeTab} onTabChange={setActiveTab} />
 
       {/* 성과 탭 선택 시 */}
       {activeTab === TAB.PERFORMANCE && (
@@ -47,7 +59,7 @@ export function InfluencerDetailPage() {
           {/* 광고 지표 분석 영역 */}
           <AdvertisementMetricsSection />
           {/* 검색 결과 영역 */}
-          <AdvertisementList />
+          <AdvertisementList channelId={channelId} />
         </>
       )}
     </div>
