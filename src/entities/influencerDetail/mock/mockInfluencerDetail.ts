@@ -41,10 +41,12 @@ export const mockInfluencerDetail: InfluencerDetailResponseDto = {
   },
   formatAnalysis: {
     longForm: {
-      averageViews30d: 0.0,
+      count: 312,
+      averageViews30d: 436465.57,
       engagementRate: 0.0,
     },
     shortForm: {
+      count: 170,
       averageViews30d: 436465.57,
       engagementRate: 0.68,
     },

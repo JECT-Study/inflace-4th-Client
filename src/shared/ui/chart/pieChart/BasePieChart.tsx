@@ -47,6 +47,8 @@ export function BasePieChart<T extends object>({
             cy='50%'
             innerRadius={37}
             outerRadius={78}
+            startAngle={90}
+            endAngle={-270}
             isAnimationActive={isAnimationActive}>
             <Cell
               fill='url(#pieGradient2)'
