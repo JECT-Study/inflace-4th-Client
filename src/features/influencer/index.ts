@@ -13,6 +13,11 @@ export {
   removeBookmark,
 } from './api/influencerApi'
 export { useInfluencers, useYoutubeCategories } from './model/useInfluencers'
+export {
+  UPLOAD_PERIOD_OPTIONS,
+  OUTLIER_RANGE_OPTIONS,
+  HAS_AD_HISTORY_OPTIONS,
+} from './model/filterOptions'
 export type {
   YoutubeCategoriesResponse,
   InfluencerListResponse,

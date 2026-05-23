@@ -2,20 +2,12 @@ import { useState } from 'react'
 
 import { cn } from '@/shared/lib/utils'
 import { Button } from '@/shared/ui/button'
-
-/* label: 화면 랜더링용, value: 쿼리값 */
-const UPLOAD_PERIOD_OPTIONS: { label: string; value: string }[] = [
-  { label: '1주일 미만', value: '7D' },
-  { label: '1주일 ~ 1개월', value: '30D' },
-  { label: '1개월 ~ 3개월', value: '31_90D' },
-  { label: '3개월 ~ 6개월', value: '91_180D' },
-  { label: '6개월 이상', value: '180D_PLUS' },
-]
+import { UPLOAD_PERIOD_OPTIONS } from '../model/filterOptions'
 
 /* 업로드 주기 드롭다운 */
 type UploadPeriodDropdownProps = {
   defaultValue?: string[]
-  onChange: (output: string, outputQuery: string) => void
+  onChange: (output: string, values: string[]) => void
 }
 
 function UploadPeriodDropdown({
@@ -43,7 +35,7 @@ function UploadPeriodDropdown({
           ? selectedLabels[0]
           : `${selectedLabels[0]} 외 ${selectedLabels.length - 1}`
 
-    onChange(output, selected.join(','))
+    onChange(output, selected)
   }
 
   return (
@@ -73,7 +65,10 @@ function UploadPeriodDropdown({
           color='secondary'
           variant='filled'
           size='sm'
-          disabled={selected.length === 0}
+          disabled={
+            selected.length === defaultValue.length &&
+            selected.every((v) => defaultValue.includes(v))
+          }
           onClick={handleConfirm}>
           완료
         </Button>

@@ -67,7 +67,10 @@ function CategoryNamesDropdown({
           color='secondary'
           variant='filled'
           size='sm'
-          disabled={selected.length === 0}
+          disabled={
+            selected.length === defaultValue.length &&
+            selected.every((id) => defaultValue.includes(id))
+          }
           onClick={handleConfirm}>
           완료
         </Button>

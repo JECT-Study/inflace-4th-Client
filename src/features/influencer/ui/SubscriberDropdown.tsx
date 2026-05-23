@@ -19,7 +19,7 @@ function SubscriberDropdown({
   const [to, setTo] = useState(defaultTo)
 
   const isDisabled =
-    (from === '' && to === '') ||
+    (from === defaultFrom && to === defaultTo) ||
     (from !== '' && to !== '' && Number(from) > Number(to))
 
   function handleConfirm() {
@@ -82,10 +82,7 @@ function SubscriberDropdown({
           color='secondary'
           variant='filled'
           size='sm'
-          disabled={
-            (from === '' && to === '') ||
-            (from !== '' && to !== '' && Number(from) > Number(to))
-          }
+          disabled={isDisabled}
           onClick={handleConfirm}>
           완료
         </Button>
