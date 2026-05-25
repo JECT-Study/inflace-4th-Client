@@ -1,6 +1,6 @@
 'use client'
 
-import { ChartLegend } from '@/features/channel/chartLegend'
+import { ChartLegend } from '@/shared/ui/chart/chartLegend'
 import { DistributionItem } from '../model/types'
 import { BasePieChart, type PieDataPoint } from '@/shared/ui/chart'
 

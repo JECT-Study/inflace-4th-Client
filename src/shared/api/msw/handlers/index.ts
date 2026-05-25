@@ -1,4 +1,5 @@
 import { authHandlers } from './authHandlers'
+import { brandCollaborationsHandlers } from './brandCollaborationsHandlers'
 import { channelConnectHandlers } from './channelConnectHandlers'
 import { channelProfileHandlers } from './channelProfileHandlers'
 import { onboardingHandlers } from './onboardingHandlers'
@@ -21,6 +22,7 @@ import { influencerSummaryHandlers } from './influencerSummaryHandlers'
 
 export const handlers = [
   ...authHandlers,
+  ...brandCollaborationsHandlers,
   ...channelConnectHandlers,
   ...channelProfileHandlers,
   ...trendingVideosHandlers,

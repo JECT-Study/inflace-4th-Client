@@ -9,14 +9,16 @@ import {
   addBookmark,
   removeBookmark,
 } from '../api/influencerApi'
-import type { InfluencerListResponse } from '../api/influencerApi'
+import type { FetchInfluencersParams, InfluencerListResponse } from '../api/influencerApi'
 
 const INFLUENCERS_QUERY_KEY = ['influencers']
 
-export function useInfluencers() {
+export function useInfluencers(
+  params?: Pick<FetchInfluencersParams, 'sortCriteria' | 'sortOrder'>
+) {
   return useInfiniteScroll({
-    queryKey: INFLUENCERS_QUERY_KEY,
-    queryFn: ({ pageParam }) => fetchInfluencers({ cursor: pageParam }),
+    queryKey: [...INFLUENCERS_QUERY_KEY, params],
+    queryFn: ({ pageParam }) => fetchInfluencers({ cursor: pageParam, ...params }),
   })
 }
 

@@ -1,3 +1,6 @@
+export type SortCriteria = 'subscriber' | 'engagement_rate'
+export type SortOrder = 'ASC' | 'DESC'
+
 export interface Influencer {
   channelId: number
   channelName: string

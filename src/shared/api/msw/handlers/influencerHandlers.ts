@@ -1,16 +1,42 @@
 import { http, HttpResponse } from 'msw'
 
 import { mockInfluencers } from '@/features/influencer/mock/mockInfluencers'
+import { mockYoutubeCategories } from '@/entities/youtubeCategory'
 
 export const influencerHandlers = [
-  http.get(`${process.env.NEXT_PUBLIC_API_URL}/influencers`, () => {
+  http.get(`${process.env.NEXT_PUBLIC_API_URL}/youtube-categories`, () => {
+    return HttpResponse.json({
+      responseDto: {
+        youtubeCategories: mockYoutubeCategories,
+      },
+      error: null,
+      success: true,
+    })
+  }),
+
+  http.get(`${process.env.NEXT_PUBLIC_API_URL}/influencers`, ({ request }) => {
+    const url = new URL(request.url)
+    const categoryIdParams = url.searchParams.getAll('categoryIds').map(Number)
+
+    const filtered =
+      categoryIdParams.length > 0
+        ? mockInfluencers.filter((influencer) =>
+            influencer.categories.some((cat) =>
+              categoryIdParams.some(
+                (id) =>
+                  mockYoutubeCategories.find((mc) => mc.id === id)?.title === cat
+              )
+            )
+          )
+        : mockInfluencers
+
     return HttpResponse.json({
       success: true,
       responseDto: {
-        content: mockInfluencers,
+        content: filtered,
         pageInfo: {
-          size: 12,
-          numberOfElements: 12,
+          size: filtered.length,
+          numberOfElements: filtered.length,
           nextCursor: null,
           hasNext: false,
         },
