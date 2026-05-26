@@ -2,11 +2,8 @@
 
 import { Suspense, useState } from 'react'
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
-import {
-  InfluencerList,
-  useInfluencers,
-  useYoutubeCategories,
-} from '@/features/influencer'
+import { InfluencerList, useInfluencers } from '@/features/influencer'
+import { useYoutubeCategories } from '@/entities/youtubeCategory'
 import type { SortCriteria, SortOrder } from '@/entities/influencer'
 import { InfluencerFilter } from '@/widgets/influencer'
 
