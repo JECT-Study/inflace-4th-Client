@@ -12,14 +12,14 @@ interface SortOption {
 
 interface InfluencerListProps {
   selectedIndex: number
-  onSortChange?: (index: number, sortCriteria: SortCriteria, sortOrder: SortOrder) => void
+  onSortChange?: (sortCriteria: SortCriteria, sortOrder: SortOrder) => void
   influencers: Influencer[]
   sentinelRef: (node: HTMLDivElement | null) => void
   isFetchingNextPage: boolean
   hasNextPage: boolean
 }
 
-const SORT_OPTIONS: SortOption[] = [
+export const SORT_OPTIONS: SortOption[] = [
   { label: '구독자 많은 순', sortCriteria: 'subscriber', sortOrder: 'DESC' },
   { label: '구독자 적은 순', sortCriteria: 'subscriber', sortOrder: 'ASC' },
   {
@@ -44,8 +44,8 @@ export function InfluencerList({
 }: InfluencerListProps) {
   const toggleBookmark = useBookmarkToggle()
 
-  const handleSortClick = (index: number, option: SortOption) => {
-    onSortChange?.(index, option.sortCriteria, option.sortOrder)
+  const handleSortClick = (option: SortOption) => {
+    onSortChange?.(option.sortCriteria, option.sortOrder)
   }
 
   return (
@@ -64,7 +64,7 @@ export function InfluencerList({
               <button
                 type='button'
                 className={`size-fit px-8 py-4 ${selectedIndex === index ? 'text-noto-label-md-bold text-brand-secondary' : ''}`}
-                onClick={() => handleSortClick(index, option)}>
+                onClick={() => handleSortClick(option)}>
                 {option.label}
               </button>
               {index < SORT_OPTIONS.length - 1 && '・'}

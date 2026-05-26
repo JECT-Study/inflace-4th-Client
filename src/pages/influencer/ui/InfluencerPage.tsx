@@ -1,11 +1,12 @@
 'use client'
 
-import { Suspense, useState } from 'react'
+import { Suspense } from 'react'
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import {
   InfluencerList,
   useInfluencers,
   useYoutubeCategories,
+  SORT_OPTIONS,
 } from '@/features/influencer'
 import type { SortCriteria, SortOrder } from '@/entities/influencer'
 import { InfluencerFilter } from '@/widgets/influencer'
@@ -30,8 +31,6 @@ function InfluencerListSection() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const [selectedIndex, setSelectedIndex] = useState(0)
-
   const filters = {
     channelName: searchParams?.get('channelName') ?? undefined,
     categoryIds: searchParams?.getAll('categoryIds').map(Number) ?? undefined,
@@ -52,12 +51,13 @@ function InfluencerListSection() {
 
   const influencers = data?.pages.flatMap((page) => page.content) ?? []
 
-  const handleSortChange = (
-    index: number,
-    sortCriteria: SortCriteria,
-    sortOrder: SortOrder
-  ) => {
-    setSelectedIndex(index)
+  const sortCriteriaParam = filters.sortCriteria
+  const sortOrderParam = filters.sortOrder
+  const selectedIndex = SORT_OPTIONS.findIndex(
+    (o) => o.sortCriteria === sortCriteriaParam && o.sortOrder === sortOrderParam
+  )
+
+  const handleSortChange = (sortCriteria: SortCriteria, sortOrder: SortOrder) => {
     const params = new URLSearchParams(searchParams?.toString())
     params.set('sortCriteria', sortCriteria)
     params.set('sortOrder', sortOrder)

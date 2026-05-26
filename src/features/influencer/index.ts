@@ -1,4 +1,4 @@
-export { InfluencerList } from './ui/InfluencerList'
+export { InfluencerList, SORT_OPTIONS } from './ui/InfluencerList'
 export { DropdownTrigger } from './ui/DropdownTrigger'
 export { UploadPeriodDropdown } from './ui/UploadPeriodDropdown'
 export { CategoryNamesDropdown } from './ui/CategoryNamesDropdown'
