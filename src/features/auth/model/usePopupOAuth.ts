@@ -6,35 +6,60 @@ import type { PopupOAuthConfig } from './types'
 
 const POPUP_WIDTH = 500
 const POPUP_HEIGHT = 600
+const POPUP_POLL_INTERVAL = 500
 
-//구글로 로그인, 유튜브로 로그인 버튼을 눌렀을 때 실행되는 함수
 export function usePopupOAuth({ apiPath, popupName }: PopupOAuthConfig) {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const popupRef = useRef<Window | null>(null)
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  // app/api/auth/callback으로부터 전달받은 메세지 활용
-  const handleMessage = useCallback((event: MessageEvent) => {
-    if (event.origin !== window.location.origin) return
-
-    const { type, error: authError } = event.data
-
-    if (type === 'AUTH_SUCCESS') {
-      setIsLoading(false)
-      window.location.href = '/'
-    } else if (type === 'AUTH_ERROR') {
-      setError(authError || '로그인에 실패했습니다.')
-      setIsLoading(false)
+  // 팝업 닫힘 감지
+  const stopPolling = useCallback(() => {
+    if (pollRef.current) {
+      clearInterval(pollRef.current)
+      pollRef.current = null
     }
   }, [])
 
-  //전달받은 메세지를 표시
+  // 로그인 모달이 닫힐 때 호출 => 로그인 과정 취소
+  const reset = useCallback(() => {
+    stopPolling()
+    popupRef.current = null
+    setIsLoading(false)
+    setError(null)
+  }, [stopPolling])
+
+  // OAuth 팝업에서 postMessage로 전달된 인증 결과 처리
+  const handleMessage = useCallback(
+    (event: MessageEvent) => {
+      if (event.origin !== window.location.origin) return
+
+      const { type, error: authError } = event.data
+
+      if (type === 'AUTH_SUCCESS') {
+        stopPolling()
+        setIsLoading(false)
+        window.location.href = '/'
+      } else if (type === 'AUTH_ERROR') {
+        stopPolling()
+        setError(authError || '로그인에 실패했습니다.')
+        setIsLoading(false)
+      }
+    },
+    [stopPolling]
+  )
+
   useEffect(() => {
     window.addEventListener('message', handleMessage)
     return () => window.removeEventListener('message', handleMessage)
   }, [handleMessage])
 
-  //유튜브/구글로 로그인 버튼을 클릭 시 유튜브/구글 로그인 팝업화면을 띄움
+  // 훅 언마운트 시 인터벌 누수 방지
+  useEffect(() => {
+    return () => stopPolling()
+  }, [stopPolling])
+
   const handleClick = () => {
     setError(null)
     setIsLoading(true)
@@ -55,7 +80,16 @@ export function usePopupOAuth({ apiPath, popupName }: PopupOAuthConfig) {
     }
 
     popupRef.current = popup
+
+    // postMessage가 오지 않는 경우(사용자가 팝업을 직접 닫는 경우)를 감지
+    pollRef.current = setInterval(() => {
+      if (popupRef.current?.closed) {
+        stopPolling()
+        setIsLoading(false)
+        popupRef.current = null
+      }
+    }, POPUP_POLL_INTERVAL)
   }
 
-  return { isLoading, error, handleClick }
+  return { isLoading, error, handleClick, reset }
 }
