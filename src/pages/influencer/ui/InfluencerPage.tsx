@@ -5,11 +5,10 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import {
   InfluencerList,
   useInfluencers,
-  useYoutubeCategories,
   SORT_OPTIONS,
 } from '@/features/influencer'
-import type { SortCriteria, SortOrder } from '@/entities/influencer'
 import { useYoutubeCategories } from '@/entities/youtubeCategory'
+import type { SortCriteria, SortOrder } from '@/entities/influencer'
 import { InfluencerFilter } from '@/widgets/influencer'
 
 export function InfluencerPage() {

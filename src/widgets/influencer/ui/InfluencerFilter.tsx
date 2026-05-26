@@ -14,10 +14,10 @@ import {
   OutlierRangeDropdown,
   HasAdHistoryDropdown,
   EngagementRateDropdown,
-  type YoutubeCategory,
   UPLOAD_PERIOD_OPTIONS,
   OUTLIER_RANGE_OPTIONS,
 } from '@/features/influencer'
+import type { YoutubeCategory } from '@/entities/youtubeCategory'
 
 const UPLOAD_PERIOD_LABELS = Object.fromEntries(
   UPLOAD_PERIOD_OPTIONS.map((o: { label: string; value: string }) => [
