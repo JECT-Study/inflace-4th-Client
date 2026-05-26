@@ -8,6 +8,12 @@ import { useAuthStore } from '@/shared/api'
 //화면 새로고침 시 실행되는 함수
 export function useAuthInit() {
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.history.scrollRestoration = 'manual'
+    }
+  }, [])
+
+  useEffect(() => {
     const { setAuth, setInitializing } = useAuthStore.getState()
 
     // app/api/auth/refresh 실행(token refresh)

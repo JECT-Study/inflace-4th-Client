@@ -18,7 +18,8 @@ export function AuthGuardLayout({ children }: { children: React.ReactNode }) {
     }
   }, [isInitializing, isLoggedIn, isModalOpen, router])
 
-  if (isInitializing || !isLoggedIn) return null
+  if (isInitializing || !isLoggedIn)
+    return <div className='invisible'>{children}</div>
 
   return <>{children}</>
 }
