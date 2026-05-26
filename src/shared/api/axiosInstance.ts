@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import { useAuthStore } from './authStore'
+import { useLoginModal } from '@/features/auth/model/useLoginModal'
 
 const axiosInstance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
@@ -74,6 +75,8 @@ axiosInstance.interceptors.response.use(
     } catch (refreshError) {
       processQueue(refreshError, null)
       useAuthStore.getState().reset()
+      // refresh 실패 시 현재 화면 그대로 로그인 모달 오픈
+      useLoginModal.getState().open()
       return Promise.reject(refreshError)
     } finally {
       isRefreshing = false
