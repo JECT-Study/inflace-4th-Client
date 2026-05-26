@@ -48,16 +48,14 @@ export function AdvertisementFilter({
             endDate={endDate}
             onStartChange={(d) => {
               setStartDate(d)
-              handleChange('startDate', d?.toISOString().replace('.000Z', 'Z'))
+              handleChange('startDate', d?.toISOString())
             }}
             onEndChange={(d) => {
               setEndDate(d)
               handleChange(
                 'endDate',
                 d
-                  ? new Date(new Date(d).setHours(23, 59, 59, 0))
-                      .toISOString()
-                      .replace('.000Z', 'Z')
+                  ? new Date(new Date(d).setHours(23, 59, 59, 0)).toISOString()
                   : undefined
               )
             }}

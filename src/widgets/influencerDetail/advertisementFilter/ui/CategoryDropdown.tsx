@@ -22,9 +22,8 @@ export function CategoryDropdown({
         카테고리
       </p>
       <Select.Root
-        key={value || 'empty'}
         value={value || undefined}
-        onValueChange={(v) => onChange(v)}>
+        onValueChange={onChange}>
         <Select.Trigger
           className={cn(
             'group flex h-fit w-full cursor-pointer items-center justify-between gap-10 rounded-6 border border-stroke-border-gray-stronger bg-white px-16 py-12 text-left outline-none',
