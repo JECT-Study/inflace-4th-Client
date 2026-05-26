@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { cn } from '@/shared/lib/utils'
 import { Button } from '@/shared/ui/button'
-import type { YoutubeCategory } from '../mock/mockYoutubeCategories'
+import type { YoutubeCategory } from '@/entities/youtubeCategory'
 
 type CategoryNamesDropdownProps = {
   categories: YoutubeCategory[]

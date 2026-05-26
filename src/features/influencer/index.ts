@@ -7,7 +7,6 @@ export { OutlierRangeDropdown } from './ui/OutlierRangeDropdown'
 export { HasAdHistoryDropdown } from './ui/HasAdHistoryDropdown'
 export { EngagementRateDropdown } from './ui/EngagementRateDropdown'
 export {
-  fetchYoutubeCategories,
   fetchInfluencers,
   addBookmark,
   removeBookmark,
@@ -19,11 +18,9 @@ export {
   HAS_AD_HISTORY_OPTIONS,
 } from './model/filterOptions'
 export type {
-  YoutubeCategoriesResponse,
   InfluencerListResponse,
   BookmarkResponse,
   FetchInfluencersParams,
 } from './api/influencerApi'
-export type { YoutubeCategory } from './mock/mockYoutubeCategories'
 export type { SubscriberQuery } from './ui/SubscriberDropdown'
 export type { EngagementRateQuery } from './ui/EngagementRateDropdown'

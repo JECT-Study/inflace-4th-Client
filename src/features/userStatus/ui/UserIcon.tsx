@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import IconYoutube from '@/shared/assets/youtube.svg?react'
 import { Avatar, AvatarImage, AvatarBadge } from '@/shared/ui/shadcn/avatar'
 import { UserAvatarProps } from '../model/types'
@@ -7,12 +8,13 @@ import LogoIcon from '@/shared/assets/favicon.svg'
 import { useAuthStore } from '@/shared/api'
 
 export const UserIcon = ({ size, showBadge = false }: UserAvatarProps) => {
+  const router = useRouter()
   const youtubeChannelProfileImage = useAuthStore(
     (state) => state.user?.userChannelDetails?.youtubeChannelProfileImageUrl
   )
 
   return (
-    <Avatar size={size}>
+    <Avatar size={size} className='cursor-pointer' onClick={() => router.push('/me/profile')}>
       {youtubeChannelProfileImage ? (
         <AvatarImage src={youtubeChannelProfileImage} />
       ) : (

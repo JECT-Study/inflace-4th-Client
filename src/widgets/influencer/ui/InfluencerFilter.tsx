@@ -20,23 +20,38 @@ import {
 } from '@/features/influencer'
 
 const UPLOAD_PERIOD_LABELS = Object.fromEntries(
-  UPLOAD_PERIOD_OPTIONS.map((o: { label: string; value: string }) => [o.value, o.label])
+  UPLOAD_PERIOD_OPTIONS.map((o: { label: string; value: string }) => [
+    o.value,
+    o.label,
+  ])
 )
 
 const OUTLIER_RANGE_LABELS = Object.fromEntries(
-  OUTLIER_RANGE_OPTIONS.map((o: { label: string; value: string }) => [o.value, o.label])
+  OUTLIER_RANGE_OPTIONS.map((o: { label: string; value: string }) => [
+    o.value,
+    o.label,
+  ])
 )
 
-function deriveCategoryOutput(categoryIds: number[], categories: YoutubeCategory[]): string {
+function deriveCategoryOutput(
+  categoryIds: number[],
+  categories: YoutubeCategory[]
+): string {
   if (categoryIds.length === 0) return '전체'
-  const labels = categories.filter((c) => categoryIds.includes(c.id)).map((c) => c.title)
-  return labels.length === 1 ? labels[0] : `${labels[0]} 외 ${labels.length - 1}`
+  const labels = categories
+    .filter((c) => categoryIds.includes(c.id))
+    .map((c) => c.title)
+  return labels.length === 1
+    ? labels[0]
+    : `${labels[0]} 외 ${labels.length - 1}`
 }
 
 function deriveUploadPeriodOutput(values: string[]): string {
   if (values.length === 0) return '전체'
   const labels = values.map((v) => UPLOAD_PERIOD_LABELS[v] ?? v)
-  return labels.length === 1 ? labels[0] : `${labels[0]} 외 ${labels.length - 1}`
+  return labels.length === 1
+    ? labels[0]
+    : `${labels[0]} 외 ${labels.length - 1}`
 }
 
 function deriveSubscriberOutput(from: string, to: string): string {
@@ -75,7 +90,9 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
   const categoryIds = searchParams.getAll('categoryIds').map(Number)
   const subscriberFrom = searchParams.get('subscriberFrom') ?? ''
   const subscriberTo = searchParams.get('subscriberTo') ?? ''
-  const uploadPeriodValues = (searchParams.get('uploadPeriod') ?? '').split(',').filter(Boolean)
+  const uploadPeriodValues = (searchParams.get('uploadPeriod') ?? '')
+    .split(',')
+    .filter(Boolean)
   const hasAdHistoryValue = searchParams.get('hasAdHistory') ?? 'true'
   const engagementRateFrom = searchParams.get('engagementRateFrom') ?? ''
   const engagementRateTo = searchParams.get('engagementRateTo') ?? ''
@@ -139,7 +156,9 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
 
       {/* 필터 */}
       <div className='flex h-fit w-full flex-1 items-center gap-12'>
-        <DropdownTrigger label='카테고리' output={deriveCategoryOutput(categoryIds, categories)}>
+        <DropdownTrigger
+          label='카테고리'
+          output={deriveCategoryOutput(categoryIds, categories)}>
           {(onClose) => (
             <CategoryNamesDropdown
               categories={categories}
@@ -155,7 +174,9 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
           )}
         </DropdownTrigger>
 
-        <DropdownTrigger label='구독자 수' output={deriveSubscriberOutput(subscriberFrom, subscriberTo)}>
+        <DropdownTrigger
+          label='구독자 수'
+          output={deriveSubscriberOutput(subscriberFrom, subscriberTo)}>
           {(onClose) => (
             <SubscriberDropdown
               defaultFrom={subscriberFrom}
@@ -173,13 +194,16 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
           )}
         </DropdownTrigger>
 
-        <DropdownTrigger label='업로드 주기' output={deriveUploadPeriodOutput(uploadPeriodValues)}>
+        <DropdownTrigger
+          label='업로드 주기'
+          output={deriveUploadPeriodOutput(uploadPeriodValues)}>
           {(onClose) => (
             <UploadPeriodDropdown
               defaultValue={uploadPeriodValues}
               onChange={(_, values) => {
                 updateUrl((params) => {
-                  if (values.length) params.set('uploadPeriod', values.join(','))
+                  if (values.length)
+                    params.set('uploadPeriod', values.join(','))
                   else params.delete('uploadPeriod')
                 })
                 onClose()
@@ -188,7 +212,9 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
           )}
         </DropdownTrigger>
 
-        <DropdownTrigger label='광고 이력' output={deriveHasAdHistoryOutput(hasAdHistoryValue)}>
+        <DropdownTrigger
+          label='광고 이력'
+          output={deriveHasAdHistoryOutput(hasAdHistoryValue)}>
           {(onClose) => (
             <HasAdHistoryDropdown
               defaultValue={hasAdHistoryValue}
@@ -203,7 +229,12 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
           )}
         </DropdownTrigger>
 
-        <DropdownTrigger label='참여율' output={deriveEngagementRateOutput(engagementRateFrom, engagementRateTo)}>
+        <DropdownTrigger
+          label='참여율'
+          output={deriveEngagementRateOutput(
+            engagementRateFrom,
+            engagementRateTo
+          )}>
           {(onClose) => (
             <EngagementRateDropdown
               defaultFrom={engagementRateFrom}

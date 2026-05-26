@@ -9,6 +9,7 @@ import {
   SORT_OPTIONS,
 } from '@/features/influencer'
 import type { SortCriteria, SortOrder } from '@/entities/influencer'
+import { useYoutubeCategories } from '@/entities/youtubeCategory'
 import { InfluencerFilter } from '@/widgets/influencer'
 
 export function InfluencerPage() {
@@ -42,8 +43,12 @@ function InfluencerListSection() {
     engagementRateTo: searchParams?.get('engagementRateTo') ?? undefined,
     outlierRange: searchParams?.get('outlierRange') ?? undefined,
     language: searchParams?.get('language') ?? undefined,
-    sortCriteria: (searchParams?.get('sortCriteria') ?? undefined) as SortCriteria | undefined,
-    sortOrder: (searchParams?.get('sortOrder') ?? undefined) as SortOrder | undefined,
+    sortCriteria: (searchParams?.get('sortCriteria') ?? undefined) as
+      | SortCriteria
+      | undefined,
+    sortOrder: (searchParams?.get('sortOrder') ?? undefined) as
+      | SortOrder
+      | undefined,
   }
 
   const { data, isLoading, sentinelRef, isFetchingNextPage, hasNextPage } =
@@ -54,10 +59,14 @@ function InfluencerListSection() {
   const sortCriteriaParam = filters.sortCriteria
   const sortOrderParam = filters.sortOrder
   const selectedIndex = SORT_OPTIONS.findIndex(
-    (o) => o.sortCriteria === sortCriteriaParam && o.sortOrder === sortOrderParam
+    (o) =>
+      o.sortCriteria === sortCriteriaParam && o.sortOrder === sortOrderParam
   )
 
-  const handleSortChange = (sortCriteria: SortCriteria, sortOrder: SortOrder) => {
+  const handleSortChange = (
+    sortCriteria: SortCriteria,
+    sortOrder: SortOrder
+  ) => {
     const params = new URLSearchParams(searchParams?.toString())
     params.set('sortCriteria', sortCriteria)
     params.set('sortOrder', sortOrder)

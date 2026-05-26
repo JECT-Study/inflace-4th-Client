@@ -5,7 +5,7 @@ import type { ChannelProfileDto } from '@/entities/main/channelProfile'
 export async function fetchChannelProfile(): Promise<ChannelProfileDto> {
   const response =
     await axiosInstance.get<ApiResponse<ChannelProfileDto>>(
-      `user/channels/main`
+      `/user/channels/main`
     )
   return response.data.responseDto
 }

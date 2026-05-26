@@ -15,7 +15,9 @@ export function useAuthInit() {
       try {
         const res = await fetch('/auth/refresh', { method: 'POST' })
         if (res.ok) {
-          const { accessToken, user } = await res.json()
+          const data = await res.json()
+          const { accessToken } = data
+          const user = data.user ?? null
           setAuth(accessToken, user)
 
           //온보딩이 완료되지 않은 유저라면 온보딩 절차를 진행
