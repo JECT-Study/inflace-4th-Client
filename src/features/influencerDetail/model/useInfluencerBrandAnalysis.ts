@@ -7,7 +7,7 @@ export function useInfluencerBrandAnalysis(
   filter: AdvertisementFilterQueryParams | null
 ) {
   return useQuery({
-    queryKey: ['influencerDetail', channelId, filter],
+    queryKey: ['influencerBrandAnalysis', channelId, filter],
     queryFn: () =>
       fetchInfluencerBrandAnalysisApi(
         {
