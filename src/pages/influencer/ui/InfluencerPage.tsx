@@ -26,7 +26,7 @@ export function InfluencerPage() {
   )
 }
 
-function InfluencerListSection({ bookmarkedOnly }: { bookmarkedOnly?: boolean }) {
+function InfluencerListSection() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -43,9 +43,12 @@ function InfluencerListSection({ bookmarkedOnly }: { bookmarkedOnly?: boolean })
     engagementRateTo: searchParams?.get('engagementRateTo') ?? undefined,
     outlierRange: searchParams?.get('outlierRange') ?? undefined,
     language: searchParams?.get('language') ?? undefined,
-    sortCriteria: (searchParams?.get('sortCriteria') ?? undefined) as SortCriteria | undefined,
-    sortOrder: (searchParams?.get('sortOrder') ?? undefined) as SortOrder | undefined,
-    ...(bookmarkedOnly && { bookmarkedOnly: true }),
+    sortCriteria: (searchParams?.get('sortCriteria') ?? undefined) as
+      | SortCriteria
+      | undefined,
+    sortOrder: (searchParams?.get('sortOrder') ?? undefined) as
+      | SortOrder
+      | undefined,
   }
 
   const { data, isLoading, sentinelRef, isFetchingNextPage, hasNextPage } =

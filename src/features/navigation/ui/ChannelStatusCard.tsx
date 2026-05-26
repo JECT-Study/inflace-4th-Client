@@ -7,6 +7,7 @@ import { UserIcon } from '@/features/userStatus/ui/UserIcon'
 import { Button } from '@/shared/ui/button'
 import IconYoutube from '@/shared/assets/youtube-disable.svg'
 import { useLoginModal } from '@/features/auth/model/useLoginModal'
+import { useYoutubeConnectModal } from '@/features/auth/model/useYoutubeConnectModal'
 
 import IconLock from '@/shared/assets/unlock-filled-bold.svg'
 
@@ -25,7 +26,10 @@ export const ChannelStatusCard = () => {
   const isChannelConnected = loggedIn && Boolean(userChannelDetails)
 
   /* 채널 미연동 시 연동하기 버튼을 누르면 모달이 열립니다. */
-  const openModal = useLoginModal((s) => s.open)
+  const openLoginModal = useLoginModal((s) => s.open)
+  const openYoutubeConnectModal = useYoutubeConnectModal((s) => s.open)
+
+  const openModal = loggedIn ? openYoutubeConnectModal : openLoginModal
 
   if (isChannelConnected) {
     /* 로그인 상태일 때 랜더링 되는 카드 */

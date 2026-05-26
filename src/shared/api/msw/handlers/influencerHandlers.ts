@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw'
 
 import { mockInfluencers } from '@/features/influencer/mock/mockInfluencers'
-import { mockYoutubeCategories } from '@/features/influencer/mock/mockYoutubeCategories'
+import { mockYoutubeCategories } from '@/entities/youtubeCategory'
 
 const PAGE_SIZE = 9
 

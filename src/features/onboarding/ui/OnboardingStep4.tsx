@@ -3,11 +3,14 @@
 import ImgMock from '../assets/mock/onboardingMock.jpg'
 import Image from 'next/image'
 import { CHANNEL_ANALYSIS_VALUE } from '../model/optionsStep02'
-import { Need, useOnboardingModal } from '@/features/onboarding'
+import { Need, UserRole, useOnboardingModal } from '@/features/onboarding'
 
 export function OnboardingStep4() {
   const { selections } = useOnboardingModal()
-  const need = selections[2] as Need[]
+  const roles = selections[1] as UserRole[]
+  const needs = selections[2] as Need[]
+  const showYoutubeConnect =
+    roles?.includes('YOUTUBER') || needs?.includes(CHANNEL_ANALYSIS_VALUE)
   return (
     <>
       <div className='grid grid-cols-2'>
@@ -15,7 +18,7 @@ export function OnboardingStep4() {
           <Image src={ImgMock.src} alt='목업 이미지' fill />
         </div>
         <div className='pl-[5.8rem]'>
-          {need?.includes(CHANNEL_ANALYSIS_VALUE) ? (
+          {showYoutubeConnect ? (
             <>
               <p className='text-noto-title-sm-normal text-text-and-icon-default'>
                 환영해요, {'김튜브'}님 🎉

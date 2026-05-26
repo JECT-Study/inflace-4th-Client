@@ -30,7 +30,7 @@ export const NAV_ITEMS: NavGroup[] = [
       {
         title: '경쟁 채널 분석',
         icon: 'chart',
-        url: '',
+        url: '/competitor',
         requiredPlan: 'GROWTH',
       },
     ],
