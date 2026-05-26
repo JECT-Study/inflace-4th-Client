@@ -84,10 +84,12 @@ function EngagementRateDropdown({
           ? labels[0]
           : `${labels[0]} 외 ${labels.length - 1}`
 
-    const froms = selectedOptions.map((o) => o.from).filter(Boolean)
-    const tos = selectedOptions.map((o) => o.to).filter(Boolean)
-    const mergedFrom = froms.length > 0 ? String(Math.min(...froms.map(Number))) : ''
-    const mergedTo = tos.length > 0 ? String(Math.max(...tos.map(Number))) : ''
+    const froms = selectedOptions.map((o) => o.from)
+    const tos = selectedOptions.map((o) => o.to)
+    const hasOpenFrom = froms.some((f) => f === '')
+    const hasOpenTo = tos.some((t) => t === '')
+    const mergedFrom = hasOpenFrom ? '' : String(Math.min(...froms.map(Number)))
+    const mergedTo = hasOpenTo ? '' : String(Math.max(...tos.map(Number)))
     onChange(output, { from: mergedFrom, to: mergedTo })
   }
 
