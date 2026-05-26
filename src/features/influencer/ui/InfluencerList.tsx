@@ -12,14 +12,14 @@ interface SortOption {
 
 interface InfluencerListProps {
   selectedIndex: number
-  onSortChange?: (index: number, sortCriteria: SortCriteria, sortOrder: SortOrder) => void
+  onSortChange?: (sortCriteria: SortCriteria, sortOrder: SortOrder) => void
   influencers: Influencer[]
   sentinelRef: (node: HTMLDivElement | null) => void
   isFetchingNextPage: boolean
   hasNextPage: boolean
 }
 
-const SORT_OPTIONS: SortOption[] = [
+export const SORT_OPTIONS: SortOption[] = [
   { label: '구독자 많은 순', sortCriteria: 'subscriber', sortOrder: 'DESC' },
   { label: '구독자 적은 순', sortCriteria: 'subscriber', sortOrder: 'ASC' },
   {
@@ -44,18 +44,15 @@ export function InfluencerList({
 }: InfluencerListProps) {
   const toggleBookmark = useBookmarkToggle()
 
-  const handleSortClick = (index: number, option: SortOption) => {
-    onSortChange?.(index, option.sortCriteria, option.sortOrder)
+  const handleSortClick = (option: SortOption) => {
+    onSortChange?.(option.sortCriteria, option.sortOrder)
   }
 
   return (
     <div className='flex h-fit w-full flex-col gap-16 px-24'>
-      {/* 검색 결과 및 정렬 기준
-       * TODO: 인원수 및 정렬기준 구현
-       */}
       <div className='flex h-fit w-full justify-between text-noto-label-sm-bold'>
         <span className='gap-10 px-2 text-text-and-icon-primary'>
-          검색결과 {formatComma(38973842)}명
+          검색결과 {formatComma(influencers.length)}명
         </span>
 
         {/* 정렬기준 */}
@@ -67,7 +64,7 @@ export function InfluencerList({
               <button
                 type='button'
                 className={`size-fit px-8 py-4 ${selectedIndex === index ? 'text-noto-label-md-bold text-brand-secondary' : ''}`}
-                onClick={() => handleSortClick(index, option)}>
+                onClick={() => handleSortClick(option)}>
                 {option.label}
               </button>
               {index < SORT_OPTIONS.length - 1 && '・'}
@@ -80,17 +77,23 @@ export function InfluencerList({
         sentinelRef={sentinelRef}
         isFetchingNextPage={isFetchingNextPage}
         hasNextPage={hasNextPage}>
-        <div className='grid h-fit w-full grid-cols-[repeat(auto-fill,minmax(52.1rem,1fr))] gap-24'>
-          {influencers.map((influencer) => (
-            <InfluencerCard
-              key={influencer.channelId}
-              influencer={influencer}
-              onBookmarkToggle={(bookmarked) =>
-                toggleBookmark(influencer.channelId, bookmarked)
-              }
-            />
-          ))}
-        </div>
+        {influencers.length === 0 ? (
+          <div className='text-noto-label-sm-medium text-status-error px-24'>
+            조건에 맞는 인플루언서가 없습니다.
+          </div>
+        ) : (
+          <div className='grid h-fit w-full grid-cols-[repeat(auto-fill,minmax(52.1rem,1fr))] gap-24'>
+            {influencers.map((influencer) => (
+              <InfluencerCard
+                key={influencer.channelId}
+                influencer={influencer}
+                onBookmarkToggle={(bookmarked) =>
+                  toggleBookmark(influencer.channelId, bookmarked)
+                }
+              />
+            ))}
+          </div>
+        )}
       </InfiniteScrollList>
     </div>
   )
