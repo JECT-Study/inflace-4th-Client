@@ -82,7 +82,7 @@ export function InfluencerBaseInfo({ channelId }: { channelId: string }) {
                 <HeartButton
                   initialBookmarked={data.bookmarked}
                   onToggle={(bookmarked) =>
-                    toggleBookmark(data.channelId, bookmarked)
+                    toggleBookmark(Number(channelId), bookmarked)
                   }
                 />
               </div>
