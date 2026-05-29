@@ -25,7 +25,11 @@ export default function HomePage() {
 
   // proxy.ts가 보호 경로 접근을 /?from=protected로 리다이렉트하면 로그인 모달 오픈
   useEffect(() => {
-    if (!isInitializing && !isLoggedIn && searchParams.get('from') === 'protected') {
+    if (
+      !isInitializing &&
+      !isLoggedIn &&
+      searchParams?.get('from') === 'protected'
+    ) {
       openLoginModal()
     }
   }, [isInitializing, isLoggedIn, searchParams, openLoginModal])
