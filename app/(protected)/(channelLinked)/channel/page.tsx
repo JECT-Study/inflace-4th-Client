@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { ChannelPage } from '@/pages/channel'
 
-const title = '내 채널 영상 분석 대시보드 | 인플레이스'
+const title = '내 채널 분석 대시보드 | 인플레이스'
 const description =
-  '유튜브 영상별 조회수, 참여율, VPH, Outlier 지수를 분석해 성과 높은 콘텐츠 패턴을 발견하세요.'
+  '구독자 추이, 참여율, 시청자 분포를 한눈에 분석하고 카테고리 평균 대비 내 채널의 위치를 데이터로 확인하세요.'
 
 export const metadata: Metadata = {
   title,
