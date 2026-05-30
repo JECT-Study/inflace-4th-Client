@@ -14,7 +14,7 @@ export async function fetchVideoList(
   if (params?.size !== undefined) query['size'] = String(params.size)
 
   const response = await axiosInstance.get<{
-    isSuccess: boolean
+    success: boolean
     responseDto: VideosResponse
     error: null
   }>(`/channel/${channelId}/videos`, { params: query })

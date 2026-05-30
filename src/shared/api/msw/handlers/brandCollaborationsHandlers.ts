@@ -26,8 +26,7 @@ export const brandCollaborationsHandlers = [
     ({ request }) => {
       const url = new URL(request.url)
       const cursor = url.searchParams.get('cursor')
-      const pageSize =
-        Number(url.searchParams.get('pageSize')) || PAGE_SIZE
+      const pageSize = Number(url.searchParams.get('pageSize')) || PAGE_SIZE
       const sortCriteria = url.searchParams.get('sortCriteria') ?? 'LATEST'
       const sortOrder = url.searchParams.get('sortOrder') ?? 'DESC'
 
@@ -67,7 +66,7 @@ export const brandCollaborationsHandlers = [
       const channelCount = body.youtubeVideoIds.length
 
       return HttpResponse.json({
-        isSuccess: true,
+        success: true,
         responseDto: {
           contentKeywords: {
             keywords: mockTrendsKeywords,

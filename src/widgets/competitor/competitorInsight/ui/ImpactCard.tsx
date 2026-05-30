@@ -43,7 +43,7 @@ export function ImpactCard({
           </p>
         </div>
       </div>
-      <div className='px-44'>{children}</div>
+      <div className='pl-44'>{children}</div>
     </div>
   )
 }

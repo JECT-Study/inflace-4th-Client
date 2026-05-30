@@ -35,7 +35,7 @@ export function CompetitorInsightSection({
   }, [data, onAnalysisComplete])
 
   if (isLoading) {
-    return <StatusCard>분석 중입니다...</StatusCard>
+    return <StatusCard showSpinner />
   }
 
   if (isError) {
@@ -67,10 +67,18 @@ export function CompetitorInsightSection({
   )
 }
 
-function StatusCard({ children }: { children: React.ReactNode }) {
+function StatusCard({
+  children,
+  showSpinner = false,
+}: {
+  children?: React.ReactNode
+  showSpinner?: boolean
+}) {
   return (
     <div className='flex w-full flex-col items-center gap-16 rounded-12 bg-white px-24 py-32 shadow-[0px_2px_6px_0px_rgba(13,13,13,0.04),0px_6px_12px_0px_rgba(13,13,13,0.04)]'>
-      <div className='size-32 animate-spin rounded-full border-2 border-text-and-icon-tertiary border-t-transparent' />
+      {showSpinner && (
+        <div className='size-32 animate-spin rounded-full border-2 border-text-and-icon-tertiary border-t-transparent' />
+      )}
       {typeof children === 'string' ? (
         <p className='text-noto-body-xs-normal text-text-and-icon-secondary'>
           {children}
