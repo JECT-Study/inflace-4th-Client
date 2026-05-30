@@ -63,11 +63,8 @@ export const brandCollaborationsHandlers = [
     `${process.env.NEXT_PUBLIC_API_URL}/brand-collaborations/trends`,
     async ({ request }) => {
       const body = (await request.json()) as { youtubeVideoIds: string[] }
-      /* 선택 영상 개수 기반으로 channelCount 결정 — 같은 영상 선택 채널이 있을 수 있어 최대 channelPool 길이로 클램프 */
-      const channelCount = Math.min(
-        body.youtubeVideoIds.length,
-        channelPool.length
-      )
+      /* 선택 영상 1개당 채널 1개 매칭으로 가정 */
+      const channelCount = body.youtubeVideoIds.length
 
       return HttpResponse.json({
         isSuccess: true,
