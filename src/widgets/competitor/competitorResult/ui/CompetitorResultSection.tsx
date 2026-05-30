@@ -5,7 +5,7 @@ import { CompetitorVideoCard } from '@/entities/competitor'
 import type { CompetitorVideoCardItem } from '@/entities/competitor'
 import type { SortCriteria } from '@/features/competitor'
 
-import IconArrowRight from '@/shared/assets/rightwards-arrow-bold.svg'
+import IconLoading from '@/shared/assets/loading-bold.svg'
 
 import { CompetitorSortTabs } from './CompetitorSortTabs'
 
@@ -59,7 +59,7 @@ export function CompetitorResultSection({
             size='lg'
             onClick={onLoadMore}
             disabled={isFetchingNextPage}
-            rightIcon={<IconArrowRight />}>
+            rightIcon={<IconLoading />}>
             {isFetchingNextPage ? '불러오는 중…' : '결과 더보기'}
           </Button>
         </div>

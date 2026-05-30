@@ -50,11 +50,20 @@ export function CompetitorVideoCard({
     onToggle(videoId)
   }
 
+  function handleCardKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      onToggle(videoId)
+    }
+  }
+
   return (
-    <button
-      type='button'
-      onClick={handleCardClick}
+    <div
+      role='button'
+      tabIndex={0}
       aria-pressed={selected}
+      onClick={handleCardClick}
+      onKeyDown={handleCardKeyDown}
       className={cn(
         'flex w-full cursor-pointer flex-col overflow-hidden rounded-6 border bg-white text-left transition-colors',
         selected
@@ -146,7 +155,7 @@ export function CompetitorVideoCard({
           </Link>
         </div>
       </div>
-    </button>
+    </div>
   )
 }
 

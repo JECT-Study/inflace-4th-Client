@@ -7,6 +7,7 @@ import { SubscriberGrowthSection } from '@/widgets/channel/SubscriberGrowth'
 import { TrendingVideoSection } from '@/widgets/channel/trendingVideo'
 import { NewInflowSection } from '@/widgets/channel/newInflow'
 import { TypeEngagementSection } from '@/widgets/channel/typeEngagement'
+import { SubscriberDemographicsSection } from '@/widgets/channel/subscriberDemographics'
 
 export function ChannelPage() {
   const { user } = useAuth()
@@ -37,6 +38,7 @@ export function ChannelPage() {
         <div className='flex items-start gap-24'>
           {/* 롱폼/숏폼 평균 참여율 TOP5 */}
           <TypeEngagementSection channelId={id} />
+          <SubscriberDemographicsSection channelId={id} />
         </div>
       </div>
     </div>

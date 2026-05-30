@@ -1,17 +1,18 @@
 'use client'
 
+import { useMemo } from 'react'
 import { Select } from 'radix-ui'
 import { cn } from '@/shared/lib/utils'
 import { KeywordChipInput } from '@/shared/ui/keyword-chip-input'
 import IconChevronDown from '@/shared/assets/down-bold.svg'
 import IconX from '@/shared/assets/round-x.svg'
 import {
-  CATEGORY_OPTIONS,
   REGION_OPTIONS,
   LANGUAGE_OPTIONS,
   type CompetitorFilterState,
   type SelectOption,
 } from '@/features/competitor'
+import { useYoutubeCategories } from '@/entities/youtubeCategory'
 
 interface CompetitorFilterDetailFieldsProps {
   filter: CompetitorFilterState
@@ -25,6 +26,17 @@ export function CompetitorFilterDetailFields({
   filter,
   onChange,
 }: CompetitorFilterDetailFieldsProps) {
+  const { data: categoriesData } = useYoutubeCategories()
+  /* YouTube 카테고리 응답(id: number)을 SelectOption(value: string)으로 변환 */
+  const categoryOptions = useMemo<SelectOption[]>(
+    () =>
+      categoriesData?.youtubeCategories.map((c) => ({
+        value: String(c.id),
+        label: c.title,
+      })) ?? [],
+    [categoriesData]
+  )
+
   return (
     <div className='flex w-full flex-col gap-40'>
       {/* 제외 키워드 */}
@@ -47,7 +59,7 @@ export function CompetitorFilterDetailFields({
           label='카테고리'
           value={filter.categoryId}
           onChange={(v) => onChange('categoryId', v)}
-          options={CATEGORY_OPTIONS}
+          options={categoryOptions}
           placeholder='카테고리 선택'
         />
         <DropdownField

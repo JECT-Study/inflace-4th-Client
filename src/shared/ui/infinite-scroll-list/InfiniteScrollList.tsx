@@ -1,13 +1,8 @@
-import type { RefObject } from 'react'
-
 interface InfiniteScrollListProps {
-  // 실제 목록 UI (VideoList 등 각 feature의 컴포넌트를 children으로 주입)
   children: React.ReactNode
-  // useInfiniteScroll 훅이 반환한 ref — IntersectionObserver 감시 대상
-  sentinelRef: RefObject<HTMLDivElement | null>
+  sentinelRef: React.RefCallback<HTMLDivElement | null>
   isFetchingNextPage: boolean
   hasNextPage: boolean
-  // 기본 스피너 대신 커스텀 로딩 UI(스켈레톤 등)를 사용할 때 전달
   loadingFallback?: React.ReactNode
 }
 

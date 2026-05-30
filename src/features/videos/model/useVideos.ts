@@ -10,7 +10,6 @@ export function useVideos(channelId: string, params?: VideoFilterParams) {
     queryKey: ['videoList', channelId, params],
     queryFn: ({ pageParam }) =>
       fetchVideoList(channelId, { ...params, cursor: pageParam ?? undefined }),
-    enabled: !!channelId,
   })
 
   const videos = useMemo(

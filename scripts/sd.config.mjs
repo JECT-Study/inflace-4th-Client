@@ -250,8 +250,14 @@ function genPrimitiveTransparentColors() {
     .join('\n')
 }
 
+function genPrimitiveBrandColors() {
+  return flatten(prim.color.brand)
+    .map(([k, v]) => `  --color-primitive-brand-${k}: ${resolve(v)};`)
+    .join('\n')
+}
+
 function genComponent() {
-  return flatten(comp.button, 'btn')
+  return flatten(comp.component.button, 'btn')
     .map(([k, v]) => {
       const deduped = k
         .split('-')
@@ -259,6 +265,12 @@ function genComponent() {
         .join('-')
       return `  --color-${deduped}: ${resolve(v)};`
     })
+    .join('\n')
+}
+
+function genPrimitiveBasicColors() {
+  return flatten(prim.color.basic)
+    .map(([k, v]) => `  --color-primitive-basic-${k}: ${resolve(v)};`)
     .join('\n')
 }
 
@@ -316,12 +328,14 @@ function genLetterSpacing(indent = '  ') {
 }
 
 function genRadius(sem, indent = '  ') {
+  if (!sem.radius) return ''
   return Object.entries(sem.radius)
     .map(([k, v]) => `${indent}--radius-${k}: ${px(v.value)};`)
     .join('\n')
 }
 
 function genOpacity(sem, indent = '  ') {
+  if (!sem.opacity) return ''
   return Object.entries(sem.opacity)
     .map(([k, v]) => {
       const raw = resolve(v.value)
@@ -431,6 +445,14 @@ const css = `/* 자동생성 파일 — 직접 편집하지 마세요. npm run b
 
   /* === Semantic Colors === */
 ${genColors()}
+
+
+  /* === Primitive Brand Colors === */
+${genPrimitiveBrandColors()}
+
+
+  /* === Primitive Basic Colors === */
+${genPrimitiveBasicColors()}
 
 
   /* === Primitive Transparent Colors === */

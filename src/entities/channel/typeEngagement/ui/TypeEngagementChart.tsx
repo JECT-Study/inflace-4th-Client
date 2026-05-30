@@ -1,10 +1,14 @@
 'use client'
 
-import { ChartLegend } from '@/features/channel/chartLegend'
+import { ChartLegend } from '@/shared/ui/chart/chartLegend'
 import type { TypeEngagementSummaryDto } from '../model/types'
 import { BasePieChart, type PieDataPoint } from '@/shared/ui/chart'
 
-export function TypeEngagementChart({ data }: { data: TypeEngagementSummaryDto }) {
+export function TypeEngagementChart({
+  data,
+}: {
+  data: TypeEngagementSummaryDto
+}) {
   const { longFormEngagementRate, shortFormEngagementRate } = data
 
   const pieData: PieDataPoint[] = [
@@ -37,6 +41,7 @@ export function TypeEngagementChart({ data }: { data: TypeEngagementSummaryDto }
             value={item.value}
             label={item.name}
             variant={item.color}
+            unit='%'
           />
         ))}
       </div>

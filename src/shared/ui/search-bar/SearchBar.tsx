@@ -13,7 +13,7 @@ export function SearchBar({
   ...props
 }: InputProps) {
   return (
-    <div className='flex h-fit w-[58rem] items-center gap-16 rounded-16 border border-transparent bg-background-gray-stronger px-16 py-12 has-[input:focus]:border has-[input:focus]:border-brand-primary has-[input:focus]:bg-white'>
+    <div className='flex h-fit w-[50rem] items-center gap-16 rounded-16 border border-transparent bg-background-gray-stronger px-16 py-12 has-[input:focus]:border has-[input:focus]:border-brand-primary has-[input:focus]:bg-white'>
       <IconSearch className='size-[2.4rem] text-text-and-icon-primary' />
       <Input
         type={type}

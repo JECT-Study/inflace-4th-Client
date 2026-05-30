@@ -12,24 +12,6 @@ export const VIDEO_FORMAT_OPTIONS: SelectOption<VideoFormat>[] = [
   { value: 'SHORT_FORM', label: '숏폼' },
 ]
 
-/* 유튜브 표준 카테고리 ID 매핑 */
-export const CATEGORY_OPTIONS: SelectOption[] = [
-  { value: '1', label: '영화/애니메이션' },
-  { value: '2', label: '자동차' },
-  { value: '10', label: '음악' },
-  { value: '15', label: '반려동물/동물' },
-  { value: '17', label: '스포츠' },
-  { value: '19', label: '여행/이벤트' },
-  { value: '20', label: '게임' },
-  { value: '22', label: '인물/블로그' },
-  { value: '23', label: '코미디' },
-  { value: '24', label: '엔터테인먼트' },
-  { value: '25', label: '뉴스/정치' },
-  { value: '26', label: '노하우/스타일' },
-  { value: '27', label: '교육' },
-  { value: '28', label: '과학기술' },
-]
-
 /* ISO 3166-1 alpha-2 지역 코드 */
 export const REGION_OPTIONS: SelectOption[] = [
   { value: 'KR', label: '한국' },

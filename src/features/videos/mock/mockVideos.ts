@@ -236,9 +236,8 @@ export const mockVideosPage1: VideosResponse = {
   videos: mockVideoItemsPage1,
   pageInfo: {
     size: 12,
-    numberOfElements: 9,
-    nextCursor:
-      'eyJzb3J0IjoiTEFURVNUIiwicHVibGlzaGVkQXQiOiIyMDI2LTAzLTAxVDA5OjAwOjAwWiIsInZpZGVvSWQiOiJhYmMxMjMifQ==',
+    numberOfElements: 12,
+    nextCursor: '1',
     hasNext: true,
   },
 }

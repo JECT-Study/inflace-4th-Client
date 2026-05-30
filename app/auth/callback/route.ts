@@ -37,6 +37,7 @@ export async function GET(request: NextRequest) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Origin: process.env.NEXT_PUBLIC_APP_URL!,
         },
         body: JSON.stringify({ provider: 'google', code }),
       }
@@ -111,12 +112,13 @@ export async function GET(request: NextRequest) {
 
 //HTML 페이지를 반환하여 postMessage로 accessToken + user를 부모 창에 전달하고 팝업을 닫는다
 function buildPostMessageHtml(type: string, payload: Record<string, unknown>) {
+  const targetOrigin = process.env.NEXT_PUBLIC_APP_URL!
   const message = JSON.stringify({ type, ...payload })
   return `<!DOCTYPE html>
 <html>
 <body>
 <script>
-  window.opener.postMessage(${message}, "${process.env.NEXT_PUBLIC_APP_URL}");
+  window.opener.postMessage(${message}, "${targetOrigin}");
   window.close();
 </script>
 </body>

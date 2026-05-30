@@ -29,7 +29,8 @@ export async function GET() {
     client_id: process.env.GOOGLE_CLIENT_ID!,
     redirect_uri: `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`,
     response_type: 'code',
-    scope: 'openid email profile',
+    scope:
+      'openid email profile https://www.googleapis.com/auth/youtube.readonly',
     state,
     access_type: 'offline',
     prompt: 'consent',

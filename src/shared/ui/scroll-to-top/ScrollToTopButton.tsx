@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 
 import { cn } from '@/shared/lib/utils'
-import IconDown from '@/shared/assets/down-bold.svg'
+import IconLeftwardsArrow from '@/shared/assets/leftwards-arrow-bold.svg'
 
 interface ScrollToTopButtonProps {
   /* 표시 시작 스크롤 위치 (px). 기본 400 */
@@ -41,7 +41,7 @@ export function ScrollToTopButton({
         'fixed right-32 bottom-32 z-40 flex size-56 cursor-pointer items-center justify-center rounded-full bg-brand-secondary text-white shadow-lg transition-opacity hover:opacity-90',
         className
       )}>
-      <IconDown className='size-24 rotate-180' />
+      <IconLeftwardsArrow className='size-24 rotate-90' />
     </button>
   )
 }

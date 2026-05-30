@@ -50,7 +50,14 @@ export function TrendingVideoSection({ channelId }: { channelId: string }) {
             </span>
           </div>
         </div>
-        <ContentType isShort={isShort} onIsShortChange={setIsShort} />
+        <ContentType
+          options={[
+            { label: '롱폼', filter: false },
+            { label: '숏폼', filter: true },
+          ]}
+          filter={isShort}
+          onFilterChange={setIsShort}
+        />
       </div>
       <div className='h-fit w-full'>
         <TrendingVideo data={data ?? []} />

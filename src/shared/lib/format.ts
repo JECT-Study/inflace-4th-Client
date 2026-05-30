@@ -25,10 +25,12 @@ export function formatThousands(count: number): string {
   return String(count)
 }
 
-// 1만명 단위 포맷팅 285,000 => 28.5만
+// 1만명 단위 포맷팅 285,000 => 28.5만 / 300,000 => 30만
 export function format10Thousands(count: number): string {
   if (count >= 10000) {
-    return `${(count / 10000).toFixed(1)}만`
+    const value = count / 10000
+    const formatted = value % 1 === 0 ? String(value) : value.toFixed(1) //소숫점 아래가 0이면 표시 x
+    return `${formatted}만`
   }
   return String(count)
 }

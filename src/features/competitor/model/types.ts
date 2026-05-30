@@ -1,3 +1,5 @@
+import type { PageInfo } from '@/shared/api/types'
+
 /* 영상 형식 (유튜브 videoDuration 매핑) */
 export type VideoFormat = 'ALL' | 'LONG_FORM' | 'SHORT_FORM'
 
@@ -73,14 +75,6 @@ export interface BrandCollaborationDto {
   channelThumbnailUrl: string
 }
 
-/* 페이지네이션 정보 */
-export interface BrandCollaborationsPageInfo {
-  size: number
-  numberOfElements: number
-  nextCursor: string | null
-  hasNext: boolean
-}
-
 /* 적용된 정렬 정보 */
 export interface BrandCollaborationsSort {
   sorted: boolean
@@ -91,7 +85,7 @@ export interface BrandCollaborationsSort {
 /* API 응답 DTO — 페이지 단위 */
 export interface BrandCollaborationsResponseDto {
   content: BrandCollaborationDto[]
-  pageInfo: BrandCollaborationsPageInfo
+  pageInfo: PageInfo
   sort: BrandCollaborationsSort
 }
 
