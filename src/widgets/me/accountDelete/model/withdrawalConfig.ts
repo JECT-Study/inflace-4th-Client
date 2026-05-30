@@ -27,15 +27,3 @@ export const DELETION_ITEMS: DeletionItem[] = [
   },
 ]
 
-/* 탈퇴 사유 — 모달 2 dropdown 옵션 7개 */
-export const WITHDRAWAL_REASONS = [
-  '서비스를 자주 사용하지 않아서',
-  '원하는 기능이 부족해서',
-  '다른 서비스를 이용하기 위해서',
-  '사용 방법이 어려워서',
-  '비용이 부담돼서',
-  '개인정보 보호가 걱정돼서',
-  '기타',
-] as const
-
-export type WithdrawalReason = (typeof WITHDRAWAL_REASONS)[number]

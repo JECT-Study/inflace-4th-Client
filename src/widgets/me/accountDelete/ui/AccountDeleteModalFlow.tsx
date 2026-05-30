@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-import type { WithdrawalReason } from '../model/withdrawalConfig'
+import type { WithdrawalReason } from '@/features/me'
 
 import { DataDeletionModal } from './DataDeletionModal'
 import { WithdrawalCompletedModal } from './WithdrawalCompletedModal'
@@ -18,8 +18,12 @@ interface AccountDeleteModalFlowProps {
   onClose: () => void
   /* 완료 모달의 "홈으로 이동하기" 클릭 시 */
   onComplete: () => void
-  /* 탈퇴 사유 제출 시 호출 (API 트리거 자리). customReason은 '기타' 선택 시 직접 입력값 */
-  onSubmitReason?: (reason: WithdrawalReason, customReason?: string) => void
+  /* 탈퇴 사유 제출 시 호출 (API 트리거 자리). customReason은 'OTHER' 선택 시 직접 입력값.
+   * Promise 반환 시 성공 후에만 완료 단계로 이동, reject 시 머무름 */
+  onSubmitReason?: (
+    reason: WithdrawalReason,
+    customReason?: string
+  ) => void | Promise<void>
 }
 
 /**
@@ -43,10 +47,23 @@ function AccountDeleteModalFlowInner({
   onSubmitReason,
 }: AccountDeleteModalFlowProps) {
   const [step, setStep] = useState<AccountDeleteStep>(initialStep)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  function handleSubmit(reason: WithdrawalReason, customReason?: string) {
-    onSubmitReason?.(reason, customReason)
-    setStep('completed')
+  async function handleSubmit(
+    reason: WithdrawalReason,
+    customReason?: string
+  ) {
+    if (!onSubmitReason) {
+      setStep('completed')
+      return
+    }
+    setIsSubmitting(true)
+    try {
+      await onSubmitReason(reason, customReason)
+      setStep('completed')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -60,6 +77,7 @@ function AccountDeleteModalFlowInner({
         open={step === 'reason'}
         onClose={onClose}
         onConfirm={handleSubmit}
+        isSubmitting={isSubmitting}
       />
       <WithdrawalCompletedModal
         open={step === 'completed'}

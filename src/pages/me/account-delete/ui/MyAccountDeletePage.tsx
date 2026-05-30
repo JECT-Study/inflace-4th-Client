@@ -9,17 +9,22 @@ import {
   AccountDeleteModalFlow,
   AccountDeleteNoticeCard,
   LinkedChannelsForDeleteCard,
-  type WithdrawalReason,
 } from '@/widgets/me/accountDelete'
+import { useDeleteUser, type WithdrawalReason } from '@/features/me'
 
 export function MyAccountDeletePage() {
   const router = useRouter()
   const [open, setOpen] = useState(false)
+  const { mutateAsync: deleteUser } = useDeleteUser()
 
-  function handleSubmitReason(reason: WithdrawalReason, customReason?: string) {
-    /* TODO: 탈퇴 API 연동 — '기타' 선택 시 customReason을 함께 전달 */
-    void reason
-    void customReason
+  async function handleSubmitReason(
+    reason: WithdrawalReason,
+    customReason?: string
+  ) {
+    await deleteUser({
+      reason,
+      detail: reason === 'OTHER' ? customReason : undefined,
+    })
   }
 
   function handleComplete() {

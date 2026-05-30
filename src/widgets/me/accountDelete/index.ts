@@ -8,8 +8,5 @@ export {
   type AccountDeleteStep,
 } from './ui/AccountDeleteModalFlow'
 
-export type { DeletionItem, WithdrawalReason } from './model/withdrawalConfig'
-export {
-  DELETION_ITEMS,
-  WITHDRAWAL_REASONS,
-} from './model/withdrawalConfig'
+export type { DeletionItem } from './model/withdrawalConfig'
+export { DELETION_ITEMS } from './model/withdrawalConfig'

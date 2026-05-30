@@ -11,17 +11,20 @@ import IconCheck from '@/shared/assets/check-bold.svg'
 
 import {
   WITHDRAWAL_REASONS,
+  WITHDRAWAL_REASON_LABELS,
   type WithdrawalReason,
-} from '../model/withdrawalConfig'
+} from '@/features/me'
+
 import { ModalShell } from './ModalShell'
 
-const OTHER_REASON: WithdrawalReason = '기타'
+const OTHER_REASON: WithdrawalReason = 'OTHER'
 
 interface WithdrawalReasonModalProps {
   open: boolean
   onClose: () => void
-  /* customReason은 reason === '기타'일 때만 전달됨 (직접 입력 텍스트) */
+  /* customReason은 reason === 'OTHER'일 때만 전달됨 (직접 입력 텍스트) */
   onConfirm: (reason: WithdrawalReason, customReason?: string) => void
+  isSubmitting?: boolean
 }
 
 /* 모달 2 — 탈퇴 사유 선택 + 동의 체크 */
@@ -29,6 +32,7 @@ export function WithdrawalReasonModal({
   open,
   onClose,
   onConfirm,
+  isSubmitting = false,
 }: WithdrawalReasonModalProps) {
   const [reason, setReason] = useState<WithdrawalReason | ''>('')
   const [customReason, setCustomReason] = useState('')
@@ -99,7 +103,9 @@ export function WithdrawalReasonModal({
                 'data-placeholder:text-text-and-icon-disabled',
                 'not-data-placeholder:text-text-and-icon-primary'
               )}>
-              <Select.Value placeholder='무엇이 불편하셨나요?' />
+              <Select.Value placeholder='무엇이 불편하셨나요?'>
+                {reason ? WITHDRAWAL_REASON_LABELS[reason] : undefined}
+              </Select.Value>
               <Select.Icon asChild>
                 <IconChevronDown className='size-20 text-text-and-icon-secondary transition-transform group-data-[state=open]:rotate-180' />
               </Select.Icon>
@@ -115,7 +121,9 @@ export function WithdrawalReasonModal({
                       key={r}
                       value={r}
                       className='flex cursor-pointer items-center rounded-4 px-12 py-10 text-noto-label-md-normal text-text-and-icon-primary outline-none select-none data-highlighted:bg-background-gray-default'>
-                      <Select.ItemText>{r}</Select.ItemText>
+                      <Select.ItemText>
+                        {WITHDRAWAL_REASON_LABELS[r]}
+                      </Select.ItemText>
                     </Select.Item>
                   ))}
                 </Select.Viewport>
@@ -157,6 +165,7 @@ export function WithdrawalReasonModal({
           variant='outlined'
           size='lg'
           onClick={onClose}
+          disabled={isSubmitting}
           className='flex-1'>
           다시 생각해볼게요
         </Button>
@@ -166,9 +175,9 @@ export function WithdrawalReasonModal({
           variant='filled'
           size='lg'
           onClick={handleConfirm}
-          disabled={!canSubmit}
+          disabled={!canSubmit || isSubmitting}
           className='flex-1'>
-          계정 탈퇴하기
+          {isSubmitting ? '처리 중...' : '계정 탈퇴하기'}
         </Button>
       </div>
     </ModalShell>
