@@ -37,7 +37,11 @@ export function PersonalInfoSection() {
               )}
             </div>
             {/* 프로필 변경 버튼 */}
-            <button className='0 absolute top-[6.2rem] left-[6.2rem] flex size-[2.8rem] cursor-pointer items-center justify-center rounded-full border border-[#E6E6E6] bg-background-gray-default'>
+            <button
+              type='button'
+              aria-label='프로필 사진 변경'
+              className='absolute top-[6.2rem] left-[6.2rem] flex size-[2.8rem] cursor-pointer items-center justify-center rounded-full border border-[#E6E6E6] bg-background-gray-default'
+            >
               <CameraIcon className='size-[2rem]' />
             </button>
           </div>
