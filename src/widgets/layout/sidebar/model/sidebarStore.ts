@@ -13,6 +13,6 @@ export const useSidebarStore = create<SidebarState>()(
       open: true,
       setOpen: (open) => set({ open }),
     }),
-    { name: 'sidebar-store' },
-  ),
+    { name: 'sidebar-store' }
+  )
 )
