@@ -94,6 +94,7 @@ function SearchAndFilterInner() {
     <div className='flex h-fit w-full items-center gap-16 bg-background-gray-default p-24'>
       {/* 검색바 */}
       <SearchBar
+        className='w-[58rem]'
         placeholder='영상 제목으로 검색'
         value={query}
         onChange={(e) => setQuery(e.target.value)}

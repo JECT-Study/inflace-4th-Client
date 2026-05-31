@@ -15,9 +15,10 @@ export function SearchBar({
   return (
     <div
       className={cn(
-        'flex h-fit w-[58rem] items-center gap-16 rounded-16 border px-16 py-12',
+        'flex h-fit items-center gap-16 rounded-16 border px-16 py-12',
         'border-stroke-border-gray-stronger bg-white',
-        'has-[input:focus]:border-brand-primary has-[input:focus]:bg-white'
+        'has-[input:focus]:border-brand-primary has-[input:focus]:bg-white',
+        className
       )}>
       <IconSearch className='size-[2.4rem] text-text-and-icon-primary' />
       <Input
@@ -26,8 +27,7 @@ export function SearchBar({
         value={value}
         onChange={onChange}
         className={cn(
-          'h-fit w-full text-noto-body-xs-normal text-text-and-icon-secondary transition-colors outline-none focus:text-text-and-icon-default',
-          className
+          'h-fit w-full text-noto-body-xs-normal text-text-and-icon-secondary transition-colors outline-none focus:text-text-and-icon-default'
         )}
         {...props}
       />
