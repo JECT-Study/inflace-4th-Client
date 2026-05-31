@@ -9,8 +9,12 @@ export function CustomInfoSection() {
   const openModal = useEditPreferencesModal((s) => s.open)
   const preferences = data?.preferences
 
-  const roles = preferences?.roles.map((r) => ROLE_LABEL[r]).join(', ') ?? '-'
-  const needs = preferences?.needs.map((n) => NEED_LABEL[n]).join(', ') ?? '-'
+  const roles = preferences?.roles.length
+    ? preferences.roles.map((r) => ROLE_LABEL[r]).join(', ')
+    : '-'
+  const needs = preferences?.needs.length
+    ? preferences.needs.map((n) => NEED_LABEL[n]).join(', ')
+    : '-'
 
   const handleOpen = () => {
     openModal(preferences?.roles ?? [], preferences?.needs ?? [])
