@@ -10,14 +10,13 @@ export function PersonalInfoSection() {
   const { data } = useMyProfile()
   const account = data?.account
 
-
   return (
     <div className='flex h-fit w-full flex-col gap-24 rounded-16 bg-white p-32 shadow-[0px_2px_6px_0px_#0D0D0D0A]'>
       <h2 className='text-noto-title-md-bold text-text-and-icon-primary'>
         개인 정보
       </h2>
 
-      <div className='flex h-fit w-full min-w-[42rem] flex-col'>
+      <div className='flex h-fit w-full min-w-[42rem] flex-col items-end'>
         {/* 프로필 사진 + 정보 */}
         <div className='flex h-fit w-full min-w-[42rem] gap-[4rem]'>
           {/* 프로필 사진 */}
@@ -40,8 +39,7 @@ export function PersonalInfoSection() {
             <button
               type='button'
               aria-label='프로필 사진 변경'
-              className='absolute top-[6.2rem] left-[6.2rem] flex size-[2.8rem] cursor-pointer items-center justify-center rounded-full border border-[#E6E6E6] bg-background-gray-default'
-            >
+              className='absolute top-[6.2rem] left-[6.2rem] flex size-[2.8rem] cursor-pointer items-center justify-center rounded-full border border-[#E6E6E6] bg-background-gray-default'>
               <CameraIcon className='size-[2rem]' />
             </button>
           </div>
@@ -71,7 +69,12 @@ export function PersonalInfoSection() {
                 가입일
               </h4>
               <span className='h-fit w-full text-noto-body-xs-normal'>
-                {account?.enteredAt ? (() => { const { year, month, day } = formatDate(account.enteredAt); return `${year}.${month}.${day}` })() : '-'}
+                {account?.enteredAt
+                  ? (() => {
+                      const { year, month, day } = formatDate(account.enteredAt)
+                      return `${year}.${month}.${day}`
+                    })()
+                  : '-'}
               </span>
             </div>
           </div>
@@ -83,8 +86,7 @@ export function PersonalInfoSection() {
           disabled
           aria-disabled='true'
           aria-label='계정 탈퇴 (준비 중)'
-          className='block cursor-not-allowed px-8 py-4 text-right text-noto-body-xs-normal text-text-and-icon-secondary underline'
-        >
+          className='w-fit cursor-not-allowed px-8 py-4 text-right text-noto-body-xs-normal text-text-and-icon-secondary underline'>
           계정 탈퇴
         </button>
       </div>
