@@ -12,11 +12,7 @@ interface SortOption {
 
 interface InfluencerListProps {
   selectedIndex: number
-  onSortChange?: (
-    index: number,
-    sortCriteria: SortCriteria,
-    sortOrder: SortOrder
-  ) => void
+  onSortChange?: (sortCriteria: SortCriteria, sortOrder: SortOrder) => void
   influencers: Influencer[]
   sentinelRef: (node: HTMLDivElement | null) => void
   isFetchingNextPage: boolean
