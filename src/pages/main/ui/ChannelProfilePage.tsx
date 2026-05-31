@@ -7,7 +7,9 @@ import { useAuth } from '@/features/auth'
 
 export function ChannelProfilePage() {
   const { user } = useAuth()
-  const channelId = user?.userChannelDetails?.youtubeChannelId as string
+  const channelId = user?.userChannelDetails?.youtubeChannelId
+
+  if (!channelId) return null
 
   return (
     <div className='flex flex-col divide-y'>
