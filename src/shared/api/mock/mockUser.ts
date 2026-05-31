@@ -36,7 +36,7 @@ export const mockLoginResponse = {
   responseDto: {
     accessToken: mockAccessToken,
     userDetails: mockUserDetails,
-    userChannelDetails: null,
+    userChannelDetails: mockUserChannelDetails,
   },
 }
 
