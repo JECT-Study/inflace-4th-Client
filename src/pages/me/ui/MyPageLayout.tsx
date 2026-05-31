@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { MyPageSidebar } from '@/features/me'
-import { useSidebarStore } from '@/shared/api'
+import { useSidebarStore } from '@/widgets/layout/sidebar'
 
 type Props = {
   children: React.ReactNode
@@ -13,6 +13,7 @@ export function MyPageLayout({ children }: Props) {
 
   useEffect(() => {
     setOpen(false)
+    return () => setOpen(true)
   }, [setOpen])
 
   return (

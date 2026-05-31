@@ -7,7 +7,6 @@ type ToggleGroupProps = Omit<
   'type'
 > & {
   type?: 'single' | 'multiple'
-  spacing?: number
   orientation?: 'horizontal' | 'vertical'
   size?: 'lg' | 'fit'
 }

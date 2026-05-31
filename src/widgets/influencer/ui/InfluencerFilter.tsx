@@ -6,6 +6,7 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { SearchBar } from '@/shared/ui/search-bar'
 import { Button } from '@/shared/ui/button'
 import IconHeart from '@/shared/assets/heart-bold.svg?react'
+import IconLeftArrow from '@/shared/assets/leftwards-arrow-bold.svg?react'
 import {
   DropdownTrigger,
   CategoryNamesDropdown,
@@ -133,154 +134,180 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
     return () => clearTimeout(timer)
   }, [query, isFocused, applyChannelNameToUrl])
 
+  const isBookmarkPage = pathname === '/influencer/bookmarked'
+
   return (
-    <div className='flex h-fit w-full items-center gap-24 bg-background-gray-default p-24'>
-      {/* 검색바 */}
-      <SearchBar
-        placeholder='채널명 또는 키워드 검색'
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onClear={() => {
-          setQuery('')
-          applyChannelNameToUrl('')
-        }}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            applyChannelNameToUrl(query)
-            e.currentTarget.blur()
-          }
-        }}
-      />
+    <div className='flex h-fit w-full flex-col items-center gap-16 bg-background-gray-default p-24'>
+      {/** 보관함 페이지 헤더
+       * /influencer/bookmarked일 때만 랜더링
+       */}
+      {isBookmarkPage && (
+        <div className='flex h-[6.8rem] w-full gap-16 pt-24 pr-24 pb-16 pl-24'>
+          <button
+            type='button'
+            onClick={() => router.push('/influencer')}
+            className='flex size-24 shrink-0 items-center gap-10'>
+            <IconLeftArrow className='size-full' />
+          </button>
+          <span className='size-fit w-full text-ibm-title-lg-normal text-text-and-icon-default'>
+            보관함
+          </span>
+        </div>
+      )}
 
-      {/* 필터 */}
-      <div className='flex h-fit w-full flex-1 items-center gap-12'>
-        <DropdownTrigger
-          label='카테고리'
-          output={deriveCategoryOutput(categoryIds, categories)}>
-          {(onClose) => (
-            <CategoryNamesDropdown
-              categories={categories}
-              defaultValue={categoryIds}
-              onChange={(_, ids) => {
-                updateUrl((params) => {
-                  params.delete('categoryIds')
-                  ids.forEach((id) => params.append('categoryIds', String(id)))
-                })
-                onClose()
-              }}
-            />
-          )}
-        </DropdownTrigger>
+      <div className='flex w-full items-center gap-24'>
+        {/* 검색바 */}
+        <SearchBar
+          placeholder='채널명 또는 키워드 검색'
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onClear={() => {
+            setQuery('')
+            applyChannelNameToUrl('')
+          }}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              applyChannelNameToUrl(query)
+              e.currentTarget.blur()
+            }
+          }}
+        />
 
-        <DropdownTrigger
-          label='구독자 수'
-          output={deriveSubscriberOutput(subscriberFrom, subscriberTo)}>
-          {(onClose) => (
-            <SubscriberDropdown
-              defaultFrom={subscriberFrom}
-              defaultTo={subscriberTo}
-              onChange={(_, { from, to }) => {
-                updateUrl((params) => {
-                  if (from) params.set('subscriberFrom', from)
-                  else params.delete('subscriberFrom')
-                  if (to) params.set('subscriberTo', to)
-                  else params.delete('subscriberTo')
-                })
-                onClose()
-              }}
-            />
-          )}
-        </DropdownTrigger>
+        {/* 필터 */}
+        <div className='flex h-fit w-full flex-1 items-center gap-12'>
+          <DropdownTrigger
+            label='카테고리'
+            output={deriveCategoryOutput(categoryIds, categories)}>
+            {(onClose) => (
+              <CategoryNamesDropdown
+                categories={categories}
+                defaultValue={categoryIds}
+                onChange={(_, ids) => {
+                  updateUrl((params) => {
+                    params.delete('categoryIds')
+                    ids.forEach((id) =>
+                      params.append('categoryIds', String(id))
+                    )
+                  })
+                  onClose()
+                }}
+              />
+            )}
+          </DropdownTrigger>
 
-        <DropdownTrigger
-          label='업로드 주기'
-          output={deriveUploadPeriodOutput(uploadPeriodValues)}>
-          {(onClose) => (
-            <UploadPeriodDropdown
-              defaultValue={uploadPeriodValues}
-              onChange={(_, values) => {
-                updateUrl((params) => {
-                  if (values.length)
-                    params.set('uploadPeriod', values.join(','))
-                  else params.delete('uploadPeriod')
-                })
-                onClose()
-              }}
-            />
-          )}
-        </DropdownTrigger>
+          <DropdownTrigger
+            label='구독자 수'
+            output={deriveSubscriberOutput(subscriberFrom, subscriberTo)}>
+            {(onClose) => (
+              <SubscriberDropdown
+                defaultFrom={subscriberFrom}
+                defaultTo={subscriberTo}
+                onChange={(_, { from, to }) => {
+                  updateUrl((params) => {
+                    if (from) params.set('subscriberFrom', from)
+                    else params.delete('subscriberFrom')
+                    if (to) params.set('subscriberTo', to)
+                    else params.delete('subscriberTo')
+                  })
+                  onClose()
+                }}
+              />
+            )}
+          </DropdownTrigger>
 
-        <DropdownTrigger
-          label='광고 이력'
-          output={deriveHasAdHistoryOutput(hasAdHistoryValue)}>
-          {(onClose) => (
-            <HasAdHistoryDropdown
-              defaultValue={hasAdHistoryValue}
-              onChange={(_, value) => {
-                updateUrl((params) => {
-                  if (value) params.set('hasAdHistory', value)
-                  else params.delete('hasAdHistory')
-                })
-                onClose()
-              }}
-            />
-          )}
-        </DropdownTrigger>
+          <DropdownTrigger
+            label='업로드 주기'
+            output={deriveUploadPeriodOutput(uploadPeriodValues)}>
+            {(onClose) => (
+              <UploadPeriodDropdown
+                defaultValue={uploadPeriodValues}
+                onChange={(_, values) => {
+                  updateUrl((params) => {
+                    if (values.length)
+                      params.set('uploadPeriod', values.join(','))
+                    else params.delete('uploadPeriod')
+                  })
+                  onClose()
+                }}
+              />
+            )}
+          </DropdownTrigger>
 
-        <DropdownTrigger
-          label='참여율'
-          output={deriveEngagementRateOutput(
-            engagementRateFrom,
-            engagementRateTo
-          )}>
-          {(onClose) => (
-            <EngagementRateDropdown
-              defaultFrom={engagementRateFrom}
-              defaultTo={engagementRateTo}
-              onChange={(_, { from, to }) => {
-                updateUrl((params) => {
-                  if (from) params.set('engagementRateFrom', from)
-                  else params.delete('engagementRateFrom')
-                  if (to) params.set('engagementRateTo', to)
-                  else params.delete('engagementRateTo')
-                })
-                onClose()
-              }}
-            />
-          )}
-        </DropdownTrigger>
+          <DropdownTrigger
+            label='광고 이력'
+            output={deriveHasAdHistoryOutput(hasAdHistoryValue)}>
+            {(onClose) => (
+              <HasAdHistoryDropdown
+                defaultValue={hasAdHistoryValue}
+                onChange={(_, value) => {
+                  updateUrl((params) => {
+                    if (value) params.set('hasAdHistory', value)
+                    else params.delete('hasAdHistory')
+                  })
+                  onClose()
+                }}
+              />
+            )}
+          </DropdownTrigger>
 
-        <DropdownTrigger
-          label='Outlier 배수'
-          output={OUTLIER_RANGE_LABELS[outlierRangeValue] ?? '전체'}>
-          {(onClose) => (
-            <OutlierRangeDropdown
-              defaultValue={outlierRangeValue}
-              onChange={(_, value) => {
-                updateUrl((params) => {
-                  if (value) params.set('outlierRange', value)
-                  else params.delete('outlierRange')
-                })
-                onClose()
-              }}
-            />
-          )}
-        </DropdownTrigger>
+          <DropdownTrigger
+            label='참여율'
+            output={deriveEngagementRateOutput(
+              engagementRateFrom,
+              engagementRateTo
+            )}>
+            {(onClose) => (
+              <EngagementRateDropdown
+                defaultFrom={engagementRateFrom}
+                defaultTo={engagementRateTo}
+                onChange={(_, { from, to }) => {
+                  updateUrl((params) => {
+                    if (from) params.set('engagementRateFrom', from)
+                    else params.delete('engagementRateFrom')
+                    if (to) params.set('engagementRateTo', to)
+                    else params.delete('engagementRateTo')
+                  })
+                  onClose()
+                }}
+              />
+            )}
+          </DropdownTrigger>
 
-        {/* TODO: 기획단에서 언어와 관련된 필터값 논의중 */}
-        <DropdownTrigger label='언어' output='한국어' />
+          <DropdownTrigger
+            label='Outlier 배수'
+            output={OUTLIER_RANGE_LABELS[outlierRangeValue] ?? '전체'}>
+            {(onClose) => (
+              <OutlierRangeDropdown
+                defaultValue={outlierRangeValue}
+                onChange={(_, value) => {
+                  updateUrl((params) => {
+                    if (value) params.set('outlierRange', value)
+                    else params.delete('outlierRange')
+                  })
+                  onClose()
+                }}
+              />
+            )}
+          </DropdownTrigger>
+
+          {/* TODO: 기획단에서 언어와 관련된 필터값 논의중 */}
+          <DropdownTrigger label='언어' output='한국어' />
+        </div>
+
+        {/* 보관함 버튼: /influencer 페이지에서만 노출 */}
+        {!isBookmarkPage && (
+          <Button
+            color='primary'
+            variant='outlined'
+            size='sm'
+            rightIcon={<IconHeart />}
+            onClick={() => router.push('/influencer/bookmarked')}>
+            보관함
+          </Button>
+        )}
       </div>
-
-      {/* 보관함 버튼 */}
-      <Button
-        color='primary'
-        variant='outlined'
-        size='sm'
-        rightIcon={<IconHeart />}>
-        보관함
-      </Button>
     </div>
   )
 }
