@@ -32,7 +32,8 @@ export function VideoList({ videos, selectedSort = 'LATEST', onSortChange }: Vid
             className='flex items-center text-noto-label-md-normal text-text-and-icon-tertiary'>
             <button
               type='button'
-              className={`size-fit px-8 py-4 ${selectedSort === option.value ? 'text-noto-label-md-bold text-brand-secondary' : ''}`}
+              aria-pressed={selectedSort === option.value}
+              className={`size-fit cursor-pointer px-8 py-4 ${selectedSort === option.value ? 'text-noto-label-md-bold text-brand-secondary' : ''}`}
               onClick={() => onSortChange?.(option.value)}>
               {option.label}
             </button>
