@@ -13,6 +13,7 @@ export function MyPageLayout({ children }: Props) {
 
   useEffect(() => {
     setOpen(false)
+    return () => setOpen(true)
   }, [setOpen])
 
   return (
