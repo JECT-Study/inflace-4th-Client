@@ -25,6 +25,11 @@ export function usePopupOAuth({ apiPath, popupName }: PopupOAuthConfig) {
   // 로그인 모달이 닫힐 때 호출 => 로그인 과정 취소
   const reset = useCallback(() => {
     stopPolling()
+    if (popupRef.current && !popupRef.current.closed) {
+      try {
+        popupRef.current.close()
+      } catch {}
+    }
     popupRef.current = null
     setIsLoading(false)
     setError(null)
