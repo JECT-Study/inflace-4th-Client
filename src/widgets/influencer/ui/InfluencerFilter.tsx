@@ -136,23 +136,7 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
   return (
     <div className='flex h-fit w-full items-center gap-24 bg-background-gray-default p-24'>
       {/* 검색바 */}
-      <SearchBar
-        placeholder='채널명 또는 키워드 검색'
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onClear={() => {
-          setQuery('')
-          applyChannelNameToUrl('')
-        }}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            applyChannelNameToUrl(query)
-            e.currentTarget.blur()
-          }
-        }}
-      />
+      <SearchBar className='w-[50rem]' placeholder='채널명 또는 키워드 검색' />
 
       {/* 필터 */}
       <div className='flex h-fit w-full flex-1 items-center gap-12'>

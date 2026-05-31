@@ -12,8 +12,8 @@ export const mockUserDetails: UserDetails = {
   id: '019da065-7cf7-7f75-a712-d5bae90738f0',
   profileImage: mockProfileImage.src,
   userRoles: [],
-  plan: 'FREE',
-  isOnboardingCompleted: false,
+  plan: 'GROWTH',
+  isOnboardingCompleted: true,
 }
 
 /* 유튜브 채널 정보 */
