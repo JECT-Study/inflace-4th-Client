@@ -1,7 +1,6 @@
 import { axiosInstance } from '@/shared/api'
 import type { PageInfo } from '@/shared/api/types'
 import type { Influencer, SortCriteria, SortOrder } from '@/entities/influencer'
-import { mockInfluencers } from '../mock/mockInfluencers'
 
 export interface BookmarkResponse {
   responseDto: string
@@ -37,6 +36,7 @@ export interface FetchInfluencersParams {
   language?: string
   sortCriteria?: SortCriteria
   sortOrder?: SortOrder
+  bookmarkedOnly?: boolean
 }
 
 export async function fetchInfluencers(
