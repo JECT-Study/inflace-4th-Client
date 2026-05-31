@@ -11,4 +11,7 @@ export interface EditPreferencesPayload {
 export const putPreferences = (data: EditPreferencesPayload) =>
   axiosInstance
     .put<ApiResponse<MyProfileDto>>('/user/preferences', data)
-    .then((res) => res.data)
+    .then((res) => {
+      if (!res.data.success) throw new Error(res.data.error?.message)
+      return res.data
+    })
