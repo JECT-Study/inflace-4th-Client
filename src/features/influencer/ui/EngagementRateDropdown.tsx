@@ -84,18 +84,27 @@ function EngagementRateDropdown({
           ? labels[0]
           : `${labels[0]} 외 ${labels.length - 1}`
 
-    const froms = selectedOptions.map((o) => o.from).filter(Boolean)
-    const tos = selectedOptions.map((o) => o.to).filter(Boolean)
-    const mergedFrom = froms.length > 0 ? String(Math.min(...froms.map(Number))) : ''
-    const mergedTo = tos.length > 0 ? String(Math.max(...tos.map(Number))) : ''
+    const froms = selectedOptions.map((o) => o.from)
+    const tos = selectedOptions.map((o) => o.to)
+    const hasOpenFrom = froms.some((f) => f === '')
+    const hasOpenTo = tos.some((t) => t === '')
+    const mergedFrom = hasOpenFrom ? '' : String(Math.min(...froms.map(Number)))
+    const mergedTo = hasOpenTo ? '' : String(Math.max(...tos.map(Number)))
     onChange(output, { from: mergedFrom, to: mergedTo })
   }
 
   const isMinMaxInvalid =
     isInputMode && from !== '' && to !== '' && Number(from) > Number(to)
 
-  const isConfirmDisabled =
-    (selectedOptions.length === 0 && !isInputMode) || isMinMaxInvalid
+  const isSameAsDefault =
+    selectedOptions.length === defaultSelectedOptions.length &&
+    selectedOptions.every((s) =>
+      defaultSelectedOptions.some((d) => d.from === s.from && d.to === s.to)
+    ) &&
+    from === defaultFrom &&
+    to === defaultTo
+
+  const isConfirmDisabled = isSameAsDefault || isMinMaxInvalid
 
   return (
     <div className='flex h-fit w-[32rem] flex-col rounded-6 bg-white p-16 shadow-[0px_8px_12px_0px_var(--primitivecolortrasparent-brand-deep-900-transparent-16),0px_4px_6px_0px_var(--primitivecolortrasparent-brand-deep-900-transparent-24)]'>

@@ -1,10 +1,5 @@
 import { cn } from '@/shared/lib/utils'
-
-/* label: 화면 랜더링용, value: 쿼리값 */
-const HAS_AD_HISTORY_OPTIONS: { label: string; value: string }[] = [
-  { label: '있음', value: 'true' },
-  { label: '없음', value: 'false' },
-]
+import { HAS_AD_HISTORY_OPTIONS } from '../model/filterOptions'
 
 /* 광고 이력 드롭다운 */
 type HasAdHistoryDropdownProps = {

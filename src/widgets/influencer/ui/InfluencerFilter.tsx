@@ -15,34 +15,60 @@ import {
   OutlierRangeDropdown,
   HasAdHistoryDropdown,
   EngagementRateDropdown,
-  type SubscriberQuery,
-  type EngagementRateQuery,
+  UPLOAD_PERIOD_OPTIONS,
+  OUTLIER_RANGE_OPTIONS,
 } from '@/features/influencer'
 import type { YoutubeCategory } from '@/entities/youtubeCategory'
 
-type CategoryFilterState = {
-  output: string
-  categoryIds: number[]
+const UPLOAD_PERIOD_LABELS = Object.fromEntries(
+  UPLOAD_PERIOD_OPTIONS.map((o: { label: string; value: string }) => [
+    o.value,
+    o.label,
+  ])
+)
+
+const OUTLIER_RANGE_LABELS = Object.fromEntries(
+  OUTLIER_RANGE_OPTIONS.map((o: { label: string; value: string }) => [
+    o.value,
+    o.label,
+  ])
+)
+
+function deriveCategoryOutput(
+  categoryIds: number[],
+  categories: YoutubeCategory[]
+): string {
+  if (categoryIds.length === 0) return '전체'
+  const labels = categories
+    .filter((c) => categoryIds.includes(c.id))
+    .map((c) => c.title)
+  return labels.length === 1
+    ? labels[0]
+    : `${labels[0]} 외 ${labels.length - 1}`
 }
 
-type SubscriberFilterState = {
-  output: string
-  query: SubscriberQuery
+function deriveUploadPeriodOutput(values: string[]): string {
+  if (values.length === 0) return '전체'
+  const labels = values.map((v) => UPLOAD_PERIOD_LABELS[v] ?? v)
+  return labels.length === 1
+    ? labels[0]
+    : `${labels[0]} 외 ${labels.length - 1}`
 }
 
-type UploadPeriodFilterState = {
-  output: string
-  values: string[]
+function deriveSubscriberOutput(from: string, to: string): string {
+  if (!from && !to) return '전체'
+  return `${from || '0'}명 ~ ${to || ''}명`
 }
 
-type SimpleFilterState = {
-  output: string
-  value: string
+function deriveEngagementRateOutput(from: string, to: string): string {
+  if (!from && !to) return '전체'
+  return `${from || '0'}% ~ ${to || ''}%`
 }
 
-type EngagementRateFilterState = {
-  output: string
-  query: EngagementRateQuery
+function deriveHasAdHistoryOutput(value: string): string {
+  if (value === 'false') return '없음'
+  if (value === 'true') return '있음'
+  return '있음'
 }
 
 type InfluencerFilterProps = {
@@ -60,155 +86,46 @@ export function InfluencerFilter({ categories }: InfluencerFilterProps) {
 function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
   const router = useRouter()
   const pathname = usePathname()
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams()!
 
-  const [category, setCategory] = useState<CategoryFilterState>({
-    output: '전체',
-    categoryIds: [],
-  })
-  const [subscriber, setSubscriber] = useState<SubscriberFilterState>({
-    output: '전체',
-    query: { from: '', to: '' },
-  })
-  const [uploadPeriod, setUploadPeriod] = useState<UploadPeriodFilterState>({
-    output: '전체',
-    values: [],
-  })
-  const [hasAdHistory, setHasAdHistory] = useState<SimpleFilterState>({
-    output: '있음',
-    value: 'true',
-  })
-  const [engagementRate, setEngagementRate] = useState<EngagementRateFilterState>({
-    output: '전체',
-    query: { from: '', to: '' },
-  })
-  const [outlierRange, setOutlierRange] = useState<SimpleFilterState>({
-    output: '전체',
-    value: '',
-  })
-  const [language] = useState<SimpleFilterState>({
-    output: '한국어',
-    value: 'ko',
-  })
+  const categoryIds = searchParams.getAll('categoryIds').map(Number)
+  const subscriberFrom = searchParams.get('subscriberFrom') ?? ''
+  const subscriberTo = searchParams.get('subscriberTo') ?? ''
+  const uploadPeriodValues = (searchParams.get('uploadPeriod') ?? '')
+    .split(',')
+    .filter(Boolean)
+  const hasAdHistoryValue = searchParams.get('hasAdHistory') ?? 'true'
+  const engagementRateFrom = searchParams.get('engagementRateFrom') ?? ''
+  const engagementRateTo = searchParams.get('engagementRateTo') ?? ''
+  const outlierRangeValue = searchParams.get('outlierRange') ?? ''
 
-  //화면 새로고침 시 필터 초기화
-  useEffect(() => {
-    router.replace(pathname ?? '/')
-  }, [router, pathname])
-
-  // 채널명 검색어 상태 및 포커스 여부
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState(searchParams.get('channelName') ?? '')
   const [isFocused, setIsFocused] = useState(false)
-  // useCallback 내부에서 최신 searchParams를 참조하기 위한 ref
+
   const searchParamsRef = useRef(searchParams)
   useEffect(() => {
     searchParamsRef.current = searchParams
   }, [searchParams])
 
-  // URL 파라미터 반영 함수들
+  const updateUrl = useCallback(
+    (updater: (params: URLSearchParams) => void) => {
+      const params = new URLSearchParams(searchParamsRef.current?.toString())
+      updater(params)
+      router.replace(`${pathname}?${params.toString()}`)
+    },
+    [router, pathname]
+  )
+
   const applyChannelNameToUrl = useCallback(
     (channelName: string) => {
-      const params = new URLSearchParams(searchParamsRef.current?.toString())
-      if (channelName) {
-        params.set('channelName', channelName)
-      } else {
-        params.delete('channelName')
-      }
-      router.replace(`${pathname}?${params.toString()}`)
+      updateUrl((params) => {
+        if (channelName) params.set('channelName', channelName)
+        else params.delete('channelName')
+      })
     },
-    [router, pathname]
+    [updateUrl]
   )
 
-  const applyCategoriesToUrl = useCallback(
-    (categoryIds: number[]) => {
-      const params = new URLSearchParams(searchParamsRef.current?.toString())
-      params.delete('categoryIds')
-      categoryIds.forEach((id) => params.append('categoryIds', String(id)))
-      router.replace(`${pathname}?${params.toString()}`)
-    },
-    [router, pathname]
-  )
-
-  const applySubscriberToUrl = useCallback(
-    ({ from, to }: SubscriberQuery) => {
-      const params = new URLSearchParams(searchParamsRef.current?.toString())
-      if (from) {
-        params.set('subscriberFrom', from)
-      } else {
-        params.delete('subscriberFrom')
-      }
-      if (to) {
-        params.set('subscriberTo', to)
-      } else {
-        params.delete('subscriberTo')
-      }
-      router.replace(`${pathname}?${params.toString()}`)
-    },
-    [router, pathname]
-  )
-
-  // uploadPeriod: 쉼표로 구분된 주기 값 목록
-  const applyUploadPeriodToUrl = useCallback(
-    (values: string[]) => {
-      const params = new URLSearchParams(searchParamsRef.current?.toString())
-      const outputQuery = values.join(',')
-      if (outputQuery) {
-        params.set('uploadPeriod', outputQuery)
-      } else {
-        params.delete('uploadPeriod')
-      }
-      router.replace(`${pathname}?${params.toString()}`)
-    },
-    [router, pathname]
-  )
-
-  // hasAdHistory: "true" | "false" 불리언 문자열
-  const applyHasAdHistoryToUrl = useCallback(
-    (value: string) => {
-      const params = new URLSearchParams(searchParamsRef.current?.toString())
-      if (value) {
-        params.set('hasAdHistory', value)
-      } else {
-        params.delete('hasAdHistory')
-      }
-      router.replace(`${pathname}?${params.toString()}`)
-    },
-    [router, pathname]
-  )
-
-  // outlierRange: 선택된 배수 단일 값 (예: "1.5X")
-  const applyOutlierRangeToUrl = useCallback(
-    (value: string) => {
-      const params = new URLSearchParams(searchParamsRef.current?.toString())
-      if (value) {
-        params.set('outlierRange', value)
-      } else {
-        params.delete('outlierRange')
-      }
-      router.replace(`${pathname}?${params.toString()}`)
-    },
-    [router, pathname]
-  )
-
-  const applyEngagementRateToUrl = useCallback(
-    ({ from, to }: EngagementRateQuery) => {
-      const params = new URLSearchParams(searchParamsRef.current?.toString())
-      if (from) {
-        params.set('engagementRateFrom', from)
-      } else {
-        params.delete('engagementRateFrom')
-      }
-      if (to) {
-        params.set('engagementRateTo', to)
-      } else {
-        params.delete('engagementRateTo')
-      }
-      router.replace(`${pathname}?${params.toString()}`)
-    },
-    [router, pathname]
-  )
-
-  // 채널명 입력 시 500ms 디바운스 후 URL 반영
   useEffect(() => {
     if (!isFocused) return
     const timer = setTimeout(() => {
@@ -260,82 +177,113 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
 
         {/* 필터 */}
         <div className='flex h-fit w-full flex-1 items-center gap-12'>
-          <DropdownTrigger label='카테고리' output={category.output}>
+          <DropdownTrigger
+            label='카테고리'
+            output={deriveCategoryOutput(categoryIds, categories)}>
             {(onClose) => (
               <CategoryNamesDropdown
                 categories={categories}
-                defaultValue={category.categoryIds}
-                onChange={(output, categoryIds) => {
-                  setCategory({ output, categoryIds })
-                  applyCategoriesToUrl(categoryIds)
+                defaultValue={categoryIds}
+                onChange={(_, ids) => {
+                  updateUrl((params) => {
+                    params.delete('categoryIds')
+                    ids.forEach((id) => params.append('categoryIds', String(id)))
+                  })
                   onClose()
                 }}
               />
             )}
           </DropdownTrigger>
 
-          <DropdownTrigger label='구독자 수' output={subscriber.output}>
+          <DropdownTrigger
+            label='구독자 수'
+            output={deriveSubscriberOutput(subscriberFrom, subscriberTo)}>
             {(onClose) => (
               <SubscriberDropdown
-                defaultFrom={subscriber.query.from}
-                defaultTo={subscriber.query.to}
-                onChange={(output, query) => {
-                  setSubscriber({ output, query })
-                  applySubscriberToUrl(query)
+                defaultFrom={subscriberFrom}
+                defaultTo={subscriberTo}
+                onChange={(_, { from, to }) => {
+                  updateUrl((params) => {
+                    if (from) params.set('subscriberFrom', from)
+                    else params.delete('subscriberFrom')
+                    if (to) params.set('subscriberTo', to)
+                    else params.delete('subscriberTo')
+                  })
                   onClose()
                 }}
               />
             )}
           </DropdownTrigger>
 
-          <DropdownTrigger label='업로드 주기' output={uploadPeriod.output}>
+          <DropdownTrigger
+            label='업로드 주기'
+            output={deriveUploadPeriodOutput(uploadPeriodValues)}>
             {(onClose) => (
               <UploadPeriodDropdown
-                defaultValue={uploadPeriod.values}
-                onChange={(output, outputQuery) => {
-                  const values = outputQuery ? outputQuery.split(',') : []
-                  setUploadPeriod({ output, values })
-                  applyUploadPeriodToUrl(values)
+                defaultValue={uploadPeriodValues}
+                onChange={(_, values) => {
+                  updateUrl((params) => {
+                    if (values.length)
+                      params.set('uploadPeriod', values.join(','))
+                    else params.delete('uploadPeriod')
+                  })
                   onClose()
                 }}
               />
             )}
           </DropdownTrigger>
 
-          <DropdownTrigger label='광고 이력' output={hasAdHistory.output}>
+          <DropdownTrigger
+            label='광고 이력'
+            output={deriveHasAdHistoryOutput(hasAdHistoryValue)}>
             {(onClose) => (
               <HasAdHistoryDropdown
-                defaultValue={hasAdHistory.value}
-                onChange={(output, value) => {
-                  setHasAdHistory({ output, value })
-                  applyHasAdHistoryToUrl(value)
+                defaultValue={hasAdHistoryValue}
+                onChange={(_, value) => {
+                  updateUrl((params) => {
+                    if (value) params.set('hasAdHistory', value)
+                    else params.delete('hasAdHistory')
+                  })
                   onClose()
                 }}
               />
             )}
           </DropdownTrigger>
 
-          <DropdownTrigger label='참여율' output={engagementRate.output}>
+          <DropdownTrigger
+            label='참여율'
+            output={deriveEngagementRateOutput(
+              engagementRateFrom,
+              engagementRateTo
+            )}>
             {(onClose) => (
               <EngagementRateDropdown
-                defaultFrom={engagementRate.query.from}
-                defaultTo={engagementRate.query.to}
-                onChange={(output, query) => {
-                  setEngagementRate({ output, query })
-                  applyEngagementRateToUrl(query)
+                defaultFrom={engagementRateFrom}
+                defaultTo={engagementRateTo}
+                onChange={(_, { from, to }) => {
+                  updateUrl((params) => {
+                    if (from) params.set('engagementRateFrom', from)
+                    else params.delete('engagementRateFrom')
+                    if (to) params.set('engagementRateTo', to)
+                    else params.delete('engagementRateTo')
+                  })
                   onClose()
                 }}
               />
             )}
           </DropdownTrigger>
 
-          <DropdownTrigger label='Outlier 배수' output={outlierRange.output}>
+          <DropdownTrigger
+            label='Outlier 배수'
+            output={OUTLIER_RANGE_LABELS[outlierRangeValue] ?? '전체'}>
             {(onClose) => (
               <OutlierRangeDropdown
-                defaultValue={outlierRange.value}
-                onChange={(output, value) => {
-                  setOutlierRange({ output, value })
-                  applyOutlierRangeToUrl(value)
+                defaultValue={outlierRangeValue}
+                onChange={(_, value) => {
+                  updateUrl((params) => {
+                    if (value) params.set('outlierRange', value)
+                    else params.delete('outlierRange')
+                  })
                   onClose()
                 }}
               />
@@ -343,7 +291,7 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
           </DropdownTrigger>
 
           {/* TODO: 기획단에서 언어와 관련된 필터값 논의중 */}
-          <DropdownTrigger label='언어' output={language.output} />
+          <DropdownTrigger label='언어' output='한국어' />
         </div>
 
         {/* 보관함 버튼: /influencer 페이지에서만 노출 */}

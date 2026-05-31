@@ -1,12 +1,5 @@
 import { cn } from '@/shared/lib/utils'
-
-/* label: 화면 랜더링용, value: 쿼리값 */
-const OUTLIER_RANGE_OPTIONS: { label: string; value: string }[] = [
-  { label: '1.0x', value: '1.0X' },
-  { label: '1.5x', value: '1.5X' },
-  { label: '2.0x', value: '2.0X' },
-  { label: '3.0x', value: '3.0X' },
-]
+import { OUTLIER_RANGE_OPTIONS } from '../model/filterOptions'
 
 /* 이상값 범위 드롭다운 */
 type OutlierRangeDropdownProps = {

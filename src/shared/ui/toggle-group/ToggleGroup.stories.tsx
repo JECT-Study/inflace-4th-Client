@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { ToggleGroup, ToggleGroupItem } from './ToggleGroup'
-import ImgUrl from '@/features/onboarding/assets/features-icon01.png'
+import ImgUrl from '@/features/onboarding/assets/IconChannelAnalysis.png'
 
 const PLACEHOLDER_IMG = ImgUrl
 
@@ -24,10 +24,6 @@ const meta: Meta<typeof ToggleGroup> = {
       options: ['horizontal', 'vertical'],
       description: '배치 방향',
     },
-    spacing: {
-      control: 'number',
-      description: '아이템 간격 (CSS spacing 변수 번호)',
-    },
   },
 }
 
@@ -39,9 +35,7 @@ export const Default: Story = {
   args: {
     type: 'single',
     size: 'lg',
-
     orientation: 'horizontal',
-    spacing: 2,
   },
   render: (args) => (
     <ToggleGroup {...args}>
