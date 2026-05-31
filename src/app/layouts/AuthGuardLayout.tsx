@@ -18,8 +18,10 @@ export function AuthGuardLayout({ children }: { children: React.ReactNode }) {
     }
   }, [isInitializing, isLoggedIn, isModalOpen, router])
 
-  if (isInitializing || !isLoggedIn)
-    return <div className='invisible'>{children}</div>
+  if (isInitializing) return <div className='flex min-h-screen items-center justify-center' />
+
+  if (!isLoggedIn) return null
 
   return <>{children}</>
+
 }
