@@ -16,6 +16,8 @@ export async function GET(request: NextRequest) {
 
   cookieStore.delete('oauth_state')
 
+  const provider = state?.split(':')[0] ?? 'google'
+
   if (error || !code || !state || state !== storedState) {
     const errorMessage = error || 'OAuth 검증에 실패했습니다.'
     return new NextResponse(
@@ -29,17 +31,22 @@ export async function GET(request: NextRequest) {
     )
   }
 
-  // authorization code를 백엔드 POST /auth/login에 JSON body로 전달
+  /**
+   * authorization code를 백엔드 POST /auth/login에 JSON body로 전달
+   * 개발 환경이라면 local login 진행
+   */
   try {
+    const loginPath =
+      process.env.NODE_ENV === 'development' ? 'local/auth/login' : 'auth/login'
     const backendResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+      `${process.env.NEXT_PUBLIC_API_URL}/${loginPath}`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Origin: process.env.NEXT_PUBLIC_APP_URL!,
         },
-        body: JSON.stringify({ provider: 'google', code }),
+        body: JSON.stringify({ provider, code }),
       }
     )
 
