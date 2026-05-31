@@ -5,8 +5,7 @@ type SidebarState = {
   setOpen: (open: boolean) => void
 }
 
-// 앱 전체 글로벌 사이드바(shadcn SidebarProvider)의 열림/닫힘 상태
 export const useSidebarStore = create<SidebarState>((set) => ({
-  open: false,
+  open: true,
   setOpen: (open) => set({ open }),
 }))
