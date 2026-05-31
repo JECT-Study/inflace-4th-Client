@@ -187,7 +187,9 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
                 onChange={(_, ids) => {
                   updateUrl((params) => {
                     params.delete('categoryIds')
-                    ids.forEach((id) => params.append('categoryIds', String(id)))
+                    ids.forEach((id) =>
+                      params.append('categoryIds', String(id))
+                    )
                   })
                   onClose()
                 }}
