@@ -10,12 +10,10 @@ import type { ToggleGroupProps, ToggleGroupItemProps } from './type'
 
 const ToggleGroupContext = React.createContext<{
   size?: 'lg' | 'fit'
-  spacing?: number
   type?: 'multiple' | 'single'
   orientation?: 'horizontal' | 'vertical'
 }>({
   size: 'lg',
-  spacing: 2,
   orientation: 'horizontal',
 })
 
