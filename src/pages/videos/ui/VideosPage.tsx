@@ -1,6 +1,7 @@
 'use client'
 
-import { Suspense, useState } from 'react'
+import { useState } from 'react'
+import dynamic from 'next/dynamic'
 import { useSearchParams } from 'next/navigation'
 import { useAuth } from '@/features/auth'
 import { useVideos, VideoList, VALID_FORMAT } from '@/features/videos'
@@ -8,14 +9,17 @@ import type { VideoFilterParams, VideoSort } from '@/features/videos'
 import { InfiniteScrollList } from '@/shared/ui/infinite-scroll-list/InfiniteScrollList'
 import { SearchAndFilter } from '@/widgets/videos'
 
+const VideoListSectionDynamic = dynamic(
+  () => Promise.resolve(VideoListSection),
+  { ssr: false }
+)
+
 export function VideosPage() {
   return (
     <>
       <SearchAndFilter />
       <div className='h-full'>
-        <Suspense fallback={<></>}>
-          <VideoListSection />
-        </Suspense>
+        <VideoListSectionDynamic />
       </div>
     </>
   )

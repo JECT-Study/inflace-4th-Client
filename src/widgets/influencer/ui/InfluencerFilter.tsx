@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback, Suspense } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import dynamic from 'next/dynamic'
 
 import { SearchBar } from '@/shared/ui/search-bar'
 import { Button } from '@/shared/ui/button'
@@ -75,13 +76,10 @@ type InfluencerFilterProps = {
   categories: YoutubeCategory[]
 }
 
-export function InfluencerFilter({ categories }: InfluencerFilterProps) {
-  return (
-    <Suspense fallback={<div className='h-full' />}>
-      <InfluencerFilterInner categories={categories} />
-    </Suspense>
-  )
-}
+export const InfluencerFilter = dynamic(
+  () => Promise.resolve(InfluencerFilterInner),
+  { ssr: false }
+)
 
 function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
   const router = useRouter()
@@ -158,6 +156,7 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
       <div className='flex w-full items-center gap-24'>
         {/* 검색바 */}
         <SearchBar
+          className='w-[50rem]'
           placeholder='채널명 또는 키워드 검색'
           value={query}
           onChange={(e) => setQuery(e.target.value)}

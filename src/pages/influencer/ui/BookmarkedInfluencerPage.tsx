@@ -1,11 +1,16 @@
 'use client'
 
-import { Suspense } from 'react'
+import dynamic from 'next/dynamic'
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import { InfluencerList, useInfluencers, SORT_OPTIONS } from '@/features/influencer'
 import { useYoutubeCategories } from '@/entities/youtubeCategory'
 import type { SortCriteria, SortOrder } from '@/entities/influencer'
 import { InfluencerFilter } from '@/widgets/influencer'
+
+const BookmarkedInfluencerListSectionDynamic = dynamic(
+  () => Promise.resolve(BookmarkedInfluencerListSection),
+  { ssr: false }
+)
 
 export function BookmarkedInfluencerPage() {
   const { data: categoriesData } = useYoutubeCategories()
@@ -15,9 +20,7 @@ export function BookmarkedInfluencerPage() {
     <div className='flex h-fit w-full flex-col gap-24 pb-[9.6rem]'>
       <InfluencerFilter categories={categories} />
       <div className='h-full'>
-        <Suspense fallback={<></>}>
-          <BookmarkedInfluencerListSection />
-        </Suspense>
+        <BookmarkedInfluencerListSectionDynamic />
       </div>
     </div>
   )

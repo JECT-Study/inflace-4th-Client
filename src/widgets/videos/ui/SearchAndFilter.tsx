@@ -1,18 +1,16 @@
 'use client'
 
-import { Suspense, useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import dynamic from 'next/dynamic'
 import { SearchBar } from '@/shared/ui/search-bar'
 import { Toggle } from '@/shared/ui/toggle'
 import { CalendarFilter } from './CalendarFilter'
 
-export function SearchAndFilter() {
-  return (
-    <Suspense fallback={<></>}>
-      <SearchAndFilterInner />
-    </Suspense>
-  )
-}
+export const SearchAndFilter = dynamic(
+  () => Promise.resolve(SearchAndFilterInner),
+  { ssr: false }
+)
 
 /* 필터를 쿼리 파라미터에 반영 */
 function SearchAndFilterInner() {
