@@ -77,10 +77,16 @@ export function PersonalInfoSection() {
           </div>
         </div>
 
-        {/* 계정 탈퇴 TODO: 계정 탈퇴 페이지로 라우팅 */}
-        <span className='block cursor-pointer px-8 py-4 text-right text-noto-body-xs-normal text-text-and-icon-secondary underline'>
+        {/* 계정 탈퇴 — /me/withdraw 라우팅 구현 전까지 비활성 처리 */}
+        <button
+          type='button'
+          disabled
+          aria-disabled='true'
+          aria-label='계정 탈퇴 (준비 중)'
+          className='block cursor-not-allowed px-8 py-4 text-right text-noto-body-xs-normal text-text-and-icon-secondary underline'
+        >
           계정 탈퇴
-        </span>
+        </button>
       </div>
     </div>
   )
