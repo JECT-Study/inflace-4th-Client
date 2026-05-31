@@ -8,6 +8,18 @@ let isMockLoggedIn = true
 
 // 브라우저가 Next.js Route Handler로 보내는 요청을 인터셉트
 export const authHandlers = [
+  http.get(`${process.env.NEXT_PUBLIC_API_URL}/user/me`, () => {
+    if (!isMockLoggedIn) {
+      return HttpResponse.json({ error: '인증이 필요합니다.' }, { status: 401 })
+    }
+
+    return HttpResponse.json({
+      success: true,
+      responseDto: mockUser,
+      error: null,
+    })
+  }),
+
   // 로그인 상태일 때만 mock 토큰 반환, 로그아웃 후 새로고침 시 401
   http.post(`${process.env.NEXT_PUBLIC_APP_URL}/auth/refresh`, () => {
     if (!isMockLoggedIn) {

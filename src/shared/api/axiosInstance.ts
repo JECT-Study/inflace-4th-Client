@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import { useAuthStore } from './authStore'
+import { fetchCurrentUser } from './userApi'
 import { useLoginModal } from '@/features/auth/model/useLoginModal'
 
 const axiosInstance = axios.create({
@@ -66,9 +67,12 @@ axiosInstance.interceptors.response.use(
         withCredentials: true,
       })
 
-      const { accessToken, user } = data
-      useAuthStore.getState().setAuth(accessToken, user)
+      const { accessToken } = data
       processQueue(null, accessToken)
+
+      fetchCurrentUser()
+        .then((user) => useAuthStore.getState().setAuth(accessToken, user))
+        .catch(() => useAuthStore.getState().setAuth(accessToken, null))
 
       originalRequest.headers.Authorization = `Bearer ${accessToken}`
       return axiosInstance(originalRequest)
