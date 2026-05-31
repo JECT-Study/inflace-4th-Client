@@ -18,6 +18,8 @@ export interface VideoFilterParams {
   format?: VideoFormat
   isAd?: boolean
   keyword?: string
+  startDate?: string
+  endDate?: string
   cursor?: string
   size?: number
 }
