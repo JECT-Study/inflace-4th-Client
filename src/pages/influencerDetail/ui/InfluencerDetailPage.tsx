@@ -20,7 +20,7 @@ export function InfluencerDetailPage() {
   const params = useParams<{ channelId: string }>()
   const channelId = params?.channelId
 
-  const [activeTab, setActiveTab] = useState<Tab>(TAB.ADVERTISEMENT)
+  const [activeTab, setActiveTab] = useState<Tab>(TAB.PERFORMANCE)
 
   const [committedFilter, setCommittedFilter] =
     useState<AdvertisementFilterQueryParams | null>(null)
