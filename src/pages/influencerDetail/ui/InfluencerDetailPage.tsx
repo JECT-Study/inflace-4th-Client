@@ -2,6 +2,10 @@
 
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
+import {
+  useInfluencerBrandAnalysis,
+  type AdvertisementFilterQueryParams,
+} from '@/features/influencerDetail'
 import { TAB, Tab, TabGroup } from '@/features/influencerDetail/tabGroup'
 import { ChannelSummarySection } from '@/widgets/influencerDetail/channelSummary'
 import { EngagementAnalyticsSection } from '@/widgets/influencerDetail/engagementAnalytics'
@@ -13,11 +17,10 @@ import { AdvertisementList } from '@/features/influencerDetail/advertisementList
 
 /* 인플루언서 디테일 기본화면 */
 export function InfluencerDetailPage() {
-  const [activeTab, setActiveTab] = useState<Tab>(TAB.PERFORMANCE)
-
   const params = useParams<{ channelId: string }>()
   const channelId = params?.channelId
 
+<<<<<<< HEAD
   // 현재 활성화된 탭 (성과/광고)
   const [activeTab, setActiveTab] = useState<Tab>(TAB.ADVERTISEMENT)
 
@@ -27,6 +30,17 @@ export function InfluencerDetailPage() {
 
   const { data: brandAnalysisData, isLoading: isBrandAnalysisLoading } =
     useInfluencerBrandAnalysis(channelId ?? '', committedFilter)
+=======
+  const [activeTab, setActiveTab] = useState<Tab>(TAB.PERFORMANCE)
+
+  const [committedFilter, setCommittedFilter] =
+    useState<AdvertisementFilterQueryParams | null>(null)
+
+  const { data: brandAnalysisData } = useInfluencerBrandAnalysis(
+    channelId ?? '',
+    committedFilter
+  )
+>>>>>>> upstream/develop
 
   if (!channelId) return null
 
@@ -58,10 +72,14 @@ export function InfluencerDetailPage() {
           {committedFilter !== null && (
             <>
               {/* 광고 지표 분석 영역 */}
+<<<<<<< HEAD
               <AdvertisementMetricsSection
                 data={brandAnalysisData}
                 isLoading={isBrandAnalysisLoading}
               />
+=======
+              {brandAnalysisData && <AdvertisementMetricsSection />}
+>>>>>>> upstream/develop
               {/* 검색 결과 영역 */}
               <AdvertisementList />
             </>
