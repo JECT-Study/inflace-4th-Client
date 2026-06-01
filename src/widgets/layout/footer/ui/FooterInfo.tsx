@@ -9,20 +9,10 @@ export const FooterInfo = () => {
       <div className='flex flex-col gap-y-xs'>
         <ul className='flex gap-sm'>
           <li className='text-noto-label-md-normal text-text-and-icon-primary'>
-            <Link
-              href='https://accidental-ironclad-397.notion.site/inflace-legecy'
-              target='_blank'
-              rel='noopener noreferrer'>
-              개인정보처리방침
-            </Link>
+            <Link href='/privacy'>개인정보처리방침</Link>
           </li>
           <li className='text-noto-label-md-normal text-text-and-icon-primary'>
-            <Link
-              href='https://accidental-ironclad-397.notion.site/inflace-legecy-personal'
-              target='_blank'
-              rel='noopener noreferrer'>
-              이용약관
-            </Link>
+            <Link href='/terms'>이용약관</Link>
           </li>
         </ul>
         <p className='text-noto-caption-md-normal text-text-and-icon-tertiary'>

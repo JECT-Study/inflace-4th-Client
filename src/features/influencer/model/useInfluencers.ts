@@ -13,12 +13,11 @@ import type { FetchInfluencersParams, InfluencerListResponse } from '../api/infl
 
 const INFLUENCERS_QUERY_KEY = ['influencers']
 
-export function useInfluencers(
-  params?: Pick<FetchInfluencersParams, 'sortCriteria' | 'sortOrder'>
-) {
+export function useInfluencers(filters?: Omit<FetchInfluencersParams, 'cursor'>) {
   return useInfiniteScroll({
-    queryKey: [...INFLUENCERS_QUERY_KEY, params],
-    queryFn: ({ pageParam }) => fetchInfluencers({ cursor: pageParam, ...params }),
+    queryKey: [...INFLUENCERS_QUERY_KEY, filters],
+    queryFn: ({ pageParam }) =>
+      fetchInfluencers({ ...filters, cursor: pageParam }),
   })
 }
 
@@ -27,23 +26,28 @@ export function useBookmarkToggle() {
   const queryClient = useQueryClient()
 
   return (channelId: number, bookmarked: boolean) => {
-    queryClient.setQueryData<InfiniteData<InfluencerListResponse>>(
-      INFLUENCERS_QUERY_KEY,
-      (prev) => {
-        if (!prev) return prev
-        return {
-          ...prev,
-          pages: prev.pages.map((page) => ({
-            ...page,
-            content: page.content.map((influencer: Influencer) =>
-              influencer.channelId === channelId
-                ? { ...influencer, bookmarked }
-                : influencer
-            ),
-          })),
-        }
-      }
-    )
+    queryClient
+      .getQueryCache()
+      .findAll({ queryKey: INFLUENCERS_QUERY_KEY })
+      .forEach(({ queryKey }) => {
+        queryClient.setQueryData<InfiniteData<InfluencerListResponse>>(
+          queryKey,
+          (prev) => {
+            if (!prev) return prev
+            return {
+              ...prev,
+              pages: prev.pages.map((page) => ({
+                ...page,
+                content: page.content.map((influencer: Influencer) =>
+                  influencer.channelId === channelId
+                    ? { ...influencer, bookmarked }
+                    : influencer
+                ),
+              })),
+            }
+          }
+        )
+      })
 
     void (bookmarked ? addBookmark(channelId) : removeBookmark(channelId))
   }

@@ -28,13 +28,12 @@ export function VideoCard({
   vph,
   outLierScore,
   duration,
-  isShort,
   isAd,
 }: VideoCardItem) {
-  const typeLabel = isShort ? '숏폼' : '롱폼'
-
   return (
-    <Link href={`/videos/${videoId}`} className='flex h-fit w-full max-w-[53.2rem] min-w-[34.6rem] flex-col gap-10'>
+    <Link
+      href={`/videos/${videoId}`}
+      className='flex h-fit w-full max-w-[53.2rem] min-w-[34.6rem] flex-col gap-10'>
       {/* 썸네일 */}
       <div className='relative aspect-video w-full overflow-hidden rounded-4'>
         <Image
@@ -44,19 +43,13 @@ export function VideoCard({
           sizes='(max-width: 768px) 50vw, 25vw'
           className='object-cover'
         />
-        {/* 광고 / 숏폼&롱폼 */}
-        <div className='absolute top-0 right-0 flex size-fit'>
-          {isAd && (
-            /* TODO: bg 디자인 토큰 반영 */
-            <span className='size-fit gap-10 rounded-bl-4 bg-[#D5E3FF] px-12 py-6 text-noto-caption-sm-bold text-text-and-icon-secondary'>
-              광고
-            </span>
-          )}
-          <span
-            className={`size-fit gap-10 bg-brand-secondary px-12 py-6 text-noto-caption-sm-bold text-white ${!isAd ? 'rounded-bl-4' : ''}`}>
-            {typeLabel}
+        {/* 광고 */}
+        {isAd && (
+          /* TODO: bg 디자인 토큰 반영 */
+          <span className='absolute top-8 right-6 size-fit gap-10 rounded-4 bg-primitive-brand-clear-200 px-12 py-4 text-noto-caption-sm-bold text-text-and-icon-secondary'>
+            AD
           </span>
-        </div>
+        )}
         {/* 영상 길이 */}
         <span className='absolute right-6 bottom-6 size-fit gap-10 rounded-4 bg-black/80 px-6 py-2 text-noto-label-xs-thin text-white'>
           {formatDuration(duration)}
