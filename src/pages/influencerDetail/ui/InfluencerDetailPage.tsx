@@ -2,6 +2,10 @@
 
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
+import {
+  useInfluencerBrandAnalysis,
+  type AdvertisementFilterQueryParams,
+} from '@/features/influencerDetail'
 import { TAB, Tab, TabGroup } from '@/features/influencerDetail/tabGroup'
 import { ChannelSummarySection } from '@/widgets/influencerDetail/channelSummary'
 import { EngagementAnalyticsSection } from '@/widgets/influencerDetail/engagementAnalytics'
@@ -13,10 +17,18 @@ import { AdvertisementList } from '@/features/influencerDetail/advertisementList
 
 /* 인플루언서 디테일 기본화면 */
 export function InfluencerDetailPage() {
-  const [activeTab, setActiveTab] = useState<Tab>(TAB.PERFORMANCE)
-
   const params = useParams<{ channelId: string }>()
   const channelId = params?.channelId
+
+  const [activeTab, setActiveTab] = useState<Tab>(TAB.PERFORMANCE)
+
+  const [committedFilter, setCommittedFilter] =
+    useState<AdvertisementFilterQueryParams | null>(null)
+
+  const { data: brandAnalysisData } = useInfluencerBrandAnalysis(
+    channelId ?? '',
+    committedFilter
+  )
 
   if (!channelId) return null
 
@@ -43,11 +55,16 @@ export function InfluencerDetailPage() {
       {activeTab === TAB.ADVERTISEMENT && (
         <>
           {/* 광고 검색 영역 */}
-          <AdvertisementFilter />
-          {/* 광고 지표 분석 영역 */}
-          <AdvertisementMetricsSection />
-          {/* 검색 결과 영역 */}
-          <AdvertisementList />
+          <AdvertisementFilter onSearch={setCommittedFilter} />
+          {/* 검색 후 노출 영역 */}
+          {committedFilter !== null && (
+            <>
+              {/* 광고 지표 분석 영역 */}
+              {brandAnalysisData && <AdvertisementMetricsSection />}
+              {/* 검색 결과 영역 */}
+              <AdvertisementList />
+            </>
+          )}
         </>
       )}
     </div>
