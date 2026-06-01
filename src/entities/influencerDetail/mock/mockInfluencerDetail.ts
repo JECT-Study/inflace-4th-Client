@@ -6,13 +6,14 @@ import mockChannelBanner from '@/shared/assets/mock/mockBannerImage.png'
 import mockChannelProfile from '@/shared/assets/mock/mockProfileImage.png'
 
 export const mockInfluencerDetail: InfluencerDetailResponseDto = {
-  channelId: 226,
+  channelId: 1,
   channelName: '뷰티크리에이터 민지',
   bannerImageUrl: mockChannelBanner.src,
   profileImageUrl: mockChannelProfile.src,
   channelHandle: '@minji_beauty',
   joinedAt: '2020.03.15',
   subscriberCount: 285000,
+  bookmarked: false,
   categories: ['반려동물/동물', '자동차'],
   audience: {
     score: 35.3,
