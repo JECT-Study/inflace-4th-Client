@@ -2,10 +2,6 @@
 
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
-import {
-  useInfluencerBrandAnalysis,
-  type AdvertisementFilterQueryParams,
-} from '@/features/influencerDetail'
 import { TAB, Tab, TabGroup } from '@/features/influencerDetail/tabGroup'
 import { ChannelSummarySection } from '@/widgets/influencerDetail/channelSummary'
 import { EngagementAnalyticsSection } from '@/widgets/influencerDetail/engagementAnalytics'
@@ -14,21 +10,29 @@ import { InfluencerBaseInfo } from '@/widgets/influencerDetail/influencerBaseInf
 import { AdvertisementFilter } from '@/widgets/influencerDetail/advertisementFilter'
 import { AdvertisementMetricsSection } from '@/widgets/influencerDetail/advertisementMetrics'
 import { AdvertisementList } from '@/features/influencerDetail/advertisementList'
+import {
+  AdvertisementFilterQueryParams,
+  useInfluencerBrandAnalysis,
+} from '@/features/influencerDetail'
 
 /* 인플루언서 디테일 기본화면 */
 export function InfluencerDetailPage() {
+  const [activeTab, setActiveTab] = useState<Tab>(TAB.PERFORMANCE)
+
   const params = useParams<{ channelId: string }>()
   const channelId = params?.channelId
 
-  const [activeTab, setActiveTab] = useState<Tab>(TAB.PERFORMANCE)
+  const [filter, setFilter] = useState<AdvertisementFilterQueryParams>({
+    videoFormat: 'ALL',
+  })
+  const [hasSearched, setHasSearched] = useState(false)
 
+  // 광고 필터 검색 버튼 클릭 시 필터 값
   const [committedFilter, setCommittedFilter] =
     useState<AdvertisementFilterQueryParams | null>(null)
 
-  const { data: brandAnalysisData } = useInfluencerBrandAnalysis(
-    channelId ?? '',
-    committedFilter
-  )
+  const { data: brandAnalysisData, isLoading: isBrandAnalysisLoading } =
+    useInfluencerBrandAnalysis(channelId ?? '', committedFilter)
 
   if (!channelId) return null
 
@@ -55,12 +59,23 @@ export function InfluencerDetailPage() {
       {activeTab === TAB.ADVERTISEMENT && (
         <>
           {/* 광고 검색 영역 */}
-          <AdvertisementFilter onSearch={setCommittedFilter} />
+          <AdvertisementFilter
+            filter={filter}
+            onFilterChange={setFilter}
+            hasSearched={hasSearched}
+            onSearch={(f) => {
+              setHasSearched(true)
+              setCommittedFilter(f)
+            }}
+          />
           {/* 검색 후 노출 영역 */}
           {committedFilter !== null && (
             <>
               {/* 광고 지표 분석 영역 */}
-              {brandAnalysisData && <AdvertisementMetricsSection />}
+              <AdvertisementMetricsSection
+                data={brandAnalysisData}
+                isLoading={isBrandAnalysisLoading}
+              />
               {/* 검색 결과 영역 */}
               <AdvertisementList />
             </>
