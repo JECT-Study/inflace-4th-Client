@@ -22,6 +22,11 @@ export function InfluencerDetailPage() {
   const params = useParams<{ channelId: string }>()
   const channelId = params?.channelId
 
+  const [filter, setFilter] = useState<AdvertisementFilterQueryParams>({
+    videoFormat: 'ALL',
+  })
+  const [hasSearched, setHasSearched] = useState(false)
+
   // 광고 필터 검색 버튼 클릭 시 필터 값
   const [committedFilter, setCommittedFilter] =
     useState<AdvertisementFilterQueryParams | null>(null)
@@ -54,7 +59,15 @@ export function InfluencerDetailPage() {
       {activeTab === TAB.ADVERTISEMENT && (
         <>
           {/* 광고 검색 영역 */}
-          <AdvertisementFilter onSearch={setCommittedFilter} />
+          <AdvertisementFilter
+            filter={filter}
+            onFilterChange={setFilter}
+            hasSearched={hasSearched}
+            onSearch={(f) => {
+              setHasSearched(true)
+              setCommittedFilter(f)
+            }}
+          />
           {/* 검색 후 노출 영역 */}
           {committedFilter !== null && (
             <>

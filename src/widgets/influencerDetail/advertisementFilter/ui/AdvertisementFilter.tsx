@@ -1,30 +1,32 @@
 'use client'
 
-import { useState } from 'react'
 import { cn } from '@/shared/lib/utils'
 import type { AdvertisementFilterQueryParams } from '@/features/influencerDetail'
 import { Button } from '@/shared/ui/button'
 import { CategoryDropdown } from './CategoryDropdown'
 import { DateRangeField } from './DateRangeField'
 
-export function AdvertisementFilter({
-  onSearch,
-}: {
+interface AdvertisementFilterProps {
+  filter: AdvertisementFilterQueryParams
+  onFilterChange: (filter: AdvertisementFilterQueryParams) => void
+  hasSearched: boolean
   onSearch: (filter: AdvertisementFilterQueryParams) => void
-}) {
-  const [filter, setFilter] = useState<AdvertisementFilterQueryParams>({
-    videoFormat: 'ALL',
-  })
+}
 
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined)
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined)
-  const [hasSearched, setHasSearched] = useState(false)
+export function AdvertisementFilter({
+  filter,
+  onFilterChange,
+  hasSearched,
+  onSearch,
+}: AdvertisementFilterProps) {
+  const startDate = filter.startDate ? new Date(filter.startDate) : undefined
+  const endDate = filter.endDate ? new Date(filter.endDate) : undefined
 
   function handleChange<K extends keyof AdvertisementFilterQueryParams>(
     key: K,
     value: AdvertisementFilterQueryParams[K]
   ) {
-    setFilter((prev) => ({ ...prev, [key]: value }))
+    onFilterChange({ ...filter, [key]: value })
   }
 
   return (
@@ -46,19 +48,15 @@ export function AdvertisementFilter({
           <DateRangeField
             startDate={startDate}
             endDate={endDate}
-            onStartChange={(d) => {
-              setStartDate(d)
-              handleChange('startDate', d?.toISOString())
-            }}
-            onEndChange={(d) => {
-              setEndDate(d)
+            onStartChange={(d) => handleChange('startDate', d?.toISOString())}
+            onEndChange={(d) =>
               handleChange(
                 'endDate',
                 d
                   ? new Date(new Date(d).setHours(23, 59, 59, 0)).toISOString()
                   : undefined
               )
-            }}
+            }
           />
         </div>
       </div>
@@ -68,10 +66,7 @@ export function AdvertisementFilter({
         size='lg'
         variant='filled'
         className='w-[20rem]'
-        onClick={() => {
-          setHasSearched(true)
-          onSearch(filter)
-        }}>
+        onClick={() => onSearch(filter)}>
         검색하기
       </Button>
     </div>
