@@ -12,8 +12,8 @@ export const mockUserDetails: UserDetails = {
   id: '019da065-7cf7-7f75-a712-d5bae90738f0',
   profileImage: mockProfileImage.src,
   userRoles: [],
-  plan: 'FREE',
-  isOnboardingCompleted: false,
+  plan: 'GROWTH',
+  isOnboardingCompleted: true,
 }
 
 /* 유튜브 채널 정보 */
@@ -26,7 +26,7 @@ export const mockUserChannelDetails: UserChannelDetails = {
 /* 유저 정보 (UserDetails + UserChannelDetails) */
 export const mockUser: UserInfo = {
   userDetails: mockUserDetails,
-  userChannelDetails: null,
+  userChannelDetails: mockUserChannelDetails,
 }
 
 /* 로그인 API 성공 응답 */
@@ -36,7 +36,7 @@ export const mockLoginResponse = {
   responseDto: {
     accessToken: mockAccessToken,
     userDetails: mockUserDetails,
-    userChannelDetails: null,
+    userChannelDetails: mockUserChannelDetails,
   },
 }
 

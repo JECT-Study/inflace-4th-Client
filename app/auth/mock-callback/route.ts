@@ -15,7 +15,11 @@ export async function GET() {
       plan: 'FREE',
       isOnboardingCompleted: false,
     },
-    userChannelDetails: null,
+    userChannelDetails: {
+      youtubeChannelId: 'mock-channel-id',
+      youtubeChannelName: '김튜브 스튜디오 김튜브 스튜디오',
+      youtubeChannelProfileImageUrl: '',
+    },
   }
 
   // mock refresh token 쿠키 저장 (새로고침 시 /auth/refresh MSW 핸들러가 처리)

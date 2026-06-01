@@ -7,7 +7,16 @@ import type { VideoFilterParams, VideosResponse } from './types'
 
 export function useVideos(channelId: string, params?: VideoFilterParams) {
   const result = useInfiniteScroll<VideosResponse>({
-    queryKey: ['videoList', channelId, params],
+    queryKey: [
+      'videoList',
+      channelId,
+      params?.sort,
+      params?.format,
+      params?.isAd,
+      params?.keyword,
+      params?.startDate,
+      params?.endDate,
+    ],
     queryFn: ({ pageParam }) =>
       fetchVideoList(channelId, { ...params, cursor: pageParam ?? undefined }),
   })
