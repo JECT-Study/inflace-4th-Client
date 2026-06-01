@@ -4,26 +4,32 @@ import { useEffect } from 'react'
 
 import { useOnboardingModal } from '@/features/onboarding/model/useOnboardingModal'
 import { useAuthStore } from '@/shared/api'
+import { fetchCurrentUser } from '@/shared/api/userApi'
 
 //화면 새로고침 시 실행되는 함수
 export function useAuthInit() {
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.history.scrollRestoration = 'manual'
+    }
+  }, [])
+
+  useEffect(() => {
     const { setAuth, setInitializing } = useAuthStore.getState()
 
-    // app/api/auth/refresh 실행(token refresh)
     async function init() {
       try {
         const res = await fetch('/auth/refresh', { method: 'POST' })
-        if (res.ok) {
-          const data = await res.json()
-          const { accessToken } = data
-          const user = data.user ?? null
-          setAuth(accessToken, user)
+        if (!res.ok) return
 
-          //온보딩이 완료되지 않은 유저라면 온보딩 절차를 진행
-          if (user && !user.userDetails.isOnboardingCompleted) {
-            useOnboardingModal.getState().open()
-          }
+        const { accessToken } = await res.json()
+        setAuth(accessToken, null)
+
+        const user = await fetchCurrentUser()
+        setAuth(accessToken, user)
+
+        if (!user.userDetails.isOnboardingCompleted) {
+          useOnboardingModal.getState().open()
         }
       } catch {
         // RT 쿠키 없거나 만료 → 비로그인 상태 유지

@@ -1,13 +1,15 @@
-import type { VideosResponse, VideoFilterParams } from '../model/types'
-import { mockVideosPage1, mockVideosPage2 } from '../mock/mockVideos'
+import { axiosInstance } from '@/shared/api/axiosInstance'
+import type { ApiResponse } from '@/shared/api/types'
 
-const MOCK_PAGES: VideosResponse[] = [mockVideosPage1, mockVideosPage2]
+import type { VideosResponse, VideoFilterParams } from '../model/types'
 
 export async function fetchVideoList(
-  _channelId: string,
+  channelId: string,
   params?: VideoFilterParams
 ): Promise<VideosResponse> {
-  const cursor = params?.cursor
-  const pageIndex = cursor ? parseInt(cursor, 10) : 0
-  return MOCK_PAGES[pageIndex] ?? { videos: [], pageInfo: { size: 0, numberOfElements: 0, nextCursor: null, hasNext: false } }
+  const { data } = await axiosInstance.get<ApiResponse<VideosResponse>>(
+    `/channel/${channelId}/videos`,
+    { params }
+  )
+  return data.responseDto
 }

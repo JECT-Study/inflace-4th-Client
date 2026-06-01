@@ -20,6 +20,8 @@ import { distributionChartHandlers } from './distributionChartHandlers'
 import { subscriberChartHandlers } from './subscriberChartHandlers'
 import { influencerSummaryHandlers } from './influencerSummaryHandlers'
 import { influencerBrandHandlers } from './influencerBrandHandlers'
+import { brandAnalysisHandlers } from './brandAnalysisHandlers'
+import { myProfileHandlers } from './myProfileHandlers'
 
 export const handlers = [
   ...authHandlers,
@@ -44,4 +46,6 @@ export const handlers = [
   ...subscriberChartHandlers,
   ...influencerSummaryHandlers,
   ...influencerBrandHandlers,
+  ...brandAnalysisHandlers,
+  ...myProfileHandlers,
 ]

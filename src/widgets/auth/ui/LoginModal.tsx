@@ -14,13 +14,14 @@ import {
 import GoogleIcon from '@/shared/assets/google.svg?react'
 import YouTubeIcon from '@/shared/assets/youtube.svg?react'
 import LogoSvg from '@/shared/assets/logo.svg?react'
+import Link from 'next/link'
 
 export function LoginModal() {
   const isOpen = useLoginModal((s) => s.isOpen)
   const close = useLoginModal((s) => s.close)
 
   const youtube = usePopupOAuth({
-    apiPath: '/auth/google',
+    apiPath: '/auth/youtube',
     popupName: 'youtube-login',
   })
   const google = usePopupOAuth({
@@ -29,7 +30,15 @@ export function LoginModal() {
   })
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && close()}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) {
+          close()
+          youtube.reset()
+          google.reset()
+        }
+      }}>
       <DialogOverlay className='bg-background-dim-default' />
       <DialogContent
         showCloseButton={false}
@@ -76,8 +85,8 @@ export function LoginModal() {
 
           {/* 하단 링크 */}
           <div className='flex size-fit items-center justify-center gap-16 text-noto-label-md-thin text-text-and-icon-secondary'>
-            <span>이용약관</span>
-            <span>개인정보처리방침</span>
+            <Link href='/terms'>이용약관</Link>
+            <Link href='/privacy'>개인정보처리방침</Link>
           </div>
         </div>
       </DialogContent>

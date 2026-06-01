@@ -32,7 +32,7 @@ describe('GET /auth/google', () => {
 
     expect(mockCookieStore.set).toHaveBeenCalledWith(
       'oauth_state',
-      mockUUID,
+      `google:${mockUUID}`,
       expect.objectContaining({ httpOnly: true })
     )
   })
@@ -77,7 +77,7 @@ describe('GET /auth/google', () => {
     const response = await GET()
 
     const location = response.headers.get('location')!
-    expect(location).toContain(`state=${mockUUID}`)
+    expect(location).toContain(`state=google%3A${mockUUID}`)
   })
 
   it('리다이렉트 URL에 scope가 포함된다', async () => {
