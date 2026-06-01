@@ -2,13 +2,23 @@
 
 import { useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
-import { CompetitorFilterPanel } from '@/widgets/competitor'
+import { toast } from 'sonner'
+import { Lightbulb } from 'lucide-react'
+
+import {
+  CompetitorFilterPanel,
+  CompetitorResultSection,
+  CompetitorSelectionBar,
+} from '@/widgets/competitor'
 import {
   DEFAULT_COMPETITOR_FILTER,
   useBrandCollaborations,
   type CompetitorFilterState,
+  type SortCriteria,
 } from '@/features/competitor'
-import { Lightbulb } from 'lucide-react'
+import { ScrollToTopButton } from '@/shared/ui/scroll-to-top'
+
+const MAX_SELECTED = 10
 
 export function CompetitorPage() {
   const queryClient = useQueryClient()
@@ -22,11 +32,16 @@ export function CompetitorPage() {
   const [appliedFilter, setAppliedFilter] =
     useState<CompetitorFilterState | null>(null)
 
-  const { data } = useBrandCollaborations({ filter: appliedFilter })
+  /* 선택된 영상 ID 집합 (최대 10개) */
+  const [selectedVideoIds, setSelectedVideoIds] = useState<Set<string>>(
+    new Set()
+  )
 
-  const totalCount =
-    data?.pages.reduce((sum, p) => sum + p.content.length, 0) ?? 0
-  const hasResults = totalCount > 0
+  const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
+    useBrandCollaborations({ filter: appliedFilter })
+
+  const videos = data?.pages.flatMap((page) => page.content) ?? []
+  const hasResults = videos.length > 0
 
   function handleChange<K extends keyof CompetitorFilterState>(
     key: K,
@@ -35,16 +50,48 @@ export function CompetitorPage() {
     setDraftFilter((prev) => ({ ...prev, [key]: value }))
   }
 
-  /* 초기화: 편집 필터 + 적용 필터 모두 초기 상태로 */
+  /* 초기화: 편집 필터 + 적용 필터 + 선택 영상 모두 초기 상태로 */
   function handleReset() {
     setDraftFilter(DEFAULT_COMPETITOR_FILTER)
     setAppliedFilter(null)
+    setSelectedVideoIds(new Set())
   }
 
   /* 검색: 편집 필터를 확정. 동일 조건 재검색 시에도 강제 refetch */
   function handleSearch() {
     setAppliedFilter(draftFilter)
+    setSelectedVideoIds(new Set())
     queryClient.invalidateQueries({ queryKey: ['brand-collaborations'] })
+  }
+
+  /* 정렬 변경: 검색 결과에 즉시 반영 */
+  function handleSortChange(next: SortCriteria) {
+    if (!appliedFilter) return
+    setAppliedFilter({ ...appliedFilter, sortCriteria: next })
+  }
+
+  function handleToggleSelect(videoId: string) {
+    setSelectedVideoIds((prev) => {
+      const next = new Set(prev)
+      if (next.has(videoId)) {
+        next.delete(videoId)
+        return next
+      }
+      if (next.size >= MAX_SELECTED) {
+        toast(`최대 ${MAX_SELECTED}개까지 선택 가능합니다.`)
+        return prev
+      }
+      next.add(videoId)
+      return next
+    })
+  }
+
+  function handleClearSelection() {
+    setSelectedVideoIds(new Set())
+  }
+
+  function handleAnalyze() {
+    /* TODO: 분석 결과 페이지가 만들어지면 push 처리 (IN-270 범위 밖) */
   }
 
   return (
@@ -56,10 +103,33 @@ export function CompetitorPage() {
         onSearch={handleSearch}
       />
 
-      {/* 결과 영역 — 영상 그리드는 다음 PR에서 작업, 일단 AI 분석 인사이트 placeholder만 */}
-      <div className='w-full px-24 pt-24'>
+      <div className='flex w-full flex-col gap-16 px-24 pt-24'>
         <AnalysisInsightCard hasResults={hasResults} />
+
+        {appliedFilter && (
+          <>
+            <CompetitorSelectionBar
+              count={selectedVideoIds.size}
+              max={MAX_SELECTED}
+              onReset={handleClearSelection}
+              onAnalyze={handleAnalyze}
+            />
+
+            <CompetitorResultSection
+              videos={videos}
+              selectedVideoIds={selectedVideoIds}
+              onToggleSelect={handleToggleSelect}
+              sortCriteria={appliedFilter.sortCriteria}
+              onSortChange={handleSortChange}
+              hasNextPage={hasNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+              onLoadMore={() => fetchNextPage()}
+            />
+          </>
+        )}
       </div>
+
+      <ScrollToTopButton />
     </div>
   )
 }

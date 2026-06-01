@@ -21,7 +21,7 @@ export function LoginModal() {
   const close = useLoginModal((s) => s.close)
 
   const youtube = usePopupOAuth({
-    apiPath: '/auth/google',
+    apiPath: '/auth/youtube',
     popupName: 'youtube-login',
   })
   const google = usePopupOAuth({
@@ -30,7 +30,15 @@ export function LoginModal() {
   })
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && close()}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) {
+          close()
+          youtube.reset()
+          google.reset()
+        }
+      }}>
       <DialogOverlay className='bg-background-dim-default' />
       <DialogContent
         showCloseButton={false}
@@ -77,18 +85,8 @@ export function LoginModal() {
 
           {/* 하단 링크 */}
           <div className='flex size-fit items-center justify-center gap-16 text-noto-label-md-thin text-text-and-icon-secondary'>
-            <Link
-              href='https://accidental-ironclad-397.notion.site/inflace-legecy-personal'
-              target='_blank'
-              rel='noopener noreferrer'>
-              이용약관
-            </Link>
-            <Link
-              href='https://accidental-ironclad-397.notion.site/inflace-legecy'
-              target='_blank'
-              rel='noopener noreferrer'>
-              개인정보처리방침
-            </Link>
+            <Link href='/terms'>이용약관</Link>
+            <Link href='/privacy'>개인정보처리방침</Link>
           </div>
         </div>
       </DialogContent>

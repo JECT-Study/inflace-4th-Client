@@ -2,13 +2,17 @@
 
 import * as React from 'react'
 import { type DateRange } from 'react-day-picker'
-import { subMonths } from 'date-fns'
+import { subMonths, format } from 'date-fns'
 import { formatDate } from '@/shared/lib/format'
 import { Toggle } from '@/shared/ui/toggle'
 import { Calendar } from '@/shared/ui/calendar'
 
+interface CalendarFilterProps {
+  onRangeChange: (startDate: string | null, endDate: string | null) => void
+}
+
 /* 기간 범위 선택 토글 + 캘린더 드롭다운 복합 컴포넌트 */
-export function CalendarFilter() {
+export function CalendarFilter({ onRangeChange }: CalendarFilterProps) {
   /* 캘린더 드롭다운 열림/닫힘 상태 */
   const [isOpen, setIsOpen] = React.useState(false)
   /* 선택된 날짜 범위 (ex. 2026.04.12 ~ 2026.04.13) */
@@ -36,8 +40,21 @@ export function CalendarFilter() {
     if (dateRange?.from && dateRange?.to) {
       setDateRange(undefined)
       setIsOpen(false)
+      onRangeChange(null, null)
     } else {
       setIsOpen((prev) => !prev)
+    }
+  }
+
+  /* 확인 버튼: 선택된 범위를 상위로 전달하고 캘린더 닫기 */
+  function handleConfirm() {
+    setIsOpen(false)
+    if (dateRange?.from) {
+      const startDate = format(dateRange.from, 'yyyy-MM-dd')
+      const endDate = dateRange.to
+        ? format(dateRange.to, 'yyyy-MM-dd')
+        : startDate
+      onRangeChange(startDate, endDate)
     }
   }
 
@@ -70,7 +87,7 @@ export function CalendarFilter() {
             disabled={(date) =>
               date > new Date() || date < new Date('1900-01-01')
             }
-            onConfirm={() => setIsOpen(false)}
+            onConfirm={handleConfirm}
             confirmDisabled={!dateRange?.from}
           />
         </div>

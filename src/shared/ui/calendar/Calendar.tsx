@@ -84,7 +84,7 @@ function CalendarHeader({ calendarMonth }: MonthCaptionProps) {
         disabled={isNextDisabled}
         onClick={() => goToMonth(nextMonthDate)}
         className='size-fit gap-10 p-2 select-none disabled:opacity-50'>
-        <IconRightArrow className='y size-[1.8rem]' />
+        <IconRightArrow className='size-[1.8rem]' />
       </button>
     </div>
   )
@@ -127,6 +127,8 @@ function CalendarDayButton({
         'data-[selected-single=true]:bg-primary',
         /* 아직 오지 않은 날짜 */
         modifiers.disabled && 'cursor-not-allowed! opacity-30',
+        /* 날짜 hover */
+        'hover:bg-btn-secondary-outlined-hover',
         className
       )}
       {...props}
