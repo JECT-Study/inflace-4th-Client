@@ -5,7 +5,7 @@ import {
   GenderChart,
   SubscriberChart,
 } from '@/entities/channel/subscriberDistribution'
-import { ContentType } from '@/features/channel/contentType'
+import { ContentType } from '@/shared/ui'
 import {
   useSubscriberChart,
   useDistributionChart,
@@ -14,17 +14,24 @@ import {
 import IconUsers from '@/shared/assets/users-bold.svg'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 
-export function SubscriberDemographicsSection({ channelId }: { channelId: string }) {
+export function SubscriberDemographicsSection({
+  channelId,
+}: {
+  channelId: string
+}) {
   // 기존 / 신규 구독자
   const {
-    data: subscriberData, isFetching: isSubscriberFetching, isError: isSubscriberError } = useSubscriberChart(channelId)
+    data: subscriberData,
+    isFetching: isSubscriberFetching,
+    isError: isSubscriberError,
+  } = useSubscriberChart(channelId)
   // 성별, 국가, 연령
   const {
     data: distributionData,
     filter,
     setFilter,
     isFetching: isDistributionFetching,
-    isError: isDistributionError
+    isError: isDistributionError,
   } = useDistributionChart(channelId)
 
   const isFetching = isSubscriberFetching || isDistributionFetching
@@ -40,7 +47,7 @@ export function SubscriberDemographicsSection({ channelId }: { channelId: string
       <div className='flex flex-1 flex-col gap-32 rounded-16 bg-white p-24 shadow-[0_2px_6px_0_rgba(13,13,13,0.04)]'>
         <div className='flex h-fit w-full items-center justify-between'>
           <div className='flex h-fit w-fit items-center gap-8'>
-            <span className='rounded-full bg-background-brand-default p-4'>
+            <span className='bg-background-brand-default rounded-full p-4'>
               <IconUsers className='size-24 text-btn-primary-text-disabled' />
             </span>
             <span className='text-ibm-title-md-normal'>구독자 분포</span>
@@ -57,7 +64,7 @@ export function SubscriberDemographicsSection({ channelId }: { channelId: string
     <div className='flex flex-1 flex-col gap-32 rounded-16 bg-white p-24 shadow-[0_2px_6px_0_rgba(13,13,13,0.04)]'>
       <div className='flex h-fit w-full items-center justify-between'>
         <div className='flex h-fit w-fit items-center gap-8'>
-          <span className='rounded-full bg-background-brand-default p-4'>
+          <span className='bg-background-brand-default rounded-full p-4'>
             <IconUsers className='size-24 text-btn-primary-text-disabled' />
           </span>
           <span className='text-ibm-title-md-normal'>구독자 분포</span>

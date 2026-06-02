@@ -8,7 +8,7 @@ interface FilterOption<T> {
 }
 
 interface Props<T> {
-  options: FilterOption<T>[]
+  options: readonly FilterOption<T>[]
   filter: T
   onFilterChange: (filter: T) => void
   className?: string

@@ -48,6 +48,7 @@ export interface InfluencerDetailResponseDto {
   bannerImageUrl: string
   joinedAt: string
   subscriberCount: number
+  bookmarked: boolean
   categories: string[]
   audience: Audience
   content: Content

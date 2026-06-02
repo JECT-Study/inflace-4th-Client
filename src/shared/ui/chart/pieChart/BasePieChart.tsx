@@ -26,7 +26,7 @@ export function BasePieChart<T extends object>({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (
-    <div className='h-[15.8rem] w-[15.8rem] text-noto-caption-sm-bold text-text-and-icon-tertiary [&_*:focus]:outline-none [&_svg]:outline-none'>
+    <div className='h-[15.8rem] w-[15.8rem] shrink-0 text-noto-caption-sm-bold text-text-and-icon-tertiary [&_*:focus]:outline-none [&_svg]:outline-none'>
       <ResponsiveContainer width='100%' height='100%'>
         <PieChart margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
           <defs>

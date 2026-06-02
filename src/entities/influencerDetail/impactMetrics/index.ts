@@ -1,3 +1,5 @@
 export { ImpactMetricsCard } from './ui/ImpactMetricsCard'
 export { ImpactMetricsList } from './ui/ImpactMetricsList'
 export { IMPACT_ITEM, getImpactTier } from './model/impactMetricsItem'
+export { ImpactMetricsBarChart } from './ui/ImpactMetricsBarChart'
+export { ImpactMetricsPieChart } from './ui/ImpactMetricsPieChart'

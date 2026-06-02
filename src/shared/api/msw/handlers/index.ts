@@ -19,6 +19,8 @@ import { typeEngagementHandlers } from './typeEngagementHandlers'
 import { distributionChartHandlers } from './distributionChartHandlers'
 import { subscriberChartHandlers } from './subscriberChartHandlers'
 import { influencerSummaryHandlers } from './influencerSummaryHandlers'
+import { influencerBrandHandlers } from './influencerBrandHandlers'
+import { brandAnalysisHandlers } from './brandAnalysisHandlers'
 import { myProfileHandlers } from './myProfileHandlers'
 
 export const handlers = [
@@ -43,5 +45,7 @@ export const handlers = [
   ...distributionChartHandlers,
   ...subscriberChartHandlers,
   ...influencerSummaryHandlers,
+  ...influencerBrandHandlers,
+  ...brandAnalysisHandlers,
   ...myProfileHandlers,
 ]
