@@ -49,7 +49,7 @@ export const videosHandlers = [
       videos = videos.sort(sortFns[sort] ?? sortFns.LATEST)
 
       return HttpResponse.json({
-        isSuccess: true,
+        success: true,
         responseDto: { ...basePage, videos },
         error: null,
       })
