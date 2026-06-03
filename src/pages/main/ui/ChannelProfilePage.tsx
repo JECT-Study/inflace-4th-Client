@@ -7,7 +7,9 @@ import { useAuth } from '@/features/auth'
 
 export function ChannelProfilePage() {
   const { user } = useAuth()
-  const channelId = user?.userChannelDetails?.youtubeChannelId as string
+  const channelId = user?.userChannelDetails?.youtubeChannelId
+
+  if (!channelId) return null
 
   return (
     <div className='flex flex-col divide-y'>
@@ -15,7 +17,7 @@ export function ChannelProfilePage() {
       <ChannelProfileSection channelId={channelId} isExpanded={false} />
 
       {/* 콘텐츠 */}
-      <div className='felx h-fit w-full flex-col px-24 pt-40 pb-96'>
+      <div className='flex h-fit w-full flex-col px-24 pt-40 pb-96'>
         <TrendingVideosSection channelId={channelId} />
         <TrendMagazineSection channelId={channelId} />
       </div>

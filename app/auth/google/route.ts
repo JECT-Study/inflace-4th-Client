@@ -14,7 +14,7 @@ export async function GET() {
   }
 
   //CSRF 방지를 위한 state를 생성하고 httpOnly 쿠키에 저장
-  const state = crypto.randomUUID()
+  const state = `google:${crypto.randomUUID()}`
 
   const cookieStore = await cookies()
   cookieStore.set('oauth_state', state, {

@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense } from 'react'
+import dynamic from 'next/dynamic'
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import {
   InfluencerList,
@@ -11,6 +11,11 @@ import { useYoutubeCategories } from '@/entities/youtubeCategory'
 import type { SortCriteria, SortOrder } from '@/entities/influencer'
 import { InfluencerFilter } from '@/widgets/influencer'
 
+const InfluencerListSectionDynamic = dynamic(
+  () => Promise.resolve(InfluencerListSection),
+  { ssr: false }
+)
+
 export function InfluencerPage() {
   const { data: categoriesData } = useYoutubeCategories()
   const categories = categoriesData?.youtubeCategories ?? []
@@ -19,9 +24,7 @@ export function InfluencerPage() {
     <div className='flex h-fit w-full flex-col gap-24 pb-[9.6rem]'>
       <InfluencerFilter categories={categories} />
       <div className='h-full'>
-        <Suspense fallback={<></>}>
-          <InfluencerListSection />
-        </Suspense>
+        <InfluencerListSectionDynamic />
       </div>
     </div>
   )

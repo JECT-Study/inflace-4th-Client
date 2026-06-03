@@ -1,3 +1,5 @@
 export * from './Logo'
 export * from './heart-button'
 export * from './hashtag-box'
+export * from './contentType'
+export * from './tabGroup'

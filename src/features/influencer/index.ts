@@ -11,7 +11,7 @@ export {
   addBookmark,
   removeBookmark,
 } from './api/influencerApi'
-export { useInfluencers } from './model/useInfluencers'
+export { useInfluencers, useBookmarkToggle } from './model/useInfluencers'
 export {
   UPLOAD_PERIOD_OPTIONS,
   OUTLIER_RANGE_OPTIONS,

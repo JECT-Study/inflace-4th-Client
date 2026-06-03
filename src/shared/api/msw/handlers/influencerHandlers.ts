@@ -31,8 +31,13 @@ export const influencerHandlers = [
     const sortCriteria = url.searchParams.get('sortCriteria') ?? 'subscriber'
     const sortOrder = url.searchParams.get('sortOrder') ?? 'DESC'
     const cursor = url.searchParams.get('cursor')
+    const bookmarkedOnly = url.searchParams.get('bookmarkedOnly') === 'true'
 
     let filtered = [...mockInfluencers]
+
+    if (bookmarkedOnly) {
+      filtered = filtered.filter((i) => i.bookmarked)
+    }
 
     if (channelName) {
       filtered = filtered.filter((i) =>
