@@ -1,8 +1,7 @@
 'use client'
 
 import { Button } from '@/shared/ui/button'
-import IconArrowRight from '@/shared/assets/rightwards-arrow-bold.svg'
-import IconX from '@/shared/assets/round-x.svg'
+import IconX from '@/shared/assets/x.svg'
 
 import { DELETION_ITEMS } from '../model/withdrawalConfig'
 import { ModalShell } from './ModalShell'
@@ -36,8 +35,8 @@ export function DataDeletionModal({
           <li key={item.title} className='flex items-start gap-12'>
             <span
               aria-hidden='true'
-              className='flex size-22 shrink-0 items-center justify-center rounded-full border border-feedback-error'>
-              <IconX className='size-14 text-feedback-error' />
+              className='flex shrink-0 items-center justify-center rounded-full border border-feedback-error p-[0.4rem]'>
+              <IconX className='size-[1.4rem] text-feedback-error' />
             </span>
             <div className='flex flex-col gap-4'>
               <p className='text-noto-body-sm-bold text-text-and-icon-primary'>
@@ -67,7 +66,7 @@ export function DataDeletionModal({
           variant='filled'
           size='lg'
           onClick={onNext}
-          rightIcon={<IconArrowRight />}
+          leftIcon={<IconX />}
           className='flex-1'>
           계정 탈퇴하기
         </Button>

@@ -103,9 +103,7 @@ export function WithdrawalReasonModal({
                 'data-placeholder:text-text-and-icon-disabled',
                 'not-data-placeholder:text-text-and-icon-primary'
               )}>
-              <Select.Value placeholder='무엇이 불편하셨나요?'>
-                {reason ? WITHDRAWAL_REASON_LABELS[reason] : undefined}
-              </Select.Value>
+              <Select.Value placeholder='무엇이 불편하셨나요?' />
               <Select.Icon asChild>
                 <IconChevronDown className='size-20 text-text-and-icon-secondary transition-transform group-data-[state=open]:rotate-180' />
               </Select.Icon>
