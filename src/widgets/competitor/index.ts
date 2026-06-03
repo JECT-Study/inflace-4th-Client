@@ -4,3 +4,4 @@ export {
   CompetitorSortTabs,
 } from './competitorResult'
 export { CompetitorSelectionBar } from './competitorSelectionBar'
+export { CompetitorInsightSection } from './competitorInsight'

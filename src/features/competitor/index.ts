@@ -7,6 +7,12 @@ export type {
   BrandCollaborationsSort,
   BrandCollaborationsResponseDto,
   BrandCollaborationsQuery,
+  BrandCollaborationsTrendsRequest,
+  BrandCollaborationsTrendsResponseDto,
+  TrendsContentKeywords,
+  TrendsChannelCharacteristics,
+  TrendsCategoryDistribution,
+  TrendsStrategyInsight,
 } from './model/types'
 export { DEFAULT_COMPETITOR_FILTER } from './model/types'
 
@@ -23,4 +29,9 @@ export {
   toBrandCollaborationsQuery,
 } from './model/useBrandCollaborations'
 
-export { fetchBrandCollaborations } from './api/competitorApi'
+export { useBrandCollaborationsTrends } from './model/useBrandCollaborationsTrends'
+
+export {
+  fetchBrandCollaborations,
+  fetchBrandCollaborationsTrends,
+} from './api/competitorApi'
