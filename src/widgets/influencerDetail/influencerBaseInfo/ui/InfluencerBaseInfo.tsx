@@ -2,15 +2,19 @@
 import Image from 'next/image'
 
 import { useInfluencerDetail } from '@/features/influencerDetail'
+import { useBookmarkToggle } from '@/features/influencer'
 import { mockInfluencerDetail } from '@/entities/influencerDetail'
-import { Button, buttonVariants } from '@/shared/ui/button'
+import { buttonVariants } from '@/shared/ui/button'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 import { format10Thousands } from '@/shared/lib/format'
 import { cn } from '@/shared/lib/utils'
 import RedirectIcon from '@/shared/assets/redirect-bold.svg'
+import { HashtagBox } from '@/shared/ui'
+import { HeartButton } from '@/shared/ui/heart-button'
 
 export function InfluencerBaseInfo({ channelId }: { channelId: string }) {
   const { data: apiData, isFetching, isError } = useInfluencerDetail(channelId)
+  const toggleBookmark = useBookmarkToggle()
 
   const data = apiData ?? mockInfluencerDetail
 
@@ -70,15 +74,17 @@ export function InfluencerBaseInfo({ channelId }: { channelId: string }) {
                 </p>
                 {/* 채널 카테고리 */}
                 <div className='mr-12 flex gap-4'>
-                  {/* TODO: 인플루언서 검색 - 해시태그 컴포넌트 사용 예정 */}
-                  {data.categories.map((item) => (
-                    <span key={item}># {item}</span>
+                  {data.categories.map((category) => (
+                    <HashtagBox key={category} label={category} />
                   ))}
                 </div>
-                {/* 좋아요 버튼
-                    TODO: 인플루언서 검색 - 좋아요 버튼 컴포넌트 사용 예정
-                 */}
-                <Button color='gray' variant='outlined' />
+                {/* 북마크 버튼 */}
+                <HeartButton
+                  initialBookmarked={data.bookmarked}
+                  onToggle={(bookmarked) =>
+                    toggleBookmark(Number(channelId), bookmarked)
+                  }
+                />
               </div>
               <div className='flex gap-16 text-noto-label-xs-normal text-text-and-icon-tertiary'>
                 <span>{data.channelHandle}</span>

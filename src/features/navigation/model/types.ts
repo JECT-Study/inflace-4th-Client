@@ -24,6 +24,7 @@ export interface NavItem {
   icon?: IconName
   url: string
   requiredPlan?: UserPlan
+  requiresAuth?: boolean
 }
 
 export interface NavGroup {

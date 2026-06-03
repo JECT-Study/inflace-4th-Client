@@ -88,3 +88,53 @@ export interface BrandCollaborationsResponseDto {
   pageInfo: PageInfo
   sort: BrandCollaborationsSort
 }
+
+/* ─────────── AI 분석 인사이트 ─────────── */
+
+/* trends 요청 body */
+export interface BrandCollaborationsTrendsRequest {
+  /* 분석할 YouTube 영상 ID 목록 (1~10개) */
+  youtubeVideoIds: string[]
+}
+
+/* AI 분석 키워드 정보 */
+export interface TrendsContentKeywords {
+  /* AI 추출 공통 키워드 목록 — AI 실패 시 [] */
+  keywords: string[]
+  /* 키워드 요약 (AI 생성) — AI 실패 시 null */
+  keywordSummary: string | null
+}
+
+/* 카테고리별 비율 */
+export interface TrendsCategoryDistribution {
+  category: string
+  /* 0~100 (소수점 1자리) */
+  percentage: number
+}
+
+/* 협업 채널 통계 */
+export interface TrendsChannelCharacteristics {
+  channelCount: number
+  avgSubscribers: number
+  minSubscribers: number
+  maxSubscribers: number
+  /* 평균 업로드 주기 (일) — Nullable */
+  uploadIntervalDays: number | null
+  /* 결과 없으면 [] */
+  categoryDistribution: TrendsCategoryDistribution[]
+}
+
+/* AI 전략 인사이트 */
+export interface TrendsStrategyInsight {
+  /* PPL 의도 분석 요약 — AI 실패 시 null */
+  pplIntent: string | null
+  /* 경쟁사 협업 전략의 강점 — AI 실패 시 null */
+  competitivePoints: string | null
+}
+
+/* trends 응답 DTO */
+export interface BrandCollaborationsTrendsResponseDto {
+  contentKeywords: TrendsContentKeywords
+  channelCharacteristics: TrendsChannelCharacteristics
+  strategyInsight: TrendsStrategyInsight
+}

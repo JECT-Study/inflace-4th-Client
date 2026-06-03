@@ -21,7 +21,7 @@ export function LoginModal() {
   const close = useLoginModal((s) => s.close)
 
   const youtube = usePopupOAuth({
-    apiPath: '/auth/google',
+    apiPath: '/auth/youtube',
     popupName: 'youtube-login',
   })
   const google = usePopupOAuth({
@@ -30,7 +30,15 @@ export function LoginModal() {
   })
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && close()}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) {
+          close()
+          youtube.reset()
+          google.reset()
+        }
+      }}>
       <DialogOverlay className='bg-background-dim-default' />
       <DialogContent
         showCloseButton={false}

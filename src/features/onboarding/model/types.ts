@@ -1,21 +1,6 @@
 import { StaticImageData } from 'next/image'
 
-export type UserRole =
-  | 'YOUTUBER'
-  | 'MARKETER'
-  | 'BRAND_MANAGER'
-  | 'MCN_AGENCY'
-  | 'CONTENT_PLANNER'
-  | 'ETC'
-
-export type Need =
-  | 'CHANNEL_ANALYSIS'
-  | 'INFLUENCER_SEARCH'
-  | 'YOUTUBE_CONTENT_SEARCH'
-  | 'FAKE_SUBSCRIBER_DETECT'
-  | 'COMPETITOR_BENCHMARK'
-  | 'COLLAB_PROPOSAL'
-  | 'INSIGHT_MAGAZINE'
+export type { UserRole, Need } from '@/shared/api/types'
 
 export interface OnboardingModalState {
   isOpen: boolean

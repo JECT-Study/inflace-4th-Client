@@ -24,6 +24,7 @@ const ibmPlexSansKr = IBM_Plex_Sans_KR({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://inflace.site'),
   title: 'inflace',
   description: '인플루언서 되기 + 찾기',
 }

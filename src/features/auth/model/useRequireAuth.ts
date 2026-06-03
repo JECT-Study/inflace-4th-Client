@@ -1,22 +1,20 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 
 import { useAuth } from './useAuth'
+import { useLoginModal } from './useLoginModal'
 
-/* refreshToken 쿠키는 있지만 서버 유효성 실패(만료 등) 엣지 케이스 대응
- * proxy.ts의 /?from=protected 이동 → 라우팅 가드
- */
 export function useRequireAuth() {
   const { isLoggedIn, isInitializing } = useAuth()
-  const router = useRouter()
+  const open = useLoginModal((s) => s.open)
 
+  // 미로그인 상태가 확인되면 페이지 이동 없이 로그인 모달 오픈
   useEffect(() => {
     if (!isInitializing && !isLoggedIn) {
-      router.replace('/?from=protected')
+      open()
     }
-  }, [isInitializing, isLoggedIn, router])
+  }, [isInitializing, isLoggedIn, open])
 
   return { isLoggedIn, isInitializing }
 }
