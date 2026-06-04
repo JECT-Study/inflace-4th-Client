@@ -10,11 +10,13 @@ import {
   AccountDeleteNoticeCard,
   LinkedChannelsForDeleteCard,
 } from '@/widgets/me/accountDelete'
+import { useAuth } from '@/features/auth'
 import { useDeleteUser, type WithdrawalReason } from '@/features/me'
 
 export function MyAccountDeletePage() {
   const router = useRouter()
   const [open, setOpen] = useState(false)
+  const { logout } = useAuth()
   const { mutateAsync: deleteUser } = useDeleteUser()
 
   async function handleSubmitReason(
@@ -27,10 +29,10 @@ export function MyAccountDeletePage() {
     })
   }
 
-  function handleComplete() {
-    /* TODO: 로그아웃 + 인증 상태 클리어 */
+  /* 탈퇴 완료 — 클라이언트 인증 상태 초기화 + refreshToken 쿠키 삭제 후 홈으로 이동 */
+  async function handleComplete() {
     setOpen(false)
-    router.push('/')
+    await logout()
   }
 
   return (

@@ -63,10 +63,16 @@ export function WithdrawalReasonModal({
     )
   }
 
+  /* 탈퇴 요청 진행 중에는 dim/ESC로 모달이 닫히지 않도록 차단 */
+  function handleClose() {
+    if (isSubmitting) return
+    onClose()
+  }
+
   return (
     <ModalShell
       open={open}
-      onClose={onClose}
+      onClose={handleClose}
       ariaLabelledBy='withdrawal-reason-title'
       className='flex w-[62.9rem] flex-col gap-32'>
       <div className='flex flex-col gap-4'>
@@ -206,6 +212,7 @@ function CustomReasonInput({
       <input
         type='text'
         autoFocus
+        aria-label='탈퇴 사유 직접 입력'
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder='탈퇴 사유를 입력해주세요'
