@@ -68,7 +68,7 @@ export function WithdrawalReasonModal({
       open={open}
       onClose={onClose}
       ariaLabelledBy='withdrawal-reason-title'
-      className='flex w-[629px] flex-col gap-32'>
+      className='flex w-[62.9rem] flex-col gap-32'>
       <div className='flex flex-col gap-4'>
         <h2
           id='withdrawal-reason-title'
@@ -146,14 +146,16 @@ export function WithdrawalReasonModal({
             )}>
             {agreed && <IconCheck className='size-12 text-white' />}
           </button>
-          <span className='text-noto-body-sm-bold text-text-and-icon-default'>
-            개인정보처리방침에 따라, 개인정보는 탈퇴 후 30일 동안 보관 후
-            파기됩니다.
-          </span>
+          <div>
+            <span className='text-noto-body-sm-bold whitespace-nowrap text-text-and-icon-default'>
+              개인정보처리방침에 따라, 개인정보는 탈퇴 후 30일 동안 보관 후
+              파기됩니다.
+            </span>
+            <p className='text-noto-body-xxs-normal text-text-and-icon-tertiary'>
+              탈퇴 후 30일 이후에는 데이터 복구가 불가능합니다.
+            </p>
+          </div>
         </label>
-        <p className='pl-36 text-noto-body-xxs-normal text-text-and-icon-tertiary'>
-          탈퇴 후 30일 이후에는 데이터 복구가 불가능합니다.
-        </p>
       </div>
 
       <div className='flex w-full gap-12'>
