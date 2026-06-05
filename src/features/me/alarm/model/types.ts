@@ -1,11 +1,11 @@
 export type AlarmType = 'PAYMENT' | 'FEATURE_UPDATE' | 'EVENT_BENEFIT'
 
-export interface alarms {
+export interface Alarms {
   alarmType: AlarmType
   enabled: boolean
 }
 
-export interface alarmsDto {
+export interface AlarmsDto {
   alarmEmail: string
-  alarms: alarms[]
+  alarms: Alarms[]
 }

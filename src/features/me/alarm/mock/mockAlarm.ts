@@ -1,6 +1,6 @@
-import type { alarmsDto } from '../model/types'
+import type { AlarmsDto } from '../model/types'
 
-export const mockAlarm: alarmsDto = {
+export const mockAlarm: AlarmsDto = {
   alarmEmail: 'hong@gmail.com',
   alarms: [
     {

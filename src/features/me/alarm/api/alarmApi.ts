@@ -1,12 +1,12 @@
 import type { ApiResponse } from '@/shared/api/types'
 import { axiosInstance } from '@/shared/api'
-import type { alarms, alarmsDto } from '../model/types'
+import type { Alarms, AlarmsDto } from '../model/types'
 
-export async function fetchAlarm(): Promise<alarmsDto> {
+export async function fetchAlarm(): Promise<AlarmsDto> {
   const response =
-    await axiosInstance.get<ApiResponse<alarmsDto>>(`/user/alarms`)
+    await axiosInstance.get<ApiResponse<AlarmsDto>>(`/user/alarms`)
   return response.data.responseDto
 }
 
-export const postAlarm = (body: alarms) =>
+export const postAlarm = (body: Alarms) =>
   axiosInstance.put('/user/alarms', body)

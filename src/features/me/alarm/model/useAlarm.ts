@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { fetchAlarm, postAlarm } from '../api/alarmApi'
-import type { alarms } from '../model/types'
+import type { Alarms } from '../model/types'
 import { useAuthStore } from '@/shared/api'
 
 export function useAlarm() {
@@ -15,7 +15,7 @@ export function useAlarm() {
 export function useEditAlarm() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (body: alarms) => postAlarm(body),
+    mutationFn: (body: Alarms) => postAlarm(body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['alarm'] })
     },
