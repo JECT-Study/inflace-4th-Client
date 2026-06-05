@@ -1,8 +1,19 @@
 'use client'
 
 import { Switch } from '@/shared/ui/shadcn/Switch'
+import { useAlarm, useEditAlarm } from '@/features/me/alarm/model/useAlarm'
+import type { AlarmType } from '@/features/me/alarm/model/types'
 
 export function MyAlarmPage() {
+  const { data } = useAlarm()
+  const { mutate } = useEditAlarm()
+
+  const getEnabled = (type: AlarmType) =>
+    data?.alarms.find((a) => a.alarmType === type)?.enabled ?? false
+
+  const handleToggle = (type: AlarmType) =>
+    mutate({ alarmType: type, enabled: !getEnabled(type) })
+
   return (
     <div className='flex h-fit w-full flex-col gap-xl p-md'>
       {/* 타이틀 */}
@@ -23,7 +34,6 @@ export function MyAlarmPage() {
                 결제 관련 중요한 알림
               </span>
             </div>
-            <Switch aria-label='결제 알림 수신' />
           </div>
 
           <div className='flex items-end justify-between gap-8'>
@@ -35,7 +45,11 @@ export function MyAlarmPage() {
                 결제 완료, 실패, 다음 결제 예정일을 알려드려요
               </span>
             </div>
-            <Switch aria-label='결제 관련 알림 수신' />
+            <Switch
+              aria-label='결제 관련 알림 수신'
+              checked={getEnabled('PAYMENT')}
+              onCheckedChange={() => handleToggle('PAYMENT')}
+            />
           </div>
         </div>
         {/* 마케팅 알림 */}
@@ -49,7 +63,6 @@ export function MyAlarmPage() {
                 새 기능 및 이벤트 안내 (선택)
               </span>
             </div>
-            <Switch aria-label='마케팅 알림 수신' />
           </div>
 
           <div className='flex items-end justify-between gap-8'>
@@ -61,7 +74,11 @@ export function MyAlarmPage() {
                 플랫폼의 새로운 기능을 가장 먼저 알려드려요
               </span>
             </div>
-            <Switch aria-label='새 기능 안내 수신' />
+            <Switch
+              aria-label='새 기능 안내 수신'
+              checked={getEnabled('FEATURE_UPDATE')}
+              onCheckedChange={() => handleToggle('FEATURE_UPDATE')}
+            />
           </div>
 
           <div className='flex items-end justify-between gap-8'>
@@ -73,7 +90,11 @@ export function MyAlarmPage() {
                 특별 할인이나 이벤트 정보를 보내드려요
               </span>
             </div>
-            <Switch aria-label='이벤트 및 혜택 수신' />
+            <Switch
+              aria-label='이벤트 및 혜택 수신'
+              checked={getEnabled('EVENT_BENEFIT')}
+              onCheckedChange={() => handleToggle('EVENT_BENEFIT')}
+            />
           </div>
         </div>
       </div>

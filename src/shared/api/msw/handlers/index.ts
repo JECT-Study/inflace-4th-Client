@@ -22,6 +22,7 @@ import { influencerSummaryHandlers } from './influencerSummaryHandlers'
 import { influencerBrandHandlers } from './influencerBrandHandlers'
 import { brandAnalysisHandlers } from './brandAnalysisHandlers'
 import { myProfileHandlers } from './myProfileHandlers'
+import { myAlarmHandlers } from './myAlarmHandlers'
 
 export const handlers = [
   ...authHandlers,
@@ -48,4 +49,5 @@ export const handlers = [
   ...influencerBrandHandlers,
   ...brandAnalysisHandlers,
   ...myProfileHandlers,
+  ...myAlarmHandlers,
 ]
