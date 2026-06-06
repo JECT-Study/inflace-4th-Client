@@ -1,12 +1,14 @@
 'use client'
 
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import CameraIcon from '@/shared/assets/camera-bold.svg'
 import FaviconIcon from '@/shared/assets/favicon.svg'
 import { useMyProfile } from '@/features/me'
 import { formatDate } from '@/shared/lib/format'
 
 export function PersonalInfoSection() {
+  const router = useRouter()
   const { data } = useMyProfile()
   const account = data?.account
 
@@ -80,13 +82,12 @@ export function PersonalInfoSection() {
           </div>
         </div>
 
-        {/* 계정 탈퇴 — /me/withdraw 라우팅 구현 전까지 비활성 처리 */}
+        {/* 계정 탈퇴 */}
         <button
           type='button'
-          disabled
-          aria-disabled='true'
-          aria-label='계정 탈퇴 (준비 중)'
-          className='w-fit cursor-not-allowed px-8 py-4 text-right text-noto-body-xs-normal text-text-and-icon-secondary underline'>
+          onClick={() => router.push('/me/profile/account-delete')}
+          aria-label='계정 탈퇴'
+          className='w-fit cursor-pointer px-8 py-4 text-right text-noto-body-xs-normal text-text-and-icon-secondary underline'>
           계정 탈퇴
         </button>
       </div>
