@@ -1,9 +1,9 @@
-import { FOOTER_NAV_ITEMS } from '../model/footerNavItems'
+import { NAV_ITEMS } from '@/features/navigation/model/navItems'
 
 export const FooterNav = () => {
   return (
     <div className='flex gap-2xl py-sm'>
-      {FOOTER_NAV_ITEMS.map((group) => (
+      {NAV_ITEMS.map((group) => (
         <div key={group.group}>
           <div className='text-noto-label-md-thin text-text-and-icon-tertiary'>
             {group.group}
