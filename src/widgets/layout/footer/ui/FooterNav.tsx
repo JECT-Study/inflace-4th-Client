@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { NAV_ITEMS } from '@/features/navigation/model/navItems'
 
 export const FooterNav = () => {
@@ -13,7 +15,7 @@ export const FooterNav = () => {
               <li
                 key={item.title}
                 className='mt-sm text-noto-label-md-normal text-text-and-icon-primary'>
-                {item.title}
+                <Link href={item.url}>{item.title}</Link>
               </li>
             ))}
           </ul>
