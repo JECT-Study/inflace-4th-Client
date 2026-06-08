@@ -11,7 +11,6 @@ export function FeatureSection() {
           subTitle={item.subTitle}
           description={item.description}
           imgSrc={item.imgSrc}
-          url={item.url}
         />
       ))}
     </>

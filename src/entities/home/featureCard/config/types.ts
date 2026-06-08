@@ -5,5 +5,4 @@ export interface FeatureCardItem {
   subTitle: string
   description: string
   imgSrc: StaticImageData
-  url: string
 }
