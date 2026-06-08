@@ -28,9 +28,6 @@ export async function POST() {
 
     const responseText = await backendResponse.text()
 
-    console.log('[auth/refresh] backend status:', backendResponse.status)
-    console.log('[auth/refresh] backend body:', responseText)
-
     if (!backendResponse.ok) {
       cookieStore.delete('refreshToken')
       return NextResponse.json(
