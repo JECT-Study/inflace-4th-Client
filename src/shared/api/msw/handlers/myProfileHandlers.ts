@@ -31,4 +31,35 @@ export const myProfileHandlers = [
       error: null,
     })
   }),
+
+  http.post(`${process.env.NEXT_PUBLIC_API_URL}/user/profile-image/upload-url`, () => {
+    return HttpResponse.json({
+      success: true,
+      responseDto: {
+        uploadUrl: 'https://mock-s3.example.com/upload?signature=mock',
+        objectKey: 'profiles/mock-object-key.jpg',
+        publicUrl: 'https://mock-s3.example.com/profiles/mock-object-key.jpg',
+        expiresInSeconds: 300,
+      },
+      error: null,
+    })
+  }),
+
+  http.put(`${process.env.NEXT_PUBLIC_API_URL}/user/profile-image`, async ({ request }) => {
+    const body = await request.json() as { objectKey: string }
+
+    currentProfile = {
+      ...currentProfile,
+      account: {
+        ...currentProfile.account,
+        profileImageUrl: `https://mock-s3.example.com/${body.objectKey}`,
+      },
+    }
+
+    return HttpResponse.json({
+      success: true,
+      responseDto: currentProfile,
+      error: null,
+    })
+  }),
 ]

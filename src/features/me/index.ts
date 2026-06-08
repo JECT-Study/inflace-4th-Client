@@ -7,6 +7,7 @@ export {
 export type { WithdrawalReason } from './model/withdrawalReason'
 export { useMyProfile } from './profile/model/useMyProfile'
 export { useEditPreferencesModal } from './profile/model/useEditPreferencesModal'
+export { useEditProfileImage } from './profile/model/useEditProfileImage'
 export { EditPreferencesModal } from './profile/ui/EditPreferencesModal'
 export type {
   MyProfileDto,

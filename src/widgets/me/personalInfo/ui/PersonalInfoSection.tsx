@@ -1,16 +1,30 @@
 'use client'
 
+import { useRef } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import CameraIcon from '@/shared/assets/camera-bold.svg'
 import FaviconIcon from '@/shared/assets/favicon.svg'
-import { useMyProfile } from '@/features/me'
+import { useMyProfile, useEditProfileImage } from '@/features/me'
 import { formatDate } from '@/shared/lib/format'
 
 export function PersonalInfoSection() {
   const router = useRouter()
   const { data } = useMyProfile()
   const account = data?.account
+  const { mutate: editProfileImage, isPending } = useEditProfileImage()
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  function handleCameraClick() {
+    fileInputRef.current?.click()
+  }
+
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    editProfileImage(file)
+    e.target.value = ''
+  }
 
   return (
     <div className='flex h-fit w-full flex-col gap-24 rounded-16 bg-white p-32 shadow-[0px_2px_6px_0px_#0D0D0D0A]'>
@@ -37,11 +51,21 @@ export function PersonalInfoSection() {
                 </div>
               )}
             </div>
+            {/* 파일 인풋 (숨김) */}
+            <input
+              ref={fileInputRef}
+              type='file'
+              accept='image/*'
+              className='hidden'
+              onChange={handleFileChange}
+            />
             {/* 프로필 변경 버튼 */}
             <button
               type='button'
               aria-label='프로필 사진 변경'
-              className='absolute top-[6.2rem] left-[6.2rem] flex size-[2.8rem] cursor-pointer items-center justify-center rounded-full border border-[#E6E6E6] bg-background-gray-default'>
+              disabled={isPending}
+              onClick={handleCameraClick}
+              className='absolute top-[6.2rem] left-[6.2rem] flex size-[2.8rem] cursor-pointer items-center justify-center rounded-full border border-[#E6E6E6] bg-background-gray-default disabled:cursor-not-allowed disabled:opacity-50'>
               <CameraIcon className='size-[2rem]' />
             </button>
           </div>

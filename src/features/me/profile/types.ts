@@ -18,3 +18,19 @@ export interface MyProfileDto {
   account: MyProfileAccountDto
   preferences: MyProfilePreferencesDto
 }
+
+export interface ProfileImageUploadUrlRequest {
+  contentType: string
+  fileSize: number
+}
+
+export interface ProfileImageUploadUrlResponse {
+  uploadUrl: string
+  objectKey: string
+  publicUrl: string
+  expiresInSeconds: number
+}
+
+export interface ProfileImageUpdateRequest {
+  objectKey: string
+}
