@@ -20,16 +20,28 @@ export async function uploadFileToS3(
   uploadUrl: string,
   file: File,
 ): Promise<void> {
-  const response = await fetch(uploadUrl, {
-    method: 'PUT',
-    body: file,
-    headers: {
-      'Content-Type': file.type,
-      'Cache-Control': 'public, max-age=31536000, immutable',
-    },
-  })
-  if (!response.ok) {
-    throw new Error(`S3 업로드 실패: ${response.status}`)
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 30000)
+  try {
+    const response = await fetch(uploadUrl, {
+      method: 'PUT',
+      body: file,
+      headers: {
+        'Content-Type': file.type,
+        'Cache-Control': 'public, max-age=31536000, immutable',
+      },
+      signal: controller.signal,
+    })
+    if (!response.ok) {
+      throw new Error(`S3 업로드 실패: ${response.status}`)
+    }
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      throw new Error('S3 업로드 타임아웃: 30초 초과')
+    }
+    throw error
+  } finally {
+    clearTimeout(timeout)
   }
 }
 
