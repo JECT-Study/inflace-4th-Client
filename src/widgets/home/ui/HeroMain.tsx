@@ -3,8 +3,10 @@ import swiper01 from '@/widgets/home/assets/swiper01.jpg'
 import swiper02 from '@/widgets/home/assets/swiper02.jpg'
 import IconSearch from '@/shared/assets/search-bold.svg'
 import { Button } from '@/shared/ui/button'
+import { useLoginModal } from '@/features/auth'
 
 export function HeroMain() {
+  const open = useLoginModal((s) => s.open)
   return (
     <>
       <section
@@ -15,7 +17,12 @@ export function HeroMain() {
             인플루언서 선택, 감이 아닌
             <strong className='text-[#8B80FF]'> 데이터</strong>로
           </h3>
-          <Button color='primary' size='lg' variant='filled' className='mt-xl'>
+          <Button
+            color='primary'
+            size='lg'
+            variant='filled'
+            className='mt-xl'
+            onClick={open}>
             무료로 시작하기
           </Button>
         </div>
@@ -53,7 +60,8 @@ export function HeroMain() {
               size='lg'
               variant='filled'
               leftIcon={<IconSearch />}
-              className='mt-(--spacing-xl)'>
+              className='mt-xl'
+              onClick={open}>
               인플루언서 검색하기
             </Button>
           </div>

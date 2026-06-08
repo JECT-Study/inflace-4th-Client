@@ -1,8 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import { Button } from '@/shared/ui/button'
+import { useLoginModal } from '@/features/auth'
 import { FeatureCardItem } from '@/entities/home/featureCard/config/types'
 import IconRightArrow from '@/shared/assets/rightwards-arrow-bold.svg'
 import IconZap from '@/shared/assets/zap-bold.svg'
@@ -12,9 +12,8 @@ export function FeatureCard({
   subTitle,
   description,
   imgSrc,
-  url,
 }: FeatureCardItem) {
-  const router = useRouter()
+  const open = useLoginModal((s) => s.open)
   return (
     <>
       <div className='bd-[var(--color-stroke-border-primary)] rounded-12--color-background-gray-default)] px-(--spacing-xl)var(--spacing-2xl)]'>
@@ -41,7 +40,7 @@ export function FeatureCard({
           size={'sm'}
           variant='filled'
           rightIcon={<IconRightArrow />}
-          onClick={() => router.push(url)}>
+          onClick={open}>
           바로가기
         </Button>
       </div>
