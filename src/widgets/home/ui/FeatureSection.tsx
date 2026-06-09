@@ -7,8 +7,8 @@ export function FeatureSection() {
       {FEATURE_CARD_ITEM.map((item, idx) => (
         <FeatureCard
           key={idx}
+          icon={item.icon}
           title={item.title}
-          subTitle={item.subTitle}
           description={item.description}
           imgSrc={item.imgSrc}
         />
