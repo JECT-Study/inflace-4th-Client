@@ -5,45 +5,41 @@ import { Button } from '@/shared/ui/button'
 import { useLoginModal } from '@/features/auth'
 import { FeatureCardItem } from '@/entities/home/featureCard/config/types'
 import IconRightArrow from '@/shared/assets/rightwards-arrow-bold.svg'
-import IconZap from '@/shared/assets/zap-bold.svg'
 
 export function FeatureCard({
+  icon: Icon,
   title,
-  subTitle,
   description,
   imgSrc,
 }: FeatureCardItem) {
   const open = useLoginModal((s) => s.open)
   return (
-    <>
-      <div className='bd-[var(--color-stroke-border-primary)] rounded-12--color-background-gray-default)] px-(--spacing-xl)var(--spacing-2xl)]'>
-        <h4 className='flex items-center gap-8 text-title-lg font-semibold text-brand-primary [&_path]:fill-brand-primary'>
-          <IconZap className='size-26' />
+    <div className='rounded-12 border border-stroke-border-neutral-default bg-background-gray-default p-32 py-40'>
+      <div className='flex flex-col gap-24'>
+        <h4 className='flex items-center gap-8 text-ibm-title-lg-normal text-brand-primary'>
+          <Icon className='size-26' />
           {title}
         </h4>
-        <h5 className='mt-(--spacing-2xl) text-(length:--text-title-sm) font-medium'>
-          {subTitle}
-        </h5>
-        <p className='mt-(--spacing-xs) text-(length:--text-body-sm) font-normal'>
+        <p className='text-noto-body-md-normal text-text-and-icon-primary'>
           {description}
         </p>
-        <div className='mt-(--spacing-xl) h-[23.2rem] w-full overflow-hidden rounded-8'>
+        <div className='min-h-0 w-full'>
           <Image
             src={imgSrc}
             alt={title}
             className='h-auto w-full max-w-full object-cover'
           />
         </div>
-        <Button
-          className='float-right mt-(--spacing-xl) cursor-pointer'
-          color='secondary'
-          size={'sm'}
-          variant='filled'
-          rightIcon={<IconRightArrow />}
-          onClick={open}>
-          바로가기
-        </Button>
       </div>
-    </>
+      <Button
+        className='float-right mt-3xl'
+        color='secondary'
+        size='sm'
+        variant='filled'
+        rightIcon={<IconRightArrow />}
+        onClick={open}>
+        바로가기
+      </Button>
+    </div>
   )
 }
