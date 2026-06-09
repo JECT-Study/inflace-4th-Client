@@ -34,7 +34,7 @@ export function FeatureCard({
       <Button
         className='float-right mt-3xl'
         color='secondary'
-        size={'sm'}
+        size='sm'
         variant='filled'
         rightIcon={<IconRightArrow />}
         onClick={open}>
