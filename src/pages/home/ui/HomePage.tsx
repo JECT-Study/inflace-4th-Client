@@ -64,7 +64,10 @@ export default function HomePage() {
   return (
     <>
       <Suspense fallback={null}>
-        <SearchParamsHandler isInitializing={isInitializing} isLoggedIn={isLoggedIn} />
+        <SearchParamsHandler
+          isInitializing={isInitializing}
+          isLoggedIn={isLoggedIn}
+        />
       </Suspense>
       <HeroMain />
       <div className='snap-start'>
