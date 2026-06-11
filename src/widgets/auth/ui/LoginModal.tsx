@@ -62,15 +62,10 @@ export function LoginModal() {
           <div className='flex size-fit flex-col gap-24'>
             <SocialLoginButton
               icon={<YouTubeIcon />}
-              label={
-                youtube.isLoading ? '로그인 중...' : 'Continue with YouTube'
-              }
+              label='Continue with YouTube'
               onClick={youtube.handleClick}
-              disabled={youtube.isLoading}
+              disabled
             />
-            {youtube.error && (
-              <p className='text-sm text-destructive'>{youtube.error}</p>
-            )}
 
             <SocialLoginButton
               icon={<GoogleIcon />}
