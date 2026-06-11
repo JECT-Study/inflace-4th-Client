@@ -3,14 +3,26 @@ import Image from 'next/image'
 
 import { formatMonthAndWeek } from '@/shared/lib/format'
 
-import testMagazine1 from '../assests/test-magazine-1.png'
-import testMagazine2 from '../assests/test-magazine-2.png'
-import testMagazine3 from '../assests/test-magazine-3.png'
+import testMagazine1 from '../assets/test-magazine-1.png'
+import testMagazine2 from '../assets/test-magazine-2.png'
+import testMagazine3 from '../assets/test-magazine-3.png'
 
 const TEST_MAGAZINES = [
-  { id: '1', src: testMagazine1, href: 'https://www.instagram.com/p/DYzFYDBj8OJ/?igsh=cXdmanNyMjM4OGd3' },
-  { id: '2', src: testMagazine2, href: 'https://www.instagram.com/p/DZFRl3Fj4ts/?igsh=MWVubXV3M2VrM3RuOA==' },
-  { id: '3', src: testMagazine3, href: 'https://www.instagram.com/p/DZXF9eFD9_C/?igsh=amd5ZGJudGE0dWw3' },
+  {
+    id: '1',
+    src: testMagazine1,
+    href: 'https://www.instagram.com/p/DYzFYDBj8OJ/?igsh=cXdmanNyMjM4OGd3',
+  },
+  {
+    id: '2',
+    src: testMagazine2,
+    href: 'https://www.instagram.com/p/DZFRl3Fj4ts/?igsh=MWVubXV3M2VrM3RuOA==',
+  },
+  {
+    id: '3',
+    src: testMagazine3,
+    href: 'https://www.instagram.com/p/DZXF9eFD9_C/?igsh=amd5ZGJudGE0dWw3',
+  },
 ]
 
 export function TestTrendMagazineSection() {
