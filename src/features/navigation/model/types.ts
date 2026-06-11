@@ -25,6 +25,7 @@ export interface NavItem {
   url: string
   requiredPlan?: UserPlan
   requiresAuth?: boolean
+  requiresChannel?: boolean
 }
 
 export interface NavGroup {

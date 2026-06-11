@@ -26,7 +26,7 @@ export const mockUserChannelDetails: UserChannelDetails = {
 /* 유저 정보 (UserDetails + UserChannelDetails) */
 export const mockUser: UserInfo = {
   userDetails: mockUserDetails,
-  userChannelDetails: mockUserChannelDetails,
+  userChannelDetails: null,
 }
 
 /* 로그인 API 성공 응답 */

@@ -1,6 +1,7 @@
 import { SidebarMenuItem, SidebarMenuButton } from '@/shared/ui/shadcn/sidebar'
 import { SidebarIcon } from '@/features/navigation/ui/NavSidebarIcon'
 import { useLoginModal } from '@/features/auth/model/useLoginModal'
+import { useYoutubeConnectModal } from '@/features/auth/model/useYoutubeConnectModal'
 import { useAuth } from '@/features/auth/model/useAuth'
 import type { NavItem } from '../model/types'
 import Link from 'next/link'
@@ -10,14 +11,24 @@ interface NavMenuItemProps {
 }
 
 export const NavMenuItem = ({ item }: NavMenuItemProps) => {
-  const { isLoggedIn } = useAuth()
+  const { isLoggedIn, user } = useAuth()
   const openLoginModal = useLoginModal((s) => s.open)
+  const openYoutubeConnectModal = useYoutubeConnectModal((s) => s.open)
 
-  // 인증이 필요한 항목을 미로그인 상태로 클릭하면 페이지 이동을 막고 모달 오픈
+  const isChannelConnected = Boolean(
+    user?.userChannelDetails?.youtubeChannelId &&
+      user?.userChannelDetails?.youtubeChannelName
+  )
+
   const handleClick = (e: React.MouseEvent) => {
     if (item.requiresAuth && !isLoggedIn) {
       e.preventDefault()
       openLoginModal()
+      return
+    }
+    if (item.requiresChannel && !isChannelConnected) {
+      e.preventDefault()
+      openYoutubeConnectModal()
     }
   }
 

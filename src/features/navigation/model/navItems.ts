@@ -10,6 +10,7 @@ export const NAV_ITEMS: NavGroup[] = [
         icon: 'dashboard',
         url: '/channel',
         requiresAuth: true,
+        requiresChannel: true,
       },
       {
         title: '영상 성과 분석',
@@ -17,6 +18,7 @@ export const NAV_ITEMS: NavGroup[] = [
         url: '/videos',
         requiredPlan: 'GROWTH',
         requiresAuth: true,
+        requiresChannel: true,
       },
     ],
   },
@@ -36,6 +38,7 @@ export const NAV_ITEMS: NavGroup[] = [
         url: '/competitor',
         requiredPlan: 'GROWTH',
         requiresAuth: true,
+        requiresChannel: true,
       },
     ],
   },
