@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 import { VideoCard } from '@/entities/main/videoCard'
 import { PlanGate } from '@/features/planGate'
@@ -26,11 +24,9 @@ export function TrendingVideosSection({ channelId }: { channelId: string }) {
           <p className='text-noto-title-sm-thin text-text-and-icon-tertiary'>
             조회수 대비 참여율이 채널 평균보다 높은 영상이에요
           </p>
-          <Link
-            href={`/videos`}
-            className='size-fit gap-10 pt-1 pr-2 pb-3 pl-2 text-noto-label-sm-bold text-brand-primary hover:underline'>
+          <span className='size-fit cursor-not-allowed gap-10 pt-1 pr-2 pb-3 pl-2 text-noto-label-sm-bold text-text-and-icon-tertiary'>
             더보기
-          </Link>
+          </span>
         </div>
       </div>
 
