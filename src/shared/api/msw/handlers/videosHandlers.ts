@@ -15,6 +15,8 @@ export const videosHandlers = [
       const format = url.searchParams.get('format')
       const isAd = url.searchParams.get('isAd') === 'true'
       const keyword = url.searchParams.get('keyword') ?? ''
+      const startDate = url.searchParams.get('startDate')
+      const endDate = url.searchParams.get('endDate')
 
       const basePage = cursor ? mockVideosPage2 : mockVideosPage1
       let videos = [...basePage.videos]
@@ -33,6 +35,17 @@ export const videosHandlers = [
         videos = videos.filter((v) =>
           v.title.toLowerCase().includes(keyword.toLowerCase())
         )
+      }
+
+      if (startDate) {
+        const start = new Date(startDate)
+        videos = videos.filter((v) => new Date(v.publishedAt) >= start)
+      }
+
+      if (endDate) {
+        const end = new Date(endDate)
+        end.setHours(23, 59, 59, 999)
+        videos = videos.filter((v) => new Date(v.publishedAt) <= end)
       }
 
       const sortFns: Record<
