@@ -1,14 +1,14 @@
 import type { ChannelProfileDto } from '@/entities/main/channelProfile'
-import mockProfileImage from '@/shared/assets/mock/mockProfileImage.png'
 
 export const mockChannelProfile: ChannelProfileDto = {
-  profileImageUrl: mockProfileImage.src,
-  name: '김튜브 스튜디오 김튜브 스튜디오',
+  profileImageUrl:
+    'https://i.pinimg.com/736x/e2/bc/39/e2bc3977ccf24e3de850deba26cd58b3.jpg',
+  name: '민준테크',
   youtubeStudioUrl: 'https://studio.youtube.com/channel/1',
-  channelHandle: '@kimtube_studio',
-  category: '테크&리뷰',
-  enteredAt: '2020-03-15T00:00:00',
-  subscriberCount: 285000,
-  videoCount: 312,
-  latestUploadDate: '2025-02-24T10:00:00',
+  channelHandle: '@minjun_tech',
+  category: '과학기술',
+  enteredAt: '2025-04-10T00:00:00',
+  subscriberCount: 1284,
+  videoCount: 86,
+  latestUploadDate: '2026-06-08T10:00:00',
 }

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import CalendarIcon from '@/shared/assets/calendar-bold.svg'
 import TagIcon from '@/shared/assets/tag-bold.svg'
 import { formatDate } from '@/shared/lib/format'
@@ -7,23 +8,25 @@ interface VideoBasicInfoProps {
   video: VideoDetailDto
 }
 
+// 백엔드 영상 연동 전까지는 썸네일 이미지로 대체한다.
+// 추후 실제 영상 임베드 복구 시 아래 getYouTubeVideoId + iframe 블록을 살릴 것.
 // API는 YouTube watch URL(youtube.com/watch?v=...) 형식만 반환한다고 가정
-function getYouTubeVideoId(url: string): string | null {
-  const match = url.match(/[?&]v=([^&]+)/)
-  return match ? match[1] : null
-}
+// function getYouTubeVideoId(url: string): string | null {
+//   const match = url.match(/[?&]v=([^&]+)/)
+//   return match ? match[1] : null
+// }
 
 export function VideoBasicInfo({ video }: VideoBasicInfoProps) {
-  const { videoUrl, title, description, publishedAt, hashtags } = video
+  const { thumbnailUrl, title, description, publishedAt, hashtags } = video
   const displayHashtags = hashtags?.slice(0, 5) ?? []
   const { year, month, day } = formatDate(publishedAt)
 
-  const videoId = getYouTubeVideoId(videoUrl)
-  const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : null
+  // const videoId = getYouTubeVideoId(videoUrl)
+  // const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : null
 
   return (
     <div className='flex w-full flex-col gap-16 overflow-hidden rounded-8 sm:flex-row sm:items-start sm:gap-24'>
-      {/* YouTube iframe */}
+      {/* YouTube iframe — 백엔드 영상 연동 시 복구
       {embedUrl ? (
         <iframe
           src={embedUrl}
@@ -32,6 +35,21 @@ export function VideoBasicInfo({ video }: VideoBasicInfoProps) {
           allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
           allowFullScreen
         />
+      ) : (
+        <div className='aspect-video w-full shrink-0 rounded-4 bg-stroke-border-gray-default sm:aspect-auto sm:h-[17rem] sm:w-[30.2rem]' />
+      )} */}
+
+      {/* 썸네일 (영상 임베드 대체) */}
+      {thumbnailUrl ? (
+        <div className='relative aspect-video w-full shrink-0 overflow-hidden rounded-4 sm:aspect-auto sm:h-[17rem] sm:w-[30.2rem]'>
+          <Image
+            src={thumbnailUrl}
+            alt={title}
+            fill
+            sizes='(max-width: 640px) 100vw, 30.2rem'
+            className='object-cover'
+          />
+        </div>
       ) : (
         <div className='aspect-video w-full shrink-0 rounded-4 bg-stroke-border-gray-default sm:aspect-auto sm:h-[17rem] sm:w-[30.2rem]' />
       )}

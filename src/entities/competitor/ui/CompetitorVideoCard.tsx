@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import Link from 'next/link'
+// import Link from 'next/link' // 개별 채널 분석 버튼 복구 시 함께 복구
 
 import { cn } from '@/shared/lib/utils'
 import {
@@ -9,7 +9,7 @@ import {
   formatThousands,
   formatDate,
 } from '@/shared/lib/format'
-import { Button } from '@/shared/ui/button'
+// import { Button } from '@/shared/ui/button' // 개별 채널 분석 버튼 복구 시 함께 복구
 import type { CompetitorVideoCardItem } from '../model/types'
 
 import IconEye from '@/shared/assets/eye-thin.svg'
@@ -17,7 +17,7 @@ import IconLike from '@/shared/assets/like-thin.svg'
 import IconComment from '@/shared/assets/comment-thin.svg'
 import IconClock from '@/shared/assets/clock-thin.svg'
 import IconCheck from '@/shared/assets/check-bold.svg'
-import IconArrowRight from '@/shared/assets/rightwards-arrow-bold.svg'
+// import IconArrowRight from '@/shared/assets/rightwards-arrow-bold.svg' // 개별 채널 분석 버튼 복구 시 함께 복구
 
 interface CompetitorVideoCardProps {
   video: CompetitorVideoCardItem
@@ -38,7 +38,7 @@ export function CompetitorVideoCard({
     viewCount,
     likeCount,
     commentCount,
-    channelId,
+    // channelId, // 개별 채널 분석 버튼 복구 시 함께 복구
     channelName,
     channelThumbnailUrl,
   } = video
@@ -140,6 +140,7 @@ export function CompetitorVideoCard({
             </span>
           </div>
 
+          {/* 개별 채널 분석 페이지 미구현 — 라우트 준비 시 복구
           <Link
             href={`/channel/${channelId}`}
             onClick={(e) => e.stopPropagation()}
@@ -153,6 +154,7 @@ export function CompetitorVideoCard({
               개별 채널 분석보기
             </Button>
           </Link>
+          */}
         </div>
       </div>
     </div>
