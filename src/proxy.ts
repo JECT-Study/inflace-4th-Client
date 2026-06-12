@@ -1,11 +1,8 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { FORCE_LOGIN } from '@/shared/config/devAuth'
 
 const PROTECTED_PATHS = ['/main', '/videos', '/channel', '/influencer/']
-
-// TEMP: 강제 로그인 상태 — 보호 경로 가드 비활성화
-// 되돌릴 때: 이 상수와 아래 조건의 `!FORCE_LOGIN &&` 를 제거
-const FORCE_LOGIN: boolean = true
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
