@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'yt3.ggpht.com' },
       { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
       { protocol: 'https', hostname: '*.s3.ap-northeast-2.amazonaws.com' },
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      { protocol: 'https', hostname: 'i.pinimg.com' },
     ],
   },
   /* Cross-Origin-Opener-Policy로 인해 팝업이 닫히지 않는 문제 해결 */

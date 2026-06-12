@@ -7,6 +7,9 @@ export {
   mockRetentionData,
   mockRetentionSummary,
   mockDropPoints,
+  getMockRetentionData,
+  getMockRetentionSummary,
+  getMockDropPoints,
 } from './mock/mockRetention'
 export type {
   RetentionDataPoint,

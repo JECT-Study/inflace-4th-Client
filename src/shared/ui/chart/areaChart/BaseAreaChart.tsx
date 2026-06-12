@@ -28,14 +28,19 @@ export function BaseAreaChart<T extends object>({
   tooltipFormatter,
   customTooltip,
 }: BaseAreaChartProps<T>) {
-  const maxValue = Math.max(
-    ...data.map((item) => Number(item[dataKey as keyof T]))
-  )
+  const values = data.map((item) => Number(item[dataKey as keyof T]))
+  const maxValue = Math.max(...values)
+  const minValue = Math.min(...values)
+  const range = maxValue - minValue
+  /* 변동이 작아 선이 상단에 붙는 것을 막기 위해 최소값 아래로 여백을 둔다 */
+  const lowerBound =
+    range > 0 ? Math.max(0, Math.floor(minValue - range * 0.6)) : 0
+  const span = maxValue - lowerBound || 1
   const yTicks = [
-    0,
-    Math.round(maxValue * 0.25),
-    Math.round(maxValue * 0.5),
-    Math.round(maxValue * 0.75),
+    lowerBound,
+    Math.round(lowerBound + span * 0.25),
+    Math.round(lowerBound + span * 0.5),
+    Math.round(lowerBound + span * 0.75),
     maxValue,
   ]
 
@@ -65,7 +70,7 @@ export function BaseAreaChart<T extends object>({
           />
 
           <YAxis
-            domain={[0, maxValue]}
+            domain={[lowerBound, maxValue]}
             axisLine={false}
             ticks={yTicks}
             width={50}

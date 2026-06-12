@@ -1,10 +1,9 @@
 import type { SubscriberGrowthPoint } from '../model/types'
-import {
-  format10Thousands,
-  formatDate,
-  formatYAxisPercent,
-} from '@/shared/lib/format'
+import { format10Thousands, formatDate } from '@/shared/lib/format'
 import { BaseAreaChart, ChartTooltip } from '@/shared/ui/chart'
+
+/* Y축을 구독자 "수"로 표기 (퍼센트가 아님) */
+const formatYAxisCount = (value: number) => format10Thousands(value)
 
 interface Props {
   points: SubscriberGrowthPoint[]
@@ -40,7 +39,7 @@ export function SubscriberGrowthChart({ points }: Props) {
       dataKey='subscriberCount'
       xAxisDataKey='date'
       xAxisTickFormatter={formatXAxisTick}
-      yAxisTickFormatter={formatYAxisPercent}
+      yAxisTickFormatter={formatYAxisCount}
       tooltipFormatter={formatTooltip}
       customTooltip={<SubscriberTooltip />}
     />

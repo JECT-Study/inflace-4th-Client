@@ -1,13 +1,13 @@
 import { http, HttpResponse } from 'msw'
-import { mockVideoDetail } from '@/features/videoDetail'
+import { getMockVideoDetail } from '@/features/videoDetail'
 
 export const videoDetailHandlers = [
   http.get(
     `${process.env.NEXT_PUBLIC_API_URL}/videos/:videoId`,
-    async () => {
+    async ({ params }) => {
       return HttpResponse.json({
         success: true,
-        responseDto: mockVideoDetail,
+        responseDto: getMockVideoDetail(String(params.videoId)),
         error: null,
       })
     }

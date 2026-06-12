@@ -1,2 +1,2 @@
 export { useVideoDetail } from './model/useVideoDetail'
-export { mockVideoDetail } from './mock/mockVideoDetail'
+export { mockVideoDetail, getMockVideoDetail } from './mock/mockVideoDetail'

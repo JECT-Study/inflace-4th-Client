@@ -1,5 +1,7 @@
-import mockProfileImage from '@/shared/assets/mock/mockProfileImage.png'
 import type { UserDetails, UserChannelDetails, UserInfo } from '../types'
+
+const mockProfileImageUrl =
+  'https://i.pinimg.com/736x/e2/bc/39/e2bc3977ccf24e3de850deba26cd58b3.jpg'
 
 /* 토큰 */
 export const mockAccessToken =
@@ -10,7 +12,7 @@ export const mockNewRefreshToken = 'mock-new-refresh-token'
 /* 유저 기본 정보 */
 export const mockUserDetails: UserDetails = {
   id: '019da065-7cf7-7f75-a712-d5bae90738f0',
-  profileImage: mockProfileImage.src,
+  profileImage: mockProfileImageUrl,
   userRoles: [],
   plan: 'GROWTH',
   isOnboardingCompleted: true,
@@ -19,8 +21,8 @@ export const mockUserDetails: UserDetails = {
 /* 유튜브 채널 정보 */
 export const mockUserChannelDetails: UserChannelDetails = {
   youtubeChannelId: 'mock-channel-id',
-  youtubeChannelName: '김튜브 스튜디오 김튜브 스튜디오',
-  youtubeChannelProfileImageUrl: mockProfileImage.src,
+  youtubeChannelName: '민준테크',
+  youtubeChannelProfileImageUrl: mockProfileImageUrl,
 }
 
 /* 유저 정보 (UserDetails + UserChannelDetails) */

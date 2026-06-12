@@ -1,17 +1,17 @@
 import { http, HttpResponse } from 'msw'
 import {
-  mockRetentionData,
-  mockRetentionSummary,
-  mockDropPoints,
+  getMockRetentionData,
+  getMockRetentionSummary,
+  getMockDropPoints,
 } from '@/features/videoDetail/retention'
 
 export const retentionHandlers = [
   http.get(
     `${process.env.NEXT_PUBLIC_API_URL}/videos/:videoId/retention`,
-    () => {
+    ({ params }) => {
       return HttpResponse.json({
         success: true,
-        responseDto: { retentionData: mockRetentionData },
+        responseDto: { retentionData: getMockRetentionData(String(params.videoId)) },
         error: null,
       })
     }
@@ -19,10 +19,10 @@ export const retentionHandlers = [
 
   http.get(
     `${process.env.NEXT_PUBLIC_API_URL}/videos/:videoId/retention/summary`,
-    () => {
+    ({ params }) => {
       return HttpResponse.json({
         success: true,
-        responseDto: { retentionData: mockRetentionSummary },
+        responseDto: { retentionData: getMockRetentionSummary(String(params.videoId)) },
         error: null,
       })
     }
@@ -30,10 +30,10 @@ export const retentionHandlers = [
 
   http.get(
     `${process.env.NEXT_PUBLIC_API_URL}/videos/:videoId/retention/drop-points`,
-    () => {
+    ({ params }) => {
       return HttpResponse.json({
         success: true,
-        responseDto: { dropPoints: mockDropPoints },
+        responseDto: { dropPoints: getMockDropPoints(String(params.videoId)) },
         error: null,
       })
     }
