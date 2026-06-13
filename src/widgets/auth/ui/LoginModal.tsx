@@ -64,7 +64,7 @@ export function LoginModal() {
               icon={<YouTubeIcon />}
               label='Continue with YouTube'
               onClick={youtube.handleClick}
-              disabled
+              disabled={youtube.isLoading}
             />
 
             <SocialLoginButton
