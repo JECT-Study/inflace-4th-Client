@@ -50,7 +50,13 @@ export function InfluencerBaseInfo({ channelId }: { channelId: string }) {
     <div className='h-fit w-full overflow-hidden rounded-10 bg-white shadow-[0_2px_6px_0_rgba(13,13,13,0.04)]'>
       {/* 상단 채널 배경 이미지 */}
       <div className='relative h-[25.2rem] w-full'>
-        <Image src={data.bannerImageUrl} alt='채널 배경이미지' fill />
+        <Image
+          src={data.bannerImageUrl}
+          alt='채널 배경이미지'
+          fill
+          sizes='100vw'
+          className='object-cover'
+        />
       </div>
       {/* 채널 정보 */}
       <div className='relative'>

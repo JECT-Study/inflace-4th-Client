@@ -41,8 +41,8 @@ export function CompetitorPage() {
   /* 분석 트리거된 영상 ID 배열 — '영상 분석하기' 클릭 시 선택 영상의 스냅샷 */
   const [analyzedVideoIds, setAnalyzedVideoIds] = useState<string[]>([])
 
-  /* 상세 검색 영역 열림 상태 — 분석 완료 시 자동 닫기 위해 페이지에서 관리 */
-  const [isDetailOpen, setIsDetailOpen] = useState(false)
+  /* 상세 검색 영역 열림 상태 — 분석 완료 시 자동 닫기 위해 페이지에서 관리 (기본 펼침) */
+  const [isDetailOpen, setIsDetailOpen] = useState(true)
 
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useBrandCollaborations({ filter: appliedFilter })

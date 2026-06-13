@@ -11,17 +11,17 @@ const TEST_MAGAZINES = [
   {
     id: '1',
     src: testMagazine1,
-    href: 'https://www.instagram.com/p/DYzFYDBj8OJ/?igsh=cXdmanNyMjM4OGd3',
+    href: 'https://www.instagram.com/p/DYzFYDBj8OJ',
   },
   {
     id: '2',
     src: testMagazine2,
-    href: 'https://www.instagram.com/p/DZFRl3Fj4ts/?igsh=MWVubXV3M2VrM3RuOA==',
+    href: 'https://www.instagram.com/p/DZFRl3Fj4ts',
   },
   {
     id: '3',
     src: testMagazine3,
-    href: 'https://www.instagram.com/p/DZXF9eFD9_C/?igsh=amd5ZGJudGE0dWw3',
+    href: 'https://www.instagram.com/p/DZXF9eFD9_C',
   },
 ]
 
