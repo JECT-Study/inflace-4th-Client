@@ -35,5 +35,6 @@ export const handlers = [
   ...typeEngagementHandlers,
   ...distributionChartHandlers,
   ...subscriberChartHandlers,
+  ...influencerBrandHandlers,
   ...brandAnalysisHandlers,
 ]
