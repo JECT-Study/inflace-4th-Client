@@ -3,14 +3,17 @@
 import { useEffect } from 'react'
 
 import { useOnboardingModal } from '@/features/onboarding/model/useOnboardingModal'
-import { useAuthStore, loadChannelDetails } from '@/shared/api'
+import { useAuthStore } from '@/shared/api'
 import { fetchCurrentUser } from '@/shared/api/userApi'
 import {
   mockAccessToken,
   mockUserDetails,
   mockUserChannelDetails,
 } from '@/shared/api/mock/mockUser'
-import { FORCE_LOGIN } from '@/shared/config/devAuth'
+
+// TEMP: 강제 로그인 상태 — 백엔드/OAuth 없이 민준테크로 로그인된 것처럼 동작
+// 되돌릴 때: 이 상수와 아래 init() 최상단 FORCE_LOGIN 블록을 제거
+const FORCE_LOGIN: boolean = true
 
 //화면 새로고침 시 실행되는 함수
 export function useAuthInit() {
@@ -42,16 +45,6 @@ export function useAuthInit() {
         setAuth(accessToken, null)
 
         const user = await fetchCurrentUser()
-
-        // 유저 테스트용 임시 코드 — 백엔드 채널 연동 미지원 기간 동안만 사용
-        // /user/me 응답에 채널 정보가 없으면 localStorage에서 복구
-        if (!user.userChannelDetails?.youtubeChannelId) {
-          const saved = loadChannelDetails()
-          if (saved) {
-            user.userChannelDetails = saved
-          }
-        }
-
         setAuth(accessToken, user)
 
         if (!user.userDetails.isOnboardingCompleted) {
