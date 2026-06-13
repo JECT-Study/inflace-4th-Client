@@ -5,19 +5,21 @@ import { useYoutubeConnectModal } from '@/features/auth/model/useYoutubeConnectM
 import { useAuth } from '@/features/auth/model/useAuth'
 import type { NavItem } from '../model/types'
 import Link from 'next/link'
+import { cn } from '@/shared/lib/utils'
 
 interface NavMenuItemProps {
   item: NavItem
+  isActive: boolean
 }
 
-export const NavMenuItem = ({ item }: NavMenuItemProps) => {
+export const NavMenuItem = ({ item, isActive }: NavMenuItemProps) => {
   const { isLoggedIn, user } = useAuth()
   const openLoginModal = useLoginModal((s) => s.open)
   const openYoutubeConnectModal = useYoutubeConnectModal((s) => s.open)
 
   const isChannelConnected = Boolean(
     user?.userChannelDetails?.youtubeChannelId &&
-      user?.userChannelDetails?.youtubeChannelName
+    user?.userChannelDetails?.youtubeChannelName
   )
 
   const handleClick = (e: React.MouseEvent) => {
@@ -34,10 +36,15 @@ export const NavMenuItem = ({ item }: NavMenuItemProps) => {
 
   return (
     <SidebarMenuItem>
-      <SidebarMenuButton>
+      <SidebarMenuButton
+        className={cn(
+          isActive
+            ? 'bg-btn-primary-outlined-hover text-brand-primary'
+            : 'bg-white text-text-and-icon-primary'
+        )}>
         <Link
           href={item.url}
-          className='flex items-center gap-8'
+          className='flex w-full items-center gap-8'
           onClick={handleClick}>
           {item.icon && (
             <SidebarIcon
