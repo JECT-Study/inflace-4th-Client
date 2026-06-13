@@ -7,10 +7,7 @@ import {
   ImpactMetricsList,
   getImpactTier,
 } from '@/entities/influencerDetail/impactMetrics'
-import {
-  mockInfluencerDetail,
-  FrequencyTrend,
-} from '@/entities/influencerDetail'
+import { FrequencyTrend } from '@/entities/influencerDetail'
 import { useInfluencerDetail } from '@/features/influencerDetail'
 import IconChart from '@/shared/assets/chart-bold.svg'
 import IconDown from '@/shared/assets/down-bold.svg'
@@ -39,9 +36,6 @@ export function ImpactMetricsSection({ channelId }: { channelId: string }) {
     isError &&
     axios.isAxiosError(error) &&
     error.response?.data?.error?.code === 'CHANNEL_INSIGHT_400'
-
-  const data = apiData ?? mockInfluencerDetail
-  const { audience, content, activity, advertisement } = data
 
   if (isFetching || (isError && !insightErrorCode)) {
     return (
@@ -114,6 +108,9 @@ export function ImpactMetricsSection({ channelId }: { channelId: string }) {
       </div>
     )
   }
+
+  if (!apiData) return null
+  const { audience, content, activity, advertisement } = apiData
 
   return (
     <div className='flex flex-col gap-32 rounded-12 bg-white p-24 pb-32'>

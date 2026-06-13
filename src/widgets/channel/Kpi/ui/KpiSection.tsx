@@ -1,4 +1,4 @@
-import { KpiCard, mockKpi } from '@/entities/channel/kpiCard'
+import { KpiCard } from '@/entities/channel/kpiCard'
 import IconEye from '@/shared/assets/eye-bold.svg'
 import IconParticipation from '@/shared/assets/participation-bold.svg'
 import IconClock from '@/shared/assets/clock-bold.svg'
@@ -7,10 +7,9 @@ import { useKpi } from '@/features/channel/kpi'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 
 export function KpiSection({ channelId }: { channelId: string }) {
-  const { data: apiData, isFetching, isError } = useKpi(channelId)
-  const data = apiData ?? mockKpi
+  const { data, isFetching, isError } = useKpi(channelId)
 
-  if (isFetching || isError) {
+  if (isFetching || isError || !data) {
     return (
       //스켈레톤 UI, 로딩중일 때 상태를 표시합니다.
       <section className='flex h-fit w-full gap-24'>
