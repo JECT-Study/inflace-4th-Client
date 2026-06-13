@@ -66,6 +66,9 @@ export function KeywordChipInput({
   }
 
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+    // 한글 등 IME 조합 중 Enter는 조합 확정용으로 한 번 더 발생하므로 무시
+    // (가드 없으면 키워드가 두 번 입력됨)
+    if (e.nativeEvent.isComposing) return
     if (e.key === 'Enter') {
       e.preventDefault()
       addChip()
