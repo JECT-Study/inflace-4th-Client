@@ -66,6 +66,7 @@ export function CompetitorFilterPanel({
             variant='filled'
             size='lg'
             onClick={onSearch}
+            disabled={filter.includeKeywords.length === 0}
             className='w-[20rem]'>
             검색하기
           </Button>
