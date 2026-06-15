@@ -1,3 +1,5 @@
+'use client'
+
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -17,9 +19,10 @@ export function NavGroupList() {
             <SidebarGroupLabel>{group.group}</SidebarGroupLabel>
             <SidebarMenu>
               {group.items.map((item) => {
-                const isActive =
-                  currentPath === item.url ||
-                  (currentPath?.startsWith(item.url + '/') ?? false)
+                const isActive = currentPath
+                  ? currentPath === item.url ||
+                    currentPath.startsWith(item.url + '/')
+                  : false
                 return (
                   <NavMenuItem
                     key={item.title}
