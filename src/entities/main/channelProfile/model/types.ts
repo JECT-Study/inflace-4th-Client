@@ -3,7 +3,7 @@ export interface ChannelProfileDto {
   name: string
   youtubeStudioUrl: string
   channelHandle: string
-  category: string
+  category: string[]
   enteredAt: string
   subscriberCount: number
   videoCount: number

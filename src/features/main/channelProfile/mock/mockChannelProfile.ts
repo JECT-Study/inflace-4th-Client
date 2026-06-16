@@ -6,7 +6,7 @@ export const mockChannelProfile: ChannelProfileDto = {
   name: '민준테크',
   youtubeStudioUrl: 'https://studio.youtube.com/channel/1',
   channelHandle: '@minjun_tech',
-  category: '과학기술',
+  category: ['과학기술'],
   enteredAt: '2025-04-10T00:00:00',
   subscriberCount: 1284,
   videoCount: 86,
