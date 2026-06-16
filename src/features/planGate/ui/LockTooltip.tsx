@@ -1,7 +1,7 @@
 import { Tooltip as TooltipPrimitive } from '@base-ui/react/tooltip'
 import { isValidElement, type ReactElement } from 'react'
 
-import TooltipArrow from '../assets/tooltip-arrow.svg'
+import TooltipArrow from '@/features/planGate/assets/tooltip-arrow.svg'
 
 interface LockTooltipProps {
   label: string

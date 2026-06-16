@@ -14,7 +14,7 @@ import {
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import Image from 'next/image'
 
-import youtubeConnectModalImage from './youtube-connect-modal-image.png'
+import youtubeConnectModalImage from '@/widgets/auth/ui/youtube-connect-modal-image.png'
 
 export function YoutubeConnectModal() {
   const isOpen = useYoutubeConnectModal((s) => s.isOpen)

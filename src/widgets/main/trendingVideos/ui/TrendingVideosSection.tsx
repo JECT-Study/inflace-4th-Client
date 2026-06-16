@@ -36,7 +36,7 @@ export function TrendingVideosSection({ channelId }: { channelId?: string }) {
           ))}
         </div>
       ) : (
-        <BlurPlanGate requiredPlan='STARTER'>
+        <BlurPlanGate requiredPlan='STARTER' forceLocked={!channelId}>
           <div className='grid grid-cols-2 gap-4'>
             {videos.slice(0, 4).map((video) => (
               <VideoCard key={video.id} {...video} />

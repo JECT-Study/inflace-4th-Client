@@ -46,7 +46,7 @@ function ChannelRow({ channel }: { channel: ChannelProfileDto }) {
                 {channel.name}
               </span>
               <span className='rounded-full bg-[var(--primitivecolortrasparent-brand-deep-900-transparent-8)] px-12 py-6 text-noto-label-xs-thin text-text-and-icon-secondary'>
-                # {channel.category}
+                # {channel.category.join(', ')}
               </span>
             </div>
             <span className='text-noto-label-xs-normal text-text-and-icon-secondary'>
