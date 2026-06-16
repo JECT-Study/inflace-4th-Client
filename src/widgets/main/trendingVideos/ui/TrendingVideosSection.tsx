@@ -1,14 +1,15 @@
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 import { VideoCard } from '@/entities/main/videoCard'
-import { PlanGate } from '@/features/planGate'
+import { BlurPlanGate } from '@/features/planGate'
 import {
   useTrendingVideos,
   mockTrendingVideos,
 } from '@/features/main/trendingVideos'
 
 //인기 급상승 동영상의 리스트를 보여줌
-export function TrendingVideosSection({ channelId }: { channelId: string }) {
-  const { data, isLoading } = useTrendingVideos(channelId)
+// channelId가 없으면(채널 미연동) API 호출 없이 mock 데이터로 미리보기를 보여줌
+export function TrendingVideosSection({ channelId }: { channelId?: string }) {
+  const { data, isLoading } = useTrendingVideos(channelId ?? '')
   const videos = data?.length ? data : mockTrendingVideos
 
   return (
@@ -24,9 +25,6 @@ export function TrendingVideosSection({ channelId }: { channelId: string }) {
           <p className='text-noto-title-sm-thin text-text-and-icon-tertiary'>
             조회수 대비 참여율이 채널 평균보다 높은 영상이에요
           </p>
-          <span className='size-fit cursor-not-allowed gap-10 pt-1 pr-2 pb-3 pl-2 text-noto-label-sm-bold text-text-and-icon-tertiary'>
-            더보기
-          </span>
         </div>
       </div>
 
@@ -38,13 +36,13 @@ export function TrendingVideosSection({ channelId }: { channelId: string }) {
           ))}
         </div>
       ) : (
-        <PlanGate requiredPlan='STARTER'>
+        <BlurPlanGate requiredPlan='STARTER' forceLocked={!channelId}>
           <div className='grid grid-cols-2 gap-4'>
             {videos.slice(0, 4).map((video) => (
               <VideoCard key={video.id} {...video} />
             ))}
           </div>
-        </PlanGate>
+        </BlurPlanGate>
       )}
     </section>
   )

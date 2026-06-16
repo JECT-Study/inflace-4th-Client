@@ -49,3 +49,4 @@ src/shared/tokens/tokens.generated.ts
 
 #claude
 .claude
+.agents
