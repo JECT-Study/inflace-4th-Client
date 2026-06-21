@@ -29,9 +29,10 @@ export function CompetitorPage() {
     DEFAULT_COMPETITOR_FILTER
   )
 
-  /* 검색하기로 확정된 필터 — 이 값이 있어야 API 호출됨 */
-  const [appliedFilter, setAppliedFilter] =
-    useState<CompetitorFilterState | null>(null)
+  /* 검색하기로 확정된 필터 — 초기 진입 시 기본 필터로 기본 영상 피드를 노출 */
+  const [appliedFilter, setAppliedFilter] = useState<CompetitorFilterState>(
+    DEFAULT_COMPETITOR_FILTER
+  )
 
   /* 선택된 영상 ID 집합 (최대 10개) */
   const [selectedVideoIds, setSelectedVideoIds] = useState<Set<string>>(
@@ -57,10 +58,10 @@ export function CompetitorPage() {
     setDraftFilter((prev) => ({ ...prev, [key]: value }))
   }
 
-  /* 초기화: 편집 필터 + 적용 필터 + 선택/분석 영상 모두 초기 상태로 */
+  /* 초기화: 편집 필터 + 적용 필터(기본 피드) + 선택/분석 영상 모두 초기 상태로 */
   function handleReset() {
     setDraftFilter(DEFAULT_COMPETITOR_FILTER)
-    setAppliedFilter(null)
+    setAppliedFilter(DEFAULT_COMPETITOR_FILTER)
     setSelectedVideoIds(new Set())
     setAnalyzedVideoIds([])
   }
@@ -75,7 +76,6 @@ export function CompetitorPage() {
 
   /* 정렬 변경: 검색 결과에 즉시 반영 */
   function handleSortChange(next: SortCriteria) {
-    if (!appliedFilter) return
     setAppliedFilter({ ...appliedFilter, sortCriteria: next })
   }
 
@@ -128,27 +128,23 @@ export function CompetitorPage() {
           />
         )}
 
-        {appliedFilter && (
-          <>
-            <CompetitorSelectionBar
-              count={selectedVideoIds.size}
-              max={MAX_SELECTED}
-              onReset={handleClearSelection}
-              onAnalyze={handleAnalyze}
-            />
+        <CompetitorSelectionBar
+          count={selectedVideoIds.size}
+          max={MAX_SELECTED}
+          onReset={handleClearSelection}
+          onAnalyze={handleAnalyze}
+        />
 
-            <CompetitorResultSection
-              videos={videos}
-              selectedVideoIds={selectedVideoIds}
-              onToggleSelect={handleToggleSelect}
-              sortCriteria={appliedFilter.sortCriteria}
-              onSortChange={handleSortChange}
-              hasNextPage={hasNextPage}
-              isFetchingNextPage={isFetchingNextPage}
-              onLoadMore={() => fetchNextPage()}
-            />
-          </>
-        )}
+        <CompetitorResultSection
+          videos={videos}
+          selectedVideoIds={selectedVideoIds}
+          onToggleSelect={handleToggleSelect}
+          sortCriteria={appliedFilter.sortCriteria}
+          onSortChange={handleSortChange}
+          hasNextPage={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+          onLoadMore={() => fetchNextPage()}
+        />
       </div>
 
       <ScrollToTopButton />
