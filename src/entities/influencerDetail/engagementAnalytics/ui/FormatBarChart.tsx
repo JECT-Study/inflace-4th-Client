@@ -35,7 +35,7 @@ export function FormatBarChart({
 
   return (
     <div className='flex flex-col gap-24'>
-      <div className='flex items-center justify-between'>
+      <div className='flex items-center gap-20'>
         <span className='text-noto-label-lg-bold text-text-and-icon-primary'>
           {title}
         </span>

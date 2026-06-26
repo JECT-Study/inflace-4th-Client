@@ -86,7 +86,7 @@ export function EngagementAnalyticsSection({
           롱폼 vs 숏폼 참여율 분석
         </span>
       </div>
-      <div className='flex gap-[12rem] px-32'>
+      <div className='flex gap-[20rem] px-32'>
         {/* 콘텐츠 비중 차트 */}
         <ContentChart data={data.formatAnalysis} />
         <div className='flex flex-1 flex-col gap-40'>
