@@ -68,10 +68,10 @@ export function ImpactMetricsCard({
             className={cn(
               'rounded-10 px-20 py-8 text-ibm-label-lg-bold text-white',
               {
-                audience: 'bg-primitive-basic-pink-400',
-                content: 'bg-primitive-basic-blue-400',
-                activity: 'bg-primitive-basic-emerald-400',
-                advertisement: 'bg-primitive-basic-fuchsia-400',
+                audience: 'bg-primitive-basic-rose-600',
+                content: 'bg-primitive-basic-rose-450',
+                activity: 'bg-primitive-basic-orange-350',
+                advertisement: 'bg-primitive-basic-yellow-200',
               }[variant ?? 'audience']
             )}>
             {badge}
@@ -92,11 +92,11 @@ export function ImpactMetricsCard({
         </div>
       </div>
       <div className='mt-24 flex flex-col border-t border-stroke-border-gray-default pt-24'>
-        <ul className='flex flex-col gap-8'>
+        <ul className='flex flex-col gap-12'>
           {subMetrics?.map((metric) => (
             <li
               key={metric.label}
-              className='flex items-center justify-between text-noto-label-sm-normal text-text-and-icon-secondary'>
+              className='flex items-center justify-between text-noto-label-xs-normal text-text-and-icon-tertiary'>
               <span>{metric.label}</span>
               <span>
                 {/* · 포함 라벨  */}

@@ -65,7 +65,7 @@ export function AdvertisementMetricsSection({
       <div className='flex h-fit w-full gap-32'>
         <ImpactMetricsCard
           title='광고 뱃지'
-          badge={IMPACT_ITEM[getImpactTier(adScore?.score ?? 0)].ad}
+          badge={IMPACT_ITEM[getImpactTier(adScore?.score ?? 0)].badge}
           mainMetric={{
             label: '협찬 비율',
             value: adScore?.score ?? 0,
