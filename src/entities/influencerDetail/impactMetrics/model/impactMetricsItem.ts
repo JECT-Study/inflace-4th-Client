@@ -1,9 +1,10 @@
 // 임팩트 지표 뱃지 점수 계산
 export function getImpactTier(score: number): number {
-  if (score >= 85) return 0
+  if (score >= 80) return 0
   if (score >= 60) return 1
   if (score >= 40) return 2
-  return 3
+  if (score >= 20) return 3
+  return 4
 }
 
 export interface ImpactItem {
