@@ -11,7 +11,7 @@ import { useYoutubeConnectModal } from '@/features/auth/model/useYoutubeConnectM
 
 export function ChannelProfilePage() {
   const { user } = useAuth()
-  const channelId = user?.userChannelDetails?.youtubeChannelId
+  const channelId = user?.userChannelDetails?.channelId?.toString()
   const openYoutubeConnectModal = useYoutubeConnectModal((s) => s.open)
 
   if (!channelId) {

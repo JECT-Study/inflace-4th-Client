@@ -20,6 +20,7 @@ export const mockUserDetails: UserDetails = {
 
 /* 유튜브 채널 정보 */
 export const mockUserChannelDetails: UserChannelDetails = {
+  channelId: 1714,
   youtubeChannelId: 'mock-channel-id',
   youtubeChannelName: '민준테크',
   youtubeChannelProfileImageUrl: mockProfileImageUrl,
