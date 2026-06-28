@@ -28,6 +28,7 @@ export function useConnectChannel() {
         useAuthStore.getState().setAuth(accessToken, {
           ...user,
           userChannelDetails: {
+            channelId: data.channelId,
             youtubeChannelId: data.youtubeChannelId,
             youtubeChannelName,
             youtubeChannelProfileImageUrl,

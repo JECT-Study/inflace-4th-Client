@@ -30,7 +30,7 @@ function VideoListSection() {
   const searchParams = useSearchParams()
   const [selectedSort, setSelectedSort] = useState<VideoSort>('LATEST')
 
-  const channelId = user?.userChannelDetails?.youtubeChannelId ?? ''
+  const channelId = user?.userChannelDetails?.channelId?.toString() ?? ''
 
   const rawFormat = searchParams?.get('format')
   const format = VALID_FORMAT.includes(rawFormat as never)

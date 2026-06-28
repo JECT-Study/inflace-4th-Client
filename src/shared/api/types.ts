@@ -72,6 +72,7 @@ export interface UserDetails {
 
 // 유튜브 채널 정보 (미연동 시 null)
 export interface UserChannelDetails {
+  channelId: number | null
   youtubeChannelId: string | null
   youtubeChannelName: string | null
   youtubeChannelProfileImageUrl: string | null
