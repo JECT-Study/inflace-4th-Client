@@ -11,7 +11,7 @@ import { SubscriberDemographicsSection } from '@/widgets/channel/subscriberDemog
 
 export function ChannelPage() {
   const { user } = useAuth()
-  const id = user?.userDetails.id ?? ''
+  const id = user?.userChannelDetails?.channelId?.toString() ?? ''
 
   return (
     <div className='flex flex-col gap-24 bg-background-gray-default pb-96'>
