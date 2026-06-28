@@ -7,7 +7,7 @@ import {
 
 export const videosHandlers = [
   http.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/channel/:channelId/videos`,
+    `${process.env.NEXT_PUBLIC_API_URL}/channels/:channelId/videos`,
     ({ request }) => {
       const url = new URL(request.url)
       const cursor = url.searchParams.get('cursor')

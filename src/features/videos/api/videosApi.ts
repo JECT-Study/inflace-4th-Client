@@ -8,7 +8,7 @@ export async function fetchVideoList(
   params?: VideoFilterParams
 ): Promise<VideosResponse> {
   const { data } = await axiosInstance.get<ApiResponse<VideosResponse>>(
-    `/channel/${channelId}/videos`,
+    `/channels/${channelId}/videos`,
     { params }
   )
   return data.responseDto
