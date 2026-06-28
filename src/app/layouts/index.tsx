@@ -1,5 +1,7 @@
+import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import { Noto_Sans_KR, IBM_Plex_Sans_KR } from 'next/font/google'
+import { GoogleTagManager } from '@next/third-parties/google'
 
 import '../styles'
 import { MSWProvider } from '@/app/providers/MSWProvider'
@@ -10,6 +12,9 @@ import { Header, Footer, AppSidebar } from '@/widgets/layout'
 import { AuthInitializer } from '@/features/auth'
 import { LoginModal, YoutubeConnectModal } from '@/widgets/auth'
 import { OnboardingModal } from '@/widgets/onboarding'
+import { GtmPageView } from '@/shared/analytics'
+
+const gtmId = process.env.NEXT_PUBLIC_GTM_ID
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
@@ -34,7 +39,13 @@ export function RootLayout({ children }: { children: React.ReactNode }) {
     <html
       lang='ko'
       className={`${notoSansKr.variable} ${ibmPlexSansKr.variable}`}>
+      {gtmId && <GoogleTagManager gtmId={gtmId} />}
       <body className='flex min-h-screen flex-col'>
+        {gtmId && (
+          <Suspense fallback={null}>
+            <GtmPageView />
+          </Suspense>
+        )}
         <MSWProvider>
           <QueryProvider>
             <AuthInitializer />

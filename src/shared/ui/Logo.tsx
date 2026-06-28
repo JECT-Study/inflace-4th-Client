@@ -15,10 +15,8 @@ export const Logo = ({ variant = 'header', className }: LogoProps) => {
       aria-label='inflace 홈으로 이동'>
       <LogoSvg
         className={cn(
-          variant === 'header' &&
-            'h-(--header-logo-height) w-(--header-logo-width)',
-          variant === 'footer' &&
-            'h-(--footer-logo-height) w-(--footer-logo-width)'
+          variant === 'header' && 'h-header-logo w-header-logo',
+          variant === 'footer' && 'h-footer-logo w-footer-logo'
         )}
         role='img'
       />

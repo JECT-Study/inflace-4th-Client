@@ -1,11 +1,13 @@
 'use client'
 
-import { ChannelProfileSection } from '@/widgets/main/channelProfile'
+import {
+  ChannelProfileSection,
+  ChannelProfileEmptyState,
+} from '@/widgets/main/channelProfile'
 import { TrendingVideosSection } from '@/widgets/main/trendingVideos'
 import { TestTrendMagazineSection } from '@/widgets/main/testTrendMagazine'
 import { useAuth } from '@/features/auth'
 import { useYoutubeConnectModal } from '@/features/auth/model/useYoutubeConnectModal'
-import { Button } from '@/shared/ui/button'
 
 export function ChannelProfilePage() {
   const { user } = useAuth()
@@ -15,20 +17,12 @@ export function ChannelProfilePage() {
   if (!channelId) {
     return (
       <div className='flex flex-col divide-y'>
-        <div className='flex h-full w-full flex-col items-center justify-center gap-16 p-3xl'>
-          <p className='text-noto-body-md-normal text-text-and-icon-secondary'>
-            유튜브 채널을 연동하면 채널 분석을 시작할 수 있어요
-          </p>
-          <Button
-            color='primary'
-            variant='filled'
-            size='md'
-            onClick={openYoutubeConnectModal}>
-            유튜브 연동하기
-          </Button>
-        </div>
+        {/* 채널 미연동 안내 */}
+        <ChannelProfileEmptyState onConnect={openYoutubeConnectModal} />
 
+        {/* 콘텐츠: channelId 없이도 mock 데이터로 dim/lock 미리보기를 보여줌 */}
         <div className='flex h-fit w-full flex-col px-24 pt-40 pb-96'>
+          <TrendingVideosSection />
           <TestTrendMagazineSection />
         </div>
       </div>

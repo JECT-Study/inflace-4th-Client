@@ -42,9 +42,13 @@ export function TestTrendMagazineSection() {
           <p className='text-noto-title-sm-thin text-text-and-icon-tertiary'>
             매주 화요일 업데이트 되는 트렌드 매거진
           </p>
-          <span className='size-fit cursor-not-allowed gap-10 pt-1 pr-2 pb-3 pl-2 text-noto-label-sm-bold text-text-and-icon-tertiary'>
+          <Link
+            href='https://www.instagram.com/inflace_official/'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='size-fit gap-10 pt-1 pr-2 pb-3 pl-2 text-noto-label-sm-bold text-text-and-icon-tertiary'>
             더보기
-          </span>
+          </Link>
         </div>
       </div>
 

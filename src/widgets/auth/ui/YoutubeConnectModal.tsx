@@ -12,6 +12,9 @@ import {
   YoutubeConnectActions,
 } from '@/features/auth'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
+import Image from 'next/image'
+
+import youtubeConnectModalImage from '@/widgets/auth/ui/youtube-connect-modal-image.png'
 
 export function YoutubeConnectModal() {
   const isOpen = useYoutubeConnectModal((s) => s.isOpen)
@@ -43,7 +46,11 @@ export function YoutubeConnectModal() {
           </div>
 
           {/* 목업 이미지 */}
-          <div className='h-[32.6rem] w-full bg-background-gray-default' />
+          <Image
+            src={youtubeConnectModalImage}
+            alt='유튜브 채널 연동 목업 이미지'
+            className='h-[32.6rem] w-full rounded-8 object-cover'
+          />
         </div>
 
         <YoutubeConnectActions

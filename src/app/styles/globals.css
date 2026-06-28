@@ -16,13 +16,13 @@
   --spacing-144: 14.4rem;
 
   /* === section Header === */
-  --header-logo-width: 8.7rem;
-  --header-logo-height: 2.8rem;
+  --width-header-logo: 8.7rem;
+  --height-header-logo: 2.8rem;
   --spacing-header-height: 6.6rem;
 
   /* === section Footer === */
-  --footer-logo-width: 18rem;
-  --footer-logo-height: 5.9rem;
+  --width-footer-logo: 18rem;
+  --height-footer-logo: 5.9rem;
 }
 
 :root {
