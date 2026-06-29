@@ -38,7 +38,7 @@ export function KpiSection({ channelId }: { channelId: string }) {
           <IconParticipation className='size-20 text-btn-primary-text-disabled' />
         }
         label='평균 참여율'
-        value={data.avgEngagementRate}
+        value={data.avgEngagementRate.toFixed(0)}
         unit='%'
       />
 
@@ -46,7 +46,7 @@ export function KpiSection({ channelId }: { channelId: string }) {
       <KpiCard
         icon={<IconEye className='size-20 text-btn-primary-text-disabled' />}
         label='시청 유지율'
-        value={data.avgRetentionRate}
+        value={data.avgRetentionRate.toFixed(0)}
         unit='%'
       />
 

@@ -6,16 +6,17 @@ import { BasePieChart, type PieDataPoint } from '@/shared/ui/chart'
 
 export function SubscriberChart({ data }: { data: SubscriberRatioDto }) {
   const { ratio } = data
+  const roundedRatio = Number(ratio.toFixed(1))
 
   const pieData: PieDataPoint[] = [
     {
       name: '기존 구독자',
-      value: 100 - ratio,
+      value: 100 - roundedRatio,
       color: 'bg-brand-primary',
     },
     {
       name: '신규 구독자',
-      value: ratio,
+      value: roundedRatio,
       color: 'bg-btn-primary-filled-disabled',
     },
   ]

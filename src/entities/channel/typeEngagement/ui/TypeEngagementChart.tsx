@@ -14,12 +14,12 @@ export function TypeEngagementChart({
   const pieData: PieDataPoint[] = [
     {
       name: '롱폼',
-      value: longFormEngagementRate,
+      value: Number(longFormEngagementRate.toFixed(1)),
       color: 'bg-brand-primary',
     },
     {
       name: '숏폼',
-      value: shortFormEngagementRate,
+      value: Number(shortFormEngagementRate.toFixed(1)),
       color: 'bg-btn-primary-filled-disabled',
     },
   ]

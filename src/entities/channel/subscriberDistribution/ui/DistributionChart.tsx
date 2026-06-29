@@ -38,7 +38,7 @@ export function DistributionChart({
           <div
             className='flex h-24 items-center justify-end text-noto-body-xs-normal text-text-and-icon-default'
             key={item.label}>
-            {item.percentage}%
+            {item.percentage.toFixed(1)}%
           </div>
         ))}
       </div>

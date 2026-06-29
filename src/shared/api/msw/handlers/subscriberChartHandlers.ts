@@ -7,7 +7,7 @@ export const subscriberChartHandlers = [
     () => {
       return HttpResponse.json({
         success: true,
-        responseDto: mockSubscriber,
+        responseDto: { subscriberRatio: mockSubscriber },
         error: null,
       })
     }

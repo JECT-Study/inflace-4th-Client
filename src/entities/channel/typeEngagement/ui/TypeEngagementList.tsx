@@ -43,7 +43,7 @@ export function TypeEngagementList({ data }: Props) {
             <TableCell>
               {item.contentType === 'LONG_FORM' ? '롱폼' : '숏폼'}
             </TableCell>
-            <TableCell>{item.engagementRate}%</TableCell>
+            <TableCell>{item.engagementRate.toFixed(0)}%</TableCell>
           </TableRow>
         ))}
       </TableBody>
