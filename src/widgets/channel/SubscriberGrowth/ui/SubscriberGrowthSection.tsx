@@ -24,8 +24,8 @@ export function SubscriberGrowthSection({ channelId }: { channelId: string }) {
       <div className='flex flex-col gap-24 rounded-16 bg-white p-24 shadow-[0_2px_6px_0_rgba(13,13,13,0.04)]'>
         <div className='flex h-fit w-full items-center justify-between'>
           <div className='flex h-fit w-fit gap-8'>
-            <span className='rounded-full bg-background-brand-default p-4'>
-              <IconUser className='text-btn-primary-text-disabled size-24' />
+            <span className='bg-background-brand-default rounded-full p-4'>
+              <IconUser className='size-24 text-btn-primary-text-disabled' />
             </span>
             <span className='text-ibm-title-md-normal'>구독자 추이</span>
           </div>
@@ -38,8 +38,8 @@ export function SubscriberGrowthSection({ channelId }: { channelId: string }) {
     <div className='flex flex-col gap-24 rounded-16 bg-white p-24 shadow-[0_2px_6px_0_rgba(13,13,13,0.04)]'>
       <div className='flex h-fit w-full items-center justify-between'>
         <div className='flex h-fit w-fit items-center gap-8'>
-          <span className='rounded-full bg-background-brand-default p-4'>
-            <IconUser className='text-btn-primary-text-disabled size-24' />
+          <span className='bg-background-brand-default rounded-full p-4'>
+            <IconUser className='size-24 text-btn-primary-text-disabled' />
           </span>
           <span className='text-ibm-title-md-normal'>구독자 추이</span>
         </div>

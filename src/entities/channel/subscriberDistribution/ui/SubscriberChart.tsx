@@ -6,6 +6,7 @@ import { BasePieChart, type PieDataPoint } from '@/shared/ui/chart'
 
 export function SubscriberChart({ data }: { data: SubscriberRatioDto }) {
   const { ratio } = data
+  const formatPercent = (value: number) => String(Number(value.toFixed(1)))
 
   const pieData: PieDataPoint[] = [
     {
@@ -26,14 +27,14 @@ export function SubscriberChart({ data }: { data: SubscriberRatioDto }) {
         data={pieData}
         dataKey='value'
         nameKey='name'
-        tooltipFormatter={(value) => `${value}%`}
+        tooltipFormatter={(value) => `${formatPercent(value)}%`}
       />
       {/* 기존 / 신규 구독자 차트 범례 */}
       <div className='flex flex-col gap-12'>
         {pieData.map((item) => (
           <ChartLegend
             key={item.name}
-            value={item.value}
+            value={formatPercent(item.value)}
             label={item.name}
             variant={item.color}
             unit='%'
