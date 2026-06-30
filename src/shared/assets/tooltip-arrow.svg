@@ -1,0 +1,27 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 20 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="cut-top-shadow">
+      <rect x="-10" y="0" width="40" height="20" />
+    </clipPath>
+    
+    <filter id="figma-drop-shadow" x="-50%" y="0%" width="200%" height="300%">
+      <feDropShadow 
+        dx="0" 
+        dy="2" 
+        stdDeviation="6" 
+        flood-color="#0E2646" 
+        flood-opacity="0.24" 
+      />
+    </filter>
+  </defs>
+  
+  <g filter="url(#figma-drop-shadow)" clip-path="url(#cut-top-shadow)">
+    <path 
+      id="Rectangle 34624338" 
+      fill-rule="evenodd" 
+      clip-rule="evenodd" 
+      d="M20 0L15 4.8C13.5788 6.16439 11.7894 8 10 8C8.21062 8 6.42124 6.16439 5 4.8L0 0H20Z" 
+      fill="var(--fill-0, white)"
+    />
+  </g>
+</svg>

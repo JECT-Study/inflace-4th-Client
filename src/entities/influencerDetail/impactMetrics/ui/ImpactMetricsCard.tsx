@@ -1,12 +1,15 @@
 import { cn } from '@/shared/lib/utils'
-import React from 'react'
+import { LockTooltip } from '@/shared/ui/LockTooltip'
+import IconQuestion from '@/shared/assets/question-bold.svg'
 
 interface MetricRow {
-  label: string
+  label?: string
   state?: string
   prefix?: string
   value: number | string
   unit?: string
+  tooltip?: string
+  side?: 'top' | 'right' | 'bottom' | 'left'
 }
 
 interface ImpactMetricsCardProps {
@@ -14,7 +17,7 @@ interface ImpactMetricsCardProps {
   badge?: string
   mainMetric?: MetricRow
   subMetrics?: MetricRow[]
-  variant?: 'audience' | 'content' | 'activity' | 'advertisement'
+  tier?: 0 | 1 | 2 | 3 | 4
   empty?: boolean
   chart?: React.ReactNode
 }
@@ -25,7 +28,7 @@ export function ImpactMetricsCard({
   mainMetric,
   subMetrics,
   empty,
-  variant,
+  tier,
   chart,
 }: ImpactMetricsCardProps) {
   if (empty) {
@@ -68,11 +71,12 @@ export function ImpactMetricsCard({
             className={cn(
               'rounded-10 px-20 py-8 text-ibm-label-lg-bold text-white',
               {
-                audience: 'bg-primitive-basic-pink-400',
-                content: 'bg-primitive-basic-blue-400',
-                activity: 'bg-primitive-basic-emerald-400',
-                advertisement: 'bg-primitive-basic-fuchsia-400',
-              }[variant ?? 'audience']
+                0: 'bg-primitive-basic-rose-600',
+                1: 'bg-primitive-basic-rose-450',
+                2: 'bg-primitive-basic-orange-350',
+                3: 'bg-primitive-basic-amber-300',
+                4: 'bg-primitive-basic-yellow-200',
+              }[tier ?? 4]
             )}>
             {badge}
           </span>
@@ -92,12 +96,23 @@ export function ImpactMetricsCard({
         </div>
       </div>
       <div className='mt-24 flex flex-col border-t border-stroke-border-gray-default pt-24'>
-        <ul className='flex flex-col gap-8'>
+        <ul className='flex flex-col gap-12'>
           {subMetrics?.map((metric) => (
             <li
               key={metric.label}
-              className='flex items-center justify-between text-noto-label-sm-normal text-text-and-icon-secondary'>
-              <span>{metric.label}</span>
+              className='flex items-center justify-between text-noto-label-xs-normal text-text-and-icon-tertiary'>
+              <span className='flex items-center gap-2'>
+                {metric.label}
+                {metric.tooltip && (
+                  <LockTooltip label={metric.tooltip} side={metric.side}>
+                    <button
+                      type='button'
+                      aria-label={`${metric.label ?? '지표'} 설명 보기`}>
+                      <IconQuestion className='size-16 text-text-and-icon-disabled' />
+                    </button>
+                  </LockTooltip>
+                )}
+              </span>
               <span>
                 {/* · 포함 라벨  */}
                 {metric.state && (
