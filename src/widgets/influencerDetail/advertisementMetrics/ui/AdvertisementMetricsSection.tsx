@@ -63,28 +63,32 @@ export function AdvertisementMetricsSection({
 
       {/* 광고 적합도 */}
       <div className='flex h-fit w-full gap-32'>
-        <ImpactMetricsCard
-          title='광고 적합도'
-          badge={IMPACT_ITEM[getImpactTier(adScore?.score ?? 0)].badge}
-          mainMetric={{
-            value: adScore?.score ?? 0,
-            unit: '점',
-          }}
-          subMetrics={[
-            {
-              label: '협찬 영상 비율',
-              value: adScore?.collaborationRate ?? 0,
-              unit: '%',
-            },
-            {
-              label: '조회수 안정성',
-              value: getViewCvLabel(adScore?.viewStabilityCv ?? 0),
-              tooltip: `영상별 조회수 차이가 얼마나 큰지 보여줍니다. \n차이가 작을수록 조회수가 안정적인 채널입니다.`,
-              side: 'right',
-            },
-          ]}
-          tier={getImpactTier(adScore?.score ?? 0)}
-        />
+        {adScore ? (
+          <ImpactMetricsCard
+            title='광고 적합도'
+            badge={IMPACT_ITEM[getImpactTier(adScore.score)].badge}
+            mainMetric={{
+              value: adScore.score,
+              unit: '점',
+            }}
+            subMetrics={[
+              {
+                label: '협찬 영상 비율',
+                value: adScore.collaborationRate,
+                unit: '%',
+              },
+              {
+                label: '조회수 안정성',
+                value: getViewCvLabel(adScore.viewStabilityCv),
+                tooltip: `영상별 조회수 차이가 얼마나 큰지 보여줍니다. \n차이가 작을수록 조회수가 안정적인 채널입니다.`,
+                side: 'right',
+              },
+            ]}
+            tier={getImpactTier(adScore.score)}
+          />
+        ) : (
+          <ImpactMetricsCard empty />
+        )}
 
         {/* 롱폼 vs 숏폼 광고 참여율 분석 카드 */}
         <ImpactMetricsCard

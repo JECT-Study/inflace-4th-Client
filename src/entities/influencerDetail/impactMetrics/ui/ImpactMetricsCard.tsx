@@ -105,7 +105,9 @@ export function ImpactMetricsCard({
                 {metric.label}
                 {metric.tooltip && (
                   <LockTooltip label={metric.tooltip} side={metric.side}>
-                    <button type='button'>
+                    <button
+                      type='button'
+                      aria-label={`${metric.label ?? '지표'} 설명 보기`}>
                       <IconQuestion className='size-16 text-text-and-icon-disabled' />
                     </button>
                   </LockTooltip>
