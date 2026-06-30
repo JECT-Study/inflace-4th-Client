@@ -10,16 +10,17 @@ export function TypeEngagementChart({
   data: TypeEngagementSummaryDto
 }) {
   const { longFormEngagementRate, shortFormEngagementRate } = data
+  const formatPercent = (value: number) => String(Number(value.toFixed(1)))
 
   const pieData: PieDataPoint[] = [
     {
       name: '롱폼',
-      value: Number(longFormEngagementRate.toFixed(1)),
+      value: longFormEngagementRate,
       color: 'bg-brand-primary',
     },
     {
       name: '숏폼',
-      value: Number(shortFormEngagementRate.toFixed(1)),
+      value: shortFormEngagementRate,
       color: 'bg-btn-primary-filled-disabled',
     },
   ]
@@ -31,14 +32,14 @@ export function TypeEngagementChart({
         data={pieData}
         dataKey='value'
         nameKey='name'
-        tooltipFormatter={(value) => `${value}%`}
+        tooltipFormatter={(value) => `${formatPercent(value)}%`}
       />
       {/* 롱폼 / 숏폼 평균 참여율 차트 범례 */}
       <div className='flex flex-col gap-12'>
         {pieData.map((item) => (
           <ChartLegend
             key={item.name}
-            value={item.value}
+            value={formatPercent(item.value)}
             label={item.name}
             variant={item.color}
             unit='%'
