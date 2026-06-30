@@ -12,7 +12,8 @@ import {
   FrequencyTrend,
 } from '@/entities/influencerDetail'
 import { useInfluencerDetail } from '@/features/influencerDetail'
-import { LockTooltip } from '@/features/planGate/ui/LockTooltip'
+import { getViewCvLabel } from '@/shared/lib/format'
+import { LockTooltip } from '@/shared/ui/LockTooltip'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 import IconChart from '@/shared/assets/chart-bold.svg'
 import IconQuestion from '@/shared/assets/question-bold.svg'
@@ -132,69 +133,85 @@ export function ImpactMetricsSection({ channelId }: { channelId: string }) {
 
       {/* 임팩트 지표 카드 */}
       <div className='flex h-fit w-full gap-32'>
-        {/* 팬층 뱃지 */}
+        {/* 팬 반응 */}
         <ImpactMetricsCard
-          title='팬층 뱃지'
+          title='팬 반응'
           badge={IMPACT_ITEM[getImpactTier(audience.score)].badge}
           mainMetric={{
-            label: '참여율',
-            value: audience.engagementRate.toFixed(1),
-            unit: '%',
+            value: audience.score.toFixed(0),
+            unit: '점',
           }}
           subMetrics={[
             {
-              label: '좋아요 비율',
+              label: '평균 좋아요 비율',
               value: audience.likeRate.toFixed(1),
               unit: '%',
             },
             {
-              label: '댓글 비율',
+              label: '평균 댓글 비율',
               value: audience.commentRate.toFixed(1),
               unit: '%',
             },
             {
-              label: '구독자 대비 조회',
-              value: audience.viewsPerSubscriberRate.toFixed(1),
+              label: '평균 참여율',
+              value: audience.engagementRate.toFixed(1),
               unit: '%',
             },
+            {
+              label: '구독자 대비 조회율',
+              value: audience.viewsPerSubscriberRate.toFixed(1),
+              unit: '%',
+              tooltip: '구독자 수에 비해 영상이 얼마나 조회되는지 보여줍니다.',
+              side: 'right',
+            },
           ]}
-          variant='audience'
+          tier={getImpactTier(audience.score)}
         />
 
-        {/* 콘텐츠 뱃지 */}
+        {/* 콘텐츠 확산력 */}
         <ImpactMetricsCard
-          title='콘텐츠 뱃지'
+          title='콘텐츠 확산력'
           badge={IMPACT_ITEM[getImpactTier(content.score)].badge}
           mainMetric={{
-            label: '2X 바이럴',
-            value: content.viral2xRate.toFixed(0),
-            unit: '%',
+            value: content.score.toFixed(0),
+            unit: '점',
           }}
           subMetrics={[
             {
-              label: '5X 바이럴',
-              value: content.viral5xRate.toFixed(0),
+              label: '조회수 2배 영상',
+              value: content.viral2xRate.toFixed(1),
               unit: '%',
+            },
+            {
+              label: '조회수 5배 영상',
+              value: content.viral5xRate.toFixed(1),
+              unit: '%',
+            },
+            {
+              label: '조회수 성장률',
+              value: content.growthTrendRate.toFixed(1),
+              unit: '%',
+              tooltip:
+                '최근 영상의 평균 조회수가 이전 영상보다 얼마나 증가했는지 보여줍니다.',
+              side: 'left',
             },
             {
               label: 'VPH 중앙값',
               value: content.medianVph.toFixed(0),
-            },
-            {
-              label: '성장 추세',
-              value: content.growthTrendRate.toFixed(0),
-              unit: '%',
+              unit: '회/시간',
+              tooltip:
+                '최근 영상들이 1시간에 평균 몇 회 조회되고 있는지를 나타내는 지표입니다',
+              side: 'left',
             },
           ]}
-          variant='content'
+          tier={getImpactTier(content.score)}
         />
 
-        {/* 활동 뱃지 */}
+        {/* 업로드 활동성 */}
         <ImpactMetricsCard
-          title='활동 뱃지'
+          title='업로드 활동성'
           badge={IMPACT_ITEM[getImpactTier(activity.score)].badge}
           mainMetric={{
-            label: '최근 업로드',
             value: activity.recentUpload,
             unit: '일 전',
           }}
@@ -210,32 +227,32 @@ export function ImpactMetricsSection({ channelId }: { channelId: string }) {
               value: frequencyTrendValue[activity.frequencyTrend],
             },
           ]}
-          variant='activity'
+          tier={getImpactTier(activity.score)}
         />
 
-        {/* 광고 뱃지 */}
+        {/* 광고 적합도 */}
         {advertisement ? (
           <ImpactMetricsCard
-            title='광고 뱃지'
+            title='광고 적합도'
             badge={IMPACT_ITEM[getImpactTier(advertisement.score)].badge}
             mainMetric={{
-              label: '협찬 비율',
               value: advertisement.score.toFixed(0),
               unit: '점',
             }}
             subMetrics={[
               {
-                label: '조회수 안정성',
-                prefix: 'CV ',
-                value: advertisement.viewCoefficientOfVariation.toFixed(2),
+                label: '협찬 영상 비율',
+                value: advertisement.subscriberHealthRate.toFixed(1),
+                unit: '% ',
               },
               {
-                label: '구독 건강도',
-                value: advertisement.subscriberHealthRate.toFixed(1),
-                unit: '%',
+                label: '조회수 변동성',
+                value: getViewCvLabel(advertisement.viewCoefficientOfVariation),
+                tooltip: `영상별 조회수 차이가 얼마나 큰지 보여줍니다. \n차이가 작을수록 조회수가 안정적인 채널입니다.`,
+                side: 'left',
               },
             ]}
-            variant='advertisement'
+            tier={getImpactTier(advertisement.score)}
           />
         ) : (
           <ImpactMetricsCard empty />

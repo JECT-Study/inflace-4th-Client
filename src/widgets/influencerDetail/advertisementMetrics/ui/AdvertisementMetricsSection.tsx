@@ -9,7 +9,7 @@ import {
   AdvertisementFilterResponseDto,
   VIDEO_FORMAT_LABEL,
 } from '@/features/influencerDetail'
-import { format10Thousands } from '@/shared/lib/format'
+import { format10Thousands, getViewCvLabel } from '@/shared/lib/format'
 import IconOutlier from '@/shared/assets/outlier-bold.svg'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 
@@ -28,7 +28,7 @@ export function AdvertisementMetricsSection({
             <IconOutlier className='size-24 text-btn-primary-text-disabled' />
           </span>
           <p className='text-ibm-title-md-normal text-text-and-icon-default'>
-            임팩트 지표
+            광고 지표 분석
           </p>
           <span className='text-noto-body-xxs-normal text-text-and-icon-tertiary'>
             검색 기간 내 결과
@@ -54,43 +54,36 @@ export function AdvertisementMetricsSection({
           <IconOutlier className='size-24 text-btn-primary-text-disabled' />
         </span>
         <p className='text-ibm-title-md-normal text-text-and-icon-default'>
-          임팩트 지표
+          광고 지표 분석
         </p>
         <span className='text-noto-body-xxs-normal text-text-and-icon-tertiary'>
           검색 기간 내 결과
         </span>
       </div>
 
-      {/* 광고 뱃지 카드 */}
+      {/* 광고 적합도 */}
       <div className='flex h-fit w-full gap-32'>
         <ImpactMetricsCard
-          title='광고 뱃지'
+          title='광고 적합도'
           badge={IMPACT_ITEM[getImpactTier(adScore?.score ?? 0)].badge}
           mainMetric={{
-            label: '협찬 비율',
             value: adScore?.score ?? 0,
             unit: '점',
           }}
           subMetrics={[
             {
-              label: '조회수 안정성',
-              state: adScore?.viewStability ?? '',
-              value: adScore?.viewStabilityCv ?? 0,
-            },
-            {
-              label: '구독 건강도',
-              state: adScore?.subscriptionHealth ?? '',
-              value: adScore?.subscriptionHealthRate ?? 0,
-              unit: '%',
-            },
-            {
-              label: '협찬 경험도',
-              state: adScore?.collaborationExperience ?? '',
+              label: '협찬 영상 비율',
               value: adScore?.collaborationRate ?? 0,
               unit: '%',
             },
+            {
+              label: '조회수 안정성',
+              value: getViewCvLabel(adScore?.viewStabilityCv ?? 0),
+              tooltip: `영상별 조회수 차이가 얼마나 큰지 보여줍니다. \n차이가 작을수록 조회수가 안정적인 채널입니다.`,
+              side: 'right',
+            },
           ]}
-          variant='advertisement'
+          tier={getImpactTier(adScore?.score ?? 0)}
         />
 
         {/* 롱폼 vs 숏폼 광고 참여율 분석 카드 */}

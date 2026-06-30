@@ -3,7 +3,7 @@ import LockButton from '@/features/planGate/assets/lock-button.png'
 import { type ReactNode } from 'react'
 import type { UserPlan } from '@/shared/api/types'
 import { usePlanGate } from '@/features/planGate/model/usePlanGate'
-import { LockTooltip } from '@/features/planGate/ui/LockTooltip'
+import { LockTooltip } from '@/shared/ui/LockTooltip'
 
 interface BlurPlanGateProps {
   requiredPlan: UserPlan

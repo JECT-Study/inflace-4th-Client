@@ -16,28 +16,28 @@ export const mockInfluencerDetail: InfluencerDetailResponseDto = {
   bookmarked: false,
   categories: ['반려동물/동물', '자동차'],
   audience: {
-    score: 35.3,
+    score: 20,
     engagementRate: 0.83,
     likeRate: 0.82,
     commentRate: 0.01,
     viewsPerSubscriberRate: 5109.43,
   },
   content: {
-    score: 51.82,
+    score: 100,
     viral2xRate: 12.0,
     viral5xRate: 8.0,
     medianVph: 476.31,
     growthTrendRate: -26.57,
   },
   activity: {
-    score: 79.18,
+    score: 79,
     recentUpload: 15,
     uploadCycle: 17.02,
     frequencyTrend: 'INCREASING',
   },
   advertisement: {
-    score: 27.66,
-    viewCoefficientOfVariation: 2.17,
+    score: 59,
+    viewCoefficientOfVariation: 0.17,
     subscriberHealthRate: 5109.43,
   },
   formatAnalysis: {

@@ -45,6 +45,13 @@ export function formatYAxisPercent(value: number, ticks: number[]): string {
   return String(value)
 }
 
+// 조회수 변동계수(CV) 안정성 라벨
+export function getViewCvLabel(cv: number): string {
+  if (cv < 0.4) return '매우 안정'
+  if (cv <= 1.8) return '안정'
+  return '불안정'
+}
+
 /* 날짜 포맷팅 */
 
 // 년, 월, 일, 시, 분을 반환
