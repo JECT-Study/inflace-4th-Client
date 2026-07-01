@@ -1,15 +1,29 @@
 'use client'
 
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/avatar'
+import IconPlus from '@/shared/assets/plus-bold.svg'
 import { Button } from '@/shared/ui/button'
 import { formatDate } from '@/shared/lib/format'
 import { useChannelProfile } from '@/features/main/channelProfile'
 import type { ChannelProfileDto } from '@/entities/main/channelProfile'
+import { useDisconnectChannel, useYoutubeConnectModal } from '@/features/auth'
+import { ChannelDisconnectModal } from './ChannelDisconnectModal'
 
 export function LinkedChannelsForDeleteCard() {
   const { data: channel } = useChannelProfile()
+  const [isDisconnectModalOpen, setDisconnectModalOpen] = useState(false)
+  const { mutate: disconnectChannel, isPending: isDisconnecting } =
+    useDisconnectChannel()
+  const openYoutubeConnectModal = useYoutubeConnectModal((s) => s.open)
+
+  function handleConfirmDisconnect() {
+    disconnectChannel(undefined, {
+      onSuccess: () => setDisconnectModalOpen(false),
+    })
+  }
 
   return (
     <div className='flex w-full flex-col gap-24 rounded-16 bg-white p-32'>
@@ -22,12 +36,38 @@ export function LinkedChannelsForDeleteCard() {
         </p>
       </div>
 
-      {channel && <ChannelRow channel={channel} />}
+      {channel ? (
+        <ChannelRow
+          channel={channel}
+          onRequestDisconnect={() => setDisconnectModalOpen(true)}
+        />
+      ) : (
+        <button
+          type='button'
+          onClick={openYoutubeConnectModal}
+          className='flex w-full cursor-pointer items-center justify-center gap-6 rounded-6 border border-stroke-border-gray-default px-20 py-10 text-noto-label-lg-normal text-text-and-icon-tertiary'>
+          <IconPlus className='size-[1.7rem]' />
+          채널 연동하기
+        </button>
+      )}
+
+      <ChannelDisconnectModal
+        open={isDisconnectModalOpen}
+        onClose={() => setDisconnectModalOpen(false)}
+        onConfirm={handleConfirmDisconnect}
+        isPending={isDisconnecting}
+      />
     </div>
   )
 }
 
-function ChannelRow({ channel }: { channel: ChannelProfileDto }) {
+function ChannelRow({
+  channel,
+  onRequestDisconnect,
+}: {
+  channel: ChannelProfileDto
+  onRequestDisconnect: () => void
+}) {
   const router = useRouter()
   const { year, month, day } = formatDate(channel.enteredAt)
 
@@ -64,6 +104,7 @@ function ChannelRow({ channel }: { channel: ChannelProfileDto }) {
             />
             <button
               type='button'
+              onClick={onRequestDisconnect}
               className='cursor-pointer px-8 py-4 text-noto-body-xxs-bold text-brand-secondary-weaker underline'>
               연동 해지
             </button>
