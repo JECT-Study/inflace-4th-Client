@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/shadcn/avatar'
 import IconPlus from '@/shared/assets/plus-bold.svg'
 import { Button } from '@/shared/ui/button'
 import { formatDate } from '@/shared/lib/format'
+import { useAuthStore } from '@/shared/api/authStore'
 import { useChannelProfile } from '@/features/main/channelProfile'
 import type { ChannelProfileDto } from '@/entities/main/channelProfile'
 import { useDisconnectChannel, useYoutubeConnectModal } from '@/features/auth'
@@ -14,13 +15,17 @@ import { ChannelDisconnectModal } from './ChannelDisconnectModal'
 
 export function LinkedChannelsForDeleteCard() {
   const { data: channel } = useChannelProfile()
+  const channelId = useAuthStore(
+    (s) => s.user?.userChannelDetails?.channelId ?? null
+  )
   const [isDisconnectModalOpen, setDisconnectModalOpen] = useState(false)
   const { mutate: disconnectChannel, isPending: isDisconnecting } =
     useDisconnectChannel()
   const openYoutubeConnectModal = useYoutubeConnectModal((s) => s.open)
 
   function handleConfirmDisconnect() {
-    disconnectChannel(undefined, {
+    if (channelId == null) return
+    disconnectChannel(channelId, {
       onSuccess: () => setDisconnectModalOpen(false),
     })
   }

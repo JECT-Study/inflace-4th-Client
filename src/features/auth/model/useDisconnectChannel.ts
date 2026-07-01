@@ -10,7 +10,7 @@ export function useDisconnectChannel() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: disconnectChannel,
+    mutationFn: (channelId: number) => disconnectChannel(channelId),
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ['channelProfile'] })
       const previousProfile = queryClient.getQueryData<ChannelProfileDto>([

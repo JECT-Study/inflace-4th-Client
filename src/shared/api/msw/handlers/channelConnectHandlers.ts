@@ -26,7 +26,7 @@ export const channelConnectHandlers = [
   ),
 
   http.delete(
-    `${process.env.NEXT_PUBLIC_API_URL}/channels/connect`,
+    `${process.env.NEXT_PUBLIC_API_URL}/channels/connect/:channelId`,
     async () => {
       return HttpResponse.json({ success: true, responseDto: null, error: null })
     }
