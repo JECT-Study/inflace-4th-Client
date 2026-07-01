@@ -1,7 +1,6 @@
 'use client'
 
 import axios from 'axios'
-import { mockInfluencerDetail } from '@/entities/influencerDetail'
 import {
   ContentChart,
   FormatBarChart,
@@ -28,8 +27,6 @@ export function EngagementAnalyticsSection({
     isError &&
     axios.isAxiosError(error) &&
     error.response?.data?.error?.code === 'CHANNEL_INSIGHT_400'
-
-  const data = apiData ?? mockInfluencerDetail
 
   if (isFetching || (isError && !insightErrorCode)) {
     return (
@@ -74,6 +71,9 @@ export function EngagementAnalyticsSection({
       </div>
     )
   }
+
+  if (!apiData) return null
+  const data = apiData
 
   return (
     <div className='flex flex-col gap-32 rounded-12 bg-white p-24 pb-32 shadow-[0_2px_6px_0_rgba(13,13,13,0.04)]'>

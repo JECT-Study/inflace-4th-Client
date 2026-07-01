@@ -4,7 +4,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import LeftwardsArrowIcon from '@/shared/assets/leftwards-arrow-bold.svg'
 import { useAuth } from '@/features/auth'
-import { useVideoDetail, mockVideoDetail } from '@/features/videoDetail'
+import { useVideoDetail } from '@/features/videoDetail'
 import { VideoBasicInfo } from '@/widgets/videoDetail/basicInfo'
 import { VideoStatsSection } from '@/widgets/videoDetail/stats'
 import { RetentionSection } from '@/widgets/videoDetail/retention'
@@ -22,8 +22,7 @@ export function VideoDetailPage() {
   const params = useParams<{ videoId: string }>()
   const videoId = params!.videoId
 
-  const { data: apiData, isLoading, isError } = useVideoDetail(videoId)
-  const video = apiData ?? mockVideoDetail
+  const { data: video, isLoading, isError } = useVideoDetail(videoId)
 
   if (isLoading) return null
 
@@ -37,6 +36,7 @@ export function VideoDetailPage() {
     )
   }
   if (isInitializing) return null
+  if (!video) return null
 
   return (
     <div className='flex w-full flex-col gap-24 bg-background-gray-default px-24 pt-24 pb-96'>

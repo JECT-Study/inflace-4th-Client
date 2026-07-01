@@ -14,10 +14,7 @@ import {
   formatThousands,
   formatDate,
 } from '@/shared/lib/format'
-import {
-  useChannelProfile,
-  mockChannelProfile,
-} from '@/features/main/channelProfile'
+import { useChannelProfile } from '@/features/main/channelProfile'
 import RedirectIcon from '@/shared/assets/redirect-bold.svg'
 
 type ChannelProfileSectionVariant = 'default' | 'dashboard'
@@ -36,10 +33,9 @@ export function ChannelProfileSection({
   variant = 'default',
 }: ChannelProfileSectionProps) {
   const queryClient = useQueryClient()
-  const { data: apiData, isLoading } = useChannelProfile()
-  const data = apiData ?? mockChannelProfile
+  const { data, isLoading } = useChannelProfile()
 
-  if (isLoading) {
+  if (isLoading || !data) {
     return (
       //스켈레톤 UI, 로딩중일 때 상태를 표시합니다.
       <section className='flex h-fit w-full flex-col gap-[10rem] p-(--semantic-breakpoint-spacing-3xl) md:flex-row'>

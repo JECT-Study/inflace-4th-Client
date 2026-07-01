@@ -1,6 +1,5 @@
 'use client'
 
-import { mockInfluencerSummary } from '@/entities/influencerDetail'
 import { useInfluencerSummary } from '@/features/influencerDetail'
 import { useQueryClient } from '@tanstack/react-query'
 import { Button } from '@/shared/ui/button'
@@ -9,8 +8,7 @@ import IconArticle from '@/shared/assets/article-bold.svg'
 import IconRefresh from '@/shared/assets/refresh-bold.svg'
 
 export function ChannelSummarySection({ channelId }: { channelId: string }) {
-  const { data: apiData, isLoading, isError } = useInfluencerSummary(channelId)
-  const data = apiData ?? mockInfluencerSummary
+  const { data, isLoading, isError } = useInfluencerSummary(channelId)
 
   const queryClient = useQueryClient()
 
@@ -65,6 +63,8 @@ export function ChannelSummarySection({ channelId }: { channelId: string }) {
       </div>
     )
   }
+
+  if (!data) return null
 
   return (
     <div className='flex flex-col gap-32 rounded-12 bg-white p-24 pb-32'>
