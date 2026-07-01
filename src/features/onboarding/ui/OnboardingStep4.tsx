@@ -15,7 +15,7 @@ export function OnboardingStep4() {
     roles?.includes('YOUTUBER') || needs?.includes(CHANNEL_ANALYSIS_VALUE)
 
   const { data } = useMyProfile()
-  const name = data?.account.name
+  const name = data?.account.name ?? ''
   return (
     <>
       <div className='w-full'>
@@ -23,7 +23,11 @@ export function OnboardingStep4() {
           {showYoutubeConnect ? (
             <>
               <div className='relative h-[30rem] w-[39.2rem]'>
-                <Image src={ImageDefualt.src} alt='목업 이미지' fill />
+                <Image
+                  src={ImageYoutube.src}
+                  alt='채널분석 화면 미리보기'
+                  fill
+                />
               </div>
               <div>
                 <p className='text-noto-title-sm-normal text-text-and-icon-default'>
@@ -42,7 +46,11 @@ export function OnboardingStep4() {
           ) : (
             <>
               <div className='relative h-[30rem] w-[39.2rem]'>
-                <Image src={ImageYoutube.src} alt='목업 이미지' fill />
+                <Image
+                  src={ImageDefualt.src}
+                  alt='경쟁 채널 분석 미리보기'
+                  fill
+                />
               </div>
               <div>
                 <p className='text-noto-title-sm-normal text-text-and-icon-default'>
