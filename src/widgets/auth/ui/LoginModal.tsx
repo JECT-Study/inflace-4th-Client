@@ -3,7 +3,6 @@
 import {
   Dialog,
   DialogContent,
-  DialogOverlay,
   DialogTitle,
 } from '@/shared/ui/shadcn/dialog'
 import {
@@ -39,9 +38,9 @@ export function LoginModal() {
           google.reset()
         }
       }}>
-      <DialogOverlay className='bg-background-dim-default' />
       <DialogContent
         showCloseButton={false}
+        overlayClassName='bg-background-dim-default'
         className='flex h-[68rem] w-[56rem] shrink-0 flex-col items-center gap-80 rounded-16 bg-white px-40 py-80 sm:min-h-[68rem] sm:min-w-[56rem]'>
         {/* title containter */}
         <div className='flex h-fit w-full flex-col items-center justify-center gap-16'>

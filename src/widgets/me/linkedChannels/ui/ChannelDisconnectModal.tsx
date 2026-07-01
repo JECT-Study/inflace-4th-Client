@@ -3,7 +3,6 @@
 import {
   Dialog,
   DialogContent,
-  DialogOverlay,
   DialogTitle,
 } from '@/shared/ui/shadcn/dialog'
 import { Button } from '@/shared/ui/button'
@@ -23,9 +22,9 @@ export function ChannelDisconnectModal({
 }: ChannelDisconnectModalProps) {
   return (
     <Dialog open={open} onOpenChange={(next) => !next && onClose()}>
-      <DialogOverlay className='bg-background-dim-default' />
       <DialogContent
         showCloseButton={false}
+        overlayClassName='bg-background-dim-default'
         className='flex h-fit w-full min-w-[39rem] flex-col items-center gap-32 rounded-16 bg-white p-40'>
         <DialogTitle className='text-center text-ibm-title-lg-normal text-text-and-icon-default'>
           유튜브 채널 연동을 해지하시겠습니까?
