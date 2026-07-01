@@ -6,9 +6,9 @@ export function formatComma(count: number | null | undefined): string {
   return count.toLocaleString('ko-KR')
 }
 
-// 퍼센트 포맷팅 (null/undefined 방어) 82.345 => '82'
+// 퍼센트 포맷팅 (null/undefined/NaN 방어) 82.345 => '82'
 export function formatPercent(value: number | null | undefined): string {
-  if (value == null) return '0'
+  if (value == null || Number.isNaN(value)) return '0'
   return value.toFixed(0)
 }
 
