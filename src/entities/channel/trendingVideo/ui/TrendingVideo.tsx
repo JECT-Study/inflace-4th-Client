@@ -8,7 +8,7 @@ import {
 } from '@/shared/ui/table'
 import type { TrendingVideoResponseDto } from '../model/types'
 import Image from 'next/image'
-import { formatComma } from '@/shared/lib/format'
+import { formatComma, formatPercent } from '@/shared/lib/format'
 
 interface Props {
   data: TrendingVideoResponseDto[]
@@ -53,9 +53,9 @@ export function TrendingVideo({ data }: Props) {
             </TableCell>
             <TableCell className='text-left'>{item.title}</TableCell>
             <TableCell>{formatComma(item.viewCount)}</TableCell>
-            <TableCell>{item.engagementRate.toFixed(0)}%</TableCell>
-            <TableCell>{item.ctr.toFixed(0)}%</TableCell>
-            <TableCell>{item.retentionRate.toFixed(0)}%</TableCell>
+            <TableCell>{formatPercent(item.engagementRate)}%</TableCell>
+            <TableCell>{formatPercent(item.ctr)}%</TableCell>
+            <TableCell>{formatPercent(item.retentionRate)}%</TableCell>
           </TableRow>
         ))}
       </TableBody>
