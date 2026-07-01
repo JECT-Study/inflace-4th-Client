@@ -23,7 +23,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-const sampleVideo = mockVideos.videos[0]
+const sampleVideo = mockVideos.content[0]
 
 export const Default: Story = {
   args: { ...sampleVideo },
@@ -49,7 +49,7 @@ export const Overview: Story = {
   args: { ...sampleVideo },
   render: () => (
     <div className='grid grid-cols-3 gap-16 p-16'>
-      {mockVideos.videos.slice(0, 6).map((video) => (
+      {mockVideos.content.slice(0, 6).map((video) => (
         <VideoCard key={video.videoId} {...video} />
       ))}
     </div>
