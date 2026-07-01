@@ -1,6 +1,6 @@
 'use client'
 
-import { InfoIcon, XIcon } from 'lucide-react'
+import { XIcon } from 'lucide-react'
 
 import {
   Dialog,

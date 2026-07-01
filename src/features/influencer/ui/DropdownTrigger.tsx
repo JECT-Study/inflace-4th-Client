@@ -33,13 +33,13 @@ function DropdownTrigger({ label, output, children }: DropdownTriggerProps) {
         type='button'
         onClick={() => children && setIsOpen((prev) => !prev)}
         className={cn(
-          'flex size-fit cursor-pointer items-center gap-12 rounded-10 bg-white p-12',
+          'flex size-fit shrink-0 cursor-pointer items-center gap-12 rounded-10 bg-white p-12',
           isOpen && 'bg-brand-secondary'
         )}>
         {/* 필터링 기준 */}
         <span
           className={cn(
-            'text-noto-label-sm-bold text-text-and-icon-primary',
+            'shrink-0 text-noto-label-sm-bold whitespace-nowrap text-text-and-icon-primary',
             isOpen && 'text-white'
           )}>
           {label}:
@@ -47,7 +47,7 @@ function DropdownTrigger({ label, output, children }: DropdownTriggerProps) {
         {/* 결과값 */}
         <span
           className={cn(
-            'max-w-[8rem] truncate text-noto-label-sm-normal text-text-and-icon-tertiary',
+            'max-w-[8rem] truncate text-noto-label-sm-normal whitespace-nowrap text-text-and-icon-tertiary',
             isOpen && 'text-white'
           )}>
           {output}
