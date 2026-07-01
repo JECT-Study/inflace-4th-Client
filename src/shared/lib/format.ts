@@ -82,6 +82,7 @@ export function formatDate(iso: string): {
 // ex. 오늘이 2026-06-01일 때 2025-01-14T00:00:00 => "1년 전"
 export function formatMonthAgo(iso: string): string {
   const date = new Date(iso)
+  if (Number.isNaN(date.getTime())) return '-'
   const now = new Date()
 
   let months =
