@@ -16,7 +16,7 @@ const meta = {
     likeCount: { control: 'number', description: '좋아요 수' },
     commentCount: { control: 'number', description: '댓글 수' },
     vph: { control: 'number', description: 'Views Per Hour' },
-    outLierScore: { control: 'number', description: '이상치 점수 (%)' },
+    outlierScore: { control: 'number', description: '이상치 점수 (%)' },
   },
 } satisfies Meta<typeof VideoCard>
 
@@ -41,7 +41,7 @@ export const HighVph: Story = {
   args: {
     ...sampleVideo,
     vph: 9999,
-    outLierScore: 9.9,
+    outlierScore: 9.9,
   },
 }
 

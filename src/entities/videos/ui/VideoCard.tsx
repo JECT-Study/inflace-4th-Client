@@ -6,6 +6,7 @@ import {
   format10Thousands,
   formatThousands,
   formatDuration,
+  formatPercent,
 } from '@/shared/lib/format'
 import type { VideoCardItem } from '../model/types'
 
@@ -26,8 +27,8 @@ export function VideoCard({
   commentCount,
   publishedAt,
   vph,
-  outLierScore,
-  duration,
+  outlierScore,
+  durationSeconds,
   isAd,
 }: VideoCardItem) {
   return (
@@ -52,7 +53,7 @@ export function VideoCard({
         )}
         {/* 영상 길이 */}
         <span className='absolute right-6 bottom-6 size-fit gap-10 rounded-4 bg-black/80 px-6 py-2 text-noto-label-xs-thin text-white'>
-          {formatDuration(duration)}
+          {formatDuration(durationSeconds)}
         </span>
       </div>
 
@@ -68,13 +69,21 @@ export function VideoCard({
           {/* 조회수, 좋아요, 댓글, 업로드일 */}
           <div className='flex h-fit w-full gap-4'>
             {[
-              { Icon: Eye, label: format10Thousands(viewCount) },
-              { Icon: Like, label: format10Thousands(likeCount) },
-              { Icon: Comment, label: formatThousands(commentCount) },
-              { Icon: Clock, label: formatMonthAgo(publishedAt) },
-            ].map(({ Icon, label }) => (
+              { key: 'view', Icon: Eye, label: format10Thousands(viewCount) },
+              { key: 'like', Icon: Like, label: format10Thousands(likeCount) },
+              {
+                key: 'comment',
+                Icon: Comment,
+                label: formatThousands(commentCount),
+              },
+              {
+                key: 'publishedAt',
+                Icon: Clock,
+                label: formatMonthAgo(publishedAt),
+              },
+            ].map(({ key, Icon, label }) => (
               <span
-                key={label}
+                key={key}
                 className='flex items-center gap-4 rounded-4 bg-background-gray-stronger px-6 py-4 text-noto-caption-lg-bold text-text-and-icon-secondary'>
                 <Icon className='size-16' />
                 {label}
@@ -85,11 +94,15 @@ export function VideoCard({
           {/* VPH / OutLier Score 배지 */}
           <div className='flex h-fit w-full gap-4'>
             {[
-              { Icon: Vph, label: `${vph} VPH` },
-              { Icon: Outlier, label: `${outLierScore} %` },
-            ].map(({ Icon, label }) => (
+              { key: 'vph', Icon: Vph, label: `${vph} VPH` },
+              {
+                key: 'outlier',
+                Icon: Outlier,
+                label: `${formatPercent(outlierScore)} %`,
+              },
+            ].map(({ key, Icon, label }) => (
               <span
-                key={label}
+                key={key}
                 className='flex items-center gap-4 rounded-4 bg-background-gray-stronger px-6 py-4 text-noto-caption-lg-bold text-brand-primary'>
                 <Icon className='size-16' />
                 {label}

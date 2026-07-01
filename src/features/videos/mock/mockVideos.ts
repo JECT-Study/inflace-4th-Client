@@ -12,8 +12,8 @@ const mockVideoItems: VideoCardItem[] = mockVideoCatalog.map((v) => ({
   likeCount: v.likeCount,
   commentCount: v.commentCount,
   vph: v.vph,
-  outLierScore: v.outLierScore,
-  duration: v.duration,
+  outlierScore: v.outlierScore,
+  durationSeconds: v.durationSeconds,
   isShort: v.isShort,
   isAd: v.isAd,
 }))

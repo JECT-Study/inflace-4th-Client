@@ -78,17 +78,29 @@ export function formatDate(iso: string): {
   return { year, month, day, hour, minute }
 }
 
-// 몇 개월 전인지 반환
-// ex. 2025-01-14T00:00:00 => 1 개월 전
+// 현재 시점 기준 몇 개월/년 전인지 반환 (연도 경과 고려)
+// ex. 오늘이 2026-06-01일 때 2025-01-14T00:00:00 => "1년 전"
 export function formatMonthAgo(iso: string): string {
   const date = new Date(iso)
-  const month = String(date.getMonth() + 1)
-  return `${month}개월 전`
+  const now = new Date()
+
+  let months =
+    (now.getFullYear() - date.getFullYear()) * 12 +
+    (now.getMonth() - date.getMonth())
+  if (now.getDate() < date.getDate()) months -= 1
+  months = Math.max(0, months)
+
+  if (months >= 12) {
+    const years = Math.floor(months / 12)
+    return `${years}년 전`
+  }
+  return `${months}개월 전`
 }
 
-// 초를 MM:SS 형식으로 변환
+// 초를 MM:SS 형식으로 변환 (null/undefined/NaN 방어)
 // ex. 769 => "12:49"
-export function formatDuration(seconds: number): string {
+export function formatDuration(seconds: number | null | undefined): string {
+  if (seconds == null || Number.isNaN(seconds)) return '-'
   const total = Math.round(seconds)
   const m = Math.floor(total / 60)
   const s = total % 60

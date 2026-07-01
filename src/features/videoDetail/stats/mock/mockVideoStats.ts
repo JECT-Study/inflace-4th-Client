@@ -18,7 +18,7 @@ const toStats = (videoId: string, index: number): VideoStatsDto => {
     ctr: { value: v.ctr, changeRate: pick(index, 5) },
     engagementRate: { value: v.engagementRate, changeRate: pick(index, 6) },
     newViewerRate: { value: v.newViewerRate, changeRate: pick(index, 7) },
-    outlier: { value: v.outLierScore, changeRate: pick(index, 8) },
+    outlier: { value: v.outlierScore, changeRate: pick(index, 8) },
     vph: { value: v.vph, changeRate: pick(index, 9) },
   }
 }
@@ -26,15 +26,17 @@ const toStats = (videoId: string, index: number): VideoStatsDto => {
 /* videoId → 핵심 성과 지표 */
 export const mockVideoStatsMap: Record<string, VideoStatsDto> =
   Object.fromEntries(
-    mockVideoCatalog.map((v, i) => [v.videoId, toStats(v.videoId, i)])
+    mockVideoCatalog.map((v, i) => [String(v.videoId), toStats(String(v.videoId), i)])
   )
 
 export function getMockVideoStats(videoId: string): VideoStatsDto {
-  return mockVideoStatsMap[videoId] ?? toStats(mockVideoCatalog[0].videoId, 0)
+  return (
+    mockVideoStatsMap[videoId] ?? toStats(String(mockVideoCatalog[0].videoId), 0)
+  )
 }
 
 /* 기본값 (MSW 비활성 시 fallback) */
 export const mockVideoStats: VideoStatsDto = toStats(
-  mockVideoCatalog[0].videoId,
+  String(mockVideoCatalog[0].videoId),
   0
 )

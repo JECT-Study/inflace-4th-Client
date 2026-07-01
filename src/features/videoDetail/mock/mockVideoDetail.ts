@@ -15,13 +15,17 @@ const toDetail = (videoId: string): VideoDetailDto => {
 
 /* videoId → 상세 정보 (목록과 동일한 카탈로그에서 파생) */
 export const mockVideoDetailMap: Record<string, VideoDetailDto> =
-  Object.fromEntries(mockVideoCatalog.map((v) => [v.videoId, toDetail(v.videoId)]))
+  Object.fromEntries(
+    mockVideoCatalog.map((v) => [String(v.videoId), toDetail(String(v.videoId))])
+  )
 
 export function getMockVideoDetail(videoId: string): VideoDetailDto {
-  return mockVideoDetailMap[videoId] ?? toDetail(mockVideoCatalog[0].videoId)
+  return (
+    mockVideoDetailMap[videoId] ?? toDetail(String(mockVideoCatalog[0].videoId))
+  )
 }
 
 /* 기본값 (MSW 비활성 시 fallback) */
 export const mockVideoDetail: VideoDetailDto = toDetail(
-  mockVideoCatalog[0].videoId
+  String(mockVideoCatalog[0].videoId)
 )

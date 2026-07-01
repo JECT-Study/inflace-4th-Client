@@ -57,7 +57,7 @@ export const videosHandlers = [
         VIEWS: (a, b) => b.viewCount - a.viewCount,
         LIKES: (a, b) => b.likeCount - a.likeCount,
         VPH: (a, b) => b.vph - a.vph,
-        OUTLIER: (a, b) => b.outLierScore - a.outLierScore,
+        OUTLIER: (a, b) => (b.outlierScore ?? 0) - (a.outlierScore ?? 0),
       }
       videos = videos.sort(sortFns[sort] ?? sortFns.LATEST)
 
