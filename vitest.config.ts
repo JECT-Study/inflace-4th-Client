@@ -20,7 +20,7 @@ export default defineConfig({
           {
             name: 'svg-mock',
             transform(_code, id) {
-              if (id.endsWith('.svg')) {
+              if (/\.svg(\?.*)?$/.test(id)) {
                 return {
                   code: `
                     import { createElement } from 'react';

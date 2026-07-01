@@ -1,23 +1,25 @@
-'use client'
-
 import Image from 'next/image'
-import { Button } from '@/shared/ui/button'
-import { useLoginModal } from '@/features/auth'
-import heroSection01Bg from '@/widgets/home/assets/heroSection01Bg.jpg'
-import heroSection02Bg from '@/widgets/home/assets/heroSection02Bg.jpg'
-import heroSection02Item from '@/widgets/home/assets/heroSection02Item.png'
-import heroSection03Bg from '@/widgets/home/assets/heroSection03Bg.jpg'
-import heroSection03Item from '@/widgets/home/assets/heroSection03Item.png'
-import IconArrowRight from '@/shared/assets/rightwards-arrow-bold.svg'
+import heroSection01Bg from '@/widgets/home/assets/heroSection01Bg.webp'
+import heroSection02Bg from '@/widgets/home/assets/heroSection02Bg.webp'
+import heroSection02Item from '@/widgets/home/assets/heroSection02Item.webp'
+import heroSection03Bg from '@/widgets/home/assets/heroSection03Bg.webp'
+import heroSection03Item from '@/widgets/home/assets/heroSection03Item.webp'
+import { HeroCtaButton } from '@/widgets/home/ui/HeroCtaButton'
+import { HeroScrollButton } from '@/widgets/home/ui/HeroScrollButton'
 
 export function HeroMain() {
-  const open = useLoginModal((s) => s.open)
   return (
     <>
       {/* section01 - intro */}
-      <section
-        className='relative h-[44rem] w-full snap-start snap-always bg-cover bg-center bg-no-repeat'
-        style={{ backgroundImage: `url(${heroSection01Bg.src})` }}>
+      <section className='relative h-[44rem] w-full snap-start snap-always overflow-hidden'>
+        <Image
+          src={heroSection01Bg}
+          alt=''
+          fill
+          priority
+          sizes='100vw'
+          className='object-cover'
+        />
         <div className='absolute top-[10.6rem] left-0 flex w-full flex-col items-center gap-24'>
           <h3 className='text-center text-heading-md leading-heading-md text-white'>
             인플루언서와 마케터가 만나는 공간,
@@ -25,24 +27,22 @@ export function HeroMain() {
               인플레이스
             </strong>
           </h3>
-          <button
-            onClick={() =>
-              document
-                .getElementById('section02')
-                ?.scrollIntoView({ behavior: 'smooth' })
-            }
-            className='flex size-fit cursor-pointer rounded-full border-1 border-white p-16 py-6 text-body-xs text-white'>
-            더 알아보기
-          </button>
+          <HeroScrollButton />
         </div>
       </section>
 
       {/* section02 - slide */}
       <section
         id='section02'
-        className='relative flex h-[calc(100vh-var(--spacing-header-height))] w-full snap-start snap-always items-center overflow-hidden bg-cover bg-center bg-no-repeat px-[12rem]'
-        style={{ backgroundImage: `url(${heroSection02Bg.src})` }}>
-        <div className='flex h-fit w-full items-center gap-[12rem]'>
+        className='relative flex h-[calc(100vh-var(--spacing-header-height))] w-full snap-start snap-always items-center overflow-hidden px-[12rem]'>
+        <Image
+          src={heroSection02Bg}
+          alt=''
+          fill
+          sizes='100vw'
+          className='object-cover'
+        />
+        <div className='relative flex h-fit w-full items-center gap-[12rem]'>
           <div className='flex flex-col gap-40'>
             <h3 className='text-ibm-display-sm-normal text-white'>
               유튜브 스튜디오만으론 부족하니까,
@@ -55,20 +55,14 @@ export function HeroMain() {
                 실질적인 성장 데이터를 한눈에 제공합니다.
               </span>
             </p>
-            <Button
-              color='secondary'
-              size='lg'
-              variant='outlined'
-              rightIcon={<IconArrowRight />}
-              className='bg-white'
-              onClick={open}>
-              인플루언서로 무료체험 시작
-            </Button>
+            <HeroCtaButton>인플루언서로 무료체험 시작</HeroCtaButton>
           </div>
           <div className='flex-1'>
             <Image
               src={heroSection02Item}
               alt='인플루언서 영상 성과 분석'
+              quality={90}
+              sizes='(min-width: 1024px) 40vw, 90vw'
               className='h-auto w-full'
             />
           </div>
@@ -76,10 +70,15 @@ export function HeroMain() {
       </section>
 
       {/* section03 - slide */}
-      <section
-        className='relative flex h-[calc(100vh-var(--spacing-header-height))] w-full snap-start snap-always items-center overflow-hidden bg-cover bg-center bg-no-repeat px-[12rem]'
-        style={{ backgroundImage: `url(${heroSection03Bg.src})` }}>
-        <div className='flex h-fit w-full items-center gap-[12rem]'>
+      <section className='relative flex h-[calc(100vh-var(--spacing-header-height))] w-full snap-start snap-always items-center overflow-hidden px-[12rem]'>
+        <Image
+          src={heroSection03Bg}
+          alt=''
+          fill
+          sizes='100vw'
+          className='object-cover'
+        />
+        <div className='relative flex h-fit w-full items-center gap-[12rem]'>
           <div className='flex flex-col gap-40'>
             <h3 className='text-ibm-display-sm-normal text-white'>
               인플루언서 리서치에
@@ -93,20 +92,14 @@ export function HeroMain() {
                 지표를 경험해 보세요.
               </span>
             </p>
-            <Button
-              color='secondary'
-              size='lg'
-              variant='outlined'
-              rightIcon={<IconArrowRight />}
-              className='bg-white'
-              onClick={open}>
-              마케터로 무료체험 시작
-            </Button>
+            <HeroCtaButton>마케터로 무료체험 시작</HeroCtaButton>
           </div>
           <div className='flex-1'>
             <Image
               src={heroSection03Item}
               alt='인플루언서 영상 성과 분석'
+              quality={90}
+              sizes='(min-width: 1024px) 40vw, 90vw'
               className='h-auto w-full'
             />
           </div>
