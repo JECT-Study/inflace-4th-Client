@@ -4,6 +4,7 @@ import { Suspense, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/features/auth/model/useAuth'
 import { useLoginModal } from '@/features/auth/model/useLoginModal'
+import { useGoogleAuthNoticeAutoOpen } from '@/features/googleAuthNotice'
 
 function SearchParamsHandler({
   isInitializing,
@@ -42,6 +43,10 @@ export function HomeAuthGate() {
       router.replace('/main')
     }
   }, [isInitializing, isLoggedIn, router])
+
+  useGoogleAuthNoticeAutoOpen({
+    isReady: !isInitializing && !isLoggedIn,
+  })
 
   /* auth 초기화 완료 후 snap 클래스를 추가하도록 함
    * isInitializing 중에 snap을 활성화하면 컨텐츠 렌더 시점에 snap-start로 강제 스크롤됨

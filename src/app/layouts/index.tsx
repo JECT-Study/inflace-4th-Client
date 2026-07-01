@@ -12,6 +12,7 @@ import { Header, Footer, AppSidebar } from '@/widgets/layout'
 import { AuthInitializer } from '@/features/auth'
 import { LoginModal, YoutubeConnectModal } from '@/widgets/auth'
 import { OnboardingModal } from '@/widgets/onboarding'
+import { GoogleAuthNoticeModal } from '@/widgets/googleAuthNotice'
 import { GtmPageView } from '@/shared/analytics'
 
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID
@@ -52,6 +53,7 @@ export function RootLayout({ children }: { children: React.ReactNode }) {
             <LoginModal />
             <YoutubeConnectModal />
             <OnboardingModal />
+            <GoogleAuthNoticeModal />
             <div className='flex flex-1'>
               <SidebarStoreProvider>
                 <AppSidebar />
