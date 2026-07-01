@@ -167,7 +167,7 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
               applyChannelNameToUrl(query)
               e.currentTarget.blur()
             }

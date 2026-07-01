@@ -103,7 +103,7 @@ function SearchAndFilterInner() {
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         onKeyDown={(e) => {
-          if (e.key === 'Enter') {
+          if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
             applyKeywordToUrl(query)
             e.currentTarget.blur()
           }
