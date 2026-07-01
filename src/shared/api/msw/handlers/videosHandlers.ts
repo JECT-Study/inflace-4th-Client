@@ -19,7 +19,7 @@ export const videosHandlers = [
       const endDate = url.searchParams.get('endDate')
 
       const basePage = cursor ? mockVideosPage2 : mockVideosPage1
-      let videos = [...basePage.videos]
+      let videos = [...basePage.content]
 
       if (format === 'LONG_FORM') {
         videos = videos.filter((v) => !v.isShort)
@@ -63,7 +63,7 @@ export const videosHandlers = [
 
       return HttpResponse.json({
         success: true,
-        responseDto: { ...basePage, videos },
+        responseDto: { ...basePage, content: videos },
         error: null,
       })
     }
