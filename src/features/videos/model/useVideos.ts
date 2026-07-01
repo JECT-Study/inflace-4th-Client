@@ -22,7 +22,7 @@ export function useVideos(channelId: string, params?: VideoFilterParams) {
   })
 
   const videos = useMemo(
-    () => result.data?.pages.flatMap((page) => page.videos) ?? [],
+    () => result.data?.pages.flatMap((page) => page.content ?? []) ?? [],
     [result.data?.pages]
   )
 

@@ -23,7 +23,7 @@ const mockVideoItemsPage1 = mockVideoItems.slice(0, PAGE_SIZE)
 const mockVideoItemsPage2 = mockVideoItems.slice(PAGE_SIZE)
 
 export const mockVideosPage1: VideosResponse = {
-  videos: mockVideoItemsPage1,
+  content: mockVideoItemsPage1,
   pageInfo: {
     size: PAGE_SIZE,
     numberOfElements: mockVideoItemsPage1.length,
@@ -33,7 +33,7 @@ export const mockVideosPage1: VideosResponse = {
 }
 
 export const mockVideosPage2: VideosResponse = {
-  videos: mockVideoItemsPage2,
+  content: mockVideoItemsPage2,
   pageInfo: {
     size: PAGE_SIZE,
     numberOfElements: mockVideoItemsPage2.length,
