@@ -8,7 +8,7 @@ import {
 } from '@/shared/ui/table'
 import type { NewInflowResponseDto } from '../model/types'
 import Image from 'next/image'
-import { formatComma } from '@/shared/lib/format'
+import { formatComma, formatPercent } from '@/shared/lib/format'
 
 interface Props {
   data: NewInflowResponseDto[]
@@ -52,11 +52,11 @@ export function NewInflow({ data }: Props) {
             </TableCell>
             <TableCell className='text-left'>{item.title}</TableCell>
             <TableCell>{formatComma(item.viewCount)}</TableCell>
-            <TableCell>{item.newSubscriberRatio.toFixed(0)}%</TableCell>
+            <TableCell>{formatPercent(item.newSubscriberRatio)}%</TableCell>
             <TableCell>
               {formatComma(item.subscriptionConversionCount)}
             </TableCell>
-            <TableCell>{item.retentionRate.toFixed(0)}%</TableCell>
+            <TableCell>{formatPercent(item.retentionRate)}%</TableCell>
           </TableRow>
         ))}
       </TableBody>
