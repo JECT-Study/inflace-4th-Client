@@ -1,10 +1,6 @@
-'use client'
-
 import Image from 'next/image'
-import { Button } from '@/shared/ui/button'
-import { useLoginModal } from '@/features/auth'
 import { FeatureCardItem } from '@/entities/home/featureCard/config/types'
-import IconRightArrow from '@/shared/assets/rightwards-arrow-bold.svg'
+import { FeatureCardCtaButton } from '@/entities/home/featureCard/FeatureCardCtaButton'
 
 export function FeatureCard({
   icon: Icon,
@@ -12,7 +8,6 @@ export function FeatureCard({
   description,
   imgSrc,
 }: FeatureCardItem) {
-  const open = useLoginModal((s) => s.open)
   return (
     <div className='rounded-12 border border-stroke-border-neutral-default bg-background-gray-default p-32 py-40'>
       <div className='flex flex-col gap-24'>
@@ -27,19 +22,13 @@ export function FeatureCard({
           <Image
             src={imgSrc}
             alt={title}
+            quality={90}
+            sizes='(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw'
             className='h-auto w-full max-w-full object-cover'
           />
         </div>
       </div>
-      <Button
-        className='float-right mt-3xl'
-        color='secondary'
-        size='sm'
-        variant='filled'
-        rightIcon={<IconRightArrow />}
-        onClick={open}>
-        바로가기
-      </Button>
+      <FeatureCardCtaButton />
     </div>
   )
 }
