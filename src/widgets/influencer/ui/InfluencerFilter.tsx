@@ -175,7 +175,7 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
         />
 
         {/* 필터 */}
-        <div className='flex h-fit w-full flex-1 items-center gap-12'>
+        <div className='flex h-fit w-full flex-1 flex-wrap items-center gap-12'>
           <DropdownTrigger
             label='카테고리'
             output={deriveCategoryOutput(categoryIds, categories)}>
