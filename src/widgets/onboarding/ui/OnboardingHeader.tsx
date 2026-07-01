@@ -8,7 +8,7 @@ export function OnboardingHeader() {
   return (
     <>
       <DialogHeader>
-        <div className='relative h-8 w-full rounded-full bg-stroke-border-primary'>
+        <div className='relative h-8 w-full rounded-full bg-stroke-border-neutral-default'>
           <span
             className='absolute top-0 left-0 h-full rounded-full bg-brand-primary transition-[width] duration-300 ease-in-out'
             style={{ width: `calc(100% / 4 * ${step})` }}></span>
