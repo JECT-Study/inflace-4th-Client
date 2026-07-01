@@ -6,6 +6,12 @@ export function formatComma(count: number | null | undefined): string {
   return count.toLocaleString('ko-KR')
 }
 
+// 퍼센트 포맷팅 (null/undefined 방어) 82.345 => '82'
+export function formatPercent(value: number | null | undefined): string {
+  if (value == null) return '0'
+  return value.toFixed(0)
+}
+
 // 만 단위 포맷팅 37,687,938 => 3768만 7938 / 83,904 => 8만 3904 / 187 => 187
 export function formatKoreanUnit(value: number): string {
   const floor = Math.floor(value)

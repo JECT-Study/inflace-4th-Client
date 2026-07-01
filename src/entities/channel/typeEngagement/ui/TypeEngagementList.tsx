@@ -8,6 +8,7 @@ import {
 } from '@/shared/ui/table'
 import type { TypeEngagementVideoDto } from '../model/types'
 import Image from 'next/image'
+import { formatPercent } from '@/shared/lib/format'
 
 interface Props {
   data: TypeEngagementVideoDto[]
@@ -43,7 +44,7 @@ export function TypeEngagementList({ data }: Props) {
             <TableCell>
               {item.contentType === 'LONG_FORM' ? '롱폼' : '숏폼'}
             </TableCell>
-            <TableCell>{item.engagementRate.toFixed(0)}%</TableCell>
+            <TableCell>{formatPercent(item.engagementRate)}%</TableCell>
           </TableRow>
         ))}
       </TableBody>
