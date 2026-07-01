@@ -1,5 +1,5 @@
 export interface VideoCardItem {
-  videoId: string
+  videoId: number
   title: string
   thumbnailUrl: string
   publishedAt: string
@@ -7,8 +7,8 @@ export interface VideoCardItem {
   likeCount: number
   commentCount: number
   vph: number
-  outLierScore: number
-  duration: number
+  outlierScore: number | undefined
+  durationSeconds: number | undefined
   isShort: boolean
   isAd: boolean
 }

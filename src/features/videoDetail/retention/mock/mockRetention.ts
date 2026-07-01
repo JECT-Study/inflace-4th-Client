@@ -74,44 +74,54 @@ const profileFor = (index: number) => PROFILES[index % PROFILES.length]
 export const mockRetentionDataMap: Record<string, RetentionDataPoint[]> =
   Object.fromEntries(
     mockVideoCatalog.map((v, i) => [
-      v.videoId,
-      buildRetentionData(v.duration, profileFor(i)),
+      String(v.videoId),
+      buildRetentionData(v.durationSeconds, profileFor(i)),
     ])
   )
 
 export const mockRetentionSummaryMap: Record<string, RetentionSummaryDto> =
   Object.fromEntries(
     mockVideoCatalog.map((v, i) => [
-      v.videoId,
-      buildSummary(v.duration, profileFor(i)),
+      String(v.videoId),
+      buildSummary(v.durationSeconds, profileFor(i)),
     ])
   )
 
 export const mockDropPointsMap: Record<string, DropPoint[]> = Object.fromEntries(
   mockVideoCatalog.map((v, i) => [
-    v.videoId,
-    buildDropPoints(v.duration, profileFor(i)),
+    String(v.videoId),
+    buildDropPoints(v.durationSeconds, profileFor(i)),
   ])
 )
 
 export function getMockRetentionData(videoId: string): RetentionDataPoint[] {
-  return mockRetentionDataMap[videoId] ?? mockRetentionDataMap[mockVideoCatalog[0].videoId]
+  return (
+    mockRetentionDataMap[videoId] ??
+    mockRetentionDataMap[String(mockVideoCatalog[0].videoId)]
+  )
 }
 
 export function getMockRetentionSummary(videoId: string): RetentionSummaryDto {
   return (
     mockRetentionSummaryMap[videoId] ??
-    mockRetentionSummaryMap[mockVideoCatalog[0].videoId]
+    mockRetentionSummaryMap[String(mockVideoCatalog[0].videoId)]
   )
 }
 
 export function getMockDropPoints(videoId: string): DropPoint[] {
-  return mockDropPointsMap[videoId] ?? mockDropPointsMap[mockVideoCatalog[0].videoId]
+  return (
+    mockDropPointsMap[videoId] ??
+    mockDropPointsMap[String(mockVideoCatalog[0].videoId)]
+  )
 }
 
 /* 기본값 (MSW 비활성 시 fallback) */
-export const mockRetentionData = getMockRetentionData(mockVideoCatalog[0].videoId)
-export const mockRetentionSummary = getMockRetentionSummary(
-  mockVideoCatalog[0].videoId
+export const mockRetentionData = getMockRetentionData(
+  String(mockVideoCatalog[0].videoId)
 )
-export const mockDropPoints = getMockDropPoints(mockVideoCatalog[0].videoId)
+export const mockRetentionSummary = getMockRetentionSummary(
+  String(mockVideoCatalog[0].videoId)
+)
+export const mockDropPoints = getMockDropPoints(
+  String(mockVideoCatalog[0].videoId)
+)
