@@ -1,7 +1,7 @@
 'use client'
 
 import { VideoStatsCard } from './VideoStatsCard'
-import { useVideoStats, mockVideoStats } from '@/features/videoDetail/stats'
+import { useVideoStats } from '@/features/videoDetail/stats'
 import { formatDate } from '@/shared/lib/format'
 import type { VideoStatsDto } from '@/entities/video'
 
@@ -124,10 +124,10 @@ interface VideoStatsSectionProps {
 }
 
 export function VideoStatsSection({ videoId }: VideoStatsSectionProps) {
-  const { data: apiData, isLoading } = useVideoStats(videoId)
-  const stats = apiData ?? mockVideoStats
+  const { data: stats, isLoading } = useVideoStats(videoId)
 
   if (isLoading) return null
+  if (!stats) return null
 
   const groups = buildGroups(stats)
 

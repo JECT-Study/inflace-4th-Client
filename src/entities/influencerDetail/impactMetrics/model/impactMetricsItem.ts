@@ -1,48 +1,37 @@
 // 임팩트 지표 뱃지 점수 계산
-export function getImpactTier(score: number): number {
-  if (score >= 85) return 0
+export function getImpactTier(score: number): 0 | 1 | 2 | 3 | 4 {
+  if (score >= 80) return 0
   if (score >= 60) return 1
   if (score >= 40) return 2
-  return 3
+  if (score >= 20) return 3
+  return 4
 }
 
 export interface ImpactItem {
   badge: string
-  fanbase: string
-  content: string
-  activity: string
-  ad: string
+  score: string
 }
 
 export const IMPACT_ITEM: ImpactItem[] = [
   {
-    badge: '최고 (85점+)',
-    fanbase: '핵심 팬층',
-    content: '바이럴 메이커',
-    activity: '활발히 활동 중',
-    ad: '협찬 경험 풍부',
+    badge: '매우 강함',
+    score: '80~100점',
   },
   {
-    badge: '강함 (60~84)',
-    fanbase: '팬층 강함',
-    content: '콘텐츠 강함',
-    activity: '정기 업로드',
-    ad: '광고 적합',
+    badge: '강함',
+    score: '60~80점',
+  },
+  {
+    badge: '보통',
+    score: '40~60점',
   },
 
   {
-    badge: '보통 (40~59)',
-    fanbase: '팬층 보통',
-    content: '콘텐츠 보통',
-    activity: '활동 보통',
-    ad: '광고 보통',
+    badge: '약함',
+    score: '20~40점',
   },
-
   {
-    badge: '주의 (~39)',
-    fanbase: '팬층 낮음',
-    content: '콘텐츠 저조',
-    activity: '활동 저조',
-    ad: '광고 주의',
+    badge: '매우 약함',
+    score: '0~20점',
   },
 ]

@@ -3,7 +3,6 @@ import Image from 'next/image'
 
 import { useInfluencerDetail } from '@/features/influencerDetail'
 import { useBookmarkToggle } from '@/features/influencer'
-import { mockInfluencerDetail } from '@/entities/influencerDetail'
 import { buttonVariants } from '@/shared/ui/button'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 import { format10Thousands } from '@/shared/lib/format'
@@ -13,12 +12,10 @@ import { HashtagBox } from '@/shared/ui'
 import { HeartButton } from '@/shared/ui/heart-button'
 
 export function InfluencerBaseInfo({ channelId }: { channelId: string }) {
-  const { data: apiData, isFetching, isError } = useInfluencerDetail(channelId)
+  const { data, isFetching, isError } = useInfluencerDetail(channelId)
   const toggleBookmark = useBookmarkToggle()
 
-  const data = apiData ?? mockInfluencerDetail
-
-  if (isFetching || isError) {
+  if (isFetching || isError || !data) {
     return (
       <div className='h-fit w-full overflow-hidden rounded-10 bg-white shadow-[0_2px_6px_0_rgba(13,13,13,0.04)]'>
         <Skeleton className='relative h-[25.2rem] w-full' />

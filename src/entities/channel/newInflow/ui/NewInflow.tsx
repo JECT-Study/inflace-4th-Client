@@ -15,6 +15,16 @@ interface Props {
 }
 
 export function NewInflow({ data }: Props) {
+  // 데이터 부족한 경우 화면
+  if (data.length === 0) {
+    return (
+      <div className='flex h-[58.4rem] w-full items-center justify-center'>
+        <span className='text-noto-body-xs-normal text-text-and-icon-primary'>
+          더 정확한 결과를 제공하기 위해 데이터를 수집중이에요
+        </span>
+      </div>
+    )
+  }
   return (
     <Table className='w-full table-fixed'>
       <TableHeader>
@@ -42,11 +52,11 @@ export function NewInflow({ data }: Props) {
             </TableCell>
             <TableCell className='text-left'>{item.title}</TableCell>
             <TableCell>{formatComma(item.viewCount)}</TableCell>
-            <TableCell>{item.newSubscriberRatio}%</TableCell>
+            <TableCell>{item.newSubscriberRatio.toFixed(0)}%</TableCell>
             <TableCell>
               {formatComma(item.subscriptionConversionCount)}
             </TableCell>
-            <TableCell>{item.retentionRate}%</TableCell>
+            <TableCell>{item.retentionRate.toFixed(0)}%</TableCell>
           </TableRow>
         ))}
       </TableBody>

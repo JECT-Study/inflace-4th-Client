@@ -5,9 +5,6 @@ import {
   useRetention,
   useRetentionSummary,
   useRetentionDropPoints,
-  mockRetentionData,
-  mockRetentionSummary,
-  mockDropPoints,
 } from '@/features/videoDetail/retention'
 import type { DropPoint } from '@/features/videoDetail/retention'
 import { RetentionChart, formatDuration } from './RetentionChart'
@@ -112,12 +109,12 @@ export function RetentionSection({ videoId }: RetentionSectionProps) {
   const { data: dropPointsData, isLoading: dropLoading } =
     useRetentionDropPoints(videoId)
 
-  const retention = retentionData?.retentionData ?? mockRetentionData
-  const summary = summaryData?.retentionData ?? mockRetentionSummary
-  const dropPoints = dropPointsData?.dropPoints ?? mockDropPoints
+  const retention = retentionData?.retentionData ?? []
+  const summary = summaryData?.retentionData
+  const dropPoints = dropPointsData?.dropPoints ?? []
 
   const isLoading = retentionLoading || summaryLoading || dropLoading
-  const isPositive = summary.relativeRetentionAvg >= 1
+  const isPositive = (summary?.relativeRetentionAvg ?? 0) >= 1
 
   return (
     <section className='flex flex-col gap-16'>
@@ -145,7 +142,7 @@ export function RetentionSection({ videoId }: RetentionSectionProps) {
           ) : (
             <div className='flex flex-col gap-2 px-40'>
               <p className='text-ibm-title-lg-normal text-text-and-icon-default'>
-                {formatDuration(summary.avgWatchDuration)}
+                {formatDuration(summary?.avgWatchDuration ?? 0)}
               </p>
               <div className='flex items-center gap-6'>
                 <p className='text-noto-caption-md-normal text-text-and-icon-secondary'>
@@ -155,7 +152,7 @@ export function RetentionSection({ videoId }: RetentionSectionProps) {
                   className={`text-noto-title-sm-bold ${
                     isPositive ? 'text-feedback-success' : 'text-feedback-error'
                   }`}>
-                  {formatRelativeAvg(summary.relativeRetentionAvg)}
+                  {formatRelativeAvg(summary?.relativeRetentionAvg ?? 0)}
                 </p>
               </div>
             </div>
@@ -181,7 +178,7 @@ export function RetentionSection({ videoId }: RetentionSectionProps) {
             <div className='px-24'>
               <RetentionChart
                 data={retention}
-                avgWatchDuration={summary.avgWatchDuration}
+                avgWatchDuration={summary?.avgWatchDuration ?? 0}
                 hoveredSection={hoveredSection}
                 onSectionHover={setHoveredSection}
               />

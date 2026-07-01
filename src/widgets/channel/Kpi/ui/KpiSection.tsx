@@ -1,4 +1,4 @@
-import { KpiCard, mockKpi } from '@/entities/channel/kpiCard'
+import { KpiCard } from '@/entities/channel/kpiCard'
 import IconEye from '@/shared/assets/eye-bold.svg'
 import IconParticipation from '@/shared/assets/participation-bold.svg'
 import IconClock from '@/shared/assets/clock-bold.svg'
@@ -7,10 +7,9 @@ import { useKpi } from '@/features/channel/kpi'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 
 export function KpiSection({ channelId }: { channelId: string }) {
-  const { data: apiData, isFetching, isError } = useKpi(channelId)
-  const data = apiData ?? mockKpi
+  const { data, isFetching, isError } = useKpi(channelId)
 
-  if (isFetching || isError) {
+  if (isFetching || isError || !data) {
     return (
       //스켈레톤 UI, 로딩중일 때 상태를 표시합니다.
       <section className='flex h-fit w-full gap-24'>
@@ -38,7 +37,7 @@ export function KpiSection({ channelId }: { channelId: string }) {
           <IconParticipation className='size-20 text-btn-primary-text-disabled' />
         }
         label='평균 참여율'
-        value={data.avgEngagementRate}
+        value={data.avgEngagementRate.toFixed(0)}
         unit='%'
       />
 
@@ -46,7 +45,7 @@ export function KpiSection({ channelId }: { channelId: string }) {
       <KpiCard
         icon={<IconEye className='size-20 text-btn-primary-text-disabled' />}
         label='시청 유지율'
-        value={data.avgRetentionRate}
+        value={data.avgRetentionRate.toFixed(0)}
         unit='%'
       />
 
