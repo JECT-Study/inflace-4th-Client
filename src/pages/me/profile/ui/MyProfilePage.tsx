@@ -2,6 +2,7 @@
 
 import { PersonalInfoSection } from '@/widgets/me/personalInfo'
 import { CustomInfoSection } from '@/widgets/me/customInfo'
+import { LinkedChannelsForDeleteCard } from '@/widgets/me/linkedChannels'
 
 export function MyProfilePage() {
   return (
@@ -14,6 +15,7 @@ export function MyProfilePage() {
         <div className='flex h-fit w-full max-w-[118.6rem] flex-col gap-24'>
           <PersonalInfoSection />
           <CustomInfoSection />
+          <LinkedChannelsForDeleteCard />
         </div>
       </div>
     </div>

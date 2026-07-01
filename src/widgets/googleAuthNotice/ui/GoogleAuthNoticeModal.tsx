@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogOverlay,
   DialogTitle,
 } from '@/shared/ui/shadcn/dialog'
 import { Button } from '@/shared/ui/button'
@@ -39,9 +38,9 @@ export function GoogleAuthNoticeModal() {
           close()
         }
       }}>
-      <DialogOverlay className='bg-background-dim-default' />
       <DialogContent
         showCloseButton={false}
+        overlayClassName='bg-background-dim-default'
         className='flex h-fit w-[60rem] max-w-[60rem]! flex-col gap-24 rounded-16 bg-white p-40'>
         <DialogClose asChild>
           <button

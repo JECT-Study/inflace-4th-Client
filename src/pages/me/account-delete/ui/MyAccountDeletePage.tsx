@@ -8,8 +8,8 @@ import IconArrowLeft from '@/shared/assets/leftwards-arrow-bold.svg'
 import {
   AccountDeleteModalFlow,
   AccountDeleteNoticeCard,
-  LinkedChannelsForDeleteCard,
 } from '@/widgets/me/accountDelete'
+import { LinkedChannelsForDeleteCard } from '@/widgets/me/linkedChannels'
 import { useAuth } from '@/features/auth'
 import { useDeleteUser, type WithdrawalReason } from '@/features/me'
 

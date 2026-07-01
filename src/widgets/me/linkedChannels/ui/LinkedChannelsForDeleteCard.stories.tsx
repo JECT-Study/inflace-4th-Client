@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { LinkedChannelsForDeleteCard } from './LinkedChannelsForDeleteCard'
 
 const meta = {
-  title: 'Widgets/Me/AccountDelete/LinkedChannelsForDeleteCard',
+  title: 'Widgets/Me/LinkedChannels/LinkedChannelsForDeleteCard',
   component: LinkedChannelsForDeleteCard,
   tags: ['autodocs'],
   parameters: {

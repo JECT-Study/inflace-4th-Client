@@ -3,7 +3,6 @@
 import {
   Dialog,
   DialogContent,
-  DialogOverlay,
   DialogTitle,
 } from '@/shared/ui/shadcn/dialog'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
@@ -38,10 +37,9 @@ export function EditPreferencesModal() {
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && close()}>
-      {/* 뒷 배경 흐림 처리 */}
-      <DialogOverlay className='bg-background-dim-default' />
       <DialogContent
         showCloseButton={false}
+        overlayClassName='bg-background-dim-default'
         className='flex h-fit w-[100rem] max-w-none flex-col gap-32 overflow-hidden rounded-16 bg-white p-[8rem] sm:max-w-none'>
         <VisuallyHidden>
           <DialogTitle>선호도 변경</DialogTitle>

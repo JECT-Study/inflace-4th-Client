@@ -3,7 +3,6 @@
 import {
   Dialog,
   DialogContent,
-  DialogOverlay,
   DialogTitle,
 } from '@/shared/ui/shadcn/dialog'
 import {
@@ -32,9 +31,9 @@ export function OnboardingModal() {
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && close()}>
-      <DialogOverlay className='bg-background-dim-default' />
       <DialogContent
         showCloseButton={false}
+        overlayClassName='bg-background-dim-default'
         className={`flex h-[54.4rem] w-[100rem] max-w-[100rem]! flex-col overflow-hidden rounded-16 bg-white p-80 ${
           step >= 3
             ? 'after:absolute after:top-0 after:right-0 after:h-full after:w-1/2 after:bg-background-gray-default after:content-[""]'

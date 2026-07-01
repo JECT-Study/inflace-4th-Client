@@ -8,6 +8,7 @@ export { useRequireAuth } from './model/useRequireAuth'
 export { useLoginModal } from './model/useLoginModal'
 export { useYoutubeConnectModal } from './model/useYoutubeConnectModal'
 export { useConnectChannel } from './model/useConnectChannel'
+export { useDisconnectChannel } from './model/useDisconnectChannel'
 export { useRefreshChannel } from './model/useRefreshChannel'
 export { usePopupOAuth } from './model/usePopupOAuth'
 export type {

@@ -25,3 +25,9 @@ export async function fetchConnectedChannelProfile(): Promise<ChannelProfileDto>
   )
   return res.data.responseDto
 }
+
+export async function disconnectChannel(channelId: number): Promise<void> {
+  await axiosInstance.delete<ApiResponse<null>>(
+    `/channels/connect/${channelId}`
+  )
+}
