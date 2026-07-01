@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
 import { useLoginModal } from '@/features/auth'
@@ -32,6 +32,10 @@ describe('LoginModal', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockUsePopupOAuth.mockReturnValue(defaultOAuthState)
+  })
+
+  afterEach(() => {
+    useLoginModal.setState({ isOpen: false, close: () => useLoginModal.setState({ isOpen: false }) })
   })
 
   it('isOpen이 true일 때 다이얼로그가 렌더링된다', () => {
