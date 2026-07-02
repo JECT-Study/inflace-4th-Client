@@ -6,7 +6,10 @@ import {
   useRetentionSummary,
   useRetentionDropPoints,
 } from '@/features/videoDetail/retention'
-import type { DropPoint } from '@/features/videoDetail/retention'
+import type {
+  DropPoint,
+  RetentionDataPoint,
+} from '@/features/videoDetail/retention'
 import { RetentionChart, formatDuration } from './RetentionChart'
 import WatchRetentionIcon from '@/shared/assets/watch-retention.svg'
 import ChartIcon from '@/shared/assets/chart-bold.svg'
@@ -18,6 +21,17 @@ const SECTION_LABELS = [
   '중반 (2/4 구간)',
   '후반 (3/4 구간)',
   '아웃트로 (4/4 구간)',
+]
+
+const EMPTY_MESSAGE = '데이터가 충분하지 않아 분석 결과를 제공할 수 없어요'
+
+/* 데이터 부족 시 그래프 뒤에 흐리게 깔리는 데코용 샘플 곡선 (실제 값 아님) */
+const EMPTY_SAMPLE: RetentionDataPoint[] = [
+  { timeRatio: 0, watchRatio: 1.0, displayTime: '0:00', isDrop: false },
+  { timeRatio: 0.25, watchRatio: 0.82, displayTime: '1:00', isDrop: false },
+  { timeRatio: 0.5, watchRatio: 0.6, displayTime: '2:00', isDrop: false },
+  { timeRatio: 0.75, watchRatio: 0.52, displayTime: '3:00', isDrop: false },
+  { timeRatio: 1, watchRatio: 0.38, displayTime: '4:00', isDrop: false },
 ]
 
 function formatRelativeAvg(ratio: number): string {
@@ -37,7 +51,7 @@ function SectionCardHeader({
 }) {
   return (
     <div className='flex items-center gap-8'>
-      <span className='rounded-12 bg-background-brand-default p-4'>{icon}</span>
+      <span className='rounded-12 bg-background-neutral-default p-4'>{icon}</span>
       <p className='text-noto-title-sm-bold text-text-and-icon-primary'>
         {title}
       </p>
@@ -102,19 +116,30 @@ interface RetentionSectionProps {
 export function RetentionSection({ videoId }: RetentionSectionProps) {
   const [hoveredSection, setHoveredSection] = useState<number | null>(null)
 
-  const { data: retentionData, isLoading: retentionLoading } =
-    useRetention(videoId)
-  const { data: summaryData, isLoading: summaryLoading } =
-    useRetentionSummary(videoId)
-  const { data: dropPointsData, isLoading: dropLoading } =
-    useRetentionDropPoints(videoId)
+  const {
+    data: retentionData,
+    isLoading: retentionLoading,
+    isError: retentionError,
+  } = useRetention(videoId)
+  const {
+    data: summaryData,
+    isLoading: summaryLoading,
+    isError: summaryError,
+  } = useRetentionSummary(videoId)
+  const {
+    data: dropPointsData,
+    isLoading: dropLoading,
+    isError: dropError,
+  } = useRetentionDropPoints(videoId)
 
   const retention = retentionData?.retentionData ?? []
   const summary = summaryData?.retentionData
   const dropPoints = dropPointsData?.dropPoints ?? []
 
-  const isLoading = retentionLoading || summaryLoading || dropLoading
   const isPositive = (summary?.relativeRetentionAvg ?? 0) >= 1
+  const showSummaryEmpty = summaryError || !summary
+  const showRetentionEmpty = retentionError || retention.length === 0
+  const showDropEmpty = dropError || dropPoints.length === 0
 
   return (
     <section className='flex flex-col gap-16'>
@@ -126,7 +151,8 @@ export function RetentionSection({ videoId }: RetentionSectionProps) {
 
       <div className='flex flex-col gap-16'>
         {/* 평균 시청 지속 시간 카드 */}
-        <div className='flex flex-col gap-24 rounded-12 bg-white p-24 shadow-[0_2px_6px_0_rgba(13,13,13,0.04)] transition-colors hover:bg-background-gray-default'>
+        <div
+          className={`flex flex-col gap-24 rounded-12 bg-white px-24 pt-24 ${showSummaryEmpty ? 'pb-64' : 'pb-24'} shadow-[0_2px_6px_0_rgba(13,13,13,0.04)] transition-colors hover:bg-background-gray-default`}>
           <SectionCardHeader
             icon={
               <WatchRetentionIcon className='size-24 text-btn-primary-text-disabled' />
@@ -134,10 +160,16 @@ export function RetentionSection({ videoId }: RetentionSectionProps) {
             title='평균 시청 지속 시간'
           />
 
-          {isLoading ? (
+          {summaryLoading ? (
             <div className='flex flex-col gap-8 px-40'>
               <Skeleton className='h-28 w-32' />
               <Skeleton className='h-16 w-48' />
+            </div>
+          ) : showSummaryEmpty ? (
+            <div className='flex w-full items-center justify-center'>
+              <p className='text-noto-body-xs-normal text-text-and-icon-primary'>
+                {EMPTY_MESSAGE}
+              </p>
             </div>
           ) : (
             <div className='flex flex-col gap-2 px-40'>
@@ -170,9 +202,27 @@ export function RetentionSection({ videoId }: RetentionSectionProps) {
             />
           </div>
 
-          {isLoading ? (
+          {retentionLoading ? (
             <div className='px-24'>
               <Skeleton className='h-[32.8rem] w-full' />
+            </div>
+          ) : showRetentionEmpty ? (
+            <div className='relative px-24'>
+              <div
+                aria-hidden
+                className='pointer-events-none select-none opacity-60 blur-[3px]'>
+                <RetentionChart
+                  data={EMPTY_SAMPLE}
+                  avgWatchDuration={0}
+                  hoveredSection={null}
+                  onSectionHover={() => {}}
+                />
+              </div>
+              <div className='absolute inset-0 flex items-center justify-center'>
+                <p className='text-noto-body-xs-normal text-text-and-icon-primary'>
+                  {EMPTY_MESSAGE}
+                </p>
+              </div>
             </div>
           ) : (
             <div className='px-24'>
@@ -187,7 +237,8 @@ export function RetentionSection({ videoId }: RetentionSectionProps) {
         </div>
 
         {/* 구간별 이탈율 카드 */}
-        <div className='flex flex-col gap-24 rounded-12 bg-white p-24 shadow-[0_2px_6px_0_rgba(13,13,13,0.04)]'>
+        <div
+          className={`flex flex-col gap-24 rounded-12 bg-white px-24 pt-24 ${showDropEmpty ? 'pb-64' : 'pb-24'} shadow-[0_2px_6px_0_rgba(13,13,13,0.04)]`}>
           <SectionCardHeader
             icon={
               <BounceRateIcon className='size-24 text-btn-primary-text-disabled' />
@@ -195,11 +246,17 @@ export function RetentionSection({ videoId }: RetentionSectionProps) {
             title='구간별 이탈율'
           />
 
-          {isLoading ? (
+          {dropLoading ? (
             <div className='flex gap-24 px-40'>
               {Array.from({ length: 4 }).map((_, i) => (
                 <Skeleton key={i} className='h-[10rem] flex-1' />
               ))}
+            </div>
+          ) : showDropEmpty ? (
+            <div className='flex w-full items-center justify-center'>
+              <p className='text-noto-body-xs-normal text-text-and-icon-primary'>
+                {EMPTY_MESSAGE}
+              </p>
             </div>
           ) : (
             <div className='flex items-center gap-24 px-40'>
