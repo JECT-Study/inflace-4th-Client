@@ -25,7 +25,7 @@ export function KpiSection({ channelId }: { channelId: string }) {
     <div className='flex flex-col gap-24 md:flex-row'>
       {/* 총 조회수 */}
       <KpiCard
-        icon={<IconEye className='size-20 text-btn-primary-text-disabled' />}
+        icon={<IconEye className='size-24 text-btn-primary-text-disabled' />}
         label='총 조회수'
         value={formatComma(data.totalViews)}
         unit='회'

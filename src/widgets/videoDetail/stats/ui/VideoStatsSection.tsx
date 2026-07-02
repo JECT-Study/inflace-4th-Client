@@ -16,11 +16,13 @@ import ParticipationIcon from '@/shared/assets/participation-bold.svg'
 import VphIcon from '@/shared/assets/vph-bold.svg'
 import OutlierIcon from '@/shared/assets/outlier-bold.svg'
 
-const ICON_CLASS = 'size-20 text-text-and-icon-default'
+const ICON_CLASS = 'size-20 text-btn-primary-text-disabled'
 
-function buildGroups(data: VideoStatsDto) {
-  const { year, month, day } = formatDate(data.collectedAt)
-  const collectedLabel = `${year}년 ${Number(month)}월 ${Number(day)}일 기준`
+function buildGroups(data?: VideoStatsDto) {
+  const collected = data ? formatDate(data.collectedAt) : null
+  const collectedLabel = collected
+    ? `${collected.year}년 ${Number(collected.month)}월 ${Number(collected.day)}일 기준`
+    : undefined
 
   return [
     {
@@ -30,25 +32,25 @@ function buildGroups(data: VideoStatsDto) {
           icon: <EyeIcon className={ICON_CLASS} />,
           label: '총 조회수',
           description: collectedLabel,
-          metric: data.viewCount,
+          metric: data?.viewCount,
           valueFormat: 'korean' as const,
         },
         {
           icon: <LikeIcon className={ICON_CLASS} />,
           label: '좋아요 수',
-          metric: data.likeCount,
+          metric: data?.likeCount,
           valueFormat: 'korean' as const,
         },
         {
           icon: <CommentIcon className={ICON_CLASS} />,
           label: '댓글 수',
-          metric: data.commentCount,
+          metric: data?.commentCount,
           valueFormat: 'korean' as const,
         },
         {
           icon: <ShareIcon className={ICON_CLASS} />,
           label: '공유 수',
-          metric: data.shareCount,
+          metric: data?.shareCount,
           valueFormat: 'korean' as const,
         },
       ],
@@ -61,7 +63,7 @@ function buildGroups(data: VideoStatsDto) {
           label: 'CTR',
           description: '썸네일 클릭률',
           hasTooltip: true,
-          metric: data.ctr,
+          metric: data?.ctr,
           valueFormat: 'percent' as const,
         },
         {
@@ -69,7 +71,7 @@ function buildGroups(data: VideoStatsDto) {
           label: '신규 유입 비율',
           description: '구독자가 아닌 신규 시청자 비율',
           hasTooltip: true,
-          metric: data.newViewerRate,
+          metric: data?.newViewerRate,
           valueFormat: 'percent' as const,
         },
         {
@@ -77,7 +79,7 @@ function buildGroups(data: VideoStatsDto) {
           label: '구독 전환 수',
           description: '영상 시청 후 구독으로 이어진 수',
           hasTooltip: true,
-          metric: data.subscribersGained,
+          metric: data?.subscribersGained,
           valueFormat: 'korean' as const,
         },
       ],
@@ -90,7 +92,7 @@ function buildGroups(data: VideoStatsDto) {
           label: '영상 참여율',
           description: '개별 영상 참여율',
           hasTooltip: true,
-          metric: data.engagementRate,
+          metric: data?.engagementRate,
           valueFormat: 'percent' as const,
         },
       ],
@@ -103,7 +105,7 @@ function buildGroups(data: VideoStatsDto) {
           label: 'VPH',
           description: '시간 당 조회수',
           hasTooltip: true,
-          metric: data.vph,
+          metric: data?.vph,
           valueFormat: 'float' as const,
         },
         {
@@ -111,7 +113,7 @@ function buildGroups(data: VideoStatsDto) {
           label: 'Outlier',
           description: '채널 평균 조회수 대비 상승배수',
           hasTooltip: true,
-          metric: data.outlier,
+          metric: data?.outlier,
           valueFormat: 'float' as const,
         },
       ],
@@ -127,7 +129,6 @@ export function VideoStatsSection({ videoId }: VideoStatsSectionProps) {
   const { data: stats, isLoading } = useVideoStats(videoId)
 
   if (isLoading) return null
-  if (!stats) return null
 
   const groups = buildGroups(stats)
 
