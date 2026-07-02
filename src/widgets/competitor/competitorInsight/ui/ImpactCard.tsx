@@ -15,7 +15,7 @@ interface ImpactCardProps {
 /**
  * 분석 인사이트 카드의 공통 컨테이너
  * - 좌상단 아이콘 + 타이틀/서브타이틀
- * - 본문은 children으로 주입 (디자인의 44px 좌측 들여쓰기 포함)
+ * - 카드 좌우 패딩 44px (헤더·본문 동일 정렬)
  */
 export function ImpactCard({
   icon: Icon,
@@ -27,7 +27,7 @@ export function ImpactCard({
   return (
     <div
       className={cn(
-        'flex w-full flex-col gap-32 rounded-12 bg-white px-24 py-32 shadow-[0px_2px_6px_0px_rgba(13,13,13,0.04),0px_6px_12px_0px_rgba(13,13,13,0.04)]',
+        'flex w-full flex-col gap-32 rounded-12 bg-white px-44 py-32 shadow-[0px_2px_6px_0px_rgba(13,13,13,0.04),0px_6px_12px_0px_rgba(13,13,13,0.04)]',
         className
       )}>
       <div className='flex items-start gap-12'>
@@ -43,7 +43,7 @@ export function ImpactCard({
           </p>
         </div>
       </div>
-      <div className='pl-44'>{children}</div>
+      {children}
     </div>
   )
 }
