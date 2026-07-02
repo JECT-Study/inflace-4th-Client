@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { Lightbulb } from 'lucide-react'
+import AiInsightIcon from '@/shared/assets/ai-strategy-insight.svg'
 
 import {
   CompetitorFilterPanel,
@@ -156,7 +156,7 @@ function AnalysisInsightCard({ hasResults }: { hasResults: boolean }) {
   return (
     <div className='flex w-full flex-col items-center gap-24 overflow-hidden rounded-16 bg-background-gray-default p-32'>
       <div className='flex flex-col items-center gap-12'>
-        <Lightbulb className='size-24 text-text-and-icon-primary' />
+        <AiInsightIcon className='size-24 text-text-and-icon-disabled' />
         <p className='text-ibm-title-lg-thin text-text-and-icon-primary'>
           AI 분석 인사이트
         </p>

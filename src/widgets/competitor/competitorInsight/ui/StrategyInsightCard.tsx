@@ -1,6 +1,6 @@
 'use client'
 
-import { Sparkles } from 'lucide-react'
+import StrategyInsightIcon from '@/shared/assets/ai-strategy-insight.svg'
 
 import type { TrendsStrategyInsight } from '@/features/competitor'
 
@@ -15,7 +15,7 @@ export function StrategyInsightCard({ data }: StrategyInsightCardProps) {
 
   return (
     <ImpactCard
-      icon={Sparkles}
+      icon={StrategyInsightIcon}
       title='AI 전략 인사이트'
       subtitle='PPL 의도 분석'>
       <div className='flex flex-col gap-32'>
