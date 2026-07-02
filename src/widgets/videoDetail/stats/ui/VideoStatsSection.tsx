@@ -16,7 +16,7 @@ import ParticipationIcon from '@/shared/assets/participation-bold.svg'
 import VphIcon from '@/shared/assets/vph-bold.svg'
 import OutlierIcon from '@/shared/assets/outlier-bold.svg'
 
-const ICON_CLASS = 'size-20 text-btn-primary-text-disabled'
+const ICON_CLASS = 'size-30 text-btn-primary-text-disabled '
 
 function buildGroups(data?: VideoStatsDto) {
   const collected = data ? formatDate(data.collectedAt) : null
@@ -63,6 +63,7 @@ function buildGroups(data?: VideoStatsDto) {
           label: 'CTR',
           description: '썸네일 클릭률',
           hasTooltip: true,
+          tooltipLabel: '클릭 수 / 노출 수 *100',
           metric: data?.ctr,
           valueFormat: 'percent' as const,
         },
@@ -71,6 +72,7 @@ function buildGroups(data?: VideoStatsDto) {
           label: '신규 유입 비율',
           description: '구독자가 아닌 신규 시청자 비율',
           hasTooltip: true,
+          tooltipLabel: '비구독자(신규 유입)가 본 조회수/총조회수',
           metric: data?.newViewerRate,
           valueFormat: 'percent' as const,
         },
@@ -78,7 +80,7 @@ function buildGroups(data?: VideoStatsDto) {
           icon: <SubscribeIcon className={ICON_CLASS} />,
           label: '구독 전환 수',
           description: '영상 시청 후 구독으로 이어진 수',
-          hasTooltip: true,
+          hasTooltip: false,
           metric: data?.subscribersGained,
           valueFormat: 'korean' as const,
         },
@@ -92,6 +94,7 @@ function buildGroups(data?: VideoStatsDto) {
           label: '영상 참여율',
           description: '개별 영상 참여율',
           hasTooltip: true,
+          tooltipLabel: '좋아요+댓글 / 조회수',
           metric: data?.engagementRate,
           valueFormat: 'percent' as const,
         },
@@ -105,6 +108,7 @@ function buildGroups(data?: VideoStatsDto) {
           label: 'VPH',
           description: '시간 당 조회수',
           hasTooltip: true,
+          tooltipLabel: '총 조회수 / 업로드 후 경과 시간',
           metric: data?.vph,
           valueFormat: 'float' as const,
         },
@@ -113,6 +117,7 @@ function buildGroups(data?: VideoStatsDto) {
           label: 'Outlier',
           description: '채널 평균 조회수 대비 상승배수',
           hasTooltip: true,
+          tooltipLabel: '증가한 조회수 / 채널 평균 조회수',
           metric: data?.outlier,
           valueFormat: 'float' as const,
         },

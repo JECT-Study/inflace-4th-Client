@@ -42,7 +42,7 @@ export function LockTooltip({
           <TooltipPrimitive.Positioner
             side={side}
             align={align}
-            sideOffset={20}>
+            sideOffset={12}>
             <TooltipPrimitive.Popup
               className={cn(
                 'relative flex items-center justify-center gap-10 rounded-lg bg-white px-20 py-16 text-noto-caption-lg-bold whitespace-pre-wrap text-text-and-icon-primary shadow-[0px_2px_6px_rgba(14,38,70,0.24)]',
