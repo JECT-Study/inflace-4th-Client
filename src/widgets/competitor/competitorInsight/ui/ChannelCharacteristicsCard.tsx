@@ -1,6 +1,6 @@
 'use client'
 
-import { BarChart3 } from 'lucide-react'
+import ChannelCharacteristicsIcon from '@/shared/assets/channel-characteristics.svg'
 
 import { cn } from '@/shared/lib/utils'
 import { format10Thousands } from '@/shared/lib/format'
@@ -38,7 +38,7 @@ export function ChannelCharacteristicsCard({
 
   return (
     <ImpactCard
-      icon={BarChart3}
+      icon={ChannelCharacteristicsIcon}
       title='채널 공통 특징'
       subtitle={`협업 채널 ${channelCount}개 기준`}>
       <div className='flex flex-wrap items-start gap-48'>
