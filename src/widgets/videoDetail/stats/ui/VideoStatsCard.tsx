@@ -2,7 +2,8 @@ import { type ReactNode } from 'react'
 import { cn } from '@/shared/lib/utils'
 import { formatKoreanUnit } from '@/shared/lib/format'
 import type { KpiMetric } from '@/entities/video'
-import InfoIcon from '@/shared/assets/info-bold.svg'
+import IconQuestion from '@/shared/assets/question-bold.svg'
+import { LockTooltip } from '@/shared/ui/LockTooltip'
 
 type ValueFormat = 'korean' | 'percent' | 'float'
 
@@ -11,11 +12,13 @@ interface VideoStatsCardProps {
   label: string
   description?: string
   hasTooltip?: boolean
+  tooltipLabel?: string
   metric?: KpiMetric | null
   valueFormat: ValueFormat
 }
 
-const NO_DATA_MESSAGE = '데이터가 충분히 모이지 않아 분석 결과를 제공할 수 없어요'
+const NO_DATA_MESSAGE =
+  '데이터가 충분히 모이지 않아 분석 결과를 제공할 수 없어요'
 
 function formatValue(value: number, format: ValueFormat): string {
   switch (format) {
@@ -63,11 +66,12 @@ export function VideoStatsCard({
   label,
   description,
   hasTooltip = false,
+  tooltipLabel,
   metric,
   valueFormat,
 }: VideoStatsCardProps) {
   return (
-    <div className='flex w-full flex-1 items-center gap-24 rounded-12 bg-white p-32 shadow-[0px_2px_6px_0px_rgba(13,13,13,0.04)] sm:min-w-[37.4rem] sm:max-w-[55.8rem]'>
+    <div className='flex w-full flex-1 items-center gap-24 rounded-12 bg-white p-32 shadow-[0px_2px_6px_0px_rgba(13,13,13,0.04)] sm:max-w-[55.8rem] sm:min-w-[37.4rem]'>
       {/* 왼쪽: 아이콘 + 레이블 */}
       <div className='flex min-w-0 flex-1 items-center gap-16'>
         <div className='flex shrink-0 items-center rounded-[1.5rem] bg-background-neutral-default p-5'>
@@ -80,12 +84,16 @@ export function VideoStatsCard({
             {label}
           </p>
           {description && (
-            <div className='flex items-center gap-4'>
-              <p className='whitespace-nowrap text-noto-caption-md-normal text-text-and-icon-secondary'>
+            <div className='z-2 flex items-center gap-2'>
+              <p className='text-noto-caption-md-normal whitespace-nowrap text-text-and-icon-secondary'>
                 {description}
               </p>
               {hasTooltip && (
-                <InfoIcon className='size-12 shrink-0 text-text-and-icon-secondary' />
+                <LockTooltip side='top' align='center' label={tooltipLabel}>
+                  <button type='button' aria-label={`${label} 지표 안내 보기`}>
+                    <IconQuestion className='size-16 text-text-and-icon-disabled' />
+                  </button>
+                </LockTooltip>
               )}
             </div>
           )}

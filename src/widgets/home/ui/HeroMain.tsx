@@ -21,9 +21,9 @@ export function HeroMain() {
           className='object-cover'
         />
         <div className='absolute top-[10.6rem] left-0 flex w-full flex-col items-center gap-24'>
-          <h3 className='text-center text-heading-md leading-heading-md text-white'>
+          <h3 className='text-center text-heading-sm leading-heading-sm text-white'>
             인플루언서와 마케터가 만나는 공간,
-            <strong className='bg-gradient-to-b from-[#BBBDF8] to-[#B9CCF6] bg-clip-text text-transparent drop-shadow-[0_0_100px_#5942F8] filter'>
+            <strong className='ml-6 bg-gradient-to-b from-[#BBBDF8] to-[#B9CCF6] bg-clip-text text-heading-md leading-heading-md text-transparent drop-shadow-[0_0_100px_#5942F8] filter'>
               인플레이스
             </strong>
           </h3>
