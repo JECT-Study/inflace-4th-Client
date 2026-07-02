@@ -16,7 +16,7 @@ export function TypeEngagementSection({ channelId }: { channelId: string }) {
       <div className='flex flex-1 flex-col gap-32 rounded-16 bg-white p-24 shadow-[0_2px_6px_0_rgba(13,13,13,0.04)]'>
         <div className='flex h-fit w-full items-center justify-between'>
           <div className='flex h-fit w-fit items-center gap-8'>
-            <span className='rounded-full bg-background-brand-default p-4'>
+            <span className='rounded-12 bg-primitive-brand-vivid-75 p-4'>
               <IconParticipation className='size-24 text-btn-primary-text-disabled' />
             </span>
             <span className='text-ibm-title-md-normal'>
@@ -35,7 +35,7 @@ export function TypeEngagementSection({ channelId }: { channelId: string }) {
     <div className='flex flex-1 flex-col gap-32 rounded-16 bg-white p-24 shadow-[0_2px_6px_0_rgba(13,13,13,0.04)]'>
       <div className='flex h-fit w-full items-center justify-between'>
         <div className='flex h-fit w-fit items-center gap-8'>
-          <span className='rounded-full bg-background-brand-default p-4'>
+          <span className='rounded-12 bg-primitive-brand-vivid-75 p-4'>
             <IconParticipation className='size-24 text-btn-primary-text-disabled' />
           </span>
           <span className='text-ibm-title-md-normal'>
