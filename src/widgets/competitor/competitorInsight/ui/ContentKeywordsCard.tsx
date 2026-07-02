@@ -1,6 +1,6 @@
 'use client'
 
-import { Tags } from 'lucide-react'
+import ContentKeywordIcon from '@/shared/assets/content-keyword.svg'
 
 import { cn } from '@/shared/lib/utils'
 import type { TrendsContentKeywords } from '@/features/competitor'
@@ -19,7 +19,7 @@ export function ContentKeywordsCard({ data }: ContentKeywordsCardProps) {
 
   return (
     <ImpactCard
-      icon={Tags}
+      icon={ContentKeywordIcon}
       title='콘텐츠 공통 키워드'
       subtitle='제목 · 설명 · 태그 · 자막 텍스트 분석'>
       <div className='flex flex-col gap-32'>

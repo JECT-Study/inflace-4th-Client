@@ -31,8 +31,8 @@ export function ImpactCard({
         className
       )}>
       <div className='flex items-start gap-12'>
-        <div className='flex items-center justify-center rounded-12 bg-[#fcf8ff] p-4'>
-          <Icon className='size-24 text-brand-primary' />
+        <div className='flex items-center justify-center rounded-12 bg-background-neutral-default p-4'>
+          <Icon className='size-24 text-btn-primary-text-disabled' />
         </div>
         <div className='flex flex-col gap-4'>
           <p className='text-ibm-title-lg-normal text-text-and-icon-default'>
