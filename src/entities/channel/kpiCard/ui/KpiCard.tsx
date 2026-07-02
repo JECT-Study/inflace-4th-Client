@@ -14,7 +14,7 @@ export function KpiCard({ icon, label, prefix, value, unit }: KpiCardProps) {
     <div className='flex h-fit w-full flex-col gap-24 rounded-12 bg-white p-24 shadow-[0_2px_6px_0_rgba(13,13,13,0.04)]'>
       <div className='flex h-fit w-full items-center gap-12 text-noto-body-xs-bold text-text-and-icon-default'>
         {icon && (
-          <span className='rounded-12 bg-background-brand-default p-4'>
+          <span className='rounded-12 bg-primitive-brand-vivid-75 p-4'>
             {icon}
           </span>
         )}
