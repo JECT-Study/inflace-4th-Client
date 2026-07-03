@@ -3,7 +3,7 @@ import LockButton from '@/features/planGate/assets/lock-button.png'
 import { type ReactNode } from 'react'
 import type { UserPlan } from '@/shared/api/types'
 import { usePlanGate } from '@/features/planGate/model/usePlanGate'
-import { LockTooltip } from '@/shared/ui/LockTooltip'
+import { Tooltip } from '@/shared/ui/tooltip'
 
 interface BlurPlanGateProps {
   requiredPlan: UserPlan
@@ -36,14 +36,14 @@ export function BlurPlanGate({
 
       {/* 락 UI: 자물쇠 호버 시 shadcn Tooltip으로 안내 노출 */}
       <div className='absolute inset-0 flex items-center justify-center'>
-        <LockTooltip label='채널 연동 후 확인할 수 있어요'>
+        <Tooltip label='채널 연동 후 확인할 수 있어요'>
           <button
             type='button'
             aria-label='잠금 안내 보기'
             className='inline-flex items-center justify-center rounded-full focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:outline-none'>
             <Image src={LockButton} alt='' width={32} height={32} aria-hidden />
           </button>
-        </LockTooltip>
+        </Tooltip>
       </div>
     </div>
   )

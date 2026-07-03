@@ -3,7 +3,7 @@ import { cn } from '@/shared/lib/utils'
 import { formatKoreanUnit } from '@/shared/lib/format'
 import type { KpiMetric } from '@/entities/video'
 import IconQuestion from '@/shared/assets/question-bold.svg'
-import { LockTooltip } from '@/shared/ui/LockTooltip'
+import { Tooltip } from '@/shared/ui/tooltip'
 
 type ValueFormat = 'korean' | 'percent' | 'float'
 
@@ -89,11 +89,11 @@ export function VideoStatsCard({
                 {description}
               </p>
               {hasTooltip && (
-                <LockTooltip side='top' align='center' label={tooltipLabel}>
+                <Tooltip side='top' align='center' label={tooltipLabel}>
                   <button type='button' aria-label={`${label} 지표 안내 보기`}>
                     <IconQuestion className='size-16 text-text-and-icon-disabled' />
                   </button>
-                </LockTooltip>
+                </Tooltip>
               )}
             </div>
           )}

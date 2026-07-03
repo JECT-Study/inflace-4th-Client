@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Logo } from '@/shared/ui/Logo'
+import { Logo } from '@/shared/ui/logo'
 
 export const FooterInfo = () => {
   return (

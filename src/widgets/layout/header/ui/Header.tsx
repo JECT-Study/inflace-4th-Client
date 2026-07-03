@@ -2,7 +2,7 @@
 
 import { LoginButton } from '@/features/auth'
 
-import { Logo } from '@/shared/ui/Logo'
+import { Logo } from '@/shared/ui/logo'
 
 export function Header() {
   return (

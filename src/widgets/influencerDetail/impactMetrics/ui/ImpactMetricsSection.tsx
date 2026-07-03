@@ -10,7 +10,7 @@ import {
 import { FrequencyTrend } from '@/entities/influencerDetail'
 import { useInfluencerDetail } from '@/features/influencerDetail'
 import { getViewCvLabel } from '@/shared/lib/format'
-import { LockTooltip } from '@/shared/ui/LockTooltip'
+import { Tooltip } from '@/shared/ui/tooltip'
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 import IconChart from '@/shared/assets/chart-bold.svg'
 import IconQuestion from '@/shared/assets/question-bold.svg'
@@ -45,7 +45,7 @@ export function ImpactMetricsSection({ channelId }: { channelId: string }) {
           </span>
           <div className='flex items-center text-ibm-title-md-normal text-text-and-icon-default'>
             채널 핵심 지표
-            <LockTooltip
+            <Tooltip
               showArrow={false}
               side='right'
               align='start'
@@ -54,7 +54,7 @@ export function ImpactMetricsSection({ channelId }: { channelId: string }) {
               <button type='button' aria-label='채널 핵심 지표 안내 보기'>
                 <IconQuestion className='size-20 text-text-and-icon-disabled' />
               </button>
-            </LockTooltip>
+            </Tooltip>
           </div>
         </div>
 
@@ -80,7 +80,7 @@ export function ImpactMetricsSection({ channelId }: { channelId: string }) {
           </span>
           <div className='flex items-center text-ibm-title-md-normal text-text-and-icon-default'>
             채널 핵심 지표
-            <LockTooltip
+            <Tooltip
               showArrow={false}
               side='right'
               align='start'
@@ -89,7 +89,7 @@ export function ImpactMetricsSection({ channelId }: { channelId: string }) {
               <button type='button' aria-label='채널 핵심 지표 안내 보기'>
                 <IconQuestion className='size-20 text-text-and-icon-disabled' />
               </button>
-            </LockTooltip>
+            </Tooltip>
           </div>
         </div>
 
@@ -115,7 +115,7 @@ export function ImpactMetricsSection({ channelId }: { channelId: string }) {
         </span>
         <div className='flex items-center text-ibm-title-md-normal text-text-and-icon-default'>
           채널 핵심 지표
-          <LockTooltip
+          <Tooltip
             showArrow={false}
             side='right'
             align='start'
@@ -124,7 +124,7 @@ export function ImpactMetricsSection({ channelId }: { channelId: string }) {
             <button type='button' aria-label='채널 핵심 지표 안내 보기'>
               <IconQuestion className='size-20 text-text-and-icon-disabled' />
             </button>
-          </LockTooltip>
+          </Tooltip>
         </div>
       </div>
 
