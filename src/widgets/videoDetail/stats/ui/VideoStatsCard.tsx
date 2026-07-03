@@ -88,7 +88,7 @@ export function VideoStatsCard({
               <p className='text-noto-caption-md-normal whitespace-nowrap text-text-and-icon-secondary'>
                 {description}
               </p>
-              {hasTooltip && (
+              {hasTooltip && tooltipLabel && (
                 <Tooltip side='top' align='center' label={tooltipLabel}>
                   <button type='button' aria-label={`${label} 지표 안내 보기`}>
                     <IconQuestion className='size-16 text-text-and-icon-disabled' />
