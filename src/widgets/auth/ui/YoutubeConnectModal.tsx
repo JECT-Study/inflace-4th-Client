@@ -1,10 +1,6 @@
 'use client'
 
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from '@/shared/ui/shadcn/dialog'
+import { Dialog, DialogContent, DialogTitle } from '@/shared/ui/shadcn/dialog'
 import {
   useYoutubeConnectModal,
   useConnectChannel,
@@ -20,6 +16,15 @@ export function YoutubeConnectModal() {
   const close = useYoutubeConnectModal((s) => s.close)
 
   const { mutate: connect, isPending, error } = useConnectChannel()
+
+  const handleConnect = () => {
+    connect()
+    // 응답 지연 시 팝업이 계속 떠있는 문제 방지: 요청 전송 0.5초 후 닫고 새로고침
+    setTimeout(() => {
+      close()
+      window.location.reload()
+    }, 300)
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && close()}>
@@ -53,7 +58,7 @@ export function YoutubeConnectModal() {
         </div>
 
         <YoutubeConnectActions
-          onConnect={() => connect()}
+          onConnect={handleConnect}
           onLater={close}
           isPending={isPending}
           error={error}
