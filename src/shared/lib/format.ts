@@ -12,6 +12,14 @@ export function formatPercent(value: number | null | undefined): string {
   return value.toFixed(0)
 }
 
+// 소숫점 둘째 자리 포맷팅, 아래 두 자리가 모두 0이면 정수로 표시 (null/undefined/NaN 방어)
+// ex. 3.456 => '3.46' / 3.00 => '3' / 3.5 => '3.50'
+export function formatDecimal(value: number | null | undefined): string {
+  if (value == null || Number.isNaN(value)) return '0'
+  const fixed = value.toFixed(2)
+  return fixed.endsWith('.00') ? fixed.slice(0, -3) : fixed
+}
+
 // 만 단위 포맷팅 37,687,938 => 3768만 7938 / 83,904 => 8만 3904 / 187 => 187
 export function formatKoreanUnit(value: number): string {
   const floor = Math.floor(value)

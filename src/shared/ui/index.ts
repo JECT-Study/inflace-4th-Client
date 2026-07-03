@@ -1,4 +1,5 @@
-export * from './Logo'
+export * from './logo'
+export * from './tooltip'
 export * from './heart-button'
 export * from './hashtag-box'
 export * from './contentType'

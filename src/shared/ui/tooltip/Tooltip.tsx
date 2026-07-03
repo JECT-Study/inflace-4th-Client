@@ -4,7 +4,7 @@ import { isValidElement, type ReactElement, type ReactNode } from 'react'
 import TooltipArrow from '@/shared/assets/tooltip-arrow.svg'
 import { cn } from '@/shared/lib/utils'
 
-interface LockTooltipProps {
+interface TooltipProps {
   label?: string
   content?: ReactNode
   showArrow?: boolean
@@ -23,7 +23,7 @@ const ARROW_CLASS: Record<'top' | 'right' | 'bottom' | 'left', string> = {
 
 // 호버 시 노출되는 안내 툴팁
 // shadcn Tooltip 기본 Arrow(사각형 회전) 대신 Figma 디자인의 꼬리 이미지를 그대로 사용
-export function LockTooltip({
+export function Tooltip({
   label,
   content,
   showArrow = true,
@@ -31,10 +31,10 @@ export function LockTooltip({
   align = 'center',
   className,
   children,
-}: LockTooltipProps) {
+}: TooltipProps) {
   return (
     <TooltipPrimitive.Provider delay={0}>
-      <TooltipPrimitive.Root>
+      <TooltipPrimitive.Root disableHoverablePopup>
         <TooltipPrimitive.Trigger
           render={isValidElement(children) ? children : <span />}
         />

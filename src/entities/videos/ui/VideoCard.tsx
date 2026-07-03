@@ -7,7 +7,9 @@ import {
   formatThousands,
   formatDuration,
   formatPercent,
+  formatDecimal,
 } from '@/shared/lib/format'
+import { Tooltip } from '@/shared/ui/tooltip'
 import type { VideoCardItem } from '../model/types'
 
 /* assets */
@@ -94,19 +96,25 @@ export function VideoCard({
           {/* VPH / OutLier Score 배지 */}
           <div className='flex h-fit w-full gap-4'>
             {[
-              { key: 'vph', Icon: Vph, label: `${vph} VPH` },
+              {
+                key: 'vph',
+                Icon: Vph,
+                label: `시간당 ${formatDecimal(vph)}회`,
+                tooltip: '총 조회수 / 업로드 후 경과 시간',
+              },
               {
                 key: 'outlier',
                 Icon: Outlier,
-                label: `${formatPercent(outlierScore)} %`,
+                label: `평균 조회수 ${formatPercent(outlierScore)}배`,
+                tooltip: '증가한 조회수 / 채널 평균 조회수',
               },
-            ].map(({ key, Icon, label }) => (
-              <span
-                key={key}
-                className='flex items-center gap-4 rounded-4 bg-background-gray-stronger px-6 py-4 text-noto-caption-lg-bold text-brand-primary'>
-                <Icon className='size-16' />
-                {label}
-              </span>
+            ].map(({ key, Icon, label, tooltip }) => (
+              <Tooltip key={key} label={tooltip} side='right'>
+                <span className='flex items-center gap-4 rounded-4 bg-background-gray-stronger px-6 py-4 text-noto-caption-lg-bold text-brand-primary'>
+                  <Icon className='size-16' />
+                  {label}
+                </span>
+              </Tooltip>
             ))}
           </div>
         </div>

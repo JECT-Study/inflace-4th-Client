@@ -1,5 +1,5 @@
 import { cn } from '@/shared/lib/utils'
-import { LockTooltip } from '@/shared/ui/LockTooltip'
+import { Tooltip } from '@/shared/ui/tooltip'
 import IconQuestion from '@/shared/assets/question-bold.svg'
 
 interface MetricRow {
@@ -104,13 +104,13 @@ export function ImpactMetricsCard({
               <span className='flex items-center gap-2'>
                 {metric.label}
                 {metric.tooltip && (
-                  <LockTooltip label={metric.tooltip} side={metric.side}>
+                  <Tooltip label={metric.tooltip} side={metric.side}>
                     <button
                       type='button'
                       aria-label={`${metric.label ?? '지표'} 설명 보기`}>
                       <IconQuestion className='size-16 text-text-and-icon-disabled' />
                     </button>
-                  </LockTooltip>
+                  </Tooltip>
                 )}
               </span>
               <span>
