@@ -135,7 +135,7 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
   const isBookmarkPage = pathname === '/influencer/bookmarked'
 
   return (
-    <div className='flex h-fit w-full flex-col items-center gap-16 bg-background-gray-default p-24'>
+    <div className='sticky top-header-height z-10 flex h-fit w-full flex-col items-center gap-16 bg-background-gray-default p-24'>
       {/** 보관함 페이지 헤더
        * /influencer/bookmarked일 때만 랜더링
        */}
