@@ -23,15 +23,15 @@ export function ChannelStatItem({
 }: ChannelStatItemProps) {
   return (
     <div
-      className={cn('min-w-[16.8rem] flex h-fit w-full flex-col gap-4 rounded-12 px-32 py-16', variant === 'dashboard' ? 'bg-background-gray-default' : 'bg-white')}>
+      className={cn('flex h-fit w-fit shrink-0 flex-col gap-4 rounded-12 px-32 py-16', variant === 'dashboard' ? 'bg-background-gray-default' : 'bg-white')}>
       {/* 아이콘 + 내용 ex. 구독자 수 */}
-      <div className='flex h-fit w-full items-center gap-4 text-noto-body-xs-bold text-text-and-icon-tertiary'>
+      <div className='flex h-fit w-full items-center gap-4 whitespace-nowrap text-noto-body-xs-bold text-text-and-icon-tertiary'>
         {icon && <span>{icon}</span>}
         <span>{label}</span>
       </div>
 
       {/* 값 + 단위 ex. 28.5만 명 */}
-      <div className='flex h-fit w-full items-center gap-4'>
+      <div className='flex h-fit w-full items-center gap-4 whitespace-nowrap'>
         <span className='text-ibm-heading-sm-thin text-brand-secondary'>
           {value}
         </span>

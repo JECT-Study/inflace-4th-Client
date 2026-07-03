@@ -20,13 +20,13 @@ function Toggle({ label, pressed, onClick, className, children }: ToggleProps) {
       pressed={pressed}
       className={cn(
         /* 레이아웃 */
-        'group inline-flex items-center',
+        'group inline-flex shrink-0 items-center',
 
         /* 크기 & 간격 */
         'size-fit rounded-[50rem] px-16 py-10',
 
         /* 타이포그래피 */
-        'text-noto-label-sm-thin text-text-and-icon-secondary',
+        'text-noto-label-sm-thin whitespace-nowrap text-text-and-icon-secondary',
 
         /* 색상 */
         'border border-stroke-border-gray-default bg-transparent',
