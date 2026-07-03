@@ -89,7 +89,7 @@ function SearchAndFilterInner() {
   }
 
   return (
-    <div className='flex h-fit w-full items-center gap-16 bg-background-gray-default p-24'>
+    <div className='sticky top-header-height z-10 flex h-fit w-full items-center gap-16 bg-background-gray-default p-24'>
       {/* 검색바 */}
       <SearchBar
         className='w-[58rem]'
