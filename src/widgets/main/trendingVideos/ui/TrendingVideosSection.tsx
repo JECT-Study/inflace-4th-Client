@@ -1,6 +1,8 @@
+import Link from 'next/link'
+
 import { Skeleton } from '@/shared/ui/shadcn/skeleton'
 import { VideoCard } from '@/entities/main/videoCard'
-import { BlurPlanGate } from '@/features/planGate'
+import { BlurPlanGate, PlanGate } from '@/features/planGate'
 import {
   useTrendingVideos,
   mockTrendingVideos,
@@ -25,6 +27,11 @@ export function TrendingVideosSection({ channelId }: { channelId?: string }) {
           <p className='text-noto-title-sm-thin text-text-and-icon-tertiary'>
             조회수 대비 참여율이 채널 평균보다 높은 영상이에요
           </p>
+          <Link
+            href='/channel'
+            className='size-fit gap-10 pt-1 pr-2 pb-3 pl-2 text-noto-label-sm-bold text-brand-primary'>
+            더보기
+          </Link>
         </div>
       </div>
 
@@ -35,14 +42,31 @@ export function TrendingVideosSection({ channelId }: { channelId?: string }) {
             <Skeleton key={i} className='h-64' />
           ))}
         </div>
-      ) : (
-        <BlurPlanGate requiredPlan='STARTER' forceLocked={!channelId}>
+      ) : !channelId ? (
+        // 채널 미연동: mock 데이터 전체를 블러 미리보기로 노출
+        <BlurPlanGate requiredPlan='STARTER' forceLocked>
           <div className='grid grid-cols-2 gap-4'>
             {videos.slice(0, 4).map((video) => (
               <VideoCard key={video.id} {...video} />
             ))}
           </div>
         </BlurPlanGate>
+      ) : (
+        // 채널 연동: FREE 플랜은 앞 2개만 노출, 뒤 2개는 그룹으로 묶어 잠금
+        <div className='grid grid-cols-2 gap-4'>
+          {videos.slice(0, 2).map((video) => (
+            <VideoCard key={video.id} {...video} />
+          ))}
+          <div className='col-span-2'>
+            <PlanGate requiredPlan='STARTER'>
+              <div className='grid grid-cols-2 gap-4'>
+                {videos.slice(2, 4).map((video) => (
+                  <VideoCard key={video.id} {...video} />
+                ))}
+              </div>
+            </PlanGate>
+          </div>
+        </div>
       )}
     </section>
   )

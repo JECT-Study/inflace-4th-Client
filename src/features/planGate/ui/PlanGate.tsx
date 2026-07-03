@@ -4,6 +4,7 @@ import { type ReactNode } from 'react'
 
 import type { UserPlan } from '@/shared/api/types'
 import { usePlanGate } from '../model/usePlanGate'
+import { Tooltip } from '@/shared/ui/tooltip'
 
 interface PlanGateProps {
   requiredPlan: UserPlan
@@ -28,9 +29,18 @@ export function PlanGate({ requiredPlan, children }: PlanGateProps) {
         }}
       />
 
-      {/* 락 UI */}
+      {/* 락 UI: 자물쇠 호버 시 shadcn Tooltip으로 안내 노출 */}
       <div className='absolute inset-0 flex items-center justify-center'>
-        <Image src={LockButton} alt='Lock' width={32} height={32} />
+        <Tooltip
+          label={`${requiredPlan}플랜으로 업그레이드 하세요`}
+          side='bottom'>
+          <button
+            type='button'
+            aria-label='잠금 안내 보기'
+            className='inline-flex items-center justify-center rounded-full focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:outline-none'>
+            <Image src={LockButton} alt='' width={32} height={32} aria-hidden />
+          </button>
+        </Tooltip>
       </div>
     </div>
   )

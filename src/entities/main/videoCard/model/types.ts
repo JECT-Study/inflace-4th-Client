@@ -2,7 +2,7 @@ export interface VideoCardItem {
   id: string
   thumbnailUrl: string
   title: string
-  duration: string
+  duration?: string
   viewCount: number
   likeCount: number
   commentCount: number

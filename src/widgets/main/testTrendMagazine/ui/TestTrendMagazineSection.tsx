@@ -46,7 +46,7 @@ export function TestTrendMagazineSection() {
             href='https://www.instagram.com/inflace_official/'
             target='_blank'
             rel='noopener noreferrer'
-            className='size-fit gap-10 pt-1 pr-2 pb-3 pl-2 text-noto-label-sm-bold text-text-and-icon-tertiary'>
+            className='size-fit gap-10 pt-1 pr-2 pb-3 pl-2 text-noto-label-sm-bold text-brand-primary'>
             더보기
           </Link>
         </div>
