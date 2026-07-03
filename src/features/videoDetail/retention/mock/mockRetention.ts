@@ -62,7 +62,7 @@ function buildDropPoints(
       points.push({
         startTime: mmss(startRatio * duration),
         endTime: i === profile.length - 1 ? null : mmss(endRatio * duration),
-        dropRate: Math.round(drop * 1000) / 10,
+        dropRate: Math.round(drop * 1000) / 1000,
       })
     }
   }

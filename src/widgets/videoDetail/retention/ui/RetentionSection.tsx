@@ -39,6 +39,12 @@ function formatRelativeAvg(ratio: number): string {
   return diff >= 0 ? `+${diff}%` : `${diff}%`
 }
 
+/* 이탈율: 백엔드가 비율(0~1)로 내려주므로 ×100 후 소수 3자리 버림 */
+function formatDropRate(ratio: number): string {
+  const truncated = Math.trunc(ratio * 100 * 1000) / 1000
+  return truncated.toFixed(3)
+}
+
 /* 아이콘 + 제목 카드 헤더 패턴 */
 function SectionCardHeader({
   icon,
@@ -103,7 +109,7 @@ function DropOffCard({
         className={`text-ibm-heading-sm-normal transition-colors ${
           isHighlighted ? 'text-feedback-error' : 'text-text-and-icon-primary'
         }`}>
-        {point.dropRate}% 이탈
+        {formatDropRate(point.dropRate)}% 이탈
       </p>
     </div>
   )
