@@ -1,4 +1,5 @@
 export { axiosInstance } from './axiosInstance'
 export { useAuthStore } from './authStore'
 export { fetchCurrentUser } from './userApi'
+export { PLAN_LEVEL, isPlanBelow } from './plan'
 export type { ApiResponse } from './types'

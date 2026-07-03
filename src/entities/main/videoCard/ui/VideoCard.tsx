@@ -37,9 +37,11 @@ export function VideoCard({
           className='rounded-6 object-cover'
         />
         {/* 영상 길이 */}
-        <span className='absolute right-6 bottom-6 gap-10 rounded-4 bg-black/80 px-4 py-2 text-xs text-label-xs font-medium text-white'>
-          {duration}
-        </span>
+        {duration && (
+          <span className='absolute right-6 bottom-6 gap-10 rounded-4 bg-black/80 px-4 py-2 text-xs text-label-xs font-medium text-white'>
+            {duration}
+          </span>
+        )}
       </div>
 
       {/* 우측 내용 */}
