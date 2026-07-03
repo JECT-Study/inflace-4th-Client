@@ -59,7 +59,7 @@ export function CalendarFilter({ onRangeChange }: CalendarFilterProps) {
   }
 
   return (
-    <div ref={containerRef} className='relative'>
+    <div ref={containerRef} className='relative shrink-0'>
       {/* 기간 선택 토글 버튼 */}
       <Toggle
         pressed={isOpen || !!(dateRange?.from && dateRange?.to)}

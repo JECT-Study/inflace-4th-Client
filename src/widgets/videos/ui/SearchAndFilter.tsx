@@ -110,7 +110,7 @@ function SearchAndFilterInner() {
         }}
       />
 
-      <div className='flex size-fit items-center gap-6'>
+      <div className='flex h-fit w-full flex-1 flex-wrap items-center gap-6'>
         {/* 기간 선택 */}
         <CalendarFilter
           onRangeChange={(startDate, endDate) => {

@@ -21,9 +21,9 @@ export function LatestUploadDateCard({
 }: RecenetUploadDateCardProps) {
   return (
     <div
-      className={cn('min-w-[16.8rem] flex h-fit w-full flex-col gap-4 rounded-12 px-32 py-16', variant === 'dashboard' ? 'bg-background-gray-default' : 'bg-white')}>
+      className={cn('flex h-fit w-fit shrink-0 flex-col gap-4 rounded-12 px-32 py-16', variant === 'dashboard' ? 'bg-background-gray-default' : 'bg-white')}>
       {/* 아이콘 + 내용 */}
-      <div className='flex h-fit w-full items-center gap-4 text-noto-body-xs-bold text-text-and-icon-tertiary'>
+      <div className='flex h-fit w-full items-center gap-4 whitespace-nowrap text-noto-body-xs-bold text-text-and-icon-tertiary'>
         <span>
           <Calendar size={16} />
         </span>
@@ -31,7 +31,7 @@ export function LatestUploadDateCard({
       </div>
 
       {/* 년 월 일*/}
-      <div className='flex h-fit w-full items-center gap-8'>
+      <div className='flex h-fit w-full items-center gap-8 whitespace-nowrap'>
         {/* 년 */}
         <div className='flex items-center gap-2'>
           <span className='text-ibm-heading-sm-thin font-medium text-brand-secondary'>

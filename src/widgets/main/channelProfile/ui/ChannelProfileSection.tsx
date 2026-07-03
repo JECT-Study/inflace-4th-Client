@@ -82,7 +82,7 @@ export function ChannelProfileSection({
           </span>
 
           {/* 구독자 수, 총 동영상 수, 최근 업로드일 */}
-          <div className='flex flex-col gap-4 md:flex-row'>
+          <div className='flex flex-row flex-wrap justify-end gap-4'>
             {/* 구독자 수 */}
             <ChannelStatItem
               icon={<Users size={16} />}

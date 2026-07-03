@@ -23,16 +23,16 @@ export function ChannelProfileCard({
       </Avatar>
 
       {/* 콘텐츠 종류, 채널 이름, handle name  */}
-      <div className='flex h-fit w-full flex-col justify-center gap-8 p-28'>
-        <span className='size-fit gap-10 rounded-[3rem] bg-brand-secondary px-12 py-6 text-noto-label-sm-normal text-white'>
+      <div className='flex h-fit w-full min-w-0 flex-col justify-center gap-8 p-28'>
+        <span className='size-fit max-w-full gap-10 truncate rounded-[3rem] bg-brand-secondary px-12 py-6 text-noto-label-sm-normal whitespace-nowrap text-white'>
           {category.length > 0 ? category.join(', ') : '카테고리 없음'}
         </span>
 
-        <div className='flex h-fit w-full flex-col gap-4'>
-          <h2 className='text-ibm-heading-md-normal text-text-and-icon-default'>
+        <div className='flex h-fit w-full min-w-0 flex-col gap-4'>
+          <h2 className='truncate text-ibm-heading-md-normal whitespace-nowrap text-text-and-icon-default'>
             {name || '이름 없음'}
           </h2>
-          <p className='text-ibm-label-sm-thin text-text-and-icon-default'>
+          <p className='truncate text-ibm-label-sm-thin whitespace-nowrap text-text-and-icon-default'>
             {channelHandle || '@handle 없음'}
           </p>
         </div>
