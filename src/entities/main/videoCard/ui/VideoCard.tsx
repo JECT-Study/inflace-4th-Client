@@ -45,7 +45,7 @@ export function VideoCard({
       </div>
 
       {/* 우측 내용 */}
-      <div className='flex size-fit flex-col justify-between gap-16'>
+      <div className='flex h-fit flex-1 flex-col justify-between gap-16'>
         {/* 우측 상단 정보 */}
         <div className='flex h-fit w-full flex-col gap-4'>
           {/* 참여율 / CTR */}
