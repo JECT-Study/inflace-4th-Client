@@ -29,7 +29,7 @@ function Toggle({ label, pressed, onClick, className, children }: ToggleProps) {
         'text-noto-label-sm-thin whitespace-nowrap text-text-and-icon-secondary',
 
         /* 색상 */
-        'border border-stroke-border-gray-default bg-transparent',
+        'border border-stroke-border-gray-default bg-white',
 
         /* 기본 상태 */
         'cursor-pointer transition-all outline-none select-none',

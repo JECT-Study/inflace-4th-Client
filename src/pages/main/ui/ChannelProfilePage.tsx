@@ -16,7 +16,7 @@ export function ChannelProfilePage() {
 
   if (!channelId) {
     return (
-      <div className='flex flex-col divide-y'>
+      <div className='flex flex-col'>
         {/* 채널 미연동 안내 */}
         <ChannelProfileEmptyState onConnect={openYoutubeConnectModal} />
 
@@ -30,7 +30,7 @@ export function ChannelProfilePage() {
   }
 
   return (
-    <div className='flex flex-col divide-y'>
+    <div className='flex flex-col'>
       {/* 프로필 카드 */}
       <ChannelProfileSection channelId={channelId} isExpanded={false} />
 

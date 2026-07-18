@@ -1,6 +1,11 @@
 import { http, HttpResponse } from 'msw'
 
-import { mockAccessToken, mockUser } from '@/shared/api/mock/mockUser'
+import {
+  mockAccessToken,
+  mockUser,
+  mockUserChannelDetails,
+} from '@/shared/api/mock/mockUser'
+import { isMockChannelConnected } from './channelConnectHandlers'
 
 // 서비스 워커 컨텍스트에서 mock 로그인 상태를 추적하는 플래그
 // httpOnly 쿠키는 서비스 워커에서 읽을 수 없으므로 모듈 변수로 관리
@@ -15,7 +20,12 @@ export const authHandlers = [
 
     return HttpResponse.json({
       success: true,
-      responseDto: mockUser,
+      responseDto: {
+        ...mockUser,
+        userChannelDetails: isMockChannelConnected()
+          ? mockUserChannelDetails
+          : null,
+      },
       error: null,
     })
   }),
