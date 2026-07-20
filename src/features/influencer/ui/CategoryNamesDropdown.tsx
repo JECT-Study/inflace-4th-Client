@@ -49,9 +49,10 @@ function CategoryNamesDropdown({
           return (
             <li key={option.id}>
               <button
+                type='button'
                 onClick={() => toggleOption(option.id)}
                 className={cn(
-                  'flex h-fit w-full items-center gap-10 rounded-6 p-16 text-noto-label-md-normal text-text-and-icon-secondary',
+                  'flex h-fit w-full cursor-pointer items-center gap-10 rounded-6 p-16 text-noto-label-md-normal text-text-and-icon-secondary',
                   isSelected &&
                     'bg-btn-secondary-outlined-hover text-text-and-icon-default'
                 )}>
