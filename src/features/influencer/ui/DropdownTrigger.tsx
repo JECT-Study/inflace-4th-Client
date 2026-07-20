@@ -1,15 +1,26 @@
 import { useState, useRef, useEffect } from 'react'
 
 import { cn } from '@/shared/lib/utils'
-import IconUp from '@/shared/assets/up-bold.svg'
+import IconDown from '@/shared/assets/down-bold.svg'
+import IconX from '@/shared/assets/x-bold.svg'
 
 type DropdownTriggerProps = {
   label: string
   output: string
+  /** 현재 값이 기본값과 다른지 여부 — true면 brand-secondary 배경 + X(초기화) 버튼 노출 */
+  isModified?: boolean
+  /** X 클릭 시 필터를 기본값으로 초기화 */
+  onReset?: () => void
   children?: (onClose: () => void) => React.ReactNode
 }
 
-function DropdownTrigger({ label, output, children }: DropdownTriggerProps) {
+function DropdownTrigger({
+  label,
+  output,
+  isModified = false,
+  onReset,
+  children,
+}: DropdownTriggerProps) {
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -29,39 +40,54 @@ function DropdownTrigger({ label, output, children }: DropdownTriggerProps) {
 
   return (
     <div ref={containerRef} className='relative'>
-      <button
-        type='button'
-        onClick={() => children && setIsOpen((prev) => !prev)}
+      {/* 패딩은 안쪽 버튼이 갖고 버튼들이 칩 높이를 꽉 채운다(stretch)
+       * — 칩 전체가 버튼 영역이어야 커서가 일관되게 pointer로 유지됨 */}
+      <div
         className={cn(
-          'flex size-fit shrink-0 cursor-pointer items-center gap-12 rounded-10 bg-white p-12',
-          isOpen && 'bg-brand-secondary'
+          'flex size-fit shrink-0 rounded-10 bg-white',
+          isModified && 'bg-brand-secondary'
         )}>
-        {/* 필터링 기준 */}
-        <span
-          className={cn(
-            'shrink-0 text-noto-label-sm-bold whitespace-nowrap text-text-and-icon-primary',
-            isOpen && 'text-white'
-          )}>
-          {label}:
-        </span>
-        {/* 결과값 */}
-        <span
-          className={cn(
-            'max-w-[8rem] truncate text-noto-label-sm-normal whitespace-nowrap text-text-and-icon-tertiary',
-            isOpen && 'text-white'
-          )}>
-          {output}
-        </span>
-        {/* 화살표 */}
-        <span
-          className={cn(
-            'flex shrink-0 items-center justify-center transition-transform [&>svg]:h-full [&>svg]:w-full [&>svg_*]:fill-current',
-            isOpen && 'text-white',
-            !isOpen && 'rotate-180'
-          )}>
-          <IconUp />
-        </span>
-      </button>
+        <button
+          type='button'
+          onClick={() => children && setIsOpen((prev) => !prev)}
+          className='flex cursor-pointer items-center gap-12 p-12'>
+          {/* 필터링 기준 */}
+          <span
+            className={cn(
+              'shrink-0 text-noto-label-sm-bold whitespace-nowrap text-text-and-icon-primary',
+              isModified && 'text-white'
+            )}>
+            {label}:
+          </span>
+          {/* 결과값 */}
+          <span
+            className={cn(
+              'max-w-[8rem] truncate text-noto-label-sm-normal whitespace-nowrap text-text-and-icon-tertiary',
+              isModified && 'text-white'
+            )}>
+            {output}
+          </span>
+          {/* 기본값 상태: 아래 화살표 */}
+          {!isModified && (
+            <span className='flex shrink-0 items-center justify-center [&>svg]:h-full [&>svg]:w-full [&>svg_*]:fill-current'>
+              <IconDown />
+            </span>
+          )}
+        </button>
+        {/* 기본값과 다른 상태: X 클릭 시 기본값으로 초기화 */}
+        {isModified && (
+          <button
+            type='button'
+            aria-label={`${label} 초기화`}
+            onClick={() => {
+              onReset?.()
+              setIsOpen(false)
+            }}
+            className='flex shrink-0 cursor-pointer items-center justify-center py-12 pr-12 text-white [&>svg]:h-full [&>svg]:w-full [&>svg_*]:fill-current'>
+            <IconX />
+          </button>
+        )}
+      </div>
 
       {isOpen && children && (
         <div className='absolute top-full left-0 z-10 mt-8'>

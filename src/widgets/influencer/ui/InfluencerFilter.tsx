@@ -178,7 +178,9 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
         <div className='flex h-fit w-full flex-1 flex-wrap items-center gap-12'>
           <DropdownTrigger
             label='카테고리'
-            output={deriveCategoryOutput(categoryIds, categories)}>
+            output={deriveCategoryOutput(categoryIds, categories)}
+            isModified={categoryIds.length > 0}
+            onReset={() => updateUrl((params) => params.delete('categoryIds'))}>
             {(onClose) => (
               <CategoryNamesDropdown
                 categories={categories}
@@ -198,7 +200,14 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
 
           <DropdownTrigger
             label='구독자 수'
-            output={deriveSubscriberOutput(subscriberFrom, subscriberTo)}>
+            output={deriveSubscriberOutput(subscriberFrom, subscriberTo)}
+            isModified={Boolean(subscriberFrom || subscriberTo)}
+            onReset={() =>
+              updateUrl((params) => {
+                params.delete('subscriberFrom')
+                params.delete('subscriberTo')
+              })
+            }>
             {(onClose) => (
               <SubscriberDropdown
                 defaultFrom={subscriberFrom}
@@ -218,7 +227,9 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
 
           <DropdownTrigger
             label='업로드 주기'
-            output={deriveUploadPeriodOutput(uploadPeriodValues)}>
+            output={deriveUploadPeriodOutput(uploadPeriodValues)}
+            isModified={uploadPeriodValues.length > 0}
+            onReset={() => updateUrl((params) => params.delete('uploadPeriod'))}>
             {(onClose) => (
               <UploadPeriodDropdown
                 defaultValue={uploadPeriodValues}
@@ -236,7 +247,9 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
 
           <DropdownTrigger
             label='광고 이력'
-            output={deriveHasAdHistoryOutput(hasAdHistoryValue)}>
+            output={deriveHasAdHistoryOutput(hasAdHistoryValue)}
+            isModified={hasAdHistoryValue !== 'true'}
+            onReset={() => updateUrl((params) => params.delete('hasAdHistory'))}>
             {(onClose) => (
               <HasAdHistoryDropdown
                 defaultValue={hasAdHistoryValue}
@@ -256,7 +269,14 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
             output={deriveEngagementRateOutput(
               engagementRateFrom,
               engagementRateTo
-            )}>
+            )}
+            isModified={Boolean(engagementRateFrom || engagementRateTo)}
+            onReset={() =>
+              updateUrl((params) => {
+                params.delete('engagementRateFrom')
+                params.delete('engagementRateTo')
+              })
+            }>
             {(onClose) => (
               <EngagementRateDropdown
                 defaultFrom={engagementRateFrom}
@@ -276,7 +296,9 @@ function InfluencerFilterInner({ categories }: InfluencerFilterProps) {
 
           <DropdownTrigger
             label='Outlier 배수'
-            output={OUTLIER_RANGE_LABELS[outlierRangeValue] ?? '전체'}>
+            output={OUTLIER_RANGE_LABELS[outlierRangeValue] ?? '전체'}
+            isModified={Boolean(outlierRangeValue)}
+            onReset={() => updateUrl((params) => params.delete('outlierRange'))}>
             {(onClose) => (
               <OutlierRangeDropdown
                 defaultValue={outlierRangeValue}
